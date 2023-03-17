@@ -78,6 +78,18 @@
     title = _data.title;
     menu = _data.menu !== null ? _data.menu : data.categories
   }
+
+  function backToMainMenu() {
+    $drawerState.showBack = false;
+    menu = data.categories;
+    title = "All Categories";
+    drawerBackText = "Main Menu";
+    history = [{
+      drawerBackText,
+      title,
+      menu: null,
+    }];
+  }
   
   let drawerBackText = "Main Menu";
   let title = "All Categories";
@@ -88,18 +100,26 @@
     title,
     menu: null,
   }];
+
   const searchState = useComboBoxState();
   const drawerState = useDrawerState();
   const popoverState = usePopoverState();
 </script>
 <Drawer state={drawerState}>
-  <Button slot="back" variant="underline" label="Back to {drawerBackText}" on:click={backToPrevMenu}>
-    <Icon>
-      <title>arrow-left</title>
-      <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
-    </Icon>
-    Back to {drawerBackText}
-  </Button>
+  <div slot="back" class="back__group">
+    <Button variant="underline" label="Back to {drawerBackText}" on:click={backToPrevMenu}>
+      <Icon>
+        <title>arrow-left</title>
+        <path d="M20,11V13H8L13.5,18.5L12.08,19.92L4.16,12L12.08,4.08L13.5,5.5L8,11H20Z" />
+      </Icon>
+      Back to {drawerBackText}
+    </Button>
+    {#if drawerBackText != "Main Menu"}
+    <Button variant="underline" label="Main Menu" on:click={backToMainMenu} style="color:#2a508f;text-decoration:underline">
+      Main Menu
+    </Button>
+    {/if}
+  </div>
   {#if $drawerState.showBack}
   <h2 class="drawer__title">{title}</h2>
   <List>
@@ -280,6 +300,16 @@
   <slot/>
 </main>
 <style>
+  .back__group {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    width: 100%;
+    padding-right: 8px;
+    flex: 0 0 100%;
+    justify-content: space-between;
+  }
+
   .list__item-link,
   .list__item-link:visited {
     display: grid;
