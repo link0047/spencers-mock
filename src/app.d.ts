@@ -4,7 +4,17 @@ import { PrismaClient } from '@prisma/client';
 // for information about these interfaces
 declare global {
 	interface Window {
-		VisualViewport: object
+		VisualViewport: {
+			height: Number;
+			offsetLeft: Number;
+			offsetTop: Number;
+			onresize: Number;
+			onscroll: Number;
+			pageLeft: Number;
+			pageTop: Number;
+			scale: Number;
+			width: Number;
+		}
 	}
 
 	namespace App {

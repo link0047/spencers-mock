@@ -1,16 +1,50 @@
 <script lang="ts">
+	import { browser } from '$app/environment'; 
 	import type { Writable } from "svelte/store";
 	import type { DrawerStore } from "./DrawerStore";
 	import DrawerDismiss from "./DrawerDismiss.svelte";
 	import Icon from "$lib/components/icon";
 	import Backdrop from "$lib/components/backdrop";
   export let state: Writable<DrawerStore>;
+
 	const id = $state.drawerId;
+	let lastElementWithFocus: HTMLElement | null = null;
+
 	$: open = $state.open;
 	
+	$: if (open) {
+		if (browser) {
+			document.body.setAttribute("style", "overflow:hidden");
+			lastElementWithFocus = document.activeElement;
+		}
+	} else {
+		if (browser) {
+			document.body.removeAttribute("style");
+			lastElementWithFocus && lastElementWithFocus.focus();
+		}
+	}
+
 	function close() {
 		$state.open = false;
 	}
+
+	function drawerEvents(node: HTMLElement) {
+		function handleEscape(event: KeyboardEvent) {
+      const { key } = event;
+      if (key == "Esc" || key == "Escape") {
+        event.stopPropagation();
+        close();
+      }
+    }
+
+		browser && document.addEventListener("keyup", handleEscape);
+		return {
+      destroy() {
+        browser && document.removeEventListener("keyup", handleEscape);
+      }
+    }
+	}
+
 </script>
 <div
 	id={id}	 
@@ -18,7 +52,8 @@
 	aria-modal="true"
 	class="drawer"
 	class:drawer--open={ open }
-	tabindex="-1"	 
+	tabindex="-1"
+	use:drawerEvents	 
 >
 	<header class="drawer__header">
 		<Icon variant="logo" viewbox="0 0 72 32">

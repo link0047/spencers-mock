@@ -1,28 +1,49 @@
-<script>
-  // @ts-nocheck
+<script lang="ts">
+  interface PopoverStore {
+    popoverId: string;
+    disclosureId: string;
+    open: boolean;
+    disclosure: HTMLElement;
+    dialog: HTMLElement;
+    disclosureRect: DOMRect;
+    dialogRect: DOMRect;
+    viewport: Object;
+  }
+
+  import type { Writable } from "svelte/store";
   import { onMount } from "svelte";
-  import { isPlainObject, getBoundingClientRectUsingIO } from "$lib/client/util/utilities";
+  import { getBoundingClientRectUsingIO } from "$lib/client/util/utilities";
   import { browser } from '$app/environment';
 
-  export let state = {};
+  export let state: Writable<PopoverStore>;
   export let label = "";
   export let gap = 8;
 
-  let ref;
-	const id = (isPlainObject(state) && state.subscribe instanceof Function) ? $state.drawerId : null;
-	$: open = (isPlainObject(state) && state.subscribe instanceof Function) ? $state.open : false;
+  let ref: HTMLElement;
+	const id = $state.popoverId;
+	$: open = $state.open;
   let style = setPosition(0,0);
-
-  $: if (open) {
-    const { x, y } = checkBounds($state.disclosureRect.x, $state.disclosureRect.y);
+  let lastElementWithFocus: HTMLElement;
+	
+	$: if (open) {
+    const { x, y } = checkBounds();
     style = setPosition(x, y);
-  }
+		if (browser) {
+			document.body.setAttribute("style", "overflow:hidden");
+			lastElementWithFocus = <HTMLElement> document.activeElement;
+		}
+	} else {
+		if (browser) {
+			document.body.removeAttribute("style");
+			lastElementWithFocus && lastElementWithFocus.focus();
+		}
+	}
 
 	function close() {
 		$state.open = false;
 	}
 
-  function setPosition(x, y) {
+  function setPosition(x: number, y: number) {
     return `position:fixed;transform:translate3d(${x}px,${y}px,0)`;
   }
 
@@ -44,10 +65,10 @@
     }
   }
 
-  function popoverEvents(node) {
+  function popoverEvents(node: HTMLElement) {
     let timeout = 0;
-    function handleResize({ target }) {
-      const { width, height } = target;
+    function handleResize({ target }: Event) {
+      const { width, height } = <VisualViewport>target;
       $state.viewport = { width, height };
       if (!$state.open) return;
       if (timeout) {
@@ -61,7 +82,7 @@
       });
     }
 
-    function handleEscape(event) {
+    function handleEscape(event: KeyboardEvent) {
       const { key } = event;
       if (key == "Esc" || key == "Escape") {
         event.stopPropagation();
@@ -69,26 +90,26 @@
       }
     }
 
-    function handleDocumentClick({ target }) {
-      if (!$state.open || target == $state.disclosure || $state.disclosure.contains(target)) return;
-      if ($state.dialog.contains(target) && target.closest("a")) {
+    function handleDocumentClick({ target }: Event) {
+      if (!$state.open || target == $state.disclosure || $state.disclosure.contains(<HTMLElement>target)) return;
+      if ($state.dialog.contains(<HTMLElement>target) && (target as HTMLElement)?.closest("a")) {
         close();
       }
 
-      if (target !== $state.dialog && !$state.dialog.contains(target)) {
+      if (target !== $state.dialog && !$state.dialog.contains(<HTMLElement>target)) {
         close();
       }
     }
 
     browser && document.addEventListener("click", handleDocumentClick);
     browser && document.addEventListener("keyup", handleEscape);
-    window.visualViewport.addEventListener("resize", handleResize);
+    browser && window.visualViewport?.addEventListener("resize", handleResize);
 
     return {
       destroy() {
         browser && document.removeEventListener("click", handleDocumentClick);
         browser && document.removeEventListener("keyup", handleEscape);
-        window.visualViewport.removeEventListener("resize", handleResize);
+        browser && window.visualViewport?.removeEventListener("resize", handleResize);
       }
     }
   }

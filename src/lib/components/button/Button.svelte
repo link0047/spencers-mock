@@ -40,9 +40,9 @@
 <style>
 .btn {
   -webkit-tap-highlight-color: transparent;
-  font-size: 0.875rem;
+  font-size: .875rem;
   font-weight: 500;
-  letter-spacing: 0.04em;
+  letter-spacing: .04em;
   line-height: 1.875rem;
   text-decoration: none;
   text-transform: initial;
@@ -72,6 +72,7 @@
 
 .btn--sizeSmall {
   height: 32px;
+  font-size: .75rem;
 }
 
 .btn--icon {
@@ -116,6 +117,10 @@
 
 .btn--rounded.btn--primary {
   box-shadow: inset 0 0 0 2px #1D3864;
+}
+
+.btn--underline {
+  padding: 0;
 }
 
 .btn--underline:hover,
