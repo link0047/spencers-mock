@@ -1,5 +1,3 @@
-import type { LayoutServerLoad } from "./$types";
-
 const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC";
 const categories: object[] = [
   {
@@ -4843,7 +4841,7 @@ const categories: object[] = [
 ];
 
 
-export const load: LayoutServerLoad = async ({ locals }) => {
+export async function load({ locals }) {
   const { user } = await locals.validateUser();
   return { user, categories }
 }
