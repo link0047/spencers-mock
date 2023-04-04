@@ -6,617 +6,617 @@ const categories: object[] = [{
   "href": "https://www.spencersonline.com/category/seasonal/festival/pc/5054/2788.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/Tanks_tops_festival?$Alternate$",
   "subnav": []
-},{
+}, {
   "name": "Graphic Tees",
   "href": "https://www.spencersonline.com/thumbnail/tees/3369.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/03851367-a?$Alternate$",
   "subnav": [{
-      "name": "Shop Graphic Tees",
-      "href": "https://www.spencersonline.com/thumbnail/tees/3369.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "New Arrivals",
-      "href": "https://www.spencersonline.com/category/tees/tee-new-arrivals/pc/3369/5544.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Top Sellers",
-      "href": "https://www.spencersonline.com/category/tees/top-sellers/pc/3369/4911.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Trending Now",
-      "href": "https://www.spencersonline.com/category/tees/trending-now/pc/3369/5121.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "View All T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/view-all-t-shirts/pc/3369/4632.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Steven Rhodes T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/steven-rhodes-t-shirts/pc/3369/5147.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Plus Size T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/plus-size-t-shirts/pc/3369/4631.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Statement T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/statement-t-shirts/pc/3369/5043.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Music & Band T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/music-band-t-shirts-merch/pc/3369/3382.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Movie T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/movie-t-shirts/pc/3369/3399.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "TV T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/tv-t-shirts/pc/3369/3400.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Horror T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/horror-t-shirts/pc/3369/5145.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Hentai T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/hentai-t-shirts-merch/pc/3369/5469.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Anime T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/anime-t-shirts/pc/3369/3395.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Funny T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/funny-t-shirts/pc/3369/3383.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Tie Dye T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/tie-dye-t-shirts/pc/3369/4248.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Button Down Shirts",
-      "href": "https://www.spencersonline.com/category/tees/button-down-shirts/pc/3369/5042.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Holiday T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/holiday-t-shirts/pc/3369/3397.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Sweatshirts & Hoodies",
-      "href": "https://www.spencersonline.com/category/tees/sweatshirts-hoodies/pc/3369/23.uts",
-      "img": transparentPixel,
-      "subnav": []
-    },{
-      "name": "Clearance T Shirts",
-      "href": "https://www.spencersonline.com/category/tees/clearance-t-shirts/pc/3369/3398.uts",
-      "img": transparentPixel,
-      "subnav": []
+    "name": "Shop Graphic Tees",
+    "href": "https://www.spencersonline.com/thumbnail/tees/3369.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "New Arrivals",
+    "href": "https://www.spencersonline.com/category/tees/tee-new-arrivals/pc/3369/5544.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Top Sellers",
+    "href": "https://www.spencersonline.com/category/tees/top-sellers/pc/3369/4911.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Trending Now",
+    "href": "https://www.spencersonline.com/category/tees/trending-now/pc/3369/5121.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "View All T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/view-all-t-shirts/pc/3369/4632.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Steven Rhodes T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/steven-rhodes-t-shirts/pc/3369/5147.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Plus Size T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/plus-size-t-shirts/pc/3369/4631.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Statement T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/statement-t-shirts/pc/3369/5043.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Music & Band T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/music-band-t-shirts-merch/pc/3369/3382.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Movie T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/movie-t-shirts/pc/3369/3399.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "TV T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/tv-t-shirts/pc/3369/3400.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Horror T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/horror-t-shirts/pc/3369/5145.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Hentai T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/hentai-t-shirts-merch/pc/3369/5469.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Anime T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/anime-t-shirts/pc/3369/3395.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Funny T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/funny-t-shirts/pc/3369/3383.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Tie Dye T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/tie-dye-t-shirts/pc/3369/4248.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Button Down Shirts",
+    "href": "https://www.spencersonline.com/category/tees/button-down-shirts/pc/3369/5042.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Holiday T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/holiday-t-shirts/pc/3369/3397.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Sweatshirts & Hoodies",
+    "href": "https://www.spencersonline.com/category/tees/sweatshirts-hoodies/pc/3369/23.uts",
+    "img": transparentPixel,
+    "subnav": []
+  }, {
+    "name": "Clearance T Shirts",
+    "href": "https://www.spencersonline.com/category/tees/clearance-t-shirts/pc/3369/3398.uts",
+    "img": transparentPixel,
+    "subnav": []
   }]
-},{
+}, {
   "name": "Body Jewelry",
   "href": "https://www.spencersonline.com/section/body-jewelry/2025.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/03722667-a?$Alternate$",
-    "subnav": [{
-      "name": "Shop Body Jewelry",
-      "href": "https://www.spencersonline.com/section/body-jewelry/2025.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Top Sellers",
-      "href": "https://www.spencersonline.com/category/body-jewelry/top-sellers/pc/2025/4907.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Barbell Jewelry",
-      "href": "https://www.spencersonline.com/category/body-jewelry/barbell-jewelry/pc/2025/4712.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Barbell Jewelry",
-          "href": "https://www.spencersonline.com/category/body-jewelry/barbell-jewelry/pc/2025/4712.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Eyebrow Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/barbell-jewelry/eyebrow-jewelry/pc/2025/c/4712/2049.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Industrial Barbells",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/barbell-jewelry/industrial-barbells/pc/2025/c/4712/4658.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nipple Barbells",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/barbell-jewelry/nipple-barbells/pc/2025/c/4712/4660.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
+  "subnav": [{
+    "name": "Shop Body Jewelry",
+    "href": "https://www.spencersonline.com/section/body-jewelry/2025.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Top Sellers",
+    "href": "https://www.spencersonline.com/category/body-jewelry/top-sellers/pc/2025/4907.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Barbell Jewelry",
+    "href": "https://www.spencersonline.com/category/body-jewelry/barbell-jewelry/pc/2025/4712.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Barbell Jewelry",
+        "href": "https://www.spencersonline.com/category/body-jewelry/barbell-jewelry/pc/2025/4712.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Eyebrow Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/barbell-jewelry/eyebrow-jewelry/pc/2025/c/4712/2049.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Industrial Barbells",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/barbell-jewelry/industrial-barbells/pc/2025/c/4712/4658.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nipple Barbells",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/barbell-jewelry/nipple-barbells/pc/2025/c/4712/4660.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
       }]
-    },
-    {
-      "name": "Belly Button Rings",
-      "href": "https://www.spencersonline.com/category/body-jewelry/belly-button-rings/pc/2025/2026.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Belly Button Rings",
-          "href": "https://www.spencersonline.com/category/body-jewelry/belly-button-rings/pc/2025/2026.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Belly Button Ring Multi Pack",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/belly-button-rings/belly-button-ring-multi-pack/pc/2025/c/2026/4123.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Dangle Belly Button Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/belly-button-rings/dangle-belly-button-rings/pc/2025/c/2026/4661.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Non-Dangle Belly Button Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/belly-button-rings/non-dangle-belly-button-rings/pc/2025/c/2026/4662.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Titanium Jewelry",
-      "href": "https://www.spencersonline.com/category/body-jewelry/titanium-jewelry/pc/2025/5250.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Titanium Jewelry",
-          "href": "https://www.spencersonline.com/category/body-jewelry/titanium-jewelry/pc/2025/5250.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Body Sensitive & Hypoallergenic Jewelry",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-hypoallergenic-jewelry/pc/2025/c/5250/5546.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Titanium Belly Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-belly-rings/pc/2025/c/5250/5252.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Titanium Cartilage Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-cartilage-rings/pc/2025/c/5250/5253.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Titanium Lip & Eyebrow Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-lip-eyebrow-rings/pc/2025/c/5250/5254.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Titanium Nipple Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-nipple-rings/pc/2025/c/5250/5255.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Titanium Nose Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-nose-rings/pc/2025/c/5250/5257.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Titanium Tongue Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-tongue-rings/pc/2025/c/5250/5256.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Cartilage Earrings",
-      "href": "https://www.spencersonline.com/category/body-jewelry/cartilage-tragus/pc/2025/2045.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Cartilage Earrings",
-          "href": "https://www.spencersonline.com/category/body-jewelry/cartilage-tragus/pc/2025/2045.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Daith",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/cartilage-tragus/daith/pc/2025/c/2045/5341.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Helix",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/cartilage-tragus/helix/pc/2025/c/2045/5342.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Tragus",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/cartilage-tragus/tragus/pc/2025/c/2045/5343.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Ear Gauges, Plugs & Stretching",
-      "href": "https://www.spencersonline.com/category/body-jewelry/ear-gauges/pc/2025/2029.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Ear Gauges, Plugs & Stretching",
-          "href": "https://www.spencersonline.com/category/body-jewelry/ear-gauges/pc/2025/2029.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Tapers",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/tapers-stretching-kits/pc/2025/c/2029/2030.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Tunnels",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/plugs-tunnels/pc/2025/c/2029/5028.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Spirals & Pinchers",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/spirals-pinchers/pc/2025/c/2029/2031.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Stretching Kits",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/stretching-kits/pc/2025/c/2029/5344.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Plugs",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/plugs/pc/2025/c/2029/5521.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Eyebrow Rings",
-      "href": "https://www.spencersonline.com/category/body-jewelry/eyebrow-jewelry/pc/2025/2049.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Fake Body Jewelry",
-      "href": "https://www.spencersonline.com/category/body-jewelry/fake-body-jewelry/pc/2025/2116.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Fake Body Jewelry",
-          "href": "https://www.spencersonline.com/category/body-jewelry/fake-body-jewelry/pc/2025/2116.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Fake Nose & Septum Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-septum-nose/pc/2025/c/2116/4156.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Fake Plugs",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-plugs/pc/2025/c/2116/4154.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Fake Rings & Hoops",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-rings-hoops/pc/2025/c/2116/4157.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Fake Tapers & Spirals",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-tapers-spirals/pc/2025/c/2116/4155.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Magnetic Earrings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-magnetic-earrings/pc/2025/c/2116/4153.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Fashion Jewelry",
-      "href": "https://www.spencersonline.com/category/body-jewelry/fashion-jewelry/pc/2025/5027.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Horseshoes & Captives",
-      "href": "https://www.spencersonline.com/category/body-jewelry/horseshoes-captives/pc/2025/4144.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Horseshoes & Captives",
-          "href": "https://www.spencersonline.com/category/body-jewelry/horseshoes-captives/pc/2025/4144.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Captive Bead Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/horseshoes-captives/captive-bead-rings/pc/2025/c/4144/2043.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Horseshoes",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/horseshoes-captives/horseshoes/pc/2025/c/4144/2044.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Horseshoe Captive Multi Packs",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/horseshoes-captives/horseshoe-captive-multi-packs/pc/2025/c/4144/4145.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Lip Rings & Labret Jewelry",
-      "href": "https://www.spencersonline.com/category/body-jewelry/labret-lip/pc/2025/2042.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Nipple Rings",
-      "href": "https://www.spencersonline.com/category/body-jewelry/nipple-jewelry/pc/2025/2048.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Nipple Rings",
-          "href": "https://www.spencersonline.com/category/body-jewelry/nipple-jewelry/pc/2025/2048.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nipple Barbells",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-barbells/pc/2025/c/2048/4127.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nipple Captives & Horseshoes",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-captives/pc/2025/c/2048/4136.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nipple Multi Packs",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-multi-packs/pc/2025/c/2048/4129.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nipple Shields & Stirrups",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-shields/pc/2025/c/2048/4126.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Nose Rings & Nose Studs",
-      "href": "https://www.spencersonline.com/category/body-jewelry/nose-rings-studs/pc/2025/2033.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Nose Rings & Nose Studs",
-          "href": "https://www.spencersonline.com/category/body-jewelry/nose-rings-studs/pc/2025/2033.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nose Bones & Pins",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-bones-pins/pc/2025/c/2033/4138.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nose Corkscrews",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-corkscrews/pc/2025/c/2033/4139.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nose L Bends",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-l-bends/pc/2025/c/2033/4137.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Nose Multi Pack",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-multi-pack/pc/2025/c/2033/4141.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Hoop Nose Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-hoops/pc/2025/c/2033/4140.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Septum Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/septum-rings/pc/2025/c/2033/4727.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Organics",
-      "href": "https://www.spencersonline.com/category/body-jewelry/organics/pc/2025/4529.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Piercing Aftercare",
-      "href": "https://www.spencersonline.com/category/body-jewelry/piercing-aftercare/pc/2025/2054.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Playboy Jewelry",
-      "href": "https://www.spencersonline.com/category/body-jewelry/playboy-jewelry/pc/2025/5299.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": [
-        {
-          "name": "Shop Playboy Jewelry",
-          "href": "https://www.spencersonline.com/category/body-jewelry/playboy-jewelry/pc/2025/5299.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Belly Button Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-belly-button-rings/pc/2025/c/5299/5301.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Nipple Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-nipple-rings/pc/2025/c/5299/5302.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Nose Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-nose-rings/pc/2025/c/5299/5303.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Tongue Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-tongue-rings/pc/2025/c/5299/5304.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Industrial Barbells",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-industrial-barbells/pc/2025/c/5299/5305.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Necklaces & Chokers",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-necklaces-chokers/pc/2025/c/5299/5306.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Earrings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-earrings/pc/2025/c/5299/5307.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Rings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-rings/pc/2025/c/5299/5308.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Bracelets",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-bracelets/pc/2025/c/5299/5309.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Cartilage Earrings",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-cartilage-earrings/pc/2025/c/5299/5489.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Plugs & Gauges",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-plugs-gauges/pc/2025/c/5299/5490.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        },
-        {
-          "name": "Playboy Fake Body Jewelry",
-          "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-fake-body-jewelry/pc/2025/c/5299/5491.uts",
-          "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-          "subnav": []
-        }
-      ]
-    },
-    {
-      "name": "Retainers",
-      "href": "https://www.spencersonline.com/category/body-jewelry/retainers/pc/2025/2051.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Septum Rings",
-      "href": "https://www.spencersonline.com/category/body-jewelry/septum-rings/pc/2025/2050.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Silicone",
-      "href": "https://www.spencersonline.com/category/body-jewelry/silicone/pc/2025/5029.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    },
-    {
-      "name": "Tongue Rings",
-      "href": "https://www.spencersonline.com/category/body-jewelry/barbells-tongue-rings/pc/2025/2038.uts",
-      "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
-      "subnav": []
-    }]
-},{
+  },
+  {
+    "name": "Belly Button Rings",
+    "href": "https://www.spencersonline.com/category/body-jewelry/belly-button-rings/pc/2025/2026.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Belly Button Rings",
+        "href": "https://www.spencersonline.com/category/body-jewelry/belly-button-rings/pc/2025/2026.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Belly Button Ring Multi Pack",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/belly-button-rings/belly-button-ring-multi-pack/pc/2025/c/2026/4123.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Dangle Belly Button Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/belly-button-rings/dangle-belly-button-rings/pc/2025/c/2026/4661.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Non-Dangle Belly Button Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/belly-button-rings/non-dangle-belly-button-rings/pc/2025/c/2026/4662.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Titanium Jewelry",
+    "href": "https://www.spencersonline.com/category/body-jewelry/titanium-jewelry/pc/2025/5250.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Titanium Jewelry",
+        "href": "https://www.spencersonline.com/category/body-jewelry/titanium-jewelry/pc/2025/5250.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Body Sensitive & Hypoallergenic Jewelry",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-hypoallergenic-jewelry/pc/2025/c/5250/5546.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Titanium Belly Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-belly-rings/pc/2025/c/5250/5252.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Titanium Cartilage Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-cartilage-rings/pc/2025/c/5250/5253.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Titanium Lip & Eyebrow Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-lip-eyebrow-rings/pc/2025/c/5250/5254.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Titanium Nipple Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-nipple-rings/pc/2025/c/5250/5255.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Titanium Nose Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-nose-rings/pc/2025/c/5250/5257.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Titanium Tongue Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/titanium-jewelry/body-sensitive-tongue-rings/pc/2025/c/5250/5256.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Cartilage Earrings",
+    "href": "https://www.spencersonline.com/category/body-jewelry/cartilage-tragus/pc/2025/2045.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Cartilage Earrings",
+        "href": "https://www.spencersonline.com/category/body-jewelry/cartilage-tragus/pc/2025/2045.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Daith",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/cartilage-tragus/daith/pc/2025/c/2045/5341.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Helix",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/cartilage-tragus/helix/pc/2025/c/2045/5342.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Tragus",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/cartilage-tragus/tragus/pc/2025/c/2045/5343.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Ear Gauges, Plugs & Stretching",
+    "href": "https://www.spencersonline.com/category/body-jewelry/ear-gauges/pc/2025/2029.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Ear Gauges, Plugs & Stretching",
+        "href": "https://www.spencersonline.com/category/body-jewelry/ear-gauges/pc/2025/2029.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Tapers",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/tapers-stretching-kits/pc/2025/c/2029/2030.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Tunnels",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/plugs-tunnels/pc/2025/c/2029/5028.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Spirals & Pinchers",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/spirals-pinchers/pc/2025/c/2029/2031.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Stretching Kits",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/stretching-kits/pc/2025/c/2029/5344.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Plugs",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/ear-gauges/plugs/pc/2025/c/2029/5521.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Eyebrow Rings",
+    "href": "https://www.spencersonline.com/category/body-jewelry/eyebrow-jewelry/pc/2025/2049.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Fake Body Jewelry",
+    "href": "https://www.spencersonline.com/category/body-jewelry/fake-body-jewelry/pc/2025/2116.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Fake Body Jewelry",
+        "href": "https://www.spencersonline.com/category/body-jewelry/fake-body-jewelry/pc/2025/2116.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Fake Nose & Septum Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-septum-nose/pc/2025/c/2116/4156.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Fake Plugs",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-plugs/pc/2025/c/2116/4154.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Fake Rings & Hoops",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-rings-hoops/pc/2025/c/2116/4157.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Fake Tapers & Spirals",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-tapers-spirals/pc/2025/c/2116/4155.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Magnetic Earrings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/fake-body-jewelry/fake-magnetic-earrings/pc/2025/c/2116/4153.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Fashion Jewelry",
+    "href": "https://www.spencersonline.com/category/body-jewelry/fashion-jewelry/pc/2025/5027.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Horseshoes & Captives",
+    "href": "https://www.spencersonline.com/category/body-jewelry/horseshoes-captives/pc/2025/4144.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Horseshoes & Captives",
+        "href": "https://www.spencersonline.com/category/body-jewelry/horseshoes-captives/pc/2025/4144.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Captive Bead Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/horseshoes-captives/captive-bead-rings/pc/2025/c/4144/2043.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Horseshoes",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/horseshoes-captives/horseshoes/pc/2025/c/4144/2044.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Horseshoe Captive Multi Packs",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/horseshoes-captives/horseshoe-captive-multi-packs/pc/2025/c/4144/4145.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Lip Rings & Labret Jewelry",
+    "href": "https://www.spencersonline.com/category/body-jewelry/labret-lip/pc/2025/2042.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Nipple Rings",
+    "href": "https://www.spencersonline.com/category/body-jewelry/nipple-jewelry/pc/2025/2048.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Nipple Rings",
+        "href": "https://www.spencersonline.com/category/body-jewelry/nipple-jewelry/pc/2025/2048.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nipple Barbells",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-barbells/pc/2025/c/2048/4127.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nipple Captives & Horseshoes",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-captives/pc/2025/c/2048/4136.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nipple Multi Packs",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-multi-packs/pc/2025/c/2048/4129.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nipple Shields & Stirrups",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nipple-jewelry/nipple-shields/pc/2025/c/2048/4126.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Nose Rings & Nose Studs",
+    "href": "https://www.spencersonline.com/category/body-jewelry/nose-rings-studs/pc/2025/2033.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Nose Rings & Nose Studs",
+        "href": "https://www.spencersonline.com/category/body-jewelry/nose-rings-studs/pc/2025/2033.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nose Bones & Pins",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-bones-pins/pc/2025/c/2033/4138.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nose Corkscrews",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-corkscrews/pc/2025/c/2033/4139.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nose L Bends",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-l-bends/pc/2025/c/2033/4137.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Nose Multi Pack",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-multi-pack/pc/2025/c/2033/4141.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Hoop Nose Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/nose-hoops/pc/2025/c/2033/4140.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Septum Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/nose-rings-studs/septum-rings/pc/2025/c/2033/4727.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Organics",
+    "href": "https://www.spencersonline.com/category/body-jewelry/organics/pc/2025/4529.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Piercing Aftercare",
+    "href": "https://www.spencersonline.com/category/body-jewelry/piercing-aftercare/pc/2025/2054.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Playboy Jewelry",
+    "href": "https://www.spencersonline.com/category/body-jewelry/playboy-jewelry/pc/2025/5299.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": [
+      {
+        "name": "Shop Playboy Jewelry",
+        "href": "https://www.spencersonline.com/category/body-jewelry/playboy-jewelry/pc/2025/5299.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Belly Button Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-belly-button-rings/pc/2025/c/5299/5301.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Nipple Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-nipple-rings/pc/2025/c/5299/5302.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Nose Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-nose-rings/pc/2025/c/5299/5303.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Tongue Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-tongue-rings/pc/2025/c/5299/5304.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Industrial Barbells",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-industrial-barbells/pc/2025/c/5299/5305.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Necklaces & Chokers",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-necklaces-chokers/pc/2025/c/5299/5306.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Earrings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-earrings/pc/2025/c/5299/5307.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Rings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-rings/pc/2025/c/5299/5308.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Bracelets",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-bracelets/pc/2025/c/5299/5309.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Cartilage Earrings",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-cartilage-earrings/pc/2025/c/5299/5489.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Plugs & Gauges",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-plugs-gauges/pc/2025/c/5299/5490.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      },
+      {
+        "name": "Playboy Fake Body Jewelry",
+        "href": "https://www.spencersonline.com/thumbnail/body-jewelry/playboy-jewelry/playboy-fake-body-jewelry/pc/2025/c/5299/5491.uts",
+        "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+        "subnav": []
+      }
+    ]
+  },
+  {
+    "name": "Retainers",
+    "href": "https://www.spencersonline.com/category/body-jewelry/retainers/pc/2025/2051.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Septum Rings",
+    "href": "https://www.spencersonline.com/category/body-jewelry/septum-rings/pc/2025/2050.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Silicone",
+    "href": "https://www.spencersonline.com/category/body-jewelry/silicone/pc/2025/5029.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  },
+  {
+    "name": "Tongue Rings",
+    "href": "https://www.spencersonline.com/category/body-jewelry/barbells-tongue-rings/pc/2025/2038.uts",
+    "img": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC",
+    "subnav": []
+  }]
+}, {
   "name": "Room & Décor",
   "href": "https://www.spencersonline.com/thumbnail/room-decor/5531.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/03479375-a?$Alternate$",
@@ -761,7 +761,7 @@ const categories: object[] = [{
       "subnav": []
     }
   ]
-},{
+}, {
   "name": "Sex & Wellness",
   "href": "https://www.spencersonline.com/section/naughty/2352.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/03529294-b?$Alternate$",
@@ -1413,7 +1413,7 @@ const categories: object[] = [{
       "subnav": []
     }
   ]
-},{
+}, {
   "name": "Lingerie",
   "href": "https://www.spencersonline.com/thumbnail/lingerie/213.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/07290000-a?$Alternate$",
@@ -1515,7 +1515,7 @@ const categories: object[] = [{
       "subnav": []
     }
   ]
-},{
+}, {
   "name": "Fashion",
   "href": "https://www.spencersonline.com/section/fashion/4663.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/04178307-a?$Alternate$",
@@ -1916,7 +1916,7 @@ const categories: object[] = [{
       "subnav": []
     }
   ]
-},{
+}, {
   "name": "Drinkware",
   "href": "https://www.spencersonline.com/thumbnail/drinkware/285.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/03913514-a?$Alternate$",
@@ -2025,7 +2025,7 @@ const categories: object[] = [{
       "subnav": []
     }
   ]
-},{
+}, {
   "name": "Gifts & Humor",
   "href": "https://www.spencersonline.com/section/gifts-gags/4700.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/02877488-a?$Alternate$",
@@ -2264,7 +2264,7 @@ const categories: object[] = [{
       ]
     }
   ]
-},{
+}, {
   "name": "Pop Culture",
   "href": "https://www.spencersonline.com/section/pop-culture/4655.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/07703192-a?$Alternate$",
@@ -3044,7 +3044,7 @@ const categories: object[] = [{
       ]
     }
   ]
-},{
+}, {
   "name": "Seasonal",
   "href": "https://www.spencersonline.com/section/seasonal/5054.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/04140505-a?$Alternate$",
@@ -3879,7 +3879,7 @@ const categories: object[] = [{
       "subnav": []
     }
   ]
-},{
+}, {
   "name": "Clearance",
   "href": "https://www.spencersonline.com/thumbnail/clearance/3257.uts",
   "img": "https://spencers.scene7.com/is/image/Spencers/03981768-a?$Alternate$",
