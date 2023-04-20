@@ -49,6 +49,7 @@
     grid-template-areas: "leading-icon text trailing-text trailing-icon menu-icon";
     padding: 0 12px;
     margin: 0;
+    font-size: 16px;
     align-items: center;
     min-height: 40px;
     text-align: left;
