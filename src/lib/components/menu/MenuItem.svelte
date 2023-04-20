@@ -29,6 +29,9 @@
   href={htref}
   tabindex={active ? 0 : -1}
   on:click
+  on:focus
+  on:blur
+  {...$$restProps}
 >
   <slot />
 </svelte:element>
