@@ -49,7 +49,8 @@
     grid-template-areas: "leading-icon text trailing-text trailing-icon menu-icon";
     padding: 0 12px;
     margin: 0;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 0.875rem;
     align-items: center;
     min-height: 40px;
     text-align: left;
@@ -61,7 +62,7 @@
   }
 
   :global(.menu__item > :has(> :nth-child(-n + 2):first-child)) {
-    padding-right: 8px;
+    margin-right: 8px;
   }
 
   .menu__item[tabindex="0"],
