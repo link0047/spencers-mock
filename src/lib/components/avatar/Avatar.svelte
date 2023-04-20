@@ -60,6 +60,10 @@
     border: 2px solid #ccc;
   }
 
+  :is(.mask-squircle, .mask-heart, .mask-hexagon, .mask-triangle).avatar--ring {
+    border: none;
+  }
+
   .avatar--xs {
     width: 24px;
   }
