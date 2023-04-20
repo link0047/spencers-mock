@@ -57,7 +57,7 @@
   }
 
   .avatar--ring {
-    border: 2px solid #ccc;
+    border: 2px solid #212121;
   }
 
   :is(.mask-squircle, .mask-heart, .mask-hexagon, .mask-triangle).avatar--ring {

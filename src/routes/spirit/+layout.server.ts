@@ -3,7 +3,7 @@ const categories: object[] = [
   {
     name: "Halloween Costumes",
     href: "https://www.spirithalloween.com/section/halloween-costumes/4742.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/Costumes_themes_Halloween_Costumes?wid=128",
     subnav: [
       {
         name: "Shop Halloween Costumes",
@@ -1686,7 +1686,7 @@ const categories: object[] = [
   {
     name: "Decorations",
     href: "https://www.spirithalloween.com/section/decorations/1005.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/Cat_Tile_2022_Halloween_Decorations_Outdoor_Decor_4?wid=128",
     subnav: [
       {
         name: "Shop Decorations",
@@ -2371,7 +2371,7 @@ const categories: object[] = [
   {
     name: "Animatronics",
     href: "https://www.spirithalloween.com/section/animatronics/1011.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/01563642-a?wid=128",
     subnav: [
       {
         name: "Shop Animatronics",
@@ -2390,7 +2390,7 @@ const categories: object[] = [
   {
     name: "TV, Movies & Gaming",
     href: "https://www.spirithalloween.com/section/tv-movies-gaming/1382.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/TVMG_GAMING?wid=128",
     subnav: [
       {
         name: "Shop TV, Movies & Gaming",
@@ -3711,7 +3711,7 @@ const categories: object[] = [
   {
     name: "SHOP BY THEME",
     href: "https://www.spirithalloween.com/section/shop-by-theme/4743.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/Cat_Tile_2021_Themes_Classic?wid=128",
     subnav: [
       {
         name: "Shop SHOP BY THEME",
@@ -4198,7 +4198,7 @@ const categories: object[] = [
   {
     name: "Accessories",
     href: "https://www.spirithalloween.com/section/accessories/1921.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/Cat_Tile_2021_Accessories_Masks?wid=128",
     subnav: [
       {
         name: "Shop Accessories",
@@ -4712,7 +4712,7 @@ const categories: object[] = [
   {
     name: "Seasonal",
     href: "https://www.spirithalloween.com/section/seasonal/3362.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/03795895-a?wid=128",
     subnav: [
       {
         name: "Shop Seasonal",
@@ -4786,7 +4786,7 @@ const categories: object[] = [
   {
     name: "Sale",
     href: "https://www.spirithalloween.com/section/sale/1861.uts",
-    img: transparentPixel,
+    img: "https://spirit.scene7.com/is/image/Spirit/Sale_232x232?wid=128",
     subnav: [
       {
         name: "Shop Sale",

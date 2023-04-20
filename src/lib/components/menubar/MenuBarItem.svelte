@@ -105,7 +105,7 @@
     z-index: -1;
     opacity: 0;
     pointer-events: none;
-    transition: opacity 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: opacity 0.15s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
   .menubar__item:hover:before,

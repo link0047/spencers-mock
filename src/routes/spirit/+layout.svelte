@@ -1,5 +1,6 @@
 <script lang="ts">
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
+  import Avatar from "$lib/components/avatar";
   import { Menu, MenuItem } from "$lib/components/menu";
   import GlobalHeader from "$lib/components/globalheader";
   import Badge from "$lib/components/badge";
@@ -205,7 +206,12 @@
             <path d={item.icon} />
           </Icon>
         {/if}
-        {#if item.subnav?.length && item.name !== "Categories"}
+        {#if item.img && !item.img.includes("data:image/png;base64")}
+          <div style="padding:4px 0">
+            <Avatar size="lg" src={item.img} rounded ring />
+          </div>
+        {/if}
+        {#if item.subnav?.length && item.name !== "Categories" && item.img.includes("data:image/png;base64")}
           <span />
         {/if}
         {item.name}
