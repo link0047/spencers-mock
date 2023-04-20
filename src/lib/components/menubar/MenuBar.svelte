@@ -1,6 +1,7 @@
 <script>
   import { writable } from "svelte/store";
   import { setContext } from "svelte";
+  export let label = null;
 
   const state = writable({
     index: 0,
@@ -9,18 +10,15 @@
 
   setContext("state", state);
 
-  function menuEvents(node) {
-    $state.children = Array.from(node.querySelectorAll(".menu__item"));
+  function menuBarEvents(node) {
+    $state.children = Array.from(node.querySelectorAll(".menubar__item"));
     let maxSteps = $state.children.length - 1;
-    $state.children[$state.index].setAttribute("tabindex", "0");
 
-    let observer = new MutationObserver((mutations) => {
-      $state.children = Array.from(node.querySelectorAll(".menu__item"));
-      maxSteps = $state.children.length - 1;
-      $state.index = 0;
-      $state.children[$state.index].setAttribute("tabindex", "0");
-      $state.children[$state.index].focus();
+    console.log({
+      index: $state.children[$state.index],
+      children: $state.children,
     });
+    $state.children[$state.index].setAttribute("tabindex", "0");
 
     function move(step) {
       $state.children[$state.index].setAttribute("tabindex", "-1");
@@ -39,69 +37,84 @@
     }
 
     function handleKeyup(event) {
-      const { key } = event;
+      const { key, shiftKey } = event;
       switch (key) {
         case "Tab":
           $state.children[$state.index].focus();
+          return;
           break;
         case " ":
         case "Enter":
           break;
         case "Down":
         case "ArrowDown":
-          move(1);
           break;
         case "Up":
         case "ArrowUp":
-          move(-1);
           break;
         case "Left":
         case "ArrowLeft":
+          move(-1);
           break;
         case "Right":
         case "ArrowRight":
+          move(1);
           break;
         case "Home":
         case "PageUp":
+          if ($state.index === 0) return;
+          if ($state.index > 0) {
+            $state.children[$state.index].setAttribute("tabindex", "-1");
+          }
+          $state.children[0].setAttribute("tabindex", "0");
           break;
         case "End":
         case "PageDown":
+          if ($state.index === maxSteps) return;
+          if ($state.index > 0) {
+            $state.children[$state.index].setAttribute("tabindex", "-1");
+          }
+          $state.children[maxSteps].setAttribute("tabindex", "0");
           break;
         default:
           break;
       }
     }
 
-    observer.observe(node, { childList: true });
+    function handleFocusout(event) {
+      node.classList.remove("focus");
+    }
+
+    function handleFocusin(event) {
+      node.classList.add("focus");
+    }
+
     node.addEventListener("keyup", handleKeyup);
+    node.addEventListener("focusout", handleFocusout);
+    node.addEventListener("focusin", handleFocusin);
 
     return {
       destroy() {
+        node.removeEventListener("focusout", handleFocusout);
+        node.removeEventListener("focusin", handleFocusin);
         node.removeEventListener("keyup", handleKeyup);
-        observer.disconnect();
       },
     };
   }
 </script>
 
-<div use:menuEvents class="menu" role="menu">
+<div use:menuBarEvents aria-label={label} class="menubar" role="menubar">
   <slot />
 </div>
 
 <style>
-  .menu {
+  .menubar {
+    position: relative;
+    min-height: 40px;
     background-color: #fff;
-    display: grid;
-    font-size: 0.875rem;
-    font-weight: 500;
-    letter-spacing: 0.04em;
-    padding: 0;
-    margin: 0;
-  }
-
-  @media print {
-    .menu {
-      display: none;
-    }
+    display: flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
   }
 </style>

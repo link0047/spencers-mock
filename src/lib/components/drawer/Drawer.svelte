@@ -1,11 +1,12 @@
 <script lang="ts">
   import { browser } from "$app/environment";
+  import { onMount } from "svelte";
   import type { Writable } from "svelte/store";
   import type { DrawerStore } from "./DrawerStore";
   import DrawerDismiss from "./DrawerDismiss.svelte";
-  import Icon from "$lib/components/icon";
   import Backdrop from "$lib/components/backdrop";
   export let state: Writable<DrawerStore>;
+  let ref: HTMLElement;
 
   const id = $state.drawerId;
   let lastElementWithFocus: HTMLElement | null = null;
@@ -14,11 +15,13 @@
 
   $: if (open) {
     if (browser) {
+      if (ref) ref.inert = false;
       document.body.setAttribute("style", "overflow:hidden");
-      lastElementWithFocus = document.activeElement;
+      lastElementWithFocus = document.activeElement as HTMLElement;
     }
   } else {
     if (browser) {
+      if (ref) ref.inert = true;
       document.body.removeAttribute("style");
       lastElementWithFocus && lastElementWithFocus.focus();
     }
@@ -44,9 +47,14 @@
       },
     };
   }
+
+  onMount(async () => {
+    ref.inert = true;
+  });
 </script>
 
 <div
+  bind:this={ref}
   {id}
   role="dialog"
   aria-modal="true"
@@ -85,7 +93,7 @@
     top: 0;
     left: 0;
     transform: translate3d(-100%, 0, 0);
-    transition: transform 0.2s cubic-bezier(0.22, 0.61, 0.36, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.1s;
   }
 

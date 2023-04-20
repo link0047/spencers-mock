@@ -4841,7 +4841,7 @@ const categories: object[] = [
 ];
 
 
-export async function load({ locals }) {
+export async function load({ locals }): Promise<{ user: any; categories: object[]; }> {
   const { user } = await locals.validateUser();
   return { user, categories }
 }

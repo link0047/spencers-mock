@@ -13,56 +13,60 @@
   import type { Writable } from "svelte/store";
   import { onMount } from "svelte";
   import { getBoundingClientRectUsingIO } from "$lib/client/util/utilities";
-  import { browser } from '$app/environment';
+  import { browser } from "$app/environment";
 
   export let state: Writable<PopoverStore>;
   export let label = "";
   export let gap = 8;
 
   let ref: HTMLElement;
-	const id = $state.popoverId;
-	$: open = $state.open;
-  let style = setPosition(0,0);
+  const id = $state.popoverId;
+  $: open = $state.open;
+  let style = setPosition(0, 0);
   let lastElementWithFocus: HTMLElement;
-	
-	$: if (open) {
+
+  $: if (open) {
     const { x, y } = checkBounds();
     style = setPosition(x, y);
-		if (browser) {
-			document.body.setAttribute("style", "overflow:hidden");
-			lastElementWithFocus = <HTMLElement> document.activeElement;
-		}
-	} else {
-		if (browser) {
-			document.body.removeAttribute("style");
-			lastElementWithFocus && lastElementWithFocus.focus();
-		}
-	}
+    if (browser) {
+      if (ref) ref.inert = true;
+      document.body.setAttribute("style", "overflow:hidden");
+      lastElementWithFocus = <HTMLElement>document.activeElement;
+    }
+  } else {
+    if (browser) {
+      if (ref) ref.inert = false;
+      document.body.removeAttribute("style");
+      lastElementWithFocus && lastElementWithFocus.focus();
+    }
+  }
 
-	function close() {
-		$state.open = false;
-	}
+  function close() {
+    $state.open = false;
+  }
 
   function setPosition(x: number, y: number) {
     return `position:fixed;transform:translate3d(${x}px,${y}px,0)`;
   }
 
   function checkBounds() {
-    const hitRightBoundary = $state.disclosureRect.x + $state.dialogRect.width >= $state.viewport.width;
+    const hitRightBoundary =
+      $state.disclosureRect.x + $state.dialogRect.width >=
+      $state.viewport.width;
     // add if popover set to right alignment
     // const hitLeftBoundary = disclosurePosition <= 0;
-    
+
     if (hitRightBoundary) {
       return {
         x: $state.disclosureRect.right - $state.dialogRect.width,
-        y: $state.disclosureRect.bottom + gap
+        y: $state.disclosureRect.bottom + gap,
       };
     }
 
     return {
-      x: $state.disclosureRect.left, 
-      y: $state.disclosureRect.bottom + gap
-    }
+      x: $state.disclosureRect.left,
+      y: $state.disclosureRect.bottom + gap,
+    };
   }
 
   function popoverEvents(node: HTMLElement) {
@@ -72,12 +76,12 @@
       $state.viewport = { width, height };
       if (!$state.open) return;
       if (timeout) {
-        window.cancelAnimationFrame(timeout)
+        window.cancelAnimationFrame(timeout);
       }
 
       timeout = window.requestAnimationFrame(() => {
         $state.disclosureRect = $state.disclosure.getBoundingClientRect();
-        const {x, y} = checkBounds();
+        const { x, y } = checkBounds();
         style = setPosition(x, y);
       });
     }
@@ -91,12 +95,23 @@
     }
 
     function handleDocumentClick({ target }: Event) {
-      if (!$state.open || target == $state.disclosure || $state.disclosure.contains(<HTMLElement>target)) return;
-      if ($state.dialog.contains(<HTMLElement>target) && (target as HTMLElement)?.closest("a")) {
+      if (
+        !$state.open ||
+        target == $state.disclosure ||
+        $state.disclosure.contains(<HTMLElement>target)
+      )
+        return;
+      if (
+        $state.dialog.contains(<HTMLElement>target) &&
+        (target as HTMLElement)?.closest("a")
+      ) {
         close();
       }
 
-      if (target !== $state.dialog && !$state.dialog.contains(<HTMLElement>target)) {
+      if (
+        target !== $state.dialog &&
+        !$state.dialog.contains(<HTMLElement>target)
+      ) {
         close();
       }
     }
@@ -109,41 +124,47 @@
       destroy() {
         browser && document.removeEventListener("click", handleDocumentClick);
         browser && document.removeEventListener("keyup", handleEscape);
-        browser && window.visualViewport?.removeEventListener("resize", handleResize);
-      }
-    }
+        browser &&
+          window.visualViewport?.removeEventListener("resize", handleResize);
+      },
+    };
   }
 
   onMount(async () => {
+    ref.inert = true;
     const { width, height } = window.visualViewport;
     $state.viewport = { width, height };
     const rect = await getBoundingClientRectUsingIO(ref);
     $state.dialog = ref;
-		$state.dialogRect = rect.toJSON();
+    $state.dialogRect = rect.toJSON();
   });
 </script>
-<div 
+
+<div
   bind:this={ref}
   use:popoverEvents
-  id={id} 
-	role="dialog" 
-	tabindex="-1" 
-	aria-label={label} 
-	class="popover"
-	class:popover--expanded={ open }
-	{style}
+  {id}
+  role="dialog"
+  tabindex="-1"
+  aria-label={label}
+  class="popover"
+  class:popover--expanded={open}
+  {style}
 >
-	<slot />
+  <slot />
 </div>
+
 <style>
   .popover {
-		box-sizing: border-box;
+    box-sizing: border-box;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI",
+      "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji",
+      "Segoe UI Emoji", "Segoe UI Symbol";
     background-color: rgb(255, 255, 255);
     position: absolute;
-		top: 0;
-		left: 0;
+    top: 0;
+    left: 0;
     border-radius: 4px;
     padding: 8px;
     max-height: calc(100vh - 56px);
@@ -151,15 +172,15 @@
     border: 1px solid rgba(33, 33, 33, 0.25);
     color: rgb(33, 33, 33);
     z-index: 999;
-		pointer-events: none;
+    pointer-events: none;
     opacity: 0;
-		transition: opacity 0.15s;
-		transition-delay: 0.05s;
+    transition: opacity 0.15s;
+    transition-delay: 0.05s;
     min-width: 232px;
-	}
-	
-	.popover--expanded {
-		pointer-events: visible;
+  }
+
+  .popover--expanded {
+    pointer-events: visible;
     opacity: 1;
-	}
+  }
 </style>

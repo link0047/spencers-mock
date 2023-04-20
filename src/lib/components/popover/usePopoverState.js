@@ -1,4 +1,4 @@
-import { writable } from 'svelte/store';
+import { writable } from "svelte/store";
 import generateId from "$lib/client/util/local-unique-id-generator.js";
 
 const id = generateId();
@@ -10,21 +10,21 @@ const mockRect = {
   top: 0,
   width: 0,
   x: 0,
-  y: 0
+  y: 0,
 };
 
-function useDrawerState() {
-	return writable({
-		popoverId: `aria-uikit-drawer-${id}`,
-    disclosureId: `aria-uikit-drawer-disclosure-${id}`,
+function usePopoverState() {
+  return writable({
+    popoverId: `aria-uikit-popover-${id}`,
+    disclosureId: `aria-uikit-popover-disclosure-${id}`,
     open: false,
-		disclosureRect: mockRect,
-		dialogRect: mockRect,
-		viewport: {
+    disclosureRect: mockRect,
+    dialogRect: mockRect,
+    viewport: {
       width: 0,
-      height: 0
-    }
+      height: 0,
+    },
   });
 }
 
-export default useDrawerState;
+export default usePopoverState;

@@ -266,7 +266,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="Shop Animatronics">
+        <a class="card__content" href="#none" title="Shop Animatronics">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -290,7 +290,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="Shop Ghost Face">
+        <a class="card__content" href="#none" title="Shop Ghost Face">
           <picture class="card__media"
             ><source
               media="(max-width: 560px)"
@@ -310,7 +310,7 @@
   <section class="page-section">
     <div class="page-grid" role="group" style="--dt-columns:2;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="Shop Beetlejuice">
+        <a class="card__content" href="#none" title="Shop Beetlejuice">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -327,7 +327,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Shop Collectibles">
+        <a class="card__content" href="#none" title="Shop Collectibles">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -351,7 +351,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:3;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="Shop Miraculous Ladybug">
+        <a class="card__content" href="#none" title="Shop Miraculous Ladybug">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -368,7 +368,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Shop Inflatable Costumes">
+        <a class="card__content" href="#none" title="Shop Inflatable Costumes">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -385,7 +385,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Shop Monster High">
+        <a class="card__content" href="#none" title="Shop Monster High">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -473,7 +473,6 @@
     box-sizing: border-box;
     font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
       sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
-    overflow: hidden;
     position: relative;
   }
 
@@ -481,6 +480,11 @@
   .card a:visited {
     color: #221924;
     text-decoration: none;
+  }
+
+  .card a:focus-visible {
+    outline: 2px solid #212121;
+    border-radius: 4px;
   }
 
   .card__title {
