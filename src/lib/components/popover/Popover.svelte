@@ -29,13 +29,13 @@
     const { x, y } = checkBounds();
     style = setPosition(x, y);
     if (browser) {
-      if (ref) ref.inert = true;
+      if (ref) ref.inert = false;
       document.body.setAttribute("style", "overflow:hidden");
       lastElementWithFocus = <HTMLElement>document.activeElement;
     }
   } else {
     if (browser) {
-      if (ref) ref.inert = false;
+      if (ref) ref.inert = true;
       document.body.removeAttribute("style");
       lastElementWithFocus && lastElementWithFocus.focus();
     }

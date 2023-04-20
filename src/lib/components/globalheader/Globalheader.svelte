@@ -2,12 +2,13 @@
   import Icon from "$lib/components/icon";
   import Button from "$lib/components/button";
 </script>
+
 <header class="global-header">
   <nav class="global-header__nav">
     <div class="global-header__container">
       <slot />
     </div>
-    <div class="global-header__utility-container">
+    <!-- <div class="global-header__utility-container">
       <Button variant="icon" size="small" style="height:24px">
         <Icon>
           <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z"/>
@@ -23,68 +24,69 @@
         </Icon>
         <span class="ellipsis">Pleasantville, NJ 08232</span>
       </Button>
-    </div>
+    </div> -->
   </nav>
 </header>
+
 <style>
-.ellipsis {
-  overflow: hidden;
-  white-space: nowrap;
-  display: inline-block;
-  text-overflow: ellipsis;
-}
+  .ellipsis {
+    overflow: hidden;
+    white-space: nowrap;
+    display: inline-block;
+    text-overflow: ellipsis;
+  }
 
-.global-header {
-  width: 100%;
-  position: relative;
-  min-height: 52px;
-  box-sizing: border-box;
-}
+  .global-header {
+    width: 100%;
+    position: relative;
+    min-height: 52px;
+    box-sizing: border-box;
+  }
 
-.global-header__nav {
-  display: grid;
-  gap: 4px; 
-  background-color: #fff;
-  width: 100%;
-  align-items: center;
-  justify-content: center;
-  border-bottom: 1px solid #d1d1d6;
-}
-
-.global-header__container {
-  position: relative;
-  display: grid;
-  grid-template-areas: "menu logo search group";
-  grid-template-columns: 32px 72px 1fr minmax(auto, max-content);
-  gap: 8px;
-  align-items: center;
-  width: 100vw;
-  height: 52px;
-  max-width: 1256px;
-}
-
-.global-header__utility-container {
-  display: none;
-  /* display: grid; */
-  grid-template-columns: repeat(auto-fit, minmax(64px, max-content));
-  gap: 16px;
-  align-items: center;
-  min-height: 32px;
-  padding: 0 8px;
-  width: 100vw;
-  max-width: 1256px;
-}
-
-@media (max-width: 560px) {
   .global-header__nav {
-    position: fixed;
-    z-index: 9;
+    display: grid;
+    gap: 4px;
+    background-color: #fff;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+    border-bottom: 1px solid #d1d1d6;
   }
 
   .global-header__container {
-    padding: 8px;
+    position: relative;
+    display: grid;
     grid-template-areas: "menu logo search group";
-    grid-template-columns: 36px 40px 1fr 64px;
+    grid-template-columns: 32px 72px 1fr minmax(auto, max-content);
+    gap: 8px;
+    align-items: center;
+    width: 100vw;
+    height: 52px;
+    max-width: 1256px;
   }
-}
+
+  .global-header__utility-container {
+    display: none;
+    /* display: grid; */
+    grid-template-columns: repeat(auto-fit, minmax(64px, max-content));
+    gap: 16px;
+    align-items: center;
+    min-height: 32px;
+    padding: 0 8px;
+    width: 100vw;
+    max-width: 1256px;
+  }
+
+  @media (max-width: 560px) {
+    .global-header__nav {
+      position: fixed;
+      z-index: 9;
+    }
+
+    .global-header__container {
+      padding: 8px;
+      grid-template-areas: "menu logo search group";
+      grid-template-columns: 36px 40px 1fr 64px;
+    }
+  }
 </style>
