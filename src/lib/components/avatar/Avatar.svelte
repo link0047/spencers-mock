@@ -37,6 +37,7 @@
 
 <style>
   .avatar {
+    position: relative;
     display: flex;
     aspect-ratio: 1/1;
     overflow: hidden;

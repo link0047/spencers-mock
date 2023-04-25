@@ -1,2 +1,2 @@
-import Avatar from "./Avatar.svelte";
-export default Avatar;
+export { default as Avatar } from "./Avatar.svelte";
+export { default as AvatarGroup } from "./AvatarGroup.svelte";
