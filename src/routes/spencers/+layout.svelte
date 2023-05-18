@@ -1,6 +1,6 @@
 <script lang="ts">
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
-  import Avatar from "$lib/components/avatar";
+  import { Avatar } from "$lib/components/avatar";
   import { Menu, MenuItem } from "$lib/components/menu";
   import GlobalHeader from "$lib/components/globalheader";
   import Badge from "$lib/components/badge";
