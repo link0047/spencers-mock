@@ -9,11 +9,13 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/03%5F22%5F23%5FHauntedMansion%5FAspot%5FM%5F4760?$Halfsize$"
             />
             <img
-              width="232"
-              height="232"
+              width="1175"
+              height="560"
               alt="The Haunted Mansion"
               class="image"
               decoding="async"
