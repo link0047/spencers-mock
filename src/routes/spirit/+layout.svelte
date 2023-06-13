@@ -178,9 +178,21 @@
 </script>
 
 <Drawer state={drawerState}>
-  <picture class="logo" slot="header" style="width:88px">
-    <source media="(max-width: 560px)" srcset={mobilelogo} />
-    <img alt="Spirit Logo" class="image" decoding="async" src={desktoplogo} />
+  <picture class="logo" slot="header">
+    <source
+      media="(max-width: 560px)"
+      width="88"
+      height="30"
+      srcset={mobilelogo}
+    />
+    <img
+      alt="Spirit Logo"
+      class="image"
+      width="124"
+      height="34"
+      decoding="async"
+      src={desktoplogo}
+    />
   </picture>
   <div slot="back" class="back__group">
     <Button
@@ -380,7 +392,7 @@
 
 <style>
   .logo {
-    height: 32px;
+    width: 124px;
   }
 
   .image {
@@ -528,8 +540,9 @@
 
   @media (max-width: 560px) {
     .logo {
-      height: initial;
+      width: 88px;
     }
+
     .desktop-only,
     .theme--spirit {
       display: none;
