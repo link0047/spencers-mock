@@ -177,10 +177,12 @@
     transition: opacity 0.15s;
     transition-delay: 0.05s;
     min-width: 232px;
+    z-index: -1;
   }
 
   .popover--expanded {
     pointer-events: visible;
     opacity: 1;
+    z-index: 9;
   }
 </style>
