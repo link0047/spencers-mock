@@ -285,7 +285,7 @@
 </Popover>
 <GlobalHeader
   --desktop-header-template-columns="32px 124px 1fr minmax(auto, max-content)"
-  --mobile-header-template-columns="36px 60px 1fr 64px"
+  --mobile-header-template-columns="36px 88px 1fr 64px"
 >
   <DrawerDisclosure
     state={drawerState}
