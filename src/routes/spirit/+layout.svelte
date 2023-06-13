@@ -315,8 +315,20 @@
     style="grid-area:logo"
   >
     <picture class="logo">
-      <source media="(max-width: 560px)" srcset={mobilelogo} />
-      <img alt="Spirit Logo" class="image" decoding="async" src={desktoplogo} />
+      <source
+        media="(max-width: 560px)"
+        width="88"
+        height="30"
+        srcset={mobilelogo}
+      />
+      <img
+        alt="Spirit Logo"
+        class="image"
+        decoding="async"
+        width="124"
+        height="34"
+        src={desktoplogo}
+      />
     </picture>
   </a>
   <div class="flex-center" style="grid-area:search">
