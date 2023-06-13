@@ -2,22 +2,25 @@
   enum alignment {
     start = "start",
     center = "center",
-    end = "end"
+    end = "end",
   }
   export let align: alignment = alignment.start;
 </script>
-<div 
+
+<div
   class="group"
-  class:group--align-end={ align == alignment.end }
+  class:group--align-end={align == alignment.end}
   role="group"
   {...$$restProps}
 >
   <slot />
 </div>
+
 <style>
   .group {
     display: flex;
     align-items: center;
+    gap: 8px;
   }
 
   .group--align-end {

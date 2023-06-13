@@ -1,3 +1,4 @@
+import parser from "ua-parser-js";
 const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC";
 const categories: object[] = [
   {
@@ -4842,6 +4843,10 @@ const categories: object[] = [
 
 
 export async function load({ locals }): Promise<{ user: any; categories: object[]; }> {
+  const ua = parser(locals.ua);
   const { user } = await locals.validateUser();
-  return { user, categories }
+  const isMobile = ua.device.type === "mobile" || ua.device.type === "tablet";
+
+
+  return { user, categories, isMobile }
 }

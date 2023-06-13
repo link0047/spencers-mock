@@ -57,7 +57,10 @@
     position: relative;
     display: grid;
     grid-template-areas: "menu logo search group";
-    grid-template-columns: 32px 72px 1fr minmax(auto, max-content);
+    grid-template-columns: var(
+      --desktop-header-template-columns,
+      32px 72px 1fr minmax(auto, max-content)
+    );
     gap: 8px;
     align-items: center;
     width: 100vw;
@@ -86,7 +89,10 @@
     .global-header__container {
       padding: 8px;
       grid-template-areas: "menu logo search group";
-      grid-template-columns: 36px 40px 1fr 64px;
+      grid-template-columns: var(
+        --mobile-header-template-columns,
+        36px 40px 1fr 64px
+      );
     }
   }
 </style>

@@ -20,6 +20,7 @@ specifiers:
   ts-node: ^10.9.1
   tslib: ^2.4.1
   typescript: ^4.9.5
+  ua-parser-js: ^1.0.35
   vite: ^4.0.0
   vitest: ^0.25.3
   zod: ^3.21.4
@@ -30,6 +31,7 @@ dependencies:
   '@prisma/client': 4.11.0_prisma@4.11.0
   ioredis: 5.3.1
   lucia-auth: 0.6.2
+  ua-parser-js: 1.0.35
   zod: 3.21.4
 
 devDependencies:
@@ -1975,6 +1977,10 @@ packages:
     engines: {node: '>=4.2.0'}
     hasBin: true
     dev: true
+
+  /ua-parser-js/1.0.35:
+    resolution: {integrity: sha512-fKnGuqmTBnIE+/KXSzCn4db8RTigUzw1AN0DmdU6hJovUTbYJKyqj+8Mt1c4VfRDnOVJnENmfYkIPZ946UrSAA==}
+    dev: false
 
   /undici/5.20.0:
     resolution: {integrity: sha512-J3j60dYzuo6Eevbawwp1sdg16k5Tf768bxYK4TUJRH7cBM4kFCbf3mOnM/0E3vQYXvpxITbbWmBafaDbxLDz3g==}
