@@ -95,6 +95,7 @@
     transform: translate3d(-100%, 0, 0);
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.1s;
+    opacity: 0;
   }
 
   .drawer__back {
@@ -119,6 +120,7 @@
 
   .drawer--open {
     transform: translate3d(0, 0, 0);
+    opacity: 1;
   }
 
   .drawer__content {
