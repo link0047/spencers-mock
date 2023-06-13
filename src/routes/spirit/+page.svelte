@@ -270,12 +270,16 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FM%5F4756?$Halfsize$"
             />
             <img
               alt="Animatronics"
               class="image"
               decoding="async"
+              width="1175"
+              height="500"
               src="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FD%5F4756?$Fullsize%5FLessComp$"
             />
           </picture>
@@ -294,11 +298,15 @@
           <picture class="card__media"
             ><source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FM%5F4754%20copy?$Halfsize$"
             /><img
               alt="Ghost Face"
               class="image"
               decoding="async"
+              width="1175"
+              height="500"
               src="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FD%5F4754%20copy?$Fullsize%5FLessComp$"
             /></picture
           >
@@ -314,12 +322,16 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?$Halfsize$"
             />
             <img
               alt="Beetlejuice"
               class="image"
               decoding="async"
+              width="750"
+              height="520"
               src="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?$Fullsize%5FLessComp$"
             />
           </picture>
@@ -331,12 +343,16 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?$Halfsize$"
             />
             <img
               alt="Annabelle"
               class="image"
               decoding="async"
+              width="750"
+              height="520"
               src="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?$Fullsize%5FLessComp$"
             />
           </picture>
@@ -355,12 +371,16 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/09%5F28%5F22%5FMiraculous%5FAspot%5FM%5F3787?$Halfsize$"
             />
             <img
               alt="Miraculous Ladybuy"
               class="image"
               decoding="async"
+              width="750"
+              height="520"
               src="//spirit.scene7.com/is/image/Spirit/09%5F28%5F22%5FMiraculous%5FAspot%5FM%5F3787?$fullsize$"
             />
           </picture>
@@ -372,12 +392,16 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?$Halfsize$"
             />
             <img
               alt="Inflatable Costumes"
               class="image"
               decoding="async"
+              width="750"
+              height="520"
               src="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?$Halfsize$"
             />
           </picture>
@@ -389,12 +413,16 @@
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
+              width="375"
+              height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/10%5F9%5F22%5FGirls%5FMonsterHigh%5FASpot%5FM%5F4046?$Halfsize$"
             />
             <img
               alt="Monster High"
               class="image"
               decoding="async"
+              width="750"
+              height="520"
               src="//spirit.scene7.com/is/image/Spirit/10%5F9%5F22%5FGirls%5FMonsterHigh%5FASpot%5FM%5F4046?$fullsize$"
             />
           </picture>
