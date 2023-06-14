@@ -9,24 +9,24 @@
   <section class="page-section">
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="The Haunted Mansion">
+        <a href="#none" title="Horrow Babies">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/03%5F22%5F23%5FHauntedMansion%5FAspot%5FM%5F4760?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/06_06_23_New_Horror_Babies_5314_Aspot-M?fmt=webp&wid=375&hei=260"
             />
             <img
               width="1175"
               height="560"
-              alt="The Haunted Mansion"
+              alt="Horrow Babies"
               class="image"
               decoding="async"
-              src="//spirit.scene7.com/is/image/Spirit/03%5F22%5F23%5FHauntedMansion%5FAspot%5FD%5F4760?$Fullsize%5FLessComp$"
+              src="//spirit.scene7.com/is/image/Spirit/06_06_23_New_Horror_Babies_5314_Aspot-D?fmt=webp&wid=1175&hei=560"
             />
           </picture>
-          <div class="card__title">Shop The Haunted Mansion</div>
+          <div class="card__title">Shop Horror Babies</div>
         </a>
       </div>
     </div>
@@ -278,7 +278,7 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FM%5F4756?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FM%5F4756?fmt=webp&wid=375&hei=260"
             />
             <img
               alt="Animatronics"
@@ -286,7 +286,7 @@
               decoding="async"
               width="1175"
               height="500"
-              src="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FD%5F4756?$Fullsize%5FLessComp$"
+              src="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FD%5F4756?fmt=webp&wid=1175&hei=500"
             />
           </picture>
           <div class="card__title">Shop Animatronics</div>
@@ -306,14 +306,14 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FM%5F4754%20copy?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FM%5F4754%20copy?fmt=webp&wid=375&hei=260"
             /><img
               alt="Ghost Face"
               class="image"
               decoding="async"
               width="1175"
               height="500"
-              src="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FD%5F4754%20copy?$Fullsize%5FLessComp$"
+              src="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FD%5F4754%20copy?fmt=webp&wid=1175&hei=500"
             /></picture
           >
           <div class="card__title">Shop Ghost Face</div>
@@ -330,7 +330,7 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?fmt=webp&wid=375&hei=260"
             />
             <img
               alt="Beetlejuice"
@@ -338,7 +338,7 @@
               decoding="async"
               width="750"
               height="520"
-              src="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?$Fullsize%5FLessComp$"
+              src="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?fmt=webp&wid=750&hei=520"
             />
           </picture>
           <div class="card__title">Shop Beetlejuice</div>
@@ -351,7 +351,7 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?fmt=webp&wid=375&hei=260"
             />
             <img
               alt="Annabelle"
@@ -359,7 +359,7 @@
               decoding="async"
               width="750"
               height="520"
-              src="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?$Fullsize%5FLessComp$"
+              src="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?fmt=webp&wid=750&hei=520"
             />
           </picture>
           <div class="card__title">Shop Collectibles</div>
@@ -379,7 +379,7 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/09%5F28%5F22%5FMiraculous%5FAspot%5FM%5F3787?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/09%5F28%5F22%5FMiraculous%5FAspot%5FM%5F3787?fmt=webp&wid=375&hei=260"
             />
             <img
               alt="Miraculous Ladybuy"
@@ -400,7 +400,7 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?fmt=webp&wid=375&hei=260"
             />
             <img
               alt="Inflatable Costumes"
@@ -408,7 +408,7 @@
               decoding="async"
               width="750"
               height="520"
-              src="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?$Halfsize$"
+              src="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?fmt=webp&wid=375&hei=260"
             />
           </picture>
           <div class="card__title">Shop Inflatable Costumes</div>
@@ -421,7 +421,7 @@
               media="(max-width: 560px)"
               width="375"
               height="260"
-              srcset="//spirit.scene7.com/is/image/Spirit/10%5F9%5F22%5FGirls%5FMonsterHigh%5FASpot%5FM%5F4046?$Halfsize$"
+              srcset="//spirit.scene7.com/is/image/Spirit/10%5F9%5F22%5FGirls%5FMonsterHigh%5FASpot%5FM%5F4046?fmt=webp&wid=375&hei=260"
             />
             <img
               alt="Monster High"
