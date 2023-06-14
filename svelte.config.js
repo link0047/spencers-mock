@@ -13,6 +13,7 @@ const config = {
       mode: "hash",
       directives: {
         "script-src": ["self"],
+        "object-src": ["none"],
       },
     },
   },
