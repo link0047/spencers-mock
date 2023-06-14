@@ -1,5 +1,9 @@
 <svelte:head>
-  <title>World's #1 Halloween Costume Store - Spirithalloween.com"</title>
+  <title>World's #1 Halloween Costume Store - Spirithalloween.com</title>
+  <meta
+    name="description"
+    content="Shop Spirit Halloween for an incredible selection of Halloween Costumes, Halloween Decorations, Halloween Accessories, and Halloween Makeup. Fast shipping &amp; huge selection! *Shop Now &amp; Save*"
+  />
 </svelte:head>
 <div class="page">
   <section class="page-section">
