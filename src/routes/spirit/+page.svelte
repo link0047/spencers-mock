@@ -106,6 +106,7 @@
               alt="Funko"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_FUNKO?$fullsize$"
             />
           </picture>
@@ -125,6 +126,8 @@
               alt="Accessories"
               class="image"
               decoding="async"
+              loading="lazy"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/02_15_23_accessories?$fullsize$"
             />
           </picture>
@@ -144,6 +147,7 @@
               alt="Girls Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_GIRLS?$fullsize$"
             />
           </picture>
@@ -163,6 +167,7 @@
               alt="Boys Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_BOYS?$fullsize$"
             />
           </picture>
@@ -182,6 +187,7 @@
               alt="Toddler Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_TODDLER?$fullsize$"
             />
           </picture>
@@ -201,6 +207,7 @@
               alt="Baby Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_BABY?$fullsize$"
             />
           </picture>
@@ -220,6 +227,7 @@
               alt="Women's Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/02_15_23_women?$fullsize$"
             />
           </picture>
@@ -239,6 +247,7 @@
               alt="Men's Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/02_15_23_mens?$fullsize$"
             />
           </picture>
@@ -258,6 +267,7 @@
               alt="Sale"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/Sale_232x232?$fullsize$"
             />
           </picture>
@@ -284,6 +294,7 @@
               alt="Animatronics"
               class="image"
               decoding="async"
+              loading="lazy"
               width="1175"
               height="560"
               src="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FD%5F4756?fmt=webp&wid=1175"
@@ -311,6 +322,7 @@
               alt="Ghost Face"
               class="image"
               decoding="async"
+              loading="lazy"
               width="1175"
               height="560"
               src="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FD%5F4754%20copy?fmt=webp&wid=1175"
@@ -336,6 +348,7 @@
               alt="Beetlejuice"
               class="image"
               decoding="async"
+              loading="lazy"
               width="750"
               height="520"
               src="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?fmt=webp&wid=750"
@@ -357,6 +370,7 @@
               alt="Annabelle"
               class="image"
               decoding="async"
+              loading="lazy"
               width="750"
               height="520"
               src="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?fmt=webp&wid=750"
@@ -385,6 +399,7 @@
               alt="Miraculous Ladybuy"
               class="image"
               decoding="async"
+              loading="lazy"
               width="750"
               height="520"
               src="//spirit.scene7.com/is/image/Spirit/09%5F28%5F22%5FMiraculous%5FAspot%5FM%5F3787?$fullsize$"
@@ -406,6 +421,7 @@
               alt="Inflatable Costumes"
               class="image"
               decoding="async"
+              loading="lazy"
               width="750"
               height="520"
               src="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?fmt=webp&wid=375"
@@ -427,6 +443,7 @@
               alt="Monster High"
               class="image"
               decoding="async"
+              loading="lazy"
               width="750"
               height="520"
               src="//spirit.scene7.com/is/image/Spirit/10%5F9%5F22%5FGirls%5FMonsterHigh%5FASpot%5FM%5F4046?$fullsize$"
