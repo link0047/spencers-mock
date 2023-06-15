@@ -127,7 +127,6 @@
               class="image"
               decoding="async"
               loading="lazy"
-              loading="lazy"
               src="https://spirit.scene7.com/is/image/Spirit/02_15_23_accessories?$fullsize$"
             />
           </picture>
