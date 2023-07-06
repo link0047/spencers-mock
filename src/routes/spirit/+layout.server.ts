@@ -4844,9 +4844,9 @@ const categories: object[] = [
 
 export async function load({ locals }): Promise<{ user: any; categories: object[]; }> {
   const ua = parser(locals.ua);
-  const { user } = await locals.validateUser();
+  // const { user } = await locals.validateUser();
   const isMobile = ua.device.type === "mobile" || ua.device.type === "tablet";
 
 
-  return { user, categories, isMobile }
+  return { categories, isMobile }
 }

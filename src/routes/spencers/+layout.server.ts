@@ -3917,6 +3917,6 @@ const categories: object[] = [{
 ];
 
 export async function load({ locals }) {
-  const { user } = await locals.validateUser();
-  return { user, categories }
+  // const { user } = await locals.validateUser();
+  return { categories }
 }
