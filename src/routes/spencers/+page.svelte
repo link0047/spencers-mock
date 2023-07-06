@@ -1,7 +1,7 @@
 <svelte:head>
-  <title
-    >Body Jewelry, Graphic Tees, Lingerie &amp; Lava Lamps - Spencer's</title
-  >
+  <title>
+    Body Jewelry, Graphic Tees, Lingerie &amp; Lava Lamps - Spencer's
+  </title>
 </svelte:head>
 <div class="page">
   <section class="page-section">
