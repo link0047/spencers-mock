@@ -93,7 +93,7 @@
     top: 0;
     left: 0;
     transform: translate3d(-100%, 0, 0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.1s;
     opacity: 0;
   }
