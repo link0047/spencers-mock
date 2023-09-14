@@ -26,6 +26,7 @@
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
     will-change: opacity;
+    transform: translate3d(0,0,0);
     transition: opacity 0.2s ease-in-out;
   }
 
