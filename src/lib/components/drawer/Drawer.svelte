@@ -10,7 +10,7 @@
 
   const id = $state.drawerId;
   let lastElementWithFocus: HTMLElement | null = null;
-
+  console.log($state.open);
   $: open = $state.open;
 
   $: if (open) {

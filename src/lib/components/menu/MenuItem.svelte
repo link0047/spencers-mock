@@ -15,9 +15,11 @@
 
   let type = types[as] || "button";
   let htref = as === "a" ? href : null;
+  $: tabIndex = active ? 0 : -1;
   afterUpdate(() => {
     type = types[as] || "button";
     htref = href;
+    tabIndex = active ? 0 : -1;
   });
 </script>
 
@@ -27,7 +29,7 @@
   class="menu__item"
   role="menuitem"
   href={htref}
-  tabindex={active ? 0 : -1}
+  tabindex={tabIndex}
   on:click
   on:focus
   on:blur
@@ -68,8 +70,13 @@
     margin-right: 8px;
   }
 
-  .menu__item[tabindex="0"],
-  .menu__item:hover {
+  .menu__item[tabindex="0"] {
     background-color: #f2f2f2;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .menu__item:hover {
+      background-color: #f2f2f2;
+    }
   }
 </style>

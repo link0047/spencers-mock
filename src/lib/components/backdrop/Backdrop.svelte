@@ -20,7 +20,8 @@
     left: 0;
     display: block;
     background-color: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
+    /* removed due to performance */
+    /* backdrop-filter: blur(4px); */
     opacity: 0;
     pointer-events: none;
     -webkit-backface-visibility: hidden;

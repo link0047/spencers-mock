@@ -56,7 +56,9 @@
     drawerMenu.firstElementChild.focus();
   }
 
-  function handleMenuItemClick(item) {
+  function handleMenuItemClick(item, event) {
+    // item.subnav && !item.subnav.length ? null : 
+    event.preventDefault();    
     if (item.name === "Categories") {
       $drawerState.showBack = true;
       menu = item.subnav;
@@ -227,7 +229,7 @@
       <svelte:component
         this={item.component ? item.component : MenuItem}
         href={item.subnav && !item.subnav.length ? item.href : null}
-        as={item.subnav && !item.subnav.length ? "link" : null}
+        as={"link"}
         on:click={item.subnav && item.subnav.length
           ? handleMenuItemClick.bind(null, item)
           : null}
