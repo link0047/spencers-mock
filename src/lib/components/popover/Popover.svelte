@@ -122,6 +122,7 @@
 
     return {
       destroy() {
+        close();
         browser && document.removeEventListener("click", handleDocumentClick);
         browser && document.removeEventListener("keyup", handleEscape);
         browser &&
