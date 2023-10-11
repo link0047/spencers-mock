@@ -122,7 +122,8 @@
 
     return {
       destroy() {
-        close();
+        ref.inert = true;
+        document.body.removeAttribute("style");
         browser && document.removeEventListener("click", handleDocumentClick);
         browser && document.removeEventListener("keyup", handleEscape);
         browser &&
