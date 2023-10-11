@@ -1,12 +1,9 @@
-import { type Actions, fail, redirect } from "@sveltejs/kit";
-import { auth } from "$lib/server/lucia";
+import { redirect } from "@sveltejs/kit";
+import type { Actions } from "@sveltejs/kit";
 
 export const actions: Actions = {
-  default: async ({ locals }) => {
-    const session = await locals.validate();
-    if (!session) return fail(401);
-    await auth.invalidateSession(session.sessionId);
-    locals.setSession(null);
-    throw redirect(302, "/login");
+  default: async ({ locals: { supabase }, cookies }) => {
+    await supabase.auth.signOut()
+    throw redirect(303, `/${cookies.get("brand")}`);
   }
 }

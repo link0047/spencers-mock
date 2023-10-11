@@ -14,10 +14,6 @@
     $state.children = Array.from(node.querySelectorAll(".menubar__item"));
     let maxSteps = $state.children.length - 1;
 
-    console.log({
-      index: $state.children[$state.index],
-      children: $state.children,
-    });
     $state.children[$state.index].setAttribute("tabindex", "0");
 
     function move(step) {

@@ -5,6 +5,7 @@
 
   export let id = `${prefix}-${n}`;
   export let label = "";
+  export let value = "";
 
   const labelId = `${prefix}-label-${n}`;
   const labeledBy = $$restProps.hasOwnProperty("aria-label") ? null : labelId;
@@ -21,6 +22,7 @@
     aria-labelledby={label.length ? labeledBy : null}
     class="textfield__native-control"
     {id}
+    bind:value={value}
     on:click
     on:change
     on:input

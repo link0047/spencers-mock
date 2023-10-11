@@ -1,7 +1,8 @@
-import { PrismaClient } from '@prisma/client';
-
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
+import type { SupabaseClient, Session } from "@supabase/supabase-js";
+import type { S } from "vitest/dist/reporters-5f784f42";
+
 declare global {
 	interface Window {
 		VisualViewport: {
@@ -20,25 +21,16 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			validate: import("@lucia-auth/sveltekit").Validate
-			validateUser: import("@lucia-auth/sveltekit").ValidateUser
-			setSession: import("@lucia-auth/sveltekit").SetSession
+			supabase: SupabaseClient
+			getSession: Promise<Session | null>
+			ua: string | undefined
 		}
 		
-		// interface PageData {}
+		interface PageData {
+			session: Session | null
+		}
 		// interface Platform {}
 	}
-
-	// eslint-disable-next-line no-var
-	var prisma: PrismaClient
-
-  declare namespace Lucia {
-    type Auth = import("$lib/server/lucia").Auth;
-    type UserAttributes = {
-      username: string
-      name: string
-    }
-  }
 
 }
 

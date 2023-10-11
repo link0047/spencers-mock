@@ -1,6 +1,5 @@
 <script lang="ts">
   import { onMount } from "svelte";
-
   import desktoplogo from "$lib/assets/logo-d.png";
   import mobilelogo from "$lib/assets/logo-m.png";
 
@@ -28,6 +27,7 @@
   import { enhance } from "$app/forms";
   export let data;
 
+  console.log(data.session)
   let { isMobile } = data;
 
   interface HistoryItem {
@@ -38,7 +38,7 @@
 
   interface History extends Array<HistoryItem> {}
 
-  function handleMenuBarItemClick(item) {
+  function handleMenuBarItemClick(item: HistoryItem) {
     history.push({
       drawerBackText: "All Categories",
       title: item.name,
@@ -52,7 +52,7 @@
     $drawerState.showBack = true;
     $drawerState.open = true;
     const drawerMenu = document.querySelector(".drawer .menu");
-    drawerMenu.firstElementChild.setAttribute("tabindex", 0);
+    drawerMenu.firstElementChild.setAttribute("tabindex", "0");
     drawerMenu.firstElementChild.focus();
   }
 
@@ -166,14 +166,11 @@
   const popoverState = usePopoverState();
 
   onMount(() => {
-    let timeout;
+    let timeout: number;
     window.addEventListener("resize", function (event) {
       if (timeout) window.cancelAnimationFrame(timeout);
-      timeout = window.requestAnimationFrame(function () {
-        isMobile = event.target.matchMedia("(max-width: 560px)").matches
-          ? true
-          : false;
-        console.log({ isMobile });
+      timeout = window.requestAnimationFrame(() => {
+        isMobile = event?.target?.matchMedia("(max-width: 560px)").matches
       });
     });
   });
@@ -261,12 +258,12 @@
   </Menu>
 </Drawer>
 <Popover state={popoverState}>
-  {#if !data.user}
-    <a href="/login" class="link link--button"> Sign in or Create Account </a>
+  {#if !data.session}
+    <a href="/login?brand=spirit" class="link link--button"> Sign in or Create Account </a>
     <Separator gap={8} />
   {/if}
   <List>
-    {#if data.user}
+    {#if data.session}
       <ListItem>
         <a href="/account" class="list__item-link">
           <Icon>
@@ -289,7 +286,7 @@
       Order Status
     </ListItem>
   </List>
-  {#if data.user}
+  {#if data.session}
     <Separator gap={8} />
     <form use:enhance method="post" action="/logout">
       <Button fullwidth rounded variant="primary" type="submit">Sign out</Button
@@ -370,7 +367,7 @@
       </Icon>
       <div class="desktop-only">
         <div class="subtext">
-          {data.user ? `Hi, ${data.user.name.split(" ")[0]}` : "Sign in"}
+          {data.session ? `Hi, ${data.session.user.user_metadata.first_name}` : "Sign in"}
         </div>
         <div class="text">Account</div>
       </div>

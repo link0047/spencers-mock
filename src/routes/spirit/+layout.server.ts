@@ -4841,12 +4841,18 @@ const categories: object[] = [
   },
 ];
 
-
-export async function load({ locals }): Promise<{ user: any; categories: object[]; }> {
+export async function load({ locals, cookies }): Promise<{ isMobile: Boolean, categories: object[]; }> {
+  cookies.set("brand", "spirit", {
+    httpOnly: true,
+    sameSite: "strict",
+    secure: false,
+    maxAge: 60 * 60 * 24 * 7
+  });
   const ua = parser(locals.ua);
-  // const { user } = await locals.validateUser();
-  const isMobile = ua.device.type === "mobile" || ua.device.type === "tablet";
+  const isMobile: Boolean = ua.device.type === "mobile" || ua.device.type === "tablet";
 
-
-  return { categories, isMobile }
+  return { 
+    categories, 
+    isMobile,
+  }
 }

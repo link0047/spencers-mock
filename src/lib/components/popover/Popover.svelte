@@ -183,6 +183,6 @@
   .popover--expanded {
     pointer-events: visible;
     opacity: 1;
-    z-index: 9;
+    z-index: 10;
   }
 </style>
