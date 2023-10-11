@@ -124,7 +124,8 @@
   }
 
   .drawer__content {
-    height: calc(100% - 72px);
+    height: calc(100vh - 72px);
+    height: calc(100dvh - 72px);
     box-sizing: border-box;
     overflow: auto;
   }
