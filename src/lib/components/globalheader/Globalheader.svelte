@@ -11,18 +11,7 @@
   </nav>
   <div class="global-header-utility">
     <div class="global-header-utility__container">
-      <Button variant="icon" size="small" style="height:24px">
-        <Icon>
-          <path d="M12 11.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5 2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5M12 2a7 7 0 0 0-7 7c0 5.25 7 13 7 13s7-7.75 7-13a7 7 0 0 0-7-7Z"/>
-        </Icon>
-        <span class="ellipsis">08232</span>
-      </Button>
-      <Button variant="icon" size="small" style="height:24px">
-        <Icon>
-          <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z"/>
-        </Icon>
-        <span class="ellipsis">Egg Harbor Township</span>
-      </Button>
+      <slot name="utility" />
     </div>
   </div>
 </header>

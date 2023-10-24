@@ -2,6 +2,12 @@ import { fail, redirect } from "@sveltejs/kit";
 import { AuthApiError } from "@supabase/supabase-js";
 import type { Actions } from "./$types";
 
+export async function load({ cookies }) {
+  return {
+    brand: cookies.get("brand")
+  }
+}
+
 export const actions: Actions = {
   default: async ({ request, cookies, locals: { supabase } }) => {
     const { email, password } = Object.fromEntries(

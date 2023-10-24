@@ -7,6 +7,7 @@
   export let el = null;
   export let rounded = false;
   export let fullwidth = false;
+  export let stack = false;
   export let type: "button" | "reset" | "submit" | null | undefined = "button";
   let clazz = null;
   export { clazz as class };
@@ -27,6 +28,7 @@
   class:btn--sizeSmall={size === "small"}
   class:btn--sizeLarge={size === "large"}
   class:btn--full-width={fullwidth}
+  class:btn--stack={stack}
   {type}
   aria-label={label}
   {disabled}
@@ -121,16 +123,16 @@
 
   .btn:focus-visible {
     outline-offset: -2px;
-    outline: 2px solid #007acc;
+    outline: 2px solid #145cb9;
   }
 
   .btn.btn--primary {
-    background-color: #2a508f;
+    background-color: #1767d0;
     color: #fff;
   }
 
   .btn--rounded.btn--primary {
-    box-shadow: inset 0 0 0 2px #1d3864;
+    box-shadow: inset 0 0 0 2px #145cb9;
   }
 
   .btn.btn--success {
@@ -146,5 +148,10 @@
   .btn--underline:focus {
     background-color: transparent;
     text-decoration: underline;
+  }
+
+  .btn--stack {
+    flex-flow: column;
+    gap: 0;
   }
 </style>

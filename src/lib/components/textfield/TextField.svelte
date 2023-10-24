@@ -93,7 +93,7 @@
   }
 
   .textfield__message {
-    color: #d72c0d;
+    color: #f44336;
     word-break: break-word;
     overflow-wrap: break-word;
   }

@@ -6,11 +6,12 @@
   import DrawerDismiss from "./DrawerDismiss.svelte";
   import Backdrop from "$lib/components/backdrop";
   export let state: Writable<DrawerStore>;
+  export let alignment = "left";
   let ref: HTMLElement;
 
   const id = $state.drawerId;
   let lastElementWithFocus: HTMLElement | null = null;
-  console.log($state.open);
+
   $: open = $state.open;
 
   $: if (open) {
@@ -59,6 +60,7 @@
   role="dialog"
   aria-modal="true"
   class="drawer"
+  class:drawer--alignment-right={alignment === "right"}
   class:drawer--open={open}
   tabindex="-1"
   use:drawerEvents
@@ -96,6 +98,12 @@
     transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     transition-delay: 0.1s;
     opacity: 0;
+  }
+
+  .drawer--alignment-right {
+    left: initial;
+    right: 0;
+    transform: translate3d(100%, 0, 0);
   }
 
   .drawer__back {
@@ -138,6 +146,8 @@
   @media (min-width: 561px) {
     .drawer {
       max-width: 352px;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
     }
   }
 </style>

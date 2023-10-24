@@ -27,7 +27,6 @@
   import { enhance } from "$app/forms";
   export let data;
 
-  console.log(data.session)
   let { isMobile } = data;
 
   interface HistoryItem {
@@ -49,8 +48,8 @@
     title = item.name;
     menu = item.subnav;
 
-    $drawerState.showBack = true;
-    $drawerState.open = true;
+    $menuDrawerState.showBack = true;
+    $menuDrawerState.open = true;
     const drawerMenu = document.querySelector(".drawer .menu");
     drawerMenu.firstElementChild.setAttribute("tabindex", "0");
     drawerMenu.firstElementChild.focus();
@@ -60,7 +59,7 @@
     // item.subnav && !item.subnav.length ? null : 
     event.preventDefault();    
     if (item.name === "Categories") {
-      $drawerState.showBack = true;
+      $menuDrawerState.showBack = true;
       menu = item.subnav;
       return;
     }
@@ -78,7 +77,7 @@
 
   function backToPrevMenu() {
     if (history.length === 1) {
-      $drawerState.showBack = false;
+      $menuDrawerState.showBack = false;
       menu = mainMenu;
       return;
     }
@@ -91,7 +90,7 @@
   }
 
   function backToMainMenu(): void {
-    $drawerState.showBack = false;
+    $menuDrawerState.showBack = false;
     menu = mainMenu;
     title = "All Categories";
     drawerBackText = "Main Menu";
@@ -162,8 +161,11 @@
   ];
 
   const searchState = useComboBoxState();
-  const drawerState = useDrawerState();
+  const menuDrawerState = useDrawerState();
   const popoverState = usePopoverState();
+
+  const zipDrawerState = useDrawerState();
+  const bopisDrawerState = useDrawerState();
 
   onMount(() => {
     let timeout: number;
@@ -175,8 +177,9 @@
     });
   });
 </script>
-
-<Drawer state={drawerState}>
+<Drawer state={zipDrawerState} alignment="right"></Drawer>
+<Drawer state={bopisDrawerState} alignment="right"></Drawer>
+<Drawer state={menuDrawerState}>
   <picture class="logo" slot="header">
     <source
       media="(max-width: 560px)"
@@ -218,7 +221,7 @@
       </Button>
     {/if}
   </div>
-  {#if $drawerState.showBack}
+  {#if $menuDrawerState.showBack}
     <h2 class="drawer__title">{title}</h2>
   {/if}
   <Menu>
@@ -296,10 +299,10 @@
 </Popover>
 <GlobalHeader
   --desktop-header-template-columns="32px 124px 1fr minmax(auto, max-content)"
-  --mobile-header-template-columns="36px 88px 1fr 64px"
+  --mobile-header-template-columns="36px 88px 0px 1fr"
 >
   <DrawerDisclosure
-    state={drawerState}
+    state={menuDrawerState}
     style="grid-area:menu;max-width:36px"
     label="Main Menu"
   >
@@ -342,7 +345,7 @@
   </div>
   <Group align="end">
     {#if isMobile}
-      <Button variant="icon" label="Search">
+      <Button variant="icon" label="Search" stack={Boolean(isMobile)}>
         <Icon>
           <path
             stroke="#000"
@@ -350,16 +353,16 @@
             d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"
           />
         </Icon>
+        <!-- <span class="btn-text">Search</span> -->
       </Button>
     {/if}
-    <Button variant="icon" label="Store locator">
+    <Button variant="icon" label="Store locator" stack={Boolean(isMobile)}>
       <Icon>
-        <path
-          d="M12,11.5A2.5,2.5 0 0,1 9.5,9A2.5,2.5 0 0,1 12,6.5A2.5,2.5 0 0,1 14.5,9A2.5,2.5 0 0,1 12,11.5M12,2A7,7 0 0,0 5,9C5,14.25 12,22 12,22C12,22 19,14.25 19,9A7,7 0 0,0 12,2Z"
-        />
+        <path xmlns="http://www.w3.org/2000/svg" d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
       </Icon>
+      <!-- <span class="btn-text">Find Store</span> -->
     </Button>
-    <PopoverDisclosure label="Account" state={popoverState}>
+    <PopoverDisclosure label="Account" state={popoverState} stack={Boolean(isMobile)}>
       <Icon>
         <path
           d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10A10 10 0 0 0 12 2M7.07 18.28c.43-.9 3.05-1.78 4.93-1.78s4.5.88 4.93 1.78A7.893 7.893 0 0 1 12 20c-1.86 0-3.57-.64-4.93-1.72m11.29-1.45c-1.43-1.74-4.9-2.33-6.36-2.33s-4.93.59-6.36 2.33A7.928 7.928 0 0 1 4 12c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.82-.62 3.5-1.64 4.83M12 6c-1.94 0-3.5 1.56-3.5 3.5S10.06 13 12 13s3.5-1.56 3.5-3.5S13.94 6 12 6m0 5a1.5 1.5 0 0 1-1.5-1.5A1.5 1.5 0 0 1 12 8a1.5 1.5 0 0 1 1.5 1.5A1.5 1.5 0 0 1 12 11Z"
@@ -370,7 +373,9 @@
           {data.session ? `Hi, ${data.session.user.user_metadata.first_name}` : "Sign in"}
         </div>
         <div class="text">Account</div>
+
       </div>
+      <!-- <span class="btn-text">Account</span> -->
     </PopoverDisclosure>
     <Button variant="icon" label="Cart">
       <Icon>
@@ -381,6 +386,20 @@
       <Badge>0</Badge>
     </Button>
   </Group>
+  <svelte:fragment slot="utility">
+    <DrawerDisclosure state={zipDrawerState} variant="icon" size="small" style="height:24px">
+      <Icon>
+        <path xmlns="http://www.w3.org/2000/svg" d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
+      </Icon>
+      <span class="underline-on-hover">08232</span>
+    </DrawerDisclosure>
+    <DrawerDisclosure state={bopisDrawerState} variant="icon" size="small" style="height:24px">
+      <Icon>
+        <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z"/>
+      </Icon>
+      <span class="underline-on-hover">Egg Harbor Township</span>
+    </DrawerDisclosure>
+  </svelte:fragment>
 </GlobalHeader>
 <nav class="theme--spirit">
   <MenuBar label="Featured Categories">
@@ -410,6 +429,14 @@
     width: 100%;
     height: auto;
     display: block;
+  }
+
+  .underline-on-hover {
+    font-weight: 500;
+  }
+
+  .underline-on-hover:hover {
+    text-decoration: underline;
   }
 
   .theme--spirit :global(.menubar) {
