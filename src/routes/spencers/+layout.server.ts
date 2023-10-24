@@ -1,3 +1,4 @@
+import parser from "ua-parser-js";
 const transparentPixel = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADwAAABICAQAAAAARl4uAAAAOUlEQVR42u3NMQ0AAAwDoNW/6Zlo0gcMkBuJWCwWi8VisVgsFovFYrFYLBaLxWKxWCwWi8VisbjpAfxoAEn3HhGlAAAAAElFTkSuQmCC";
 const categories: object[] = [{
   "name": "Spring",
@@ -3916,7 +3917,18 @@ const categories: object[] = [{
 }
 ];
 
-export async function load({ locals }) {
-  // const { user } = await locals.validateUser();
-  return { categories }
+export async function load({ locals, cookies }): Promise<{ isMobile: Boolean, categories: object[]; }> {
+  cookies.set("brand", "spirit", {
+    httpOnly: true,
+    sameSite: "strict",
+    secure: false,
+    maxAge: 60 * 60 * 24 * 7
+  });
+  const ua = parser(locals.ua);
+  const isMobile: Boolean = ua.device.type === "mobile" || ua.device.type === "tablet";
+
+  return { 
+    categories, 
+    isMobile,
+  }
 }

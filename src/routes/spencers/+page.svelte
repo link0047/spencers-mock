@@ -2,6 +2,7 @@
   <title>
     Body Jewelry, Graphic Tees, Lingerie &amp; Lava Lamps - Spencer's
   </title>
+  <meta name="description" content="Shop Spencer's for the best in fashion, backpacks, décor, gag gifts, adult toys and more! All your faves at great prices. Ships in 1-2 days. ** SHOP NOW &amp; SAVE **"/>
 </svelte:head>
 <div class="page">
   <section class="page-section">
@@ -123,6 +124,7 @@
               alt="Body Jewelry"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Circles_02_23_Body_Jewelry?$fullsize$"
             />
           </picture>
@@ -142,6 +144,7 @@
               alt="Drinkware"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Circles_02_23_Drinkware?$fullsize$"
             />
           </picture>
@@ -237,6 +240,7 @@
               alt="Mini Backpacks"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Circles_02_23_Backpacks?$fullsize$"
             />
           </picture>
@@ -256,6 +260,7 @@
               alt="Games"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Circles_02_23_Circles_Games?$fullsize$"
             />
           </picture>
@@ -275,6 +280,7 @@
               alt="Sale"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Circles_12_232x232_2019?$fullsize$"
             />
           </picture>
@@ -302,6 +308,7 @@
               alt="Shop Body Jewelry"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Body_Jewelry_2.27.23?$fullsize$"
             />
           </picture>
@@ -321,6 +328,7 @@
               alt="Shop St. Patrick's Day"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/St_Patricks_Day_2.27.23?$fullsize$"
             />
           </picture>
@@ -340,6 +348,7 @@
               alt="Shop Drinkware"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Drinkware_2.27.23?$fullsize$"
             />
           </picture>
@@ -359,6 +368,7 @@
               alt="Shop Pride"
               class="image"
               decoding="async"
+              loading="lazy"
               src="https://spencers.scene7.com/is/image/Spencers/Pride_2.27.23?$fullsize$"
             />
           </picture>

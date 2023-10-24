@@ -236,12 +236,12 @@
   </Menu>
 </Drawer>
 <Popover state={popoverState}>
-  {#if !data.user}
+  {#if !data.session}
     <a href="/login" class="link link--button"> Sign in or Create Account </a>
     <Separator gap={8} />
   {/if}
   <List>
-    {#if data.user}
+    {#if data.session}
       <ListItem>
         <a href="/account" class="list__item-link">
           <Icon>
@@ -264,7 +264,7 @@
       Order Status
     </ListItem>
   </List>
-  {#if data.user}
+  {#if data.session}
     <Separator gap={8} />
     <form use:enhance method="post" action="/logout">
       <Button fullwidth rounded variant="primary" type="submit">Sign out</Button
@@ -306,7 +306,7 @@
       </Icon>
       <div class="desktop-only">
         <div class="subtext">
-          {data.user ? `Hi, ${data.user.name.split(" ")[0]}` : "Sign in"}
+          {data.session ? `Hi, ${data.session.user.user_metadata.first_name}` : "Sign in"}
         </div>
         <div class="text">Account</div>
       </div>
