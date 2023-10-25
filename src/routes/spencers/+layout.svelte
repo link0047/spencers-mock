@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
   import { Avatar } from "$lib/components/avatar";
   import { Menu, MenuItem } from "$lib/components/menu";
@@ -22,6 +23,8 @@
   import Separator from "$lib/components/separator";
   import { enhance } from "$app/forms";
   export let data;
+
+  let { isMobile } = data;
 
   interface HistoryItem {
     drawerBackText: string;
@@ -163,8 +166,22 @@
   const searchState = useComboBoxState();
   const drawerState = useDrawerState();
   const popoverState = usePopoverState();
-</script>
 
+  const zipDrawerState = useDrawerState();
+  const bopisDrawerState = useDrawerState();
+
+  onMount(() => {
+    let timeout: number;
+    window.addEventListener("resize", function (event) {
+      if (timeout) window.cancelAnimationFrame(timeout);
+      timeout = window.requestAnimationFrame(() => {
+        isMobile = event?.target?.matchMedia("(max-width: 560px)").matches
+      });
+    });
+  });
+</script>
+<Drawer state={zipDrawerState} alignment="right"></Drawer>
+<Drawer state={bopisDrawerState} alignment="right"></Drawer>
 <Drawer state={drawerState}>
   <Icon variant="logo" viewbox="0 0 72 32" slot="header">
     <path
@@ -320,6 +337,20 @@
       <Badge>0</Badge>
     </Button>
   </Group>
+  <svelte:fragment slot="utility">
+    <DrawerDisclosure state={zipDrawerState} variant="icon" size="small" style="height:24px">
+      <Icon>
+        <path xmlns="http://www.w3.org/2000/svg" d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
+      </Icon>
+      <span class="underline-on-hover">08232</span>
+    </DrawerDisclosure>
+    <DrawerDisclosure state={bopisDrawerState} variant="icon" size="small" style="height:24px">
+      <Icon>
+        <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z"/>
+      </Icon>
+      <span class="underline-on-hover">Egg Harbor Township</span>
+    </DrawerDisclosure>
+  </svelte:fragment>
 </GlobalHeader>
 <nav class="theme--spencers">
   <MenuBar label="Featured Categories">
@@ -341,6 +372,14 @@
 </main>
 
 <style>
+  .underline-on-hover {
+    font-weight: 500;
+  }
+
+  .underline-on-hover:hover {
+    text-decoration: underline;
+  }
+  
   .theme--spencers {
     border-bottom: 1px solid #d1d1d6;
   }
