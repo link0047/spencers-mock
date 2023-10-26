@@ -90,6 +90,7 @@
       Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
       "Segoe UI Symbol";
     height: 100vh;
+    height: 100dvh;
     width: 100vw;
     z-index: 519;
     top: 0;
