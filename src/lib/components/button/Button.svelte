@@ -1,4 +1,5 @@
 <script lang="ts">
+  import generateId from "$lib/client/util/local-unique-id-generator.js";
   export let variant = "default";
   export let raised = false;
   export let disabled = false;
@@ -11,10 +12,13 @@
   export let type: "button" | "reset" | "submit" | null | undefined = "button";
   let clazz = null;
   export { clazz as class };
+
+  const id = `aria-uikit-button-${generateId("button")}`;
   const css = clazz ? ` ${clazz}` : "";
 </script>
 
 <button
+  {id}
   bind:this={el}
   class={`btn${css}`}
   class:btn--primary={variant === "primary"}

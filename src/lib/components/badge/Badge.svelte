@@ -4,6 +4,7 @@
 <div
   class="badge"
   class:badge--size={type === "small"}
+  aria-hidden="true"
 >
   {#if type !== "small"}
     <slot />

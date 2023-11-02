@@ -9,7 +9,7 @@
   <section class="page-section">
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="Horrow Babies">
+        <a href="#none" title="Horror Babies">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -20,7 +20,7 @@
             <img
               width="1175"
               height="560"
-              alt="Horrow Babies"
+              alt="Horror Babies"
               class="image"
               decoding="async"
               src="//spirit.scene7.com/is/image/Spirit/06_06_23_New_Horror_Babies_5314_Aspot-D?fmt=webp&wid=1175"
