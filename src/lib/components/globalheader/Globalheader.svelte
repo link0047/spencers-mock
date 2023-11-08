@@ -64,7 +64,6 @@
     padding: 0 8px;
     display: flex;
     justify-content: center;
-    width: 100vw;
   }
 
   .global-header-utility__container {
