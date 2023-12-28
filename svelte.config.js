@@ -12,7 +12,7 @@ const config = {
     csp: {
       mode: "hash",
       directives: {
-        "script-src": ["self"],
+        "script-src": ["self", "http://prod-east-search-mt.rfksrv.com"],
         "object-src": ["none"],
       },
     },

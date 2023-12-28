@@ -1,131 +1,273 @@
-<script lang="ts">
-  import type { Writable } from "svelte/store";
-  import type { ComboboxStore } from "./ComboboxStore";
-  export let rounded = false;
-  export let label = "";
-  export let state: Writable<ComboboxStore>;
-  const id = $state.comboboxId;
+<script>
+  import { browser } from "$app/environment";
+	import generateId from "$lib/client/util/local-unique-id-generator.js"
+	import { writable } from "svelte/store";
+	import { setContext, afterUpdate, onMount, onDestroy } from "svelte";
+	
+	export let value = "";
+	export let invalid = false;
+	export let gap = 8;
+	export let stayOpen = false;
+	
+	let inputRef;
+	let listboxRef;
+	let listboxStyling = "";
+	let optionId = 0;
+	
+	const uid = generateId("combobox");
+	const id = `aria-uikit-combobox-${uid}`;
+	const listboxId = `${id}-listbox`;
+	const state = writable({
+		open: false,
+		invalid,
+		activeDescendant: null,
+		getOptionId,
+		index: -1,
+		listbox: null
+	});
 
-  function handleKeyup(event: KeyboardEvent) {
-    const { target } = event;
-    console.log(target?.value);
-  }
+	export function resetOptions() {
+		optionId = 0;
+		$state.activeDescendant = null;
+		$state.index = -1;
+	}
+
+	function getOptionId() {
+		return `${id}-option-${optionId++}`;
+	}
+
+	function move(step) {
+		const children = listboxRef.querySelectorAll(".listbox__option");
+		const maxSteps = children.length - 1;
+		if ($state.index !== -1) children[$state.index].setAttribute("tabindex", "-1");
+		
+		$state.index += step;
+		if ($state.index < 0) {
+			$state.index = maxSteps;
+		}
+
+		if ($state.index > maxSteps) {
+			$state.index = 0;
+		}
+
+		const selected = children[$state.index];
+		selected.setAttribute("tabindex", "0");
+		selected.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+		$state.activeDescendant = selected.id;
+	}
+	
+	function handleKeyup(event) {
+		const children = Array.from(listboxRef.children);
+	  switch(event.key) {
+			case "ArrowDown":
+				move(1);
+				break;
+			case "ArrowUp":
+				move(-1);
+				break;
+			case "Escape":
+				$state.open = false;
+				break;
+			default:
+				break;
+		}
+	}
+
+	function handleFocus() {
+		const { width, left, bottom } = inputRef.getBoundingClientRect();
+		listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+		$state.open = true;
+	}
+
+	function handleBlur() {
+		if (stayOpen) return;
+		listboxRef.querySelectorAll(".listbox__option")[$state.index]?.setAttribute("tabindex", "-1");
+		$state.index = -1;
+		$state.activeDescendant = null;
+		$state.open = false;
+	}
+
+	function handleDocumentKeyup(event) {
+		if (event.ctrlKey && event.key === "k") {
+			inputRef.focus({ focusVisible: true });
+		}
+	}
+
+	function debounceAnimationFrame(callback) {
+	  let animationFrameId;
+	
+	  return () => {
+	    cancelAnimationFrame(animationFrameId);
+	    animationFrameId = requestAnimationFrame(callback);
+	  };
+	}
+
+	function handleResizeLogic() {
+		const { width, left, bottom } = inputRef.getBoundingClientRect();
+		console.log("move combobox", left)
+		listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+	}
+
+	const handleResize = debounceAnimationFrame(handleResizeLogic);
+
+	setContext("state", state);
+
+	onMount(() => {
+    if (browser) {
+			$state.open = stayOpen;
+      document.addEventListener("keyup", handleDocumentKeyup);
+			window.addEventListener("resize", handleResize);
+      const { width, left, bottom } = inputRef.getBoundingClientRect();
+      $state.listbox = listboxRef;
+      listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+    }
+	});
+
+	onDestroy(() => {
+    if (browser) {
+		  document.removeEventListener("keyup", handleDocumentKeyup);
+		  window.removeEventListener("resize", handleResize);
+    }
+	});
+
+	afterUpdate(() => {
+		$state.invalid = invalid;
+	});
 </script>
-
-<div class="combobox" class:combobox--rounded={rounded} {...$$restProps}>
-  <input
+<div class="combobox" data-state={$state.open ? "open" : ""}>
+	<button class="combobox__action" type="button" disabled>
+		<svg class="icon" focusable="false" viewBox="0 0 24 24" role="presentation">
+			<path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+		</svg>
+	</button>
+	<input
     {id}
+		bind:this={inputRef}
+		bind:value={value}
     role="combobox"
     class="combobox__native-control"
     type="text"
-    aria-labelledby=""
+    aria-labelledby={null}
     aria-invalid="false"
     aria-autocomplete="list"
     aria-expanded={$state.open}
-    value=""
-    tabindex={0}
-    aria-controls="<popoverid>"
-    aria-owns="<popoverid>"
-    aria-activedescendant="<listboxOptionId>"
+    aria-controls={listboxId}
+    aria-owns={listboxId}
+    aria-activedescendant={$state.activeDescendant}
     on:keyup={handleKeyup}
     on:keyup
+		on:keydown
+		on:input
+		on:blur={handleBlur}
     on:blur
+		on:focus={handleFocus}
     on:focus
     on:click
     {...$$restProps}
   />
-  <button type="button" class="combobox__action" aria-label={label}>
-    <svg class="icon" role="presentation" viewBox="0 0 24 24">
-      <path
-        d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"
-      />
-    </svg>
-  </button>
+</div>
+<div
+	bind:this={listboxRef}
+	data-state={$state.open ? "open" : ""}
+	id={listboxId}
+	class="combobox__listbox"
+	class:combobox__listbox--expanded={stayOpen}
+	role="listbox"
+	style={listboxStyling}
+>
+	<slot />
 </div>
 
 <style>
-  .icon {
-    width: 24px;
-    height: 24px;
-    fill: #212121;
-    stroke: #212121;
-    stroke-width: 1px;
-  }
-
-  .combobox {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
+	.icon {
+		width: 20px;
+		height: 20px;
+	}
+	
+	.combobox {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     position: relative;
-    display: grid;
-    grid-template-columns: 1fr 64px;
+		display: grid;
+		align-items: center;
     width: 100%;
-  }
+    max-width: 640px;
+	}
 
-  .combobox--rounded .combobox__native-control {
-    border-top-left-radius: 18px;
-    border-bottom-left-radius: 18px;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    padding: 0 16px;
-  }
+	.combobox__action {
+		box-sizing: border-box;
+		position: absolute;
+		right: 4px;
+		width: 32px;
+		height: 32px;
+		padding: 0;
+		margin: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border: 1px solid transparent;
+		border-radius: 50%;
+	}
 
-  .combobox__native-control {
-    outline: none;
-    color: #212121;
-    font-size: 16px;
-    font-weight: 400;
-    line-height: 1;
-    letter-spacing: 0.04em;
-    width: 100%;
-    height: 36px;
-    padding: 0 8px;
-    border: 1px solid;
-    border-color: #949499;
-    border-radius: 4px;
-    background: none;
-    font-size: inherit;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    transition: border 250ms cubic-bezier(0.4, 0, 0.2, 1),
-      box-shadow 250ms cubic-bezier(0.4, 0, 0.2, 1);
-    will-change: border, box-shadow;
-    box-shadow: rgba(0, 0, 0, 0.05) 0px 1px 0px 0px;
-  }
+	.combobox__action:hover {
+		background-color: #3c404314;
+		cursor: pointer;
+	}
 
-  .combobox__action {
-    height: 36px;
-    border: 1px solid;
-    border-color: #949499;
-    border-left: none;
-    border-top-left-radius: 0;
-    border-bottom-left-radius: 0;
-    border-top-right-radius: 18px;
-    border-bottom-right-radius: 18px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
+	.combobox__native-control {
+		box-sizing: border-box;
+		color: #111;
+		font-size: 1rem;
+		font-weight: 400;
+		line-height: 1;
+		letter-spacing: .04em;
+		width: 100%;
+		height: 40px;
+		padding: 0 40px 0 24px;
+		margin: 0;
+		border: 1px solid #dcdcdc;
+		border-radius: 8px;
+		appearance: none;
+		background-color: #f5f5f5;
+	}
 
-  .combobox__action:hover {
-    background-color: #e6e6e6;
-    cursor: pointer;
-  }
+	[data-state="open"] .combobox__native-control {
+		/* border-bottom-left-radius: 0px;
+		border-bottom-right-radius: 0px; */
+	}
 
-  .combobox__action:focus-visible {
-    outline: 2px solid #3367d6;
-    outline-offset: -2px;
-  }
+	.combobox__native-control:focus {
+		background-color: #fff;
+	}
 
-  .combobox__action:hover,
-  .combobox__native-control:hover {
-    border-color: #000;
-    box-shadow: inset 0 0 0 1px #000;
-  }
+	.combobox__native-control:focus-visible {
+		outline-offset: -1px;
+		outline: 2px solid #174ea6;
+	}
+	
+	.combobox__listbox {
+		border: 1px solid #dcdcdc;
+		background-color: #fff;
+		display: grid;
+		gap: 8px;
+		box-sizing: border-box;
+		padding: 12px 8px;
+		border-radius: 8px;
+		opacity: 0;
+		pointer-events: none;
+		max-height: 512px;
+		overflow: auto;
+		z-index: 10;
+		transition: opacity .15s ease-in;
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+	}
 
-  .combobox__native-control:focus {
-    border-color: #3367d6 #285bc7 #2451b2;
-    box-shadow: inset 0 0 0 1px #2451b2;
-  }
+	.combobox__listbox[data-state="open"] {
+		opacity: 1;
+		pointer-events: initial;
+	}
+
+	.combobox__listbox--expanded {
+		box-shadow: none;
+		border: transparent;
+	}
 </style>

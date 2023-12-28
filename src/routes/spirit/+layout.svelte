@@ -11,7 +11,8 @@
   import Button from "$lib/components/button";
   import Group from "$lib/components/group";
   import Icon from "$lib/components/icon";
-  import { useComboBoxState, Combobox } from "$lib/components/combobox";
+  import { Combobox, Option } from "$lib/components/combobox";
+  import { Chip, Chips } from "$lib/components/chip";
   import {
     Drawer,
     DrawerDisclosure,
@@ -22,6 +23,7 @@
     PopoverDisclosure,
     usePopoverState,
   } from "$lib/components/popover";
+  import { Dialog, DialogDisclosure, useDialogState } from "$lib/components/dialog";
   import { List, ListItem } from "$lib/components/list";
   import Separator from "$lib/components/separator";
   import { enhance } from "$app/forms";
@@ -148,8 +150,173 @@
     },
   ];
 
+  let comboboxRef;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
+  const recent = [{name: "Glass" },{name: "Shot Glass" },{name: "Glass Oz" }];
+	const popularSearch = ["playboy","chucky","lava lamp","south park","ugly christmas sweater","christmas sweater","coraline","hello kitty","nightmare before christmas"];
+  const searchMap = new Map([
+	  ["recent", recent],
+	  ["categories", []],
+		["suggestions", []],
+	  ["products", []],
+	  ["popular searches", popularSearch],
+	]);
+  function debounceAsync(func, delay) {
+	  let timeoutId;
+	
+	  return async function (...args) {
+	    clearTimeout(timeoutId);
+	
+	    return new Promise((resolve) => {
+	      timeoutId = setTimeout(async () => {
+	        const result = await func.apply(this, args);
+	        resolve(result);
+	      }, delay);
+	    });
+	  };
+	}
+
+	async function handleInput(event) {
+		if (event.key == "ArrowDown" || event.key == "ArrowUp" || event.key == "Escape") return;
+		
+		const value = event.target.value.trim();
+		
+		if (value === "" && !searchMenu.get("popular searches").length) {
+			comboboxRef.resetOptions();
+			searchMenu = searchMap;
+			return;
+		}
+		
+		const data = await customSearch(value);
+		const copy = new Map(searchMenu);
+		copy.set("recent", []);
+		copy.set("popular searches", []);
+		const { products, suggestions, categories } = data;
+
+		if (products.length) {
+			copy.set("products", products);
+		}
+
+		if (suggestions.keyphrase.length) {
+			copy.set("suggestions", suggestions.keyphrase.slice(0, 6));
+		}
+
+		if (categories.length) {
+			copy.set("categories", categories);
+		}
+		
+		comboboxRef.resetOptions();
+		searchMenu = copy;
+	}
+
+	const debouncedHandleInput = debounceAsync(handleInput, 250);
+
+	async function jsonpFetch(url) {
+	  const callbackName = 'jsonpCallback_' + Date.now();
+	
+	  const scriptTag = document.createElement('script');
+	  scriptTag.src = `${url}&t=${Date.now()}&callback=${callbackName}`;
+	
+	  const response = await new Promise((resolve, reject) => {
+	    window[callbackName] = (data) => {
+	      resolve(data);
+	      cleanup();
+	    };
+	
+	    scriptTag.onerror = (error) => {
+	      reject(error);
+	      cleanup();
+	    };
+	
+	    document.body.appendChild(scriptTag);
+	
+	    function cleanup() {
+	      document.body.removeChild(scriptTag);
+	      delete window[callbackName];
+	    }
+	  });
+	
+	  return response;
+	}
+
+	
+	function encodeRFK(obj){
+	  let data = JSON.stringify(obj);
+	  var r, n, i = [], o = [], a = 0, s = 0, c = "1,", f = String.fromCharCode;
+	  for (data = function(data) {
+	      data = data.replace(/\r\n/g, "\n");
+	      var r, n, i = "", o = String.fromCharCode;
+	      for (r = 0; r < data.length; r++)
+	          n = data.charCodeAt(r),
+	          i += n < 128 ? o(n) : n > 127 && n < 2048 ? o(n >> 6 | 192) + o(63 & n | 128) : o(n >> 12 | 224) + o(n >> 6 & 63 | 128) + o(63 & n | 128);
+	      return i
+	  }(data); a < data.length; ) {
+	      for (r = 0; r < 3; r++)
+	          i[r] = data.charCodeAt(a++);
+	      for (o[0] = i[0] >> 2,
+	      o[1] = (3 & i[0]) << 4 | i[1] >> 4,
+	      o[2] = (15 & i[1]) << 2 | i[2] >> 6,
+	      o[3] = 63 & i[2],
+	      isNaN(i[1]) ? o[2] = o[3] = 64 : isNaN(i[2]) && (o[3] = 64),
+	      r = 0; r < 4; r++)
+	          n = o[r],
+	          (0,
+	          c += n < 10 ? f(n + 48) : n < 36 ? f(n + 87) : n < 62 ? f(n + 29) : "-_,".charAt(n - 62))
+	  }
+	  return c
+	}
+
+	function decodeRFK(encodedString) {
+	  var r, n, i = {}, o = 0, a = "", s = String.fromCharCode, c = [65, 91], f = [97, 123], u = [48, 58], l = [45, 95, f, u, c], d = 2;
+	  for (r in l)
+	      if (typeof(l[r])=='object')
+	          for (n = l[r][0]; n < l[r][1]; n++)
+	              i[s(n)] = o++;
+	      else
+	          i[s(l[r])] = o++;
+	  for (o = 0,
+	  n = d; n < encodedString.length - d; n += 72) {
+	      var p, g, v = 0, h = 0, m = encodedString.substring(n, n + 72);
+	      for (p = 0; p < m.length; p++)
+	          for (v = (v << 6) + i[m.charAt(p)],
+	          h += 6; h >= 8; )
+	              (g = (v >>> (h -= 8)) % 256) && (a += s(g))
+	  }
+	  return JSON.parse(a);
+	}
+	
+	async function customSearch(keyword, numResults=6, page=1){
+	  let payload = {
+			"ckey":"11278-29304574",
+			"f":"sb",
+			"env":"live",
+			"uri": "/",
+			"suggestions_filter":{},
+			"results_filter":{},
+			"sort":[],
+			"page":page,
+			"np":numResults,
+			"suggestion_list":[],
+			"facet_list":[],
+			"search_keyphrase":keyword,
+			"vs":0,
+			"frid":1,
+			"rfkids":["rfkid_6"],
+			"suggestion_list": ["keyphrase"],
+		};
+	  let encodedPayload = encodeRFK(payload);
+		try {
+		  const data = await jsonpFetch(`//prod-east-search-mt.rfksrv.com/rfkj/1/11278-29304574/sp?data=${encodedPayload}`);
+			if (typeof(data) === "object") return data;
+			else if (typeof(data) === "string" && data.substring(0,2) === "2,") return decodeRFK(data);
+		} catch (error) {
+	    console.error(error);
+	  }
+	}
+
+	$: searchMenu = searchMap;
+
   $: menu = mainMenu;
 
   let history: History = [
@@ -160,12 +327,12 @@
     },
   ];
 
-  const searchState = useComboBoxState();
   const menuDrawerState = useDrawerState();
   const popoverState = usePopoverState();
 
   const zipDrawerState = useDrawerState();
   const bopisDrawerState = useDrawerState();
+  const searchDialogState = useDialogState();
 
   onMount(() => {
     let timeout: number;
@@ -335,17 +502,53 @@
   </a>
   <div class="flex-center" style="grid-area:search">
     {#if !isMobile}
-      <Combobox
-        placeholder="Search"
-        rounded
-        state={searchState}
-        style="max-width:640px"
-      />
+      <Combobox bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput}>
+        {#each searchMenu.entries() as [name, items]}
+          {#if items.length}
+          <div role="group">
+            <div class="combobox__heading" role="presentation">
+              {#if name == "popular searches"}
+              <Icon>
+                <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
+              </Icon>
+              {/if}
+              {name}
+            </div>
+            {#if name == "recent" || name == "suggestions" || name == "products"}	
+              {#each items as item}
+              <Option>
+                {#if name== "recent" || name == "suggestions"}
+                <Icon>
+                  {#if name == "recent"}
+                  <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                  {:else if name == "suggestions"}
+                  <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+                  {/if}
+                </Icon>
+                {/if}
+                {#if name== "products"}
+                  <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
+                {/if}
+                <span>{name === "suggestions" ? item.text : item.name}</span>
+              </Option>
+              {/each}
+            {/if}
+            {#if name == "categories" || name == "popular searches"}
+              <Chips style="padding: 0 8px;">
+              {#each items as item}
+                <Chip rounded>{item}</Chip>
+              {/each}
+              </Chips>
+            {/if}
+          </div>
+          {/if}
+        {/each}
+      </Combobox>
     {/if}
   </div>
   <Group align="end">
     {#if isMobile}
-      <Button variant="icon" label="Search" stack={Boolean(isMobile)}>
+      <DialogDisclosure state={searchDialogState} variant="icon" label="Search" stack={Boolean(isMobile)}>
         <Icon>
           <path
             stroke="#000"
@@ -354,7 +557,60 @@
           />
         </Icon>
         <!-- <span class="btn-text">Search</span> -->
-      </Button>
+        
+      </DialogDisclosure>
+      <Dialog state={searchDialogState} variant="fullscreen">
+        <div role="group" class="dialog__search-heading">
+          <Combobox bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen>
+            {#each searchMenu.entries() as [name, items]}
+              {#if items.length}
+              <div role="group">
+                <div class="combobox__heading" role="presentation">
+                  {#if name == "popular searches"}
+                  <Icon>
+                    <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
+                  </Icon>
+                  {/if}
+                  {name}
+                </div>
+                {#if name == "recent" || name == "suggestions" || name == "products"}	
+                  {#each items as item}
+                  <Option>
+                    {#if name== "recent" || name == "suggestions"}
+                    <Icon>
+                      {#if name == "recent"}
+                      <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                      {:else if name == "suggestions"}
+                      <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+                      {/if}
+                    </Icon>
+                    {/if}
+                    {#if name== "products"}
+                      <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
+                    {/if}
+                    <span>{name === "suggestions" ? item.text : item.name}</span>
+                  </Option>
+                  {/each}
+                {/if}
+                {#if name == "categories" || name == "popular searches"}
+                  <Chips style="padding: 0 8px;">
+                  {#each items as item}
+                    <Chip rounded>{item}</Chip>
+                  {/each}
+                  </Chips>
+                {/if}
+              </div>
+              {/if}
+            {/each}
+          </Combobox>
+          <Button aria-label="close" variant="icon" on:click={()=> { $searchDialogState.open = false; }}>
+            <Icon>
+              <title>close</title>
+              <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+            </Icon>
+          </Button>
+        </div>
+      </Dialog>
     {/if}
     <Button variant="icon" label="Store locator" stack={Boolean(isMobile)}>
       <Icon>
@@ -387,12 +643,12 @@
     </Button>
   </Group>
   <svelte:fragment slot="utility">
-    <DrawerDisclosure state={zipDrawerState} variant="icon" size="small" style="height:24px">
+    <!-- <DrawerDisclosure state={zipDrawerState} variant="icon" size="small" style="height:24px">
       <Icon>
         <path xmlns="http://www.w3.org/2000/svg" d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
       </Icon>
       <span class="underline-on-hover">08232</span>
-    </DrawerDisclosure>
+    </DrawerDisclosure> -->
     <DrawerDisclosure state={bopisDrawerState} variant="icon" size="small" style="height:24px">
       <Icon>
         <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z"/>
@@ -421,6 +677,10 @@
 </main>
 
 <style>
+  .dialog__search-heading {
+    align-items: center;
+    display: flex;
+  }
   .logo {
     width: 124px;
   }

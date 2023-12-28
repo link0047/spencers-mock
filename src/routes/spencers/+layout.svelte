@@ -8,7 +8,7 @@
   import Button from "$lib/components/button";
   import Group from "$lib/components/group";
   import Icon from "$lib/components/icon";
-  import { useComboBoxState, Combobox } from "$lib/components/combobox";
+  import { Combobox } from "$lib/components/combobox";
   import {
     Drawer,
     DrawerDisclosure,
@@ -163,7 +163,6 @@
     },
   ];
 
-  const searchState = useComboBoxState();
   const drawerState = useDrawerState();
   const popoverState = usePopoverState();
 
@@ -310,7 +309,6 @@
     <Combobox
       placeholder="Search"
       rounded
-      state={searchState}
       style="max-width:640px"
     />
   </div>
