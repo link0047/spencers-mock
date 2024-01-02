@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { debounceAsync } from "$lib/client/util/utilities.js";
   import desktoplogo from "$lib/assets/logo-d.png";
   import mobilelogo from "$lib/assets/logo-m.png";
 
@@ -105,6 +106,143 @@
     ];
   }
 
+	async function handleInput(event) {
+		if (event.key == "ArrowDown" || event.key == "ArrowUp" || event.key == "Escape") return;
+		
+		const value = event.target.value.trim();
+		
+		if (value === "" && !searchMenu.get("popular searches").length) {
+			comboboxRef.resetOptions();
+			searchMenu = searchMap;
+			return;
+		}
+		
+		const data = await customSearch(value);
+		const copy = new Map(searchMenu);
+		copy.set("recent", []);
+		copy.set("popular searches", []);
+		const { products, suggestions, categories } = data;
+
+		if (products.length) {
+			copy.set("products", products);
+		}
+
+		if (suggestions.keyphrase.length) {
+			copy.set("suggestions", suggestions.keyphrase.slice(0, 6));
+		}
+
+		if (categories.length) {
+			copy.set("categories", categories);
+		}
+		
+		comboboxRef.resetOptions();
+		searchMenu = copy;
+	}
+
+	const debouncedHandleInput = debounceAsync(handleInput, 250);
+
+	async function jsonpFetch(url: string) {
+	  const callbackName = `jsonpCallback_${Date.now()}`;
+	
+	  const scriptTag = document.createElement('script');
+	  scriptTag.src = `${url}&t=${Date.now()}&callback=${callbackName}`;
+	
+    function cleanup() {
+      document.body.removeChild(scriptTag);
+      delete window[callbackName];
+    }
+    
+	  const response = await new Promise((resolve, reject) => {
+	    window[callbackName] = (data) => {
+	      resolve(data);
+	      cleanup();
+	    };
+	
+	    scriptTag.addEventListener("error", (error) => {
+	      reject(error);
+	      cleanup();
+	    });
+	
+	    document.body.appendChild(scriptTag);
+	  });
+	
+	  return response;
+	}
+	
+	function encodeRFK(payload){
+	  let data = JSON.stringify(payload);
+	  var r, n, i = [], o = [], a = 0, s = 0, c = "1,", f = String.fromCharCode;
+	  for (data = function(data) {
+      data = data.replace(/\r\n/g, "\n");
+      var r, n, i = "", o = String.fromCharCode;
+      for (r = 0; r < data.length; r++)
+        n = data.charCodeAt(r),
+        i += n < 128 ? o(n) : n > 127 && n < 2048 ? o(n >> 6 | 192) + o(63 & n | 128) : o(n >> 12 | 224) + o(n >> 6 & 63 | 128) + o(63 & n | 128);
+      return i
+	  }(data); a < data.length; ) {
+      for (r = 0; r < 3; r++)
+        i[r] = data.charCodeAt(a++);
+      for (o[0] = i[0] >> 2,
+      o[1] = (3 & i[0]) << 4 | i[1] >> 4,
+      o[2] = (15 & i[1]) << 2 | i[2] >> 6,
+      o[3] = 63 & i[2],
+      isNaN(i[1]) ? o[2] = o[3] = 64 : isNaN(i[2]) && (o[3] = 64),
+      r = 0; r < 4; r++)
+        n = o[r],
+        (0,
+        c += n < 10 ? f(n + 48) : n < 36 ? f(n + 87) : n < 62 ? f(n + 29) : "-_,".charAt(n - 62))
+	  }
+	  return c
+	}
+
+	function decodeRFK(encodedString) {
+	  var r, n, i = {}, o = 0, a = "", s = String.fromCharCode, c = [65, 91], f = [97, 123], u = [48, 58], l = [45, 95, f, u, c], d = 2;
+	  for (r in l)
+      if (typeof(l[r])=='object')
+        for (n = l[r][0]; n < l[r][1]; n++)
+          i[s(n)] = o++;
+      else
+        i[s(l[r])] = o++;
+	  for (o = 0,
+	  n = d; n < encodedString.length - d; n += 72) {
+      var p, g, v = 0, h = 0, m = encodedString.substring(n, n + 72);
+      for (p = 0; p < m.length; p++)
+        for (v = (v << 6) + i[m.charAt(p)],
+          h += 6; h >= 8; )
+          (g = (v >>> (h -= 8)) % 256) && (a += s(g))
+	  }
+	  return JSON.parse(a);
+	}
+	
+	async function customSearch(keyword, numResults = 6, page = 1){
+	  let payload = {
+			"ckey":"11278-29304574",
+			"f":"sb",
+			"env":"live",
+			"uri": "/",
+			"suggestions_filter":{},
+			"results_filter":{},
+			"sort":[],
+			"page":page,
+			"np":numResults,
+			"suggestion_list":[],
+			"facet_list":[],
+			"search_keyphrase":keyword,
+			"vs":0,
+			"frid":1,
+			"rfkids":["rfkid_6"],
+			"suggestion_list": ["keyphrase"],
+		};
+	  let encodedPayload = encodeRFK(payload);
+		try {
+		  const data = await jsonpFetch(`//prod-east-search-mt.rfksrv.com/rfkj/1/11278-29304574/sp?data=${encodedPayload}`);
+			if (typeof(data) === "object") return data;
+			else if (typeof(data) === "string" && data.substring(0,2) === "2,") return decodeRFK(data);
+		} catch (error) {
+	    console.error(error);
+	  }
+	}
+
   const mainMenu = [
     {
       component: MenuItem,
@@ -153,8 +291,8 @@
   let comboboxRef;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
-  const recent = [{name: "Glass" },{name: "Shot Glass" },{name: "Glass Oz" }];
-	const popularSearch = ["playboy","chucky","lava lamp","south park","ugly christmas sweater","christmas sweater","coraline","hello kitty","nightmare before christmas"];
+  const recent = [{name: "grinch" },{name: "barbie" },{name: "funko" }];
+	const popularSearch = ["michael myers","beetlejuice","chucky","ghost face","nightmare before christma","haunted mansion","harry potter","hocus pocus","animatronic","skeleton"];
   const searchMap = new Map([
 	  ["recent", recent],
 	  ["categories", []],
@@ -162,161 +300,8 @@
 	  ["products", []],
 	  ["popular searches", popularSearch],
 	]);
-  function debounceAsync(func, delay) {
-	  let timeoutId;
-	
-	  return async function (...args) {
-	    clearTimeout(timeoutId);
-	
-	    return new Promise((resolve) => {
-	      timeoutId = setTimeout(async () => {
-	        const result = await func.apply(this, args);
-	        resolve(result);
-	      }, delay);
-	    });
-	  };
-	}
-
-	async function handleInput(event) {
-		if (event.key == "ArrowDown" || event.key == "ArrowUp" || event.key == "Escape") return;
-		
-		const value = event.target.value.trim();
-		
-		if (value === "" && !searchMenu.get("popular searches").length) {
-			comboboxRef.resetOptions();
-			searchMenu = searchMap;
-			return;
-		}
-		
-		const data = await customSearch(value);
-		const copy = new Map(searchMenu);
-		copy.set("recent", []);
-		copy.set("popular searches", []);
-		const { products, suggestions, categories } = data;
-
-		if (products.length) {
-			copy.set("products", products);
-		}
-
-		if (suggestions.keyphrase.length) {
-			copy.set("suggestions", suggestions.keyphrase.slice(0, 6));
-		}
-
-		if (categories.length) {
-			copy.set("categories", categories);
-		}
-		
-		comboboxRef.resetOptions();
-		searchMenu = copy;
-	}
-
-	const debouncedHandleInput = debounceAsync(handleInput, 250);
-
-	async function jsonpFetch(url) {
-	  const callbackName = 'jsonpCallback_' + Date.now();
-	
-	  const scriptTag = document.createElement('script');
-	  scriptTag.src = `${url}&t=${Date.now()}&callback=${callbackName}`;
-	
-	  const response = await new Promise((resolve, reject) => {
-	    window[callbackName] = (data) => {
-	      resolve(data);
-	      cleanup();
-	    };
-	
-	    scriptTag.onerror = (error) => {
-	      reject(error);
-	      cleanup();
-	    };
-	
-	    document.body.appendChild(scriptTag);
-	
-	    function cleanup() {
-	      document.body.removeChild(scriptTag);
-	      delete window[callbackName];
-	    }
-	  });
-	
-	  return response;
-	}
-
-	
-	function encodeRFK(obj){
-	  let data = JSON.stringify(obj);
-	  var r, n, i = [], o = [], a = 0, s = 0, c = "1,", f = String.fromCharCode;
-	  for (data = function(data) {
-	      data = data.replace(/\r\n/g, "\n");
-	      var r, n, i = "", o = String.fromCharCode;
-	      for (r = 0; r < data.length; r++)
-	          n = data.charCodeAt(r),
-	          i += n < 128 ? o(n) : n > 127 && n < 2048 ? o(n >> 6 | 192) + o(63 & n | 128) : o(n >> 12 | 224) + o(n >> 6 & 63 | 128) + o(63 & n | 128);
-	      return i
-	  }(data); a < data.length; ) {
-	      for (r = 0; r < 3; r++)
-	          i[r] = data.charCodeAt(a++);
-	      for (o[0] = i[0] >> 2,
-	      o[1] = (3 & i[0]) << 4 | i[1] >> 4,
-	      o[2] = (15 & i[1]) << 2 | i[2] >> 6,
-	      o[3] = 63 & i[2],
-	      isNaN(i[1]) ? o[2] = o[3] = 64 : isNaN(i[2]) && (o[3] = 64),
-	      r = 0; r < 4; r++)
-	          n = o[r],
-	          (0,
-	          c += n < 10 ? f(n + 48) : n < 36 ? f(n + 87) : n < 62 ? f(n + 29) : "-_,".charAt(n - 62))
-	  }
-	  return c
-	}
-
-	function decodeRFK(encodedString) {
-	  var r, n, i = {}, o = 0, a = "", s = String.fromCharCode, c = [65, 91], f = [97, 123], u = [48, 58], l = [45, 95, f, u, c], d = 2;
-	  for (r in l)
-	      if (typeof(l[r])=='object')
-	          for (n = l[r][0]; n < l[r][1]; n++)
-	              i[s(n)] = o++;
-	      else
-	          i[s(l[r])] = o++;
-	  for (o = 0,
-	  n = d; n < encodedString.length - d; n += 72) {
-	      var p, g, v = 0, h = 0, m = encodedString.substring(n, n + 72);
-	      for (p = 0; p < m.length; p++)
-	          for (v = (v << 6) + i[m.charAt(p)],
-	          h += 6; h >= 8; )
-	              (g = (v >>> (h -= 8)) % 256) && (a += s(g))
-	  }
-	  return JSON.parse(a);
-	}
-	
-	async function customSearch(keyword, numResults=6, page=1){
-	  let payload = {
-			"ckey":"11278-29304574",
-			"f":"sb",
-			"env":"live",
-			"uri": "/",
-			"suggestions_filter":{},
-			"results_filter":{},
-			"sort":[],
-			"page":page,
-			"np":numResults,
-			"suggestion_list":[],
-			"facet_list":[],
-			"search_keyphrase":keyword,
-			"vs":0,
-			"frid":1,
-			"rfkids":["rfkid_6"],
-			"suggestion_list": ["keyphrase"],
-		};
-	  let encodedPayload = encodeRFK(payload);
-		try {
-		  const data = await jsonpFetch(`//prod-east-search-mt.rfksrv.com/rfkj/1/11278-29304574/sp?data=${encodedPayload}`);
-			if (typeof(data) === "object") return data;
-			else if (typeof(data) === "string" && data.substring(0,2) === "2,") return decodeRFK(data);
-		} catch (error) {
-	    console.error(error);
-	  }
-	}
 
 	$: searchMenu = searchMap;
-
   $: menu = mainMenu;
 
   let history: History = [
@@ -336,10 +321,10 @@
 
   onMount(() => {
     let timeout: number;
-    window.addEventListener("resize", function (event) {
+    window.addEventListener("resize", () => {
       if (timeout) window.cancelAnimationFrame(timeout);
       timeout = window.requestAnimationFrame(() => {
-        isMobile = event?.target?.matchMedia("(max-width: 560px)").matches
+        isMobile = window.matchMedia("(max-width: 560px)").matches;
       });
     });
   });
@@ -557,7 +542,6 @@
           />
         </Icon>
         <!-- <span class="btn-text">Search</span> -->
-        
       </DialogDisclosure>
       <Dialog state={searchDialogState} variant="fullscreen">
         <div role="group" class="dialog__search-heading">
@@ -614,7 +598,7 @@
     {/if}
     <Button variant="icon" label="Store locator" stack={Boolean(isMobile)}>
       <Icon>
-        <path xmlns="http://www.w3.org/2000/svg" d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
+        <path d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
       </Icon>
       <!-- <span class="btn-text">Find Store</span> -->
     </Button>
@@ -643,12 +627,6 @@
     </Button>
   </Group>
   <svelte:fragment slot="utility">
-    <!-- <DrawerDisclosure state={zipDrawerState} variant="icon" size="small" style="height:24px">
-      <Icon>
-        <path xmlns="http://www.w3.org/2000/svg" d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
-      </Icon>
-      <span class="underline-on-hover">08232</span>
-    </DrawerDisclosure> -->
     <DrawerDisclosure state={bopisDrawerState} variant="icon" size="small" style="height:24px">
       <Icon>
         <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z"/>
@@ -681,6 +659,7 @@
     align-items: center;
     display: flex;
   }
+
   .logo {
     width: 124px;
   }

@@ -245,6 +245,7 @@
 	}
 	
 	.combobox__listbox {
+		position: fixed;
 		border: 1px solid #dcdcdc;
 		background-color: #fff;
 		display: grid;

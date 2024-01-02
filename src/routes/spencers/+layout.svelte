@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { debounceAsync } from "$lib/client/util/utilities.js";
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
   import { Avatar } from "$lib/components/avatar";
   import { Menu, MenuItem } from "$lib/components/menu";
@@ -8,7 +9,8 @@
   import Button from "$lib/components/button";
   import Group from "$lib/components/group";
   import Icon from "$lib/components/icon";
-  import { Combobox } from "$lib/components/combobox";
+  import { Combobox, Option } from "$lib/components/combobox";
+  import { Chip, Chips } from "$lib/components/chip";
   import {
     Drawer,
     DrawerDisclosure,
@@ -19,10 +21,11 @@
     PopoverDisclosure,
     usePopoverState,
   } from "$lib/components/popover";
+  import { Dialog, DialogDisclosure, useDialogState } from "$lib/components/dialog";
   import { List, ListItem } from "$lib/components/list";
   import Separator from "$lib/components/separator";
   import { enhance } from "$app/forms";
-  export let data;
+  export let data: { isMobile: boolean };
 
   let { isMobile } = data;
 
@@ -33,8 +36,13 @@
   }
 
   interface History extends Array<HistoryItem> {}
-
-  function handleMenuBarItemClick(item) {
+  /**
+   * Handles the click event on a menu bar item. Updates the navigation history
+   * and opens the menu drawer with the corresponding sub-navigation items.
+   *
+   * @param {Object} item - The menu bar item clicked.
+   */
+  function handleMenuBarItemClick(item: HistoryItem) {
     if (!item.subnav.length) return;
     history.push({
       drawerBackText: "All Categories",
@@ -46,16 +54,22 @@
     title = item.name;
     menu = item.subnav;
 
-    $drawerState.showBack = true;
-    $drawerState.open = true;
+    $menuDrawerState.showBack = true;
+    $menuDrawerState.open = true;
     const drawerMenu = document.querySelector(".drawer .menu");
     drawerMenu.firstElementChild.setAttribute("tabindex", 0);
     drawerMenu.firstElementChild.focus();
   }
 
-  function handleMenuItemClick(item) {
+  /**
+   * Handles the click event on a menu item. Updates the navigation history and
+   * modifies the state of the menu drawer accordingly.
+   *
+   * @param {Object} item - The menu item clicked.
+   */
+  function handleMenuItemClick(item: HistoryItem) {
     if (item.name === "Categories") {
-      $drawerState.showBack = true;
+      $menuDrawerState.showBack = true;
       menu = item.subnav;
       return;
     }
@@ -71,9 +85,12 @@
     menu = item.subnav;
   }
 
+  /**
+   * Navigates back to the previous menu in the navigation history.
+   */
   function backToPrevMenu() {
     if (history.length === 1) {
-      $drawerState.showBack = false;
+      $menuDrawerState.showBack = false;
       menu = mainMenu;
       return;
     }
@@ -85,8 +102,11 @@
     menu = _data.menu !== null ? _data.menu : data.categories;
   }
 
+  /**
+   * Navigates back to the main menu, resetting the navigation history.
+   */
   function backToMainMenu(): void {
-    $drawerState.showBack = false;
+    $menuDrawerState.showBack = false;
     menu = mainMenu;
     title = "All Categories";
     drawerBackText = "Main Menu";
@@ -98,6 +118,179 @@
       },
     ];
   }
+
+  /**
+   * Handles the input event for the search functionality. Performs a custom search
+   * based on the input value and updates the searchMenu state.
+   *
+   * @param {Event} event - The input event object.
+   */
+	async function handleInput(event: Event): Promise<void> {
+    const { key, target } = event as KeyboardEvent;
+		if (key === "ArrowDown" || key === "ArrowUp" || key === "Escape") return;
+		const value = (target as HTMLInputElement).value.trim();
+		
+		if (value === "" && !searchMenu.get("popular searches").length) {
+			comboboxRef.resetOptions();
+			searchMenu = searchMap;
+			return;
+		}
+		
+		const data = await customSearch(value);
+    const copy = new Map<string, any>(searchMenu);
+		copy.set("recent", []);
+		copy.set("popular searches", []);
+		const { products, suggestions, categories } = data;
+
+		if (products.length) {
+			copy.set("products", products);
+		}
+
+		if (suggestions.keyphrase.length) {
+			copy.set("suggestions", suggestions.keyphrase.slice(0, 6));
+		}
+
+		if (categories.length) {
+			copy.set("categories", categories);
+		}
+		
+		comboboxRef.resetOptions();
+		searchMenu = copy;
+	}
+
+  /**
+   * Debounces the handleInput function to improve performance during continuous input.
+   */
+	const debouncedHandleInput = debounceAsync(handleInput, 250);
+
+  /**
+   * Makes a JSONP fetch request to the specified URL.
+   *
+   * @param {string} url - The URL to fetch using JSONP.
+   * @returns {Promise} - A promise that resolves with the fetched data.
+   */
+	async function jsonpFetch(url: string) {
+	  const callbackName = `jsonpCallback_${Date.now()}`;
+	
+	  const scriptTag = document.createElement('script');
+	  scriptTag.src = `${url}&t=${Date.now()}&callback=${callbackName}`;
+	
+    function cleanup() {
+      document.body.removeChild(scriptTag);
+      delete window[callbackName];
+    }
+    
+	  const response = await new Promise((resolve, reject) => {
+	    window[callbackName] = (data) => {
+	      resolve(data);
+	      cleanup();
+	    };
+	
+	    scriptTag.addEventListener("error", (error) => {
+	      reject(error);
+	      cleanup();
+	    });
+	
+	    document.body.appendChild(scriptTag);
+	  });
+	
+	  return response;
+	}
+	
+  /**
+   * Encodes an object using the RFK encoding algorithm.
+   *
+   * @param {Object} payload - The object to encode.
+   * @returns {string} - The encoded string.
+   */
+	function encodeRFK(payload: object) {
+	  let data = JSON.stringify(payload);
+	  var r, n, i = [], o = [], a = 0, s = 0, c = "1,", f = String.fromCharCode;
+	  for (data = function(data) {
+	      data = data.replace(/\r\n/g, "\n");
+	      var r, n, i = "", o = String.fromCharCode;
+	      for (r = 0; r < data.length; r++)
+	          n = data.charCodeAt(r),
+	          i += n < 128 ? o(n) : n > 127 && n < 2048 ? o(n >> 6 | 192) + o(63 & n | 128) : o(n >> 12 | 224) + o(n >> 6 & 63 | 128) + o(63 & n | 128);
+	      return i
+	  }(data); a < data.length; ) {
+	      for (r = 0; r < 3; r++)
+	          i[r] = data.charCodeAt(a++);
+	      for (o[0] = i[0] >> 2,
+	      o[1] = (3 & i[0]) << 4 | i[1] >> 4,
+	      o[2] = (15 & i[1]) << 2 | i[2] >> 6,
+	      o[3] = 63 & i[2],
+	      isNaN(i[1]) ? o[2] = o[3] = 64 : isNaN(i[2]) && (o[3] = 64),
+	      r = 0; r < 4; r++)
+	          n = o[r],
+	          (0,
+	          c += n < 10 ? f(n + 48) : n < 36 ? f(n + 87) : n < 62 ? f(n + 29) : "-_,".charAt(n - 62))
+	  }
+	  return c
+	}
+
+  /**
+   * Decodes an RFK encoded string to retrieve the original object.
+   *
+   * @param {string} encodedString - The RFK encoded string.
+   * @returns {Object} - The decoded object.
+   */
+	function decodeRFK(encodedString: string) {
+	  var r, n, i = {}, o = 0, a = "", s = String.fromCharCode, c = [65, 91], f = [97, 123], u = [48, 58], l = [45, 95, f, u, c], d = 2;
+	  for (r in l)
+      if (typeof(l[r])=='object')
+        for (n = l[r][0]; n < l[r][1]; n++)
+          i[s(n)] = o++;
+      else
+        i[s(l[r])] = o++;
+	  for (o = 0,
+	  n = d; n < encodedString.length - d; n += 72) {
+      var p, g, v = 0, h = 0, m = encodedString.substring(n, n + 72);
+      for (p = 0; p < m.length; p++)
+        for (v = (v << 6) + i[m.charAt(p)],
+          h += 6; h >= 8; )
+          (g = (v >>> (h -= 8)) % 256) && (a += s(g))
+	  }
+
+	  return JSON.parse(a);
+	}
+	
+  /**
+   * Performs a custom search based on the provided keyword, number of results,
+   * and page number.
+   *
+   * @param {string} keyword - The search keyword.
+   * @param {number} [numResults=6] - The number of results to retrieve.
+   * @param {number} [page=1] - The page number.
+   * @returns {Promise} - A promise that resolves with the search results.
+   */
+	async function customSearch(keyword: string, numResults = 6, page = 1){
+	  let payload = {
+			"ckey":"11278-29304574",
+			"f":"sb",
+			"env":"live",
+			"uri": "/",
+			"suggestions_filter":{},
+			"results_filter":{},
+			"sort":[],
+			"page":page,
+			"np":numResults,
+			"facet_list":[],
+			"search_keyphrase":keyword,
+			"vs":0,
+			"frid":1,
+			"rfkids":["rfkid_6"],
+			"suggestion_list": ["keyphrase"],
+		};
+	  let encodedPayload = encodeRFK(payload);
+		try {
+		  const data = await jsonpFetch(`//prod-east-search-mt.rfksrv.com/rfkj/1/11278-29304574/sp?data=${encodedPayload}`);
+			if (typeof(data) === "object") return data;
+			else if (typeof(data) === "string" && data.substring(0,2) === "2,") return decodeRFK(data);
+		} catch (error) {
+	    console.error(error);
+	  }
+	}
 
   const mainMenu = [
     {
@@ -151,8 +344,33 @@
     },
   ];
 
+  interface Product {
+    name: string;
+  }
+
+  interface SearchMap {
+    recent: Product[];
+    categories: any[]; // You can replace 'any' with the actual type for categories.
+    suggestions: any[]; // You can replace 'any' with the actual type for suggestions.
+    products: any[]; // You can replace 'any' with the actual type for products.
+    'popular searches': string[];
+  }
+
+  let comboboxRef;
+  let searchQuery: string;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
+  const recent: Product[] = [{name: "hoodies" }, {name: "one piece" }, {name: "michael myers" }];
+	const popularSearch: string[] = ["playboy","chucky","lava lamp","south park","ugly christmas sweater","christmas sweater","coraline","hello kitty","nightmare before christmas", "loungefly"];
+  let searchMap: Map<keyof SearchMap, any[]> = new Map([
+	  ["recent", recent],
+	  ["categories", []],
+		["suggestions", []],
+	  ["products", []],
+	  ["popular searches", popularSearch],
+	]);
+
+  $: searchMenu = searchMap;
   $: menu = mainMenu;
 
   let history: History = [
@@ -162,26 +380,27 @@
       menu: null,
     },
   ];
-
-  const drawerState = useDrawerState();
+  
+  const menuDrawerState = useDrawerState();
   const popoverState = usePopoverState();
 
   const zipDrawerState = useDrawerState();
   const bopisDrawerState = useDrawerState();
+  const searchDialogState = useDialogState();
 
   onMount(() => {
     let timeout: number;
-    window.addEventListener("resize", function (event) {
+    window.addEventListener("resize", () => {
       if (timeout) window.cancelAnimationFrame(timeout);
       timeout = window.requestAnimationFrame(() => {
-        isMobile = event?.target?.matchMedia("(max-width: 560px)").matches
+        isMobile = window.matchMedia("(max-width: 560px)").matches;
       });
     });
   });
 </script>
 <Drawer state={zipDrawerState} alignment="right"></Drawer>
 <Drawer state={bopisDrawerState} alignment="right"></Drawer>
-<Drawer state={drawerState}>
+<Drawer state={menuDrawerState}>
   <Icon variant="logo" viewbox="0 0 72 32" slot="header">
     <path
       d="M66 15.9c-.5-.7-2.4-2.8-.5-5.3.6-.8 1.4-1.5 1.8-.9.6 1-.4 4.7-.4 4.7l2 .7 2.2-6.2-2-.5-.2.5S68 7 66.6 7.5c-2.2.7-3.7 2.6-4 4.8-.1.5-.1.9-.1 1.4-.9-1.3-1.8-2.7-2.1-3.8-.4-1.7-.7-3.4-.7-5.1L57 5s-.4 1.6-.1 2.6.6 2.8.6 2.8h-1v1.5c-2.2-1.1-7.5-3.8-8.7-5.3 0 0-1.5.7-1.5 2 0 .8 1 1 1 1l.5 3.7s-.8 1.3-.8 1.8.2 1.2 1.1 1.2c0 0 .2 1.6.4 3.3l-1.4 1c.6.9 1.1 2.7-.7 4.4s-3.4.7-4.3-.8c-.9-1.5 1.5-9.7 1.5-9.7l.8 3.5 2.2-1.4s-.7-1.9-1-3c-.3-1.2-.3-5.1-.3-5.1L43 8s-.3 1.9-.7 3.3c-.3 1.1-1.4 4.1-2.1 6.4.3-5.9.7-13.5.9-15-.8-.1-2.6 1.2-3.7 1.7l.2 13.6c-1.5-4-2.9-7.6-4-10.7-1.1.1-1.8.4-2.3.8v4.1c-2.4-1.7-6.8-4.9-7.7-6.5 0 0-1.7.6-1.8 2-.1.8.9 1.2.9 1.2v4.2s-.4.5-.7 1c-.4-.4-.9-.7-1.4-1.1-1.8-1.4-3.1-2.4-3.8-3.3-1.2-1.5-2-3.3-2.4-5.4l-.4-.1c-.3.8-.6 1.3-1 1.8l.6-4.6-3.4-.3-.2 1S7.9-1 5.7.3C4.3 1.2.5 4 .6 10.2s4.9 9 6.5 9.6c1.6.6 6.6 1.7 7.1 3.4.6 1.6-1.5 5.2-3.7 4.8-.3-.1-2.1-.2-2.2-3.7l-2.6 2.1s.8 4.5 2.4 4.8c2 .4 6.1.7 9-6.3.3 2.1.6 4.6.8 5.7l.3.5c1.1-.5 2.7-1.8 2.7-1.8l-1-5.8-.3-1.8 2.4-2c.2-.1.4-.3.6-.5-.1 2.5-.1 6.1-.1 6.4 0 .5-.2 2.1 2.3 1.6 2.3-.4 2.5-1.6 5.6-2.2l.4-.6c-.2 1.9-.5 4.3-.5 4.6l.1.2c1.2 0 2.9-1.1 2.9-1.1S34 17 34 16.2c1.5 3.6 3 7.4 3.8 9.7.6-.1 1.4-.6 1.9-.9.4 1.2 1.3 2.2 2.9 2.6 3.4.9 5.5-1.1 6.5-2.7.2.5.6 1.2 2.2.6 2.1-.6 1.9-.6 3.9-1.3-.2 1.8-.5 3.2-.7 4.1l3-1.3s0-3 .2-4.1c.2-1.1.6-3 .6-3s5.5 7.6 6.5 11.1l3 .8S61.5 20.6 60.1 19c0 0 3 .2 3.9-1.5.1-.1.1-.3.1-.4.4.5.9.8 1.1.9.9.5 3.7 1.7 3.9 2.6.2 1-1.3 2.5-2.6 2.1-.2-.1-1.4-.2-1.1-2.1l-1.8.8s0 2.5.9 2.9c1.8.8 3.7 1.3 6.2-2.3 2.1-2.5-3.3-4.2-4.7-6.1zm-58.5-.5c-1.1-1.1-4.7-4.2-2.4-9.1.7-1.6 1.8-3.2 2.6-2.1 1.3 1.7.7 8.3.7 8.3l3.6.5.6-4.2.2.7c.4 1 .7 1.7 1 2.1.3 1.2.7 2.9 1.4 5.2.4 1.4.7 2.6 1 3.6-2.2-2-6.8-3.1-8.7-5zM19.2 20c0-.1-.3-1-.9-2.7-.5-1.7-.8-2.5-.8-2.6v-.1c2.2 1 3.6 2.1 4.5 3.2-1.4 1.3-2.3 2-2.8 2.2zm12.2-5.1c0 2-.1 3.6-.1 4.9 0 .2-.1 1-.2 2.3 0 .1 0 .3-.1.6-.8 0-2.1.2-3.8 1.1-2.8 1.5-2.6 0-2.6-.6s.2-5.5.2-5.5 3.3.9 4.4.7c0 0 1.4-.9 1.7-1.3 0 0-1.4-.6-3.2-1.2-1-.4-2-.8-2.9-1.3L25 11s4.3 3.4 6.3 3.7l.1-.1v.3zm24.3 6.8c-.6 0-1.4.3-2.4 1-2.5 1.7-2.4-.1-2.5-.6-.1-.6-.5-5-.5-5s2.6.8 3.6.5c0 0 1.2-1.3 1.4-1.7 0 0-2.2-.7-2.5-.7-1.7-.4-2.9-.8-2.9-.8l-.3-3.2s4.5 2.6 6.3 2.6l.4-.3c0 2.1-.3 5.3-.6 8.2zm6-4.5c-.4 1-2.8.3-2.8.3l.6-3.9s2.5 2.6 2.2 3.6z"
@@ -212,7 +431,7 @@
       </Button>
     {/if}
   </div>
-  {#if $drawerState.showBack}
+  {#if $menuDrawerState.showBack}
     <h2 class="drawer__title">{title}</h2>
   {/if}
   <Menu>
@@ -290,7 +509,7 @@
 </Popover>
 <GlobalHeader>
   <DrawerDisclosure
-    state={drawerState}
+    state={menuDrawerState}
     style="grid-area:menu;max-width:36px"
     label="Main Menu"
   >
@@ -306,11 +525,48 @@
     </Icon>
   </a>
   <div class="flex-center" style="grid-area:search">
-    <Combobox
-      placeholder="Search"
-      rounded
-      style="max-width:640px"
-    />
+    <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput}>
+      {#each searchMenu.entries() as [name, items]}
+        {#if items.length}
+        <div role="group">
+          <div class="combobox__heading" role="presentation">
+            {#if name == "popular searches"}
+            <Icon>
+              <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
+            </Icon>
+            {/if}
+            {name}
+          </div>
+          {#if name == "recent" || name == "suggestions" || name == "products"}	
+            {#each items as item}
+            <Option data-value={item.name}>
+              {#if name== "recent" || name == "suggestions"}
+              <Icon>
+                {#if name == "recent"}
+                <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                {:else if name == "suggestions"}
+                <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+                {/if}
+              </Icon>
+              {/if}
+              {#if name== "products"}
+                <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
+              {/if}
+              <span>{name === "suggestions" ? item.text : item.name}</span>
+            </Option>
+            {/each}
+          {/if}
+          {#if name == "categories" || name == "popular searches"}
+            <Chips style="padding: 0 8px;">
+            {#each items as item}
+              <Chip rounded>{item}</Chip>
+            {/each}
+            </Chips>
+          {/if}
+        </div>
+        {/if}
+      {/each}
+    </Combobox>
   </div>
   <Group align="end">
     <PopoverDisclosure state={popoverState}>
@@ -370,6 +626,12 @@
 </main>
 
 <style>
+  .combobox__heading {
+    align-items: center;
+    display: flex;
+    margin-bottom: 8px;
+  }
+
   .underline-on-hover {
     font-weight: 500;
   }

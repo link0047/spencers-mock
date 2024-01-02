@@ -20,9 +20,10 @@
 	{id}
 	class="listbox__option"
 	role="option"
-	tabindex={selected ? "0" : "-1"}
+	tabindex={selected ? 0 : -1}
 	aria-selected={selected}
 	on:pointerover={handlePointerover}
+	{...$$restProps}
 >
 	<slot />
 </div>
