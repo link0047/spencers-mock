@@ -546,7 +546,7 @@
       <Combobox bind:value={searchQuery} placeholder="What can we help you find?" on:focus={openDialog} on:click={openDialog}>
       </Combobox>
     {:else}
-      <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen>
+      <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput}>
         {#each searchMenu.entries() as [name, items]}
           {#if items.length}
           <div role="group">
