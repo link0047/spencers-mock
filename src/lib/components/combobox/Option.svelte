@@ -1,7 +1,7 @@
 <script>
 	import { getContext } from "svelte";
 	export let selected = false;
-
+	export let tag = "div";
 	let state = getContext("state");
 	export let id = $state.getOptionId();
 
@@ -16,7 +16,8 @@
 		currentTarget.setAttribute("tabindex", "0");
 	}
 </script>
-<div
+<svelte:element 
+	this={tag}
 	{id}
 	class="listbox__option"
 	role="option"
@@ -26,7 +27,7 @@
 	{...$$restProps}
 >
 	<slot />
-</div>
+</svelte:element>
 
 <style>
 	.listbox__option {

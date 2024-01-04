@@ -25,6 +25,7 @@
   import { List, ListItem } from "$lib/components/list";
   import Separator from "$lib/components/separator";
   import { enhance } from "$app/forms";
+  import LRUCache from "$lib/client/util/LRUCache";
   export let data: { isMobile: boolean };
 
   let { isMobile } = data;
@@ -131,7 +132,11 @@
 		const value = (target as HTMLInputElement).value.trim();
 		
 		if (value === "" && !searchMenu.get("popular searches").length) {
-			comboboxRef.resetOptions();
+      if (isMobile) {
+        comboboxRefInDialog.resetOptions();
+      } else {
+        comboboxRef.resetOptions();
+      }
 			searchMenu = searchMap;
 			return;
 		}
@@ -154,7 +159,11 @@
 			copy.set("categories", categories);
 		}
 		
-		comboboxRef.resetOptions();
+		if (isMobile) {
+      comboboxRefInDialog.resetOptions();
+    } else {
+      comboboxRef.resetOptions();
+    }
 		searchMenu = copy;
 	}
 
@@ -266,21 +275,21 @@
    */
 	async function customSearch(keyword: string, numResults = 6, page = 1){
 	  let payload = {
-			"ckey":"11278-29304574",
-			"f":"sb",
-			"env":"live",
+			"ckey": "11278-29304574",
+			"f": "sb",
+			"env": "live",
 			"uri": "/",
-			"suggestions_filter":{},
-			"results_filter":{},
-			"sort":[],
-			"page":page,
-			"np":numResults,
-			"facet_list":[],
-			"search_keyphrase":keyword,
-			"vs":0,
-			"frid":1,
-			"rfkids":["rfkid_6"],
-			"suggestion_list": ["keyphrase"],
+			"suggestions_filter": {},
+			"results_filter": {},
+			"sort": [],
+			"page": page,
+			"np": numResults,
+			"facet_list": [],
+			"search_keyphrase": keyword,
+			"vs": 0,
+			"frid": 1,
+			"rfkids": ["rfkid_6"],
+			"suggestion_list": ["keyphrase", "trending_category"],
 		};
 	  let encodedPayload = encodeRFK(payload);
 		try {
@@ -291,6 +300,10 @@
 	    console.error(error);
 	  }
 	}
+
+  function openDialog() {
+    $searchDialogState.open = true;
+  }
 
   const mainMenu = [
     {
@@ -350,20 +363,24 @@
 
   interface SearchMap {
     recent: Product[];
-    categories: any[]; // You can replace 'any' with the actual type for categories.
-    suggestions: any[]; // You can replace 'any' with the actual type for suggestions.
-    products: any[]; // You can replace 'any' with the actual type for products.
+    categories: any[];
+    suggestions: any[];
+    products: any[];
     'popular searches': string[];
   }
 
+  const SEARCH_HISTORY_LIMIT = 5;
+	const searchHistory = new LRUCache(SEARCH_HISTORY_LIMIT);
+
   let comboboxRef;
+  let comboboxRefInDialog;
   let searchQuery: string;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
-  const recent: Product[] = [{name: "hoodies" }, {name: "one piece" }, {name: "michael myers" }];
+  let recent = searchHistory.toJSON();
 	const popularSearch: string[] = ["playboy","chucky","lava lamp","south park","ugly christmas sweater","christmas sweater","coraline","hello kitty","nightmare before christmas", "loungefly"];
   let searchMap: Map<keyof SearchMap, any[]> = new Map([
-	  ["recent", recent],
+    ["recent", recent],
 	  ["categories", []],
 		["suggestions", []],
 	  ["products", []],
@@ -525,48 +542,61 @@
     </Icon>
   </a>
   <div class="flex-center" style="grid-area:search">
-    <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput}>
-      {#each searchMenu.entries() as [name, items]}
-        {#if items.length}
-        <div role="group">
-          <div class="combobox__heading" role="presentation">
-            {#if name == "popular searches"}
-            <Icon>
-              <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
-            </Icon>
-            {/if}
-            {name}
-          </div>
-          {#if name == "recent" || name == "suggestions" || name == "products"}	
-            {#each items as item}
-            <Option data-value={item.name}>
-              {#if name== "recent" || name == "suggestions"}
+    {#if isMobile}
+      <Combobox bind:value={searchQuery} placeholder="What can we help you find?" on:focus={openDialog} on:click={openDialog}>
+      </Combobox>
+    {:else}
+      <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen>
+        {#each searchMenu.entries() as [name, items]}
+          {#if items.length}
+          <div role="group">
+            <div class="combobox__heading" role="presentation">
+              {#if name == "popular searches"}
               <Icon>
-                {#if name == "recent"}
-                <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
-                {:else if name == "suggestions"}
-                <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
-                {/if}
+                <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
               </Icon>
               {/if}
-              {#if name== "products"}
-                <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
-              {/if}
-              <span>{name === "suggestions" ? item.text : item.name}</span>
-            </Option>
-            {/each}
+              {name}
+            </div>
+            {#if name == "recent" || name == "suggestions" || name == "products"}	
+              {#each items as item}
+              <Option>
+                {#if name== "recent" || name == "suggestions"}
+                <Icon>
+                  {#if name == "recent"}
+                  <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                  {:else if name == "suggestions"}
+                  <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+                  {/if}
+                </Icon>
+                {/if}
+                {#if name== "products"}
+                  <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
+                {/if}
+                <span>{name === "suggestions" ? item.text : item.name}</span>
+                {#if name == "recent"}
+                  <Button variant="icon">
+                    <Icon>
+                      <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                    </Icon>
+                  </Button>
+                {/if}
+              </Option>
+              {/each}
+            {/if}
+            {#if name == "categories" || name == "popular searches"}
+              <Chips style="padding: 0 8px;">
+              {#each items as item}
+                <Chip rounded>{item}</Chip>
+              {/each}
+              </Chips>
+            {/if}
+          </div>
           {/if}
-          {#if name == "categories" || name == "popular searches"}
-            <Chips style="padding: 0 8px;">
-            {#each items as item}
-              <Chip rounded>{item}</Chip>
-            {/each}
-            </Chips>
-          {/if}
-        </div>
-        {/if}
-      {/each}
-    </Combobox>
+        {/each}
+      </Combobox>
+    {/if}
+      
   </div>
   <Group align="end">
     <PopoverDisclosure state={popoverState}>
@@ -624,12 +654,78 @@
 <main class="page-container">
   <slot />
 </main>
+{#if isMobile}
+  <Dialog state={searchDialogState} variant="fullscreen">
+    <div role="group" class="dialog__search-heading">
+      <Combobox bind:value={searchQuery} bind:this={comboboxRefInDialog} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen fullwidth>
+        {#each searchMenu.entries() as [name, items]}
+          {#if items.length}
+          <div role="group">
+            <div class="combobox__heading" role="presentation">
+              {#if name == "popular searches"}
+              <Icon>
+                <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
+              </Icon>
+              {/if}
+              {name}
+            </div>
+            {#if name == "recent" || name == "suggestions" || name == "products"}	
+              {#each items as item}
+              <Option>
+                {#if name== "recent" || name == "suggestions"}
+                <Icon>
+                  {#if name == "recent"}
+                  <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                  {:else if name == "suggestions"}
+                  <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+                  {/if}
+                </Icon>
+                {/if}
+                {#if name== "products"}
+                  <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
+                {/if}
+                <span>{name === "suggestions" ? item.text : item.name}</span>
+                {#if name == "recent"}
+                  <Button variant="icon">
+                    <Icon>
+                      <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                    </Icon>
+                  </Button>
+                {/if}
+              </Option>
+              {/each}
+            {/if}
+            {#if name == "categories" || name == "popular searches"}
+              <Chips style="padding: 0 8px;">
+              {#each items as item}
+                <Chip rounded>{item}</Chip>
+              {/each}
+              </Chips>
+            {/if}
+          </div>
+          {/if}
+        {/each}
+      </Combobox>
+      <Button aria-label="close" variant="icon" on:click={()=> { $searchDialogState.open = false; }}>
+        <Icon>
+          <title>close</title>
+          <path d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+        </Icon>
+      </Button>
+    </div>
+  </Dialog>  
+{/if}
 
 <style>
   .combobox__heading {
     align-items: center;
     display: flex;
     margin-bottom: 8px;
+  }
+
+  .dialog__search-heading {
+    align-items: center;
+    display: flex;
   }
 
   .underline-on-hover {

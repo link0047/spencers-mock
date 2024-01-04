@@ -1,18 +1,21 @@
-<script>
+<script lang="ts">
   import { browser } from "$app/environment";
 	import generateId from "$lib/client/util/local-unique-id-generator.js"
 	import { writable } from "svelte/store";
-	import { setContext, afterUpdate, onMount, onDestroy } from "svelte";
+	import { setContext, afterUpdate, onMount, onDestroy, tick } from "svelte";
 	
 	export let value = "";
 	export let invalid = false;
 	export let gap = 8;
 	export let stayOpen = false;
+	export let fullwidth = false;
 	
-	let inputRef;
-	let listboxRef;
+	let ref: HTMLElement;
+	let inputRef: HTMLElement;
+	let listboxRef: HTMLElement;
 	let listboxStyling = "";
 	let optionId = 0;
+	let open = writable(false);
 	
 	const uid = generateId("combobox");
 	const id = `aria-uikit-combobox-${uid}`;
@@ -36,7 +39,16 @@
 		return `${id}-option-${optionId++}`;
 	}
 
-	function move(step) {
+	async function handleClickedOutside(event: Event) {
+		await tick();
+		if (stayOpen || !$open) return;
+
+		if (!ref.contains(event.target) && !listboxRef.contains(event.target) && $open) {
+			$open = false;
+		}
+	}
+
+	function move(step: number) {
 		const children = listboxRef.querySelectorAll(".listbox__option");
 		const maxSteps = children.length - 1;
 		if ($state.index !== -1) children[$state.index].setAttribute("tabindex", "-1");
@@ -56,8 +68,7 @@
 		$state.activeDescendant = selected.id;
 	}
 	
-	function handleKeyup(event) {
-		const children = Array.from(listboxRef.children);
+	function handleKeyup(event: KeyboardEvent) {
 	  switch(event.key) {
 			case "ArrowDown":
 				move(1);
@@ -66,17 +77,25 @@
 				move(-1);
 				break;
 			case "Escape":
-				$state.open = false;
+				$open = false;
 				break;
 			default:
 				break;
 		}
 	}
 
+	function handleClick() {
+		$open = true;
+	}
+
 	function handleFocus() {
-		const { width, left, bottom } = inputRef.getBoundingClientRect();
-		listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
-		$state.open = true;
+		if (!fullwidth) {
+			const { width, left, bottom } = inputRef.getBoundingClientRect();
+			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+		} else {
+			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px`;
+		}
+		$open = true;
 	}
 
 	function handleBlur() {
@@ -84,7 +103,7 @@
 		listboxRef.querySelectorAll(".listbox__option")[$state.index]?.setAttribute("tabindex", "-1");
 		$state.index = -1;
 		$state.activeDescendant = null;
-		$state.open = false;
+		// $open = false;
 	}
 
 	function handleDocumentKeyup(event) {
@@ -104,22 +123,27 @@
 
 	function handleResizeLogic() {
 		const { width, left, bottom } = inputRef.getBoundingClientRect();
-		console.log("move combobox", left)
 		listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 	}
 
 	const handleResize = debounceAnimationFrame(handleResizeLogic);
-
+	setContext("open", open);
 	setContext("state", state);
 
 	onMount(() => {
     if (browser) {
-			$state.open = stayOpen;
+			$open = stayOpen;
       document.addEventListener("keyup", handleDocumentKeyup);
 			window.addEventListener("resize", handleResize);
+			window.addEventListener("click", handleClickedOutside);
       const { width, left, bottom } = inputRef.getBoundingClientRect();
       $state.listbox = listboxRef;
-      listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+      if (!fullwidth) {
+				const { width, left, bottom } = inputRef.getBoundingClientRect();
+				listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+			} else {
+				listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px`;
+			}
     }
 	});
 
@@ -127,6 +151,7 @@
     if (browser) {
 		  document.removeEventListener("keyup", handleDocumentKeyup);
 		  window.removeEventListener("resize", handleResize);
+			window.removeEventListener("click", handleClickedOutside);
     }
 	});
 
@@ -134,7 +159,12 @@
 		$state.invalid = invalid;
 	});
 </script>
-<div class="combobox" data-state={$state.open ? "open" : ""}>
+
+<div 
+	bind:this={ref} 
+	class="combobox" 
+	data-state={$state.open ? "open" : ""}
+>
 	<button class="combobox__action" type="button" disabled>
 		<svg class="icon" focusable="false" viewBox="0 0 24 24" role="presentation">
 			<path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
@@ -162,13 +192,14 @@
     on:blur
 		on:focus={handleFocus}
     on:focus
+		on:click={handleClick}
     on:click
     {...$$restProps}
   />
 </div>
 <div
 	bind:this={listboxRef}
-	data-state={$state.open ? "open" : ""}
+	data-state={$open ? "open" : ""}
 	id={listboxId}
 	class="combobox__listbox"
 	class:combobox__listbox--expanded={stayOpen}

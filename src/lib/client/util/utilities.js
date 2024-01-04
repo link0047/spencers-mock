@@ -1,16 +1,26 @@
+/**
+ * Check if the given value is a plain JavaScript object.
+ * @param {any} obj - The value to check.
+ * @returns {boolean} - True if the value is a plain object, false otherwise.
+ */
 export function isPlainObject(obj) {
-  return Object.prototype.toString.call(obj) === "[object Object]";
+  return Object(obj) === obj;
 }
 
+/**
+ * Check if the given value is an HTML element.
+ * @param {any} obj - The value to check.
+ * @returns {boolean} - True if the value is an HTML element, false otherwise.
+ */
 export function isElement(obj) {
-  return typeof HTMLElement === "object"
-    ? obj instanceof HTMLElement
-    : typeof obj === "object" &&
-        obj !== null &&
-        obj.nodeType === 1 &&
-        typeof obj.nodeName === "string";
+  return obj instanceof HTMLElement || (typeof obj === "object" && obj !== null && obj.nodeType === 1 && typeof obj.nodeName === "string");
 }
 
+/**
+ * Get the bounding client rectangle of an HTML element using Intersection Observer.
+ * @param {HTMLElement} element - The HTML element to observe.
+ * @returns {Promise<DOMRect>} - A promise that resolves to the bounding client rectangle.
+ */
 export function getBoundingClientRectUsingIO(element) {
   return new Promise((resolve) => {
     const observer = new IntersectionObserver((entries) => {
@@ -75,7 +85,7 @@ export function debounceAsync(func, delay = 250) {
    * Identifier for the setTimeout function, representing the timer for delaying
    * the invocation of the provided asynchronous function.
    *
-   * @type {number|null}
+   * @type {NodeJS.Timeout | null}
    */
   let timeoutId = null;
 
