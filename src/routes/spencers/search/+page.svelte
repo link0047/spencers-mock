@@ -1,10 +1,14 @@
 <script lang="ts">
   import { onMount } from "svelte";
+  import { page } from "$app/stores";
+  import { browser } from "$app/environment";
   export let data;
   const { query } = data;
 
   $: products = [];
   
+  $: q = $page.url.searchParams.get("q");
+
   /**
    * Makes a JSONP fetch request to the specified URL.
    *
@@ -97,7 +101,7 @@
 	  return JSON.parse(a);
 	}
 
-  async function customSearch(keyword: string, numResults = 24, page = 1){
+  async function customSearch(keyword: string | null, numResults = 24, page = 1){
 	  let payload = {
 			"ckey": "11278-29304574",
 			"f": "sp",
@@ -125,6 +129,18 @@
 	  }
 	}
 
+  $: {
+    if (browser) {
+      handleSearch(q);
+    }
+  }
+
+  async function handleSearch(query: string | null) {
+    const data = await customSearch(query);
+    products = data.products;
+    console.log(query);
+  }
+
   onMount(async () => {
     const data = await customSearch(query);
     products = data.products;
@@ -134,7 +150,7 @@
 <svelte:head>
   <title>Search</title>
 </svelte:head>
-<h2 class="search__heading">Results for "{query}"</h2>
+<h2 class="search__heading">Results for "{q}"</h2>
 <div class="search-grid">
   {#each products as { image_url, name, price, final_price, review_rating }, i}
     <div class="card">
@@ -158,10 +174,17 @@
 
 .search-grid {
   display: grid;
-  column-gap: 8px;
+  column-gap: 16px;
   row-gap: 48px;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: repeat(4, 1fr);
   padding: 8px;
+}
+
+@media (max-width: 560px) {
+  .search-grid {
+    column-gap: 8px;
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
 .product__name {

@@ -111,7 +111,7 @@
 		
 		const value = event.target.value.trim();
 		
-		if (value === "" && !searchMenu.get("popular searches").length) {
+		if (value === "" && !searchMenu.get("trending").length) {
 			comboboxRef.resetOptions();
 			searchMenu = searchMap;
 			return;
@@ -120,7 +120,7 @@
 		const data = await customSearch(value);
 		const copy = new Map(searchMenu);
 		copy.set("recent", []);
-		copy.set("popular searches", []);
+		copy.set("trending", []);
 		const { products, suggestions, categories } = data;
 
 		if (products.length) {
@@ -298,7 +298,7 @@
 	  ["categories", []],
 		["suggestions", []],
 	  ["products", []],
-	  ["popular searches", popularSearch],
+	  ["trending", popularSearch],
 	]);
 
 	$: searchMenu = searchMap;
@@ -492,12 +492,17 @@
           {#if items.length}
           <div role="group">
             <div class="combobox__heading" role="presentation">
-              {#if name == "popular searches"}
+              {#if name == "trending"}
               <Icon>
                 <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
               </Icon>
               {/if}
               {name}
+              {#if name === "recent"}
+                <Button variant="underline">
+                  Clear
+                </Button>
+              {/if}
             </div>
             {#if name == "recent" || name == "suggestions" || name == "products"}	
               {#each items as item}
@@ -515,10 +520,17 @@
                   <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
                 {/if}
                 <span>{name === "suggestions" ? item.text : item.name}</span>
+                {#if name == "recent"}
+                  <Button variant="icon">
+                    <Icon>
+                      <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                    </Icon>
+                  </Button>
+                {/if}
               </Option>
               {/each}
             {/if}
-            {#if name == "categories" || name == "popular searches"}
+            {#if name == "categories" || name == "trending"}
               <Chips style="padding: 0 8px;">
               {#each items as item}
                 <Chip rounded>{item}</Chip>
@@ -545,17 +557,22 @@
       </DialogDisclosure>
       <Dialog state={searchDialogState} variant="fullscreen">
         <div role="group" class="dialog__search-heading">
-          <Combobox bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen>
+          <Combobox bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen fullwidth>
             {#each searchMenu.entries() as [name, items]}
               {#if items.length}
               <div role="group">
                 <div class="combobox__heading" role="presentation">
-                  {#if name == "popular searches"}
+                  {#if name == "trending"}
                   <Icon>
                     <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
                   </Icon>
                   {/if}
                   {name}
+                  {#if name === "recent"}
+                    <Button variant="underline">
+                      Clear
+                    </Button>
+                  {/if}
                 </div>
                 {#if name == "recent" || name == "suggestions" || name == "products"}	
                   {#each items as item}
@@ -573,10 +590,17 @@
                       <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
                     {/if}
                     <span>{name === "suggestions" ? item.text : item.name}</span>
+                    {#if name == "recent"}
+                      <Button variant="icon">
+                        <Icon>
+                          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                        </Icon>
+                      </Button>
+                    {/if}
                   </Option>
                   {/each}
                 {/if}
-                {#if name == "categories" || name == "popular searches"}
+                {#if name == "categories" || name == "trending"}
                   <Chips style="padding: 0 8px;">
                   {#each items as item}
                     <Chip rounded>{item}</Chip>
@@ -655,6 +679,14 @@
 </main>
 
 <style>
+  .combobox__heading {
+    align-items: center;
+    display: flex;
+    margin-bottom: 8px;
+    padding: 0 8px;
+    justify-content: space-between;
+  }
+
   .dialog__search-heading {
     align-items: center;
     display: flex;

@@ -21,7 +21,6 @@
 	const id = `aria-uikit-combobox-${uid}`;
 	const listboxId = `${id}-listbox`;
 	const state = writable({
-		open: false,
 		invalid,
 		activeDescendant: null,
 		getOptionId,
@@ -34,6 +33,11 @@
 		$state.activeDescendant = null;
 		$state.index = -1;
 	}
+
+	export function close() {
+		$open = false;
+	}
+
 
 	function getOptionId() {
 		return `${id}-option-${optionId++}`;
@@ -93,7 +97,7 @@
 			const { width, left, bottom } = inputRef.getBoundingClientRect();
 			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 		} else {
-			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px`;
+			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0`;
 		}
 		$open = true;
 	}

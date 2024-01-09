@@ -23,6 +23,7 @@
 	role="option"
 	tabindex={selected ? 0 : -1}
 	aria-selected={selected}
+	on:click
 	on:pointerover={handlePointerover}
 	{...$$restProps}
 >
@@ -30,7 +31,8 @@
 </svelte:element>
 
 <style>
-	.listbox__option {
+	.listbox__option,
+	.listbox__option:visited {
 		min-height: 32px;
 		padding: 0 8px;
 		display: grid;
@@ -38,6 +40,8 @@
 		font-size: .875rem;
 		grid-template-columns: minmax(auto, max-content) 1fr minmax(auto, max-content);
 		gap: 8px;
+		color: #212121;
+		text-decoration: none;
 	}
 	
 	.listbox__option[tabindex="0"] {
