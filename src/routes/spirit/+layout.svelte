@@ -499,7 +499,7 @@
               {/if}
               {name}
               {#if name === "recent"}
-                <Button variant="underline">
+                <Button variant="underline" style="margin-left:auto;text-decoration:underline">
                   Clear
                 </Button>
               {/if}
@@ -569,7 +569,7 @@
                   {/if}
                   {name}
                   {#if name === "recent"}
-                    <Button variant="underline">
+                    <Button variant="underline" style="margin-left:auto;text-decoration:underline">
                       Clear
                     </Button>
                   {/if}
@@ -684,7 +684,6 @@
     display: flex;
     margin-bottom: 8px;
     padding: 0 8px;
-    justify-content: space-between;
   }
 
   .dialog__search-heading {
