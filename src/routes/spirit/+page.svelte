@@ -9,7 +9,7 @@
   <section class="page-section">
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a href="#none" title="Horror Babies">
+        <a href="#none" title="Adorable horror-themed baby dolls collection.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -20,7 +20,7 @@
             <img
               width="1175"
               height="560"
-              alt="Horror Babies"
+              alt="Adorable horror-themed baby dolls collection."
               class="image"
               decoding="async"
               src="//spirit.scene7.com/is/image/Spirit/06_06_23_New_Horror_Babies_5314_Aspot-D?fmt=webp&wid=1175"
@@ -37,7 +37,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:6;--mb-columns:3">
       <div class="card">
-        <a href="#none" title="Animatronics">
+        <a href="#none" title="Spooky animatronic figures for Halloween decorations.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -46,7 +46,7 @@
             <img
               width="232"
               height="232"
-              alt="Animatronics"
+              alt="Spooky animatronic figures for Halloween decorations."
               class="image"
               decoding="async"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_ANIMATRONICS?$fullsize$"
@@ -56,7 +56,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Decorations">
+        <a href="#none" title="Halloween-themed decorations for a festive atmosphere.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -65,7 +65,7 @@
             <img
               width="232"
               height="232"
-              alt="Decorations"
+              alt="Halloween-themed decorations for a festive atmosphere."
               class="image"
               decoding="async"
               src="https://spirit.scene7.com/is/image/Spirit/01_16_23_SpiritHomepage_Decorations?$fullsize$"
@@ -75,7 +75,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Collectibles">
+        <a href="#none" title="Collection of Halloween-themed collectible items.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -84,7 +84,7 @@
             <img
               width="232"
               height="232"
-              alt="Collectibles"
+              alt="Collection of Halloween-themed collectible items."
               class="image"
               decoding="async"
               src="https://spirit.scene7.com/is/image/Spirit/02_15_23_collectibles?$fullsize$"
@@ -94,7 +94,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Funko">
+        <a href="#none" title="Funko Pop! figures featuring Halloween characters.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -103,7 +103,7 @@
             <img
               width="232"
               height="232"
-              alt="Funko"
+              alt="Funko Pop! figures featuring Halloween characters."
               class="image"
               decoding="async"
               loading="lazy"
@@ -114,7 +114,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Accessories">
+        <a href="#none" title="Halloween accessories to complement your costume.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -123,7 +123,7 @@
             <img
               width="232"
               height="232"
-              alt="Accessories"
+              alt="Halloween accessories to complement your costume."
               class="image"
               decoding="async"
               loading="lazy"
@@ -134,7 +134,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Girls Costumes">
+        <a href="#none" title="Assortment of Halloween costumes for girls.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -143,7 +143,7 @@
             <img
               width="232"
               height="232"
-              alt="Girls Costumes"
+              alt="Assortment of Halloween costumes for girls."
               class="image"
               decoding="async"
               loading="lazy"
@@ -154,7 +154,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Boys Costumes">
+        <a href="#none" title="Selection of Halloween costumes for boys.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -163,7 +163,7 @@
             <img
               width="232"
               height="232"
-              alt="Boys Costumes"
+              alt="Selection of Halloween costumes for boys."
               class="image"
               decoding="async"
               loading="lazy"
@@ -174,7 +174,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Toddler Costumes">
+        <a href="#none" title="Cute and spooky Halloween costumes for toddlers.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -183,7 +183,7 @@
             <img
               width="232"
               height="232"
-              alt="Toddler Costumes"
+              alt="Cute and spooky Halloween costumes for toddlers."
               class="image"
               decoding="async"
               loading="lazy"
@@ -194,7 +194,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Baby Costumes">
+        <a href="#none" title="Tiny Halloween costumes for adorable babies.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -203,7 +203,7 @@
             <img
               width="232"
               height="232"
-              alt="Baby Costumes"
+              alt="Tiny Halloween costumes for adorable babies."
               class="image"
               decoding="async"
               loading="lazy"
@@ -214,7 +214,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Women's Costumes">
+        <a href="#none" title="Stylish Halloween costumes for women.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -223,7 +223,7 @@
             <img
               width="232"
               height="232"
-              alt="Women's Costumes"
+              alt="Stylish Halloween costumes for women."
               class="image"
               decoding="async"
               loading="lazy"
@@ -234,7 +234,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Men's Costumes">
+        <a href="#none" title="Diverse Halloween costumes for men.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -243,7 +243,7 @@
             <img
               width="232"
               height="232"
-              alt="Men's Costumes"
+              alt="Diverse Halloween costumes for men."
               class="image"
               decoding="async"
               loading="lazy"
@@ -254,7 +254,7 @@
         </a>
       </div>
       <div class="card">
-        <a href="#none" title="Sale">
+        <a href="#none" title="Halloween items on sale – limited-time discounts.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -263,7 +263,7 @@
             <img
               width="232"
               height="232"
-              alt="Sale"
+              alt="Halloween items on sale – limited-time discounts."
               class="image"
               decoding="async"
               loading="lazy"
@@ -281,7 +281,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Animatronics">
+        <a class="card__content" href="#none" title="Animated Halloween figures for a haunting experience.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -290,7 +290,7 @@
               srcset="//spirit.scene7.com/is/image/Spirit/03%5F15%5F23%5FSamAnimatronic%5FAspot%5FM%5F4756?fmt=webp&wid=375"
             />
             <img
-              alt="Animatronics"
+              alt="Animated Halloween figures for a haunting experience."
               class="image"
               decoding="async"
               loading="lazy"
@@ -310,7 +310,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:1;--mb-columns:1">
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Ghost Face">
+        <a class="card__content" href="#none" title="Ghost Face costume inspired by horror movies.">
           <picture class="card__media"
             ><source
               media="(max-width: 560px)"
@@ -318,7 +318,7 @@
               height="260"
               srcset="//spirit.scene7.com/is/image/Spirit/03%5F10%5F23%5FGhostface%5FAspot%5FM%5F4754%20copy?fmt=webp&wid=375"
             /><img
-              alt="Ghost Face"
+              alt="Ghost Face costume inspired by horror movies."
               class="image"
               decoding="async"
               loading="lazy"
@@ -335,7 +335,7 @@
   <section class="page-section">
     <div class="page-grid" role="group" style="--dt-columns:2;--mb-columns:1">
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Beetlejuice">
+        <a class="card__content" href="#none" title="Beetlejuice-themed Halloween costume and accessories.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -344,7 +344,7 @@
               srcset="//spirit.scene7.com/is/image/Spirit/4%5F25%5F22%5FBeetlejuice%5FBSpot%5FCREAT%5F3272?fmt=webp&wid=375"
             />
             <img
-              alt="Beetlejuice"
+              alt="Beetlejuice-themed Halloween costume and accessories."
               class="image"
               decoding="async"
               loading="lazy"
@@ -357,7 +357,7 @@
         </a>
       </div>
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Collectibles">
+        <a class="card__content" href="#none" title="Creepy Annabelle doll costume for Halloween.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -366,7 +366,7 @@
               srcset="//spirit.scene7.com/is/image/Spirit/1%5F4%5F23%5FAnnabelle%5FAspot%5FM%5F4727%5FV2?fmt=webp&wid=375"
             />
             <img
-              alt="Annabelle"
+              alt="Creepy Annabelle doll costume for Halloween."
               class="image"
               decoding="async"
               loading="lazy"
@@ -386,7 +386,7 @@
     </header>
     <div class="page-grid" role="group" style="--dt-columns:3;--mb-columns:1">
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Miraculous Ladybug">
+        <a class="card__content" href="#none" title="Miraculous Ladybug costume for Halloween fun.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -395,7 +395,7 @@
               srcset="//spirit.scene7.com/is/image/Spirit/09%5F28%5F22%5FMiraculous%5FAspot%5FM%5F3787?fmt=webp&wid=375"
             />
             <img
-              alt="Miraculous Ladybuy"
+              alt="Miraculous Ladybug costume for Halloween fun."
               class="image"
               decoding="async"
               loading="lazy"
@@ -408,7 +408,7 @@
         </a>
       </div>
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Inflatable Costumes">
+        <a class="card__content" href="#none" title="Whimsical and inflatable Halloween costumes.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -417,7 +417,7 @@
               srcset="//spirit.scene7.com/is/image/Spirit/01%5F26%5F23%5FHomepageRefresh%5FAspot%5FM%5F4844?fmt=webp&wid=375"
             />
             <img
-              alt="Inflatable Costumes"
+              alt="Whimsical and inflatable Halloween costumes."
               class="image"
               decoding="async"
               loading="lazy"
@@ -430,7 +430,7 @@
         </a>
       </div>
       <div class="card">
-        <a class="card__content" href="#none" title="Shop Monster High">
+        <a class="card__content" href="#none" title="Monster High-themed costumes for a spooky look.">
           <picture class="card__media">
             <source
               media="(max-width: 560px)"
@@ -439,7 +439,7 @@
               srcset="//spirit.scene7.com/is/image/Spirit/10%5F9%5F22%5FGirls%5FMonsterHigh%5FASpot%5FM%5F4046?fmt=webp&wid=375"
             />
             <img
-              alt="Monster High"
+              alt="Monster High-themed costumes for a spooky look."
               class="image"
               decoding="async"
               loading="lazy"
