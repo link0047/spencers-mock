@@ -140,12 +140,6 @@
     products = data.products;
     console.log(query);
   }
-
-  onMount(async () => {
-    const data = await customSearch(query);
-    products = data.products;
-    console.log(data)
-  });
 </script>
 <svelte:head>
   <title>Search</title>
