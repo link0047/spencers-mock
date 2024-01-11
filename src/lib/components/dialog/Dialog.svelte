@@ -93,6 +93,7 @@
     padding: 8px;
     box-shadow: 0 6px 12px -2px rgba(50,50,93,0.25),0 3px 7px -3px rgba(0,0,0,0.3);
     opacity: 0;
+    transition: opacity .15s ease-in;
     pointer-events: none;
     z-index: 99;
   }
