@@ -243,7 +243,6 @@
     } else {
       comboboxRef.close();
     }
-    console.log("damn")
   }
 
   function saveSearchHistoryToLocalStorage() {

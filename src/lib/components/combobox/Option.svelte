@@ -25,6 +25,7 @@
 	aria-selected={selected}
 	on:click
 	on:pointerover={handlePointerover}
+	on:touchstart={handlePointerover}
 	{...$$restProps}
 >
 	<slot />
