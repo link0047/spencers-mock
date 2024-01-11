@@ -102,6 +102,7 @@
 	}
 
 	function handleFocus() {
+		resetOptions();
 		if (!fullwidth) {
 			const { width, left, bottom } = inputRef.getBoundingClientRect();
 			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
