@@ -67,12 +67,13 @@
 		}
 
 		const selected = children[$state.index];
+		value = selected.textContent?.trim();
 		selected.setAttribute("tabindex", "0");
 		selected.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 		$state.activeDescendant = selected.id;
 	}
 	
-	function handleKeyup(event: KeyboardEvent) {
+	function handleKeyup(event) {
 	  switch(event.key) {
 			case "ArrowDown":
 				move(1);
@@ -97,7 +98,7 @@
 			const { width, left, bottom } = inputRef.getBoundingClientRect();
 			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 		} else {
-			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0`;
+			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
 		}
 		$open = true;
 	}
@@ -146,7 +147,7 @@
 				const { width, left, bottom } = inputRef.getBoundingClientRect();
 				listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 			} else {
-				listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px`;
+				listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
 			}
     }
 	});

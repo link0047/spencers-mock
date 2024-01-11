@@ -28,6 +28,7 @@
   import { List, ListItem } from "$lib/components/list";
   import Separator from "$lib/components/separator";
   import { enhance } from "$app/forms";
+  import LRUCache from "$lib/client/util/LRUCache";
   export let data;
 
   let { isMobile } = data;
@@ -106,38 +107,30 @@
     ];
   }
 
-	async function handleInput(event) {
-		if (event.key == "ArrowDown" || event.key == "ArrowUp" || event.key == "Escape") return;
-		
-		const value = event.target.value.trim();
-		
-		if (value === "" && !searchMenu.get("trending").length) {
-			comboboxRef.resetOptions();
-			searchMenu = searchMap;
-			return;
-		}
-		
-		const data = await customSearch(value);
+  async function updateSearchMenu(target) {
+    const value = target.value.trim();
+		const { products, suggestions, categories } = await customSearch(value);
 		const copy = new Map(searchMenu);
-		copy.set("recent", []);
-		copy.set("trending", []);
-		const { products, suggestions, categories } = data;
 
-		if (products.length) {
-			copy.set("products", products);
-		}
+    copy.set("recent", value.length ? [] : recent);
+    copy.set("products", products.length ? products : []);
+    copy.set("suggestions", (suggestions?.keyphrase?.length) ? suggestions.keyphrase.slice(0, 6) : []);
+    copy.set("trending", (!value.length && suggestions?.trending_category?.length) ? suggestions.trending_category : []);
+    copy.set("categories", categories.length ? categories : []); 
 
-		if (suggestions.keyphrase.length) {
-			copy.set("suggestions", suggestions.keyphrase.slice(0, 6));
-		}
-
-		if (categories.length) {
-			copy.set("categories", categories);
-		}
-		
 		comboboxRef.resetOptions();
 		searchMenu = copy;
+  }
+
+	async function handleInput(event) {
+		if (event.key == "ArrowDown" || event.key == "ArrowUp" || event.key == "Escape") return;
+    console.log(event);
+		updateSearchMenu(event.target);
 	}
+
+  async function handleFocus({ target }) {
+    updateSearchMenu(target);
+  }
 
 	const debouncedHandleInput = debounceAsync(handleInput, 250);
 
@@ -225,13 +218,12 @@
 			"sort":[],
 			"page":page,
 			"np":numResults,
-			"suggestion_list":[],
 			"facet_list":[],
 			"search_keyphrase":keyword,
 			"vs":0,
 			"frid":1,
 			"rfkids":["rfkid_6"],
-			"suggestion_list": ["keyphrase"],
+			"suggestion_list": ["keyphrase", "trending_category", "recent"],
 		};
 	  let encodedPayload = encodeRFK(payload);
 		try {
@@ -242,6 +234,26 @@
 	    console.error(error);
 	  }
 	}
+
+  function handleOptionClick(event) {
+    searchQuery = event.currentTarget.dataset.value;
+    if (isMobile) {
+      $searchDialogState.open = false;
+    } else {
+      comboboxRef.close();
+    }
+    console.log("damn")
+  }
+
+  function saveSearchHistoryToLocalStorage() {
+		const searchHistoryArray = searchHistory.toJSON();
+    localStorage.setItem('searchHistory', JSON.stringify(searchHistoryArray));
+	}
+
+  function clearHistory() {
+    searchHistory.clear();
+    saveSearchHistoryToLocalStorage();
+  }
 
   const mainMenu = [
     {
@@ -288,17 +300,20 @@
     },
   ];
 
+  const SEARCH_HISTORY_LIMIT = 5;
+	const searchHistory = new LRUCache(SEARCH_HISTORY_LIMIT);
+
   let comboboxRef;
+  let searchQuery: string;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
-  const recent = [{name: "grinch" },{name: "barbie" },{name: "funko" }];
-	const popularSearch = ["michael myers","beetlejuice","chucky","ghost face","nightmare before christma","haunted mansion","harry potter","hocus pocus","animatronic","skeleton"];
+  const recent = searchHistory.toJSON();
   const searchMap = new Map([
 	  ["recent", recent],
 	  ["categories", []],
 		["suggestions", []],
-	  ["products", []],
-	  ["trending", popularSearch],
+	  ["trending", []],
+    ["products", []],
 	]);
 
 	$: searchMenu = searchMap;
@@ -487,7 +502,7 @@
   </a>
   <div class="flex-center" style="grid-area:search">
     {#if !isMobile}
-      <Combobox bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput}>
+      <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus}>
         {#each searchMenu.entries() as [name, items]}
           {#if items.length}
           <div role="group">
@@ -506,7 +521,7 @@
             </div>
             {#if name == "recent" || name == "suggestions" || name == "products"}	
               {#each items as item}
-              <Option>
+              <Option tag={ name === "recent" ? "div" : "a" } href={name === "recent" ? null : `/spirit/search?q=${name === "suggestions" ? item.text : item.name}`} on:click={handleOptionClick} data-value={name === "suggestions" ? item.text : item.name}>
                 {#if name== "recent" || name == "suggestions"}
                 <Icon>
                   {#if name == "recent"}
@@ -532,9 +547,9 @@
             {/if}
             {#if name == "categories" || name == "trending"}
               <Chips style="padding: 0 8px;">
-              {#each items as item}
-                <Chip rounded>{item}</Chip>
-              {/each}
+                {#each items as item}
+                  <Chip rounded>{item.text}</Chip>
+                {/each}
               </Chips>
             {/if}
           </div>
@@ -557,7 +572,7 @@
       </DialogDisclosure>
       <Dialog state={searchDialogState} variant="fullscreen">
         <div role="group" class="dialog__search-heading">
-          <Combobox bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen fullwidth>
+          <Combobox  bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus} stayOpen fullwidth>
             {#each searchMenu.entries() as [name, items]}
               {#if items.length}
               <div role="group">
@@ -569,14 +584,14 @@
                   {/if}
                   {name}
                   {#if name === "recent"}
-                    <Button variant="underline" style="margin-left:auto;text-decoration:underline">
+                    <Button variant="underline" style="margin-left:auto;text-decoration:underline" on:click={clearHistory}>
                       Clear
                     </Button>
                   {/if}
                 </div>
                 {#if name == "recent" || name == "suggestions" || name == "products"}	
                   {#each items as item}
-                  <Option>
+                  <Option tag={ name === "recent" ? "div" : "a" } href={name === "recent" ? null : `/spirit/search?q=${name === "suggestions" ? item.text : item.name}`} on:click={handleOptionClick} data-value={name === "suggestions" ? item.text : item.name}>
                     {#if name== "recent" || name == "suggestions"}
                     <Icon>
                       {#if name == "recent"}
@@ -603,7 +618,7 @@
                 {#if name == "categories" || name == "trending"}
                   <Chips style="padding: 0 8px;">
                   {#each items as item}
-                    <Chip rounded>{item}</Chip>
+                    <Chip rounded>{item.text}</Chip>
                   {/each}
                   </Chips>
                 {/if}

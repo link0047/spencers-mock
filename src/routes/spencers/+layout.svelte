@@ -312,7 +312,6 @@
     } else {
       comboboxRef.close();
     }
-    
   }
 
   const mainMenu = [
