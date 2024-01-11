@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Portal from "svelte-portal";
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
   export let variant = "default";
@@ -59,19 +60,21 @@
 </script>
 
 <!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
-<div
-  bind:this={ref}
-  {id}
-  aria-modal="true"
-  role="dialog"
-  class="dialog"
-  class:dialog--open={open}
-  class:dialog--fullscreen={variant === "fullscreen"}
-  tabindex="-1"
-  on:keydown={handleKeydown}
->
-  <slot />
-</div>
+<Portal>
+  <div
+    bind:this={ref}
+    {id}
+    aria-modal="true"
+    role="dialog"
+    class="dialog"
+    class:dialog--open={open}
+    class:dialog--fullscreen={variant === "fullscreen"}
+    tabindex="-1"
+    on:keydown={handleKeydown}
+  >
+    <slot />
+  </div>
+</Portal>
 
 <style>
   .dialog {

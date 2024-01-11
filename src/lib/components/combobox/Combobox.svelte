@@ -1,4 +1,5 @@
 <script lang="ts">
+	import Portal from "svelte-portal";
   import { browser } from "$app/environment";
 	import generateId from "$lib/client/util/local-unique-id-generator.js"
 	import { writable } from "svelte/store";
@@ -137,7 +138,7 @@
 
 	onMount(() => {
     if (browser) {
-			$open = stayOpen;
+			// $open = stayOpen;
       document.addEventListener("keyup", handleDocumentKeyup);
 			window.addEventListener("resize", handleResize);
 			window.addEventListener("click", handleClickedOutside);
@@ -202,17 +203,19 @@
     {...$$restProps}
   />
 </div>
-<div
-	bind:this={listboxRef}
-	data-state={$open ? "open" : ""}
-	id={listboxId}
-	class="combobox__listbox"
-	class:combobox__listbox--expanded={stayOpen}
-	role="listbox"
-	style={listboxStyling}
->
-	<slot />
-</div>
+<Portal>
+	<div
+		bind:this={listboxRef}
+		data-state={$open ? "open" : ""}
+		id={listboxId}
+		class="combobox__listbox"
+		class:combobox__listbox--expanded={stayOpen}
+		role="listbox"
+		style={listboxStyling}
+	>
+		<slot />
+	</div>
+</Portal>
 
 <style>
 	.icon {
@@ -293,7 +296,7 @@
 		pointer-events: none;
 		max-height: 512px;
 		overflow: auto;
-		z-index: 10;
+		z-index: 100;
 		transition: opacity .15s ease-in;
 		box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 	}
