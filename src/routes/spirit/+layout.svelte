@@ -33,6 +33,8 @@
 
   let { isMobile } = data;
 
+  console.log("isMobile", isMobile);
+
   interface HistoryItem {
     drawerBackText: string;
     title: string;
