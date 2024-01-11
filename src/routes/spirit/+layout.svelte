@@ -580,7 +580,7 @@
       </DialogDisclosure>
       <Dialog state={searchDialogState} variant="fullscreen">
         <div role="group" class="dialog__search-heading">
-          <Combobox  bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus} stayOpen fullwidth>
+          <Combobox  bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus} stayOpen fullwidth={true}>
             {#each searchMenu.entries() as [name, items]}
               {#if items.length}
               <div role="group">

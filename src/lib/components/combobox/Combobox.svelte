@@ -138,7 +138,7 @@
 
 	onMount(() => {
     if (browser) {
-			// $open = stayOpen;
+			console.log("listbox fullwidth", fullwidth);
       document.addEventListener("keyup", handleDocumentKeyup);
 			window.addEventListener("resize", handleResize);
 			window.addEventListener("click", handleClickedOutside);
