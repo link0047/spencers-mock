@@ -243,6 +243,7 @@
     } else {
       comboboxRef.close();
     }
+    comboboxRef.resetOptions();
   }
 
   function saveSearchHistoryToLocalStorage() {
@@ -526,7 +527,7 @@
             </div>
             {#if name == "recent" || name == "suggestions" || name == "products"}	
               {#each items as item}
-              <Option tag={ name === "recent" ? "div" : "a" } href={name === "recent" ? null : `/spirit/search?q=${name === "suggestions" ? item.text : item.name}`} on:click={handleOptionClick} data-value={name === "suggestions" ? item.text : item.name}>
+              <Option tag={ name === "recent" ? "div" : "a" } href={name === "recent" ? null : `/spirit/search?q=${name === "suggestions" ? item.text : item.name}`} on:pointerup={handleOptionClick} data-value={name === "suggestions" ? item.text : item.name}>
                 {#if name== "recent" || name == "suggestions"}
                 <Icon>
                   {#if name == "recent"}

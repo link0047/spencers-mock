@@ -24,6 +24,8 @@
 	tabindex={selected ? 0 : -1}
 	aria-selected={selected}
 	on:click
+	on:pointerdown
+	on:pointerup
 	on:pointerover={handlePointerover}
 	{...$$restProps}
 >
