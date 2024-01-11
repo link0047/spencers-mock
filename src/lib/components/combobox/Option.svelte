@@ -8,6 +8,7 @@
 	function handlePointerover({ currentTarget }) {
 		const options = Array.from($state.listbox.querySelectorAll(".listbox__option"));
 		const selectedOptions = options.filter(option => option.getAttribute("tabindex") === "0");
+		
 		for (const option of selectedOptions) {
 			option.setAttribute("tabindex", "-1");
 		}
