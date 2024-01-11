@@ -128,8 +128,12 @@
 	}
 
 	function handleResizeLogic() {
-		const { width, left, bottom } = inputRef.getBoundingClientRect();
-		listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+		if (!fullwidth) {
+			const { width, left, bottom } = inputRef.getBoundingClientRect();
+			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
+		} else {
+			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
+		}
 	}
 
 	const handleResize = debounceAnimationFrame(handleResizeLogic);
@@ -138,7 +142,6 @@
 
 	onMount(() => {
     if (browser) {
-			console.log("listbox fullwidth", fullwidth);
       document.addEventListener("keyup", handleDocumentKeyup);
 			window.addEventListener("resize", handleResize);
 			window.addEventListener("click", handleClickedOutside);
