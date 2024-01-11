@@ -94,6 +94,12 @@
 		$open = true;
 	}
 
+	function touchOutsideInputHandler(event) {
+		if (event.target !== inputRef) {
+			inputRef.blur();
+		}
+	}
+
 	function handleFocus() {
 		if (!fullwidth) {
 			const { width, left, bottom } = inputRef.getBoundingClientRect();
@@ -101,6 +107,8 @@
 		} else {
 			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
 		}
+
+		document.addEventListener("touchstart", touchOutsideInputHandler);
 		$open = true;
 	}
 
@@ -109,6 +117,7 @@
 		listboxRef.querySelectorAll(".listbox__option")[$state.index]?.setAttribute("tabindex", "-1");
 		$state.index = -1;
 		$state.activeDescendant = null;
+		document.removeEventListener("touchstart", touchOutsideInputHandler);
 		// $open = false;
 	}
 
@@ -161,6 +170,7 @@
 		  document.removeEventListener("keyup", handleDocumentKeyup);
 		  window.removeEventListener("resize", handleResize);
 			window.removeEventListener("click", handleClickedOutside);
+			document.removeEventListener("touchstart", touchOutsideInputHandler);
     }
 	});
 
