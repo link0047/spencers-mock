@@ -103,7 +103,7 @@
 
   async function customSearch(keyword: string | null, numResults = 24, page = 1){
 	  let payload = {
-			"ckey": "11278-29304574",
+			"ckey": "11278-269126707",
 			"f": "sp",
 			"env": "live",
 			"uri": "/",
@@ -121,7 +121,7 @@
 		};
 	  let encodedPayload = encodeRFK(payload);
 		try {
-		  const data = await jsonpFetch(`//prod-east-search-mt.rfksrv.com/rfkj/1/11278-29304574/sp?data=${encodedPayload}`);
+		  const data = await jsonpFetch(`//prod-east-search-mt.rfksrv.com/rfkj/1/11278-269126707/sp?data=${encodedPayload}`);
 			if (typeof(data) === "object") return data;
 			else if (typeof(data) === "string" && data.substring(0,2) === "2,") return decodeRFK(data);
 		} catch (error) {

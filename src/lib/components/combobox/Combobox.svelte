@@ -86,6 +86,7 @@
 				$open = false;
 				break;
 			default:
+				$open = true;
 				break;
 		}
 	}
