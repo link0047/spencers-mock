@@ -105,7 +105,7 @@
 			const { width, left, bottom } = inputRef.getBoundingClientRect();
 			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 		} else {
-			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
+			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100dvh - 52px)`;
 		}
 
 		document.addEventListener("touchstart", touchOutsideInputHandler);
@@ -141,7 +141,7 @@
 			const { width, left, bottom } = inputRef.getBoundingClientRect();
 			listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 		} else {
-			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
+			listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100dvh - 52px)`;
 		}
 	}
 
@@ -160,7 +160,7 @@
 				const { width, left, bottom } = inputRef.getBoundingClientRect();
 				listboxStyling = `position:fixed;top:0;left:0;width:${width}px;transform:translate3d(${left}px,${bottom + gap}px,0);`;
 			} else {
-				listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100vh - 52px)`;
+				listboxStyling = `position:fixed;top:0;left:0;width:100%;top:52px;padding:12px 0;max-height:calc(100dvh - 52px)`;
 			}
     }
 	});
