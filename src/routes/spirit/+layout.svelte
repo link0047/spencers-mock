@@ -243,7 +243,6 @@
     } else {
       comboboxRef.close();
     }
-    comboboxRef.resetOptions();
   }
 
   function saveSearchHistoryToLocalStorage() {

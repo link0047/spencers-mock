@@ -33,10 +33,12 @@
 		optionId = 0;
 		$state.activeDescendant = null;
 		$state.index = -1;
+		Array.from(listboxRef.querySelectorAll(".listbox__option")).forEach(option => option.setAttribute("tabindex", "-1"));
 	}
 
 	export function close() {
 		$open = false;
+		resetOptions();
 	}
 
 
