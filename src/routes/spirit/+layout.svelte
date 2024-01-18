@@ -59,8 +59,12 @@
     drawerMenu.firstElementChild.focus();
   }
 
-  function handleMenuItemClick(item, event) {
-    // item.subnav && !item.subnav.length ? null : 
+  /**
+   * Handles the click event for a menu item.
+   * @param {MenuItem} item - The menu item that was clicked.
+   * @param {MouseEvent} event - The click event.
+   */
+  function handleMenuItemClick(item: any, event: Event): void {
     event.preventDefault();    
     if (item.name === "Categories") {
       $menuDrawerState.showBack = true;
@@ -112,7 +116,6 @@
 		const { products, suggestions, categories } = await customSearch(value);
 		const copy = new Map(searchMenu);
 
-    copy.set("recent", value.length ? [] : recent);
     copy.set("products", products.length ? products : []);
     copy.set("suggestions", (suggestions?.keyphrase?.length) ? suggestions.keyphrase.slice(0, 6) : []);
     copy.set("trending", (!value.length && suggestions?.trending_category?.length) ? suggestions.trending_category : []);
@@ -124,7 +127,6 @@
 
 	async function handleInput(event) {
 		if (event.key == "ArrowDown" || event.key == "ArrowUp" || event.key == "Escape") return;
-    console.log(event);
 		updateSearchMenu(event.target);
 	}
 
@@ -236,6 +238,8 @@
 	}
 
   function handleOptionClick(event) {
+    if (event.target.tagName.toLowerCase() === "button" || event.target.tagName === "svg") return;
+    console.log("option pointerup", event.target.tagName);
     searchQuery = event.currentTarget.dataset.value;
     if (isMobile) {
       $searchDialogState.open = false;
@@ -243,6 +247,10 @@
     } else {
       comboboxRef.close();
     }
+
+    searchHistory.set(searchQuery, searchQuery);
+    saveSearchHistoryToLocalStorage();
+    recents = searchHistory.toJSON().reverse();
   }
 
   function saveSearchHistoryToLocalStorage() {
@@ -253,7 +261,15 @@
   function clearHistory() {
     searchHistory.clear();
     saveSearchHistoryToLocalStorage();
+    recents = [];
   }
+
+  function deleteHistoryEntry({ currentTarget }) {
+    console.log("delete", currentTarget.dataset.value);
+		searchHistory.delete(currentTarget.dataset.value);
+		saveSearchHistoryToLocalStorage();
+		recents = searchHistory.toJSON().reverse();
+	}
 
   function handleDialogClose() { 
     $searchDialogState.open = false; 
@@ -312,9 +328,9 @@
   let searchQuery: string;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
-  const recent = searchHistory.toJSON();
+  let recents = searchHistory.toJSON();
+
   const searchMap = new Map([
-	  ["recent", recent],
 	  ["categories", []],
 		["suggestions", []],
 	  ["trending", []],
@@ -347,6 +363,13 @@
         isMobile = window.matchMedia("(max-width: 560px)").matches;
       });
     });
+
+    const storedSearchHistory = localStorage.getItem("searchHistory");
+    if (storedSearchHistory) {
+			const parsedSearchHistory = JSON.parse(storedSearchHistory);
+			searchHistory._initialize(parsedSearchHistory);
+      recents = searchHistory.toJSON().reverse();
+    }
   });
 </script>
 <Drawer state={zipDrawerState} alignment="right"></Drawer>
@@ -508,76 +531,29 @@
   <div class="flex-center" style="grid-area:search">
     {#if !isMobile}
       <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus}>
-        {#each searchMenu.entries() as [name, items]}
-          {#if items.length}
-          <div role="group">
-            <div class="combobox__heading" role="presentation">
-              {#if name == "trending"}
-              <Icon>
-                <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
-              </Icon>
-              {/if}
-              {name}
-              {#if name === "recent"}
-                <Button variant="underline" style="margin-left:auto;text-decoration:underline">
-                  Clear
-                </Button>
-              {/if}
-            </div>
-            {#if name == "recent" || name == "suggestions" || name == "products"}	
-              {#each items as item}
-              <Option tag={ name === "recent" ? "div" : "a" } href={name === "recent" ? null : `/spirit/search?q=${name === "suggestions" ? item.text : item.name}`} on:pointerup={handleOptionClick} data-value={name === "suggestions" ? item.text : item.name}>
-                {#if name== "recent" || name == "suggestions"}
-                <Icon>
-                  {#if name == "recent"}
-                  <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
-                  {:else if name == "suggestions"}
-                  <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
-                  {/if}
-                </Icon>
-                {/if}
-                {#if name== "products"}
-                  <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
-                {/if}
-                <span>{name === "suggestions" ? item.text : item.name}</span>
-                {#if name == "recent"}
-                  <Button variant="icon">
-                    <Icon>
-                      <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
-                    </Icon>
+        {#if recents.length}
+              <div role="group">
+                <div class="combobox__heading" role="presentation">
+                  recent
+                  <Button variant="underline" style="margin-left:auto;text-decoration:underline" on:click={clearHistory}>
+                    Clear
                   </Button>
-                {/if}
-              </Option>
-              {/each}
-            {/if}
-            {#if name == "categories" || name == "trending"}
-              <Chips style="padding: 0 8px;">
-                {#each items as item}
-                  <Chip rounded>{item.text}</Chip>
+                </div>
+                {#each recents as recent}
+                  <Option>
+                    <Icon>
+                      <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                    </Icon>
+                    <span>{recent.value}</span>
+                    <Button variant="icon" data-value={recent.value} on:click={deleteHistoryEntry}>
+                      <Icon>
+                        <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                      </Icon>
+                    </Button>
+                  </Option>
                 {/each}
-              </Chips>
+              </div>
             {/if}
-          </div>
-          {/if}
-        {/each}
-      </Combobox>
-    {/if}
-  </div>
-  <Group align="end">
-    {#if isMobile}
-      <DialogDisclosure state={searchDialogState} variant="icon" label="Search" stack={Boolean(isMobile)}>
-        <Icon>
-          <path
-            stroke="#000"
-            stroke-width="1px"
-            d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"
-          />
-        </Icon>
-        <!-- <span class="btn-text">Search</span> -->
-      </DialogDisclosure>
-      <Dialog state={searchDialogState} variant="fullscreen">
-        <div role="group" class="dialog__search-heading">
-          <Combobox  bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus} stayOpen fullwidth={true}>
             {#each searchMenu.entries() as [name, items]}
               {#if items.length}
               <div role="group">
@@ -588,11 +564,6 @@
                   </Icon>
                   {/if}
                   {name}
-                  {#if name === "recent"}
-                    <Button variant="underline" style="margin-left:auto;text-decoration:underline" on:click={clearHistory}>
-                      Clear
-                    </Button>
-                  {/if}
                 </div>
                 {#if name == "recent" || name == "suggestions" || name == "products"}	
                   {#each items as item}
@@ -611,7 +582,95 @@
                     {/if}
                     <span>{name === "suggestions" ? item.text : item.name}</span>
                     {#if name == "recent"}
-                      <Button variant="icon">
+                      <Button variant="icon" data-value={item.name || item.value} on:click={deleteHistoryEntry}>
+                        <Icon>
+                          <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                        </Icon>
+                      </Button>
+                    {/if}
+                  </Option>
+                  {/each}
+                {/if}
+                {#if name == "categories" || name == "trending"}
+                  <Chips style="padding: 0 8px;">
+                  {#each items as item}
+                    <Chip rounded>{item.text}</Chip>
+                  {/each}
+                  </Chips>
+                {/if}
+              </div>
+              {/if}
+            {/each}
+      </Combobox>
+    {/if}
+  </div>
+  <Group align="end">
+    {#if isMobile}
+      <DialogDisclosure state={searchDialogState} variant="icon" label="Search" stack={Boolean(isMobile)}>
+        <Icon>
+          <path
+            stroke="#000"
+            stroke-width="1px"
+            d="m20.87 20.17-5.59-5.59C16.35 13.35 17 11.75 17 10c0-3.87-3.13-7-7-7s-7 3.13-7 7 3.13 7 7 7c1.75 0 3.35-.65 4.58-1.71l5.59 5.59.7-.71zM10 16c-3.31 0-6-2.69-6-6s2.69-6 6-6 6 2.69 6 6-2.69 6-6 6z"
+          />
+        </Icon>
+        <!-- <span class="btn-text">Search</span> -->
+      </DialogDisclosure>
+      <Dialog state={searchDialogState} variant="fullscreen">
+        <div role="group" class="dialog__search-heading">
+          <Combobox  bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:keydown={debouncedHandleInput} on:focus={handleFocus} stayOpen fullwidth={true}>
+            {#if recents.length}
+              <div role="group">
+                <div class="combobox__heading" role="presentation">
+                  recent
+                  <Button variant="underline" style="margin-left:auto;text-decoration:underline" on:click={clearHistory}>
+                    Clear
+                  </Button>
+                </div>
+                {#each recents as recent}
+                  <Option>
+                    <Icon>
+                      <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                    </Icon>
+                    <span>{recent.value}</span>
+                    <Button variant="icon" data-value={recent.value} on:click={deleteHistoryEntry}>
+                      <Icon>
+                        <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+                      </Icon>
+                    </Button>
+                  </Option>
+                {/each}
+              </div>
+            {/if}
+            {#each searchMenu.entries() as [name, items]}
+              {#if items.length}
+              <div role="group">
+                <div class="combobox__heading" role="presentation">
+                  {#if name == "trending"}
+                  <Icon>
+                    <path fill="#DE5A55" d="M17.66 11.2C17.43 10.9 17.15 10.64 16.89 10.38C16.22 9.78 15.46 9.35 14.82 8.72C13.33 7.26 13 4.85 13.95 3C13 3.23 12.17 3.75 11.46 4.32C8.87 6.4 7.85 10.07 9.07 13.22C9.11 13.32 9.15 13.42 9.15 13.55C9.15 13.77 9 13.97 8.8 14.05C8.57 14.15 8.33 14.09 8.14 13.93C8.08 13.88 8.04 13.83 8 13.76C6.87 12.33 6.69 10.28 7.45 8.64C5.78 10 4.87 12.3 5 14.47C5.06 14.97 5.12 15.47 5.29 15.97C5.43 16.57 5.7 17.17 6 17.7C7.08 19.43 8.95 20.67 10.96 20.92C13.1 21.19 15.39 20.8 17.03 19.32C18.86 17.66 19.5 15 18.56 12.72L18.43 12.46C18.22 12 17.66 11.2 17.66 11.2M14.5 17.5C14.22 17.74 13.76 18 13.4 18.1C12.28 18.5 11.16 17.94 10.5 17.28C11.69 17 12.4 16.12 12.61 15.23C12.78 14.43 12.46 13.77 12.33 13C12.21 12.26 12.23 11.63 12.5 10.94C12.69 11.32 12.89 11.7 13.13 12C13.9 13 15.11 13.44 15.37 14.8C15.41 14.94 15.43 15.08 15.43 15.23C15.46 16.05 15.1 16.95 14.5 17.5H14.5Z"/>
+                  </Icon>
+                  {/if}
+                  {name}
+                </div>
+                {#if name == "recent" || name == "suggestions" || name == "products"}	
+                  {#each items as item}
+                  <Option tag={ name === "recent" ? "div" : "a" } href={name === "recent" ? null : `/spirit/search?q=${name === "suggestions" ? item.text : item.name}`} on:click={handleOptionClick} data-value={name === "suggestions" ? item.text : item.name}>
+                    {#if name== "recent" || name == "suggestions"}
+                    <Icon>
+                      {#if name == "recent"}
+                      <path d="M13.5 8H12v5l4.28 2.54.72-1.21-3.5-2.08V8M13 3a9 9 0 0 0-9 9H1l3.96 4.03L9 12H6a7 7 0 0 1 7-7 7 7 0 0 1 7 7 7 7 0 0 1-7 7c-1.93 0-3.68-.79-4.94-2.06l-1.42 1.42A8.896 8.896 0 0 0 13 21a9 9 0 0 0 9-9 9 9 0 0 0-9-9"/>
+                      {:else if name == "suggestions"}
+                      <path d="M20.49,19l-5.73-5.73C15.53,12.2,16,10.91,16,9.5C16,5.91,13.09,3,9.5,3S3,5.91,3,9.5C3,13.09,5.91,16,9.5,16 c1.41,0,2.7-0.47,3.77-1.24L19,20.49L20.49,19z M5,9.5C5,7.01,7.01,5,9.5,5S14,7.01,14,9.5S11.99,14,9.5,14S5,11.99,5,9.5z"/>
+                      {/if}
+                    </Icon>
+                    {/if}
+                    {#if name== "products"}
+                      <img src={item.image_url} alt={`image of ${item.name}`} decoding="async" width="38" height="48" />
+                    {/if}
+                    <span>{name === "suggestions" ? item.text : item.name}</span>
+                    {#if name == "recent"}
+                      <Button variant="icon" data-value={item.name || item.value} on:click={deleteHistoryEntry}>
                         <Icon>
                           <path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
                         </Icon>

@@ -37,6 +37,7 @@
 	}
 
 	export function close() {
+		console.log("closing")
 		$open = false;
 		resetOptions();
 	}
@@ -172,9 +173,9 @@
 	onDestroy(() => {
     if (browser) {
 		  document.removeEventListener("keyup", handleDocumentKeyup);
+			document.removeEventListener("touchstart", touchOutsideInputHandler);
 		  window.removeEventListener("resize", handleResize);
 			window.removeEventListener("click", handleClickedOutside);
-			document.removeEventListener("touchstart", touchOutsideInputHandler);
     }
 	});
 
