@@ -10,6 +10,7 @@ const securityHeaders = new Map([
   ["referrer-policy", "no-referrer"],
   ["x-content-type-options", "nosniff"],
   ["x-frame-options", "SAMEORIGIN"],
+  ["x-Permitted-cross-domain-policies", "none"],
 ]);
 
 export const customHandle: Handle = async ({ resolve, event }) => {
