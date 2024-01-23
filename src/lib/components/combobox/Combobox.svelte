@@ -202,6 +202,7 @@
     class="combobox__native-control"
     type="text"
     aria-labelledby={null}
+		aria-label="Search bar"
     aria-invalid="false"
     aria-autocomplete="list"
     aria-expanded={$state.open}
