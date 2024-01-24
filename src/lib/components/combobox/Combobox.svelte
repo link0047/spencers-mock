@@ -187,7 +187,7 @@
 <div 
 	bind:this={ref} 
 	class="combobox" 
-	data-state={$state.open ? "open" : ""}
+	data-state={$open ? "open" : ""}
 >
 	<button class="combobox__action" type="button" disabled aria-label="search">
 		<svg class="icon" focusable="false" viewBox="0 0 24 24" role="presentation">
@@ -205,7 +205,7 @@
 		aria-label="Search bar"
     aria-invalid="false"
     aria-autocomplete="list"
-    aria-expanded={$state.open}
+    aria-expanded={$open}
     aria-controls={listboxId}
     aria-owns={listboxId}
     aria-activedescendant={$state.activeDescendant}
