@@ -47,11 +47,11 @@
 		return `${id}-option-${optionId++}`;
 	}
 
-	async function handleClickedOutside(event: Event) {
+	async function handleClickedOutside({ target }: MouseEvent): Promise<void> {
 		await tick();
 		if (stayOpen || !$open) return;
 
-		if (!ref.contains(event.target) && !listboxRef.contains(event.target) && $open) {
+		if (!ref.contains(target as HTMLElement) && !listboxRef.contains(target as HTMLElement) && $open) {
 			$open = false;
 		}
 	}

@@ -1,0 +1,1 @@
+export { default as PartialCollapse } from "./PartialCollapse.svelte";
