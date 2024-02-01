@@ -48,6 +48,9 @@
 	.collapsible__heading {
 		position: relative;
 		box-sizing: border-box;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-size: 16px;
+		color: #111;
 		border: 0;
 		background-color: transparent;
 		margin: 0;
