@@ -49,6 +49,7 @@
 		height: 20px;
 		background-color: #d62d20;
 		color: #fff;
+		border: 1px solid #fff;
 		font-size: .75rem;
 	}
 	
