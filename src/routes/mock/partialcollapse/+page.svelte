@@ -34,7 +34,25 @@
 				<svg class="icon information" viewBox="0 0 24 24" focusable="false" role="presentation">
 					<path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
 				</svg>
-				<div class="status__text">Maximum quantity of item is limited per order.</div>
+				<div class="status__container">
+					<div class="status__text">Maximum quantity of item is limited per order.</div>
+				</div>
+			</div>
+		</svelte:fragment>
+	</PartialCollapse>
+	<PartialCollapse label="Maximum quantity notification">
+		<svelte:fragment slot="content">
+			<div class="status">
+				<div class="notification">
+					2
+				</div>
+				<svg class="icon information" viewBox="0 0 24 24" focusable="false" role="presentation">
+					<path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
+				</svg>
+				<div class="status__container">
+					<div class="status__text"><strong>Order Limit</strong> - Maximum quantity of item is limited per order.</div>
+					<div class="status__text"><strong>Oversized</strong> - item is considered oversized and will require an additional shipping fee. Shipping promos are valid, but oversize charge will still apply.</div>
+				</div>
 			</div>
 		</svelte:fragment>
 	</PartialCollapse>
@@ -75,11 +93,12 @@
 	.status__container {
 		display: grid;
 		gap: 16px;
+		align-items: center;
 	}
 
 	.status__text {
-		display: flex;
-		align-items: center;
+		/* display: flex; 
+		align-items: center; */
 	}
 	
 	.icon {
