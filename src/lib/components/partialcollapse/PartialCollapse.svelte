@@ -12,6 +12,7 @@
 	let showReadMore = false;
 
 	function handleClick() {
+		if (!showReadMore) return;
 		open = !open;
 	}
 	
@@ -30,6 +31,7 @@
 		aria-label={label}
 		style={open ? "height:auto;overflow:initial" : null }
 		on:click={handleClick}
+		data-expandable={showReadMore}
 	>
 		<div 
 			bind:this={contentRef} 
@@ -46,17 +48,30 @@
 
 <style>
 	.collapsible__heading {
+		-webkit-tap-highlight-color: transparent;
 		position: relative;
 		box-sizing: border-box;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-		font-size: 16px;
+		font-size: 1rem;
 		color: #111;
 		border: 0;
+		border-radius: 4px;
 		background-color: transparent;
 		margin: 0;
 		padding: 0;
 		height: 2.8rem;
 		overflow: hidden;
+		touch-action: manipulation;
+    user-select: none;
+    appearance: none;
+	}
+	
+	.collapsible__heading[data-expandable="true"] {
+    cursor: pointer;
+  }
+
+	.collapsible__heading:focus-visible {
+		outline: 2px solid #111;
 	}
 	
 	.collapsible__content {
@@ -72,5 +87,22 @@
 		text-decoration: underline;
 		background-color: #fff;
 		padding: 4px;
+		color: #285bc7;
+	}
+
+	.collapsible__actionLabel:focus,
+	.collapsible__actionLabel:hover {
+		color: #1c3f8b;
+	}
+
+	@media (max-width: 560px) {
+		.collapsible__heading {
+			font-size: .875rem;
+			height: 2.4rem;
+		}
+
+		.collapsible__content {
+			line-height: 1.2rem;
+		}
 	}
 </style>
