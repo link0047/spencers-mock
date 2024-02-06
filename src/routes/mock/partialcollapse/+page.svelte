@@ -5,6 +5,9 @@
 	<PartialCollapse label="Shipping restrictions notification">
 		<svelte:fragment slot="content">
 			<div class="status">
+				<div class="notification">
+					2
+				</div>
 				<svg class="icon warning" viewBox="0 0 24 24" focusable="false" role="presentation">
 					<path d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z" />
 				</svg>
@@ -33,8 +36,24 @@
 		display: grid;
 		row-gap: 16px;
 	}
+
+	.notification {
+		position: absolute;
+		border-radius: 50%;
+		display: flex;
+		top: 0px;
+		left: 18px;
+		justify-content: center;
+		align-items: center;
+		width: 20px;
+		height: 20px;
+		background-color: #d62d20;
+		color: #fff;
+		font-size: .75rem;
+	}
 	
 	.status {
+		position: relative;
 		display: grid;
 		grid-template-columns: minmax(32px, auto) 1fr;
 		align-items: top;
