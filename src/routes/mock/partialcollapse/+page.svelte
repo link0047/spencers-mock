@@ -2,7 +2,7 @@
   import { PartialCollapse } from "$lib/components/partialcollapse";
 </script>
 <div class="component-preview">
-	<PartialCollapse label="Shipping restrictions notification">
+	<PartialCollapse label="Shipping restrictions warning notification">
 		<svelte:fragment slot="content">
 			<div class="status" role="status">
 				<svg class="icon warning" viewBox="0 0 24 24" focusable="false" role="presentation">
@@ -12,7 +12,7 @@
 			</div>
 		</svelte:fragment>
 	</PartialCollapse>
-	<PartialCollapse label="Shipping restrictions notification">
+	<PartialCollapse label="Shipping restrictions warning notifications">
 		<svelte:fragment slot="content">
 			<div class="status" role="status">
 				<div class="notification">
@@ -28,7 +28,7 @@
 			</div>
 		</svelte:fragment>
 	</PartialCollapse>
-	<PartialCollapse label="Maximum quantity notification">
+	<PartialCollapse label="Info notification">
 		<svelte:fragment slot="content">
 			<div class="status" role="status">
 				<svg class="icon information" viewBox="0 0 24 24" focusable="false" role="presentation">
@@ -40,7 +40,7 @@
 			</div>
 		</svelte:fragment>
 	</PartialCollapse>
-	<PartialCollapse label="Maximum quantity notification">
+	<PartialCollapse label="Info notifications">
 		<svelte:fragment slot="content">
 			<div class="status" role="status">
 				<div class="notification">
@@ -62,7 +62,7 @@
 		padding: 32px 8px;
 		justify-content: center;
 		display: grid;
-		row-gap: 2rem;
+		row-gap: 1rem;
 	}
 
 	.notification {
@@ -111,5 +111,11 @@
 
 	.information {
 		fill: #0f52b9;
+	}
+
+	@media (max-width: 560px) {
+		.component-preview {
+			row-gap: 1.4rem;	
+		}
 	}
 </style>
