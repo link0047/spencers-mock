@@ -91,7 +91,7 @@
 	}
 
 	.collapsible__heading[aria-expanded="true"] .collapsible__actionLabel {
-		bottom: -1.4rem;
+		bottom: -1.2rem;
 		background-color: transparent;
 	}
 
