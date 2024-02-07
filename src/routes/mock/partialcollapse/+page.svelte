@@ -4,7 +4,7 @@
 <div class="component-preview">
 	<PartialCollapse label="Shipping restrictions notification">
 		<svelte:fragment slot="content">
-			<div class="status">
+			<div class="status" role="status">
 				<svg class="icon warning" viewBox="0 0 24 24" focusable="false" role="presentation">
 					<path d="M13 14H11V9H13M13 18H11V16H13M1 21H23L12 2L1 21Z" />
 				</svg>
@@ -14,7 +14,7 @@
 	</PartialCollapse>
 	<PartialCollapse label="Shipping restrictions notification">
 		<svelte:fragment slot="content">
-			<div class="status">
+			<div class="status" role="status">
 				<div class="notification">
 					2
 				</div>
@@ -30,7 +30,7 @@
 	</PartialCollapse>
 	<PartialCollapse label="Maximum quantity notification">
 		<svelte:fragment slot="content">
-			<div class="status">
+			<div class="status" role="status">
 				<svg class="icon information" viewBox="0 0 24 24" focusable="false" role="presentation">
 					<path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
 				</svg>
@@ -42,7 +42,7 @@
 	</PartialCollapse>
 	<PartialCollapse label="Maximum quantity notification">
 		<svelte:fragment slot="content">
-			<div class="status">
+			<div class="status" role="status">
 				<div class="notification">
 					2
 				</div>
