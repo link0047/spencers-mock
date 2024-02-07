@@ -90,6 +90,11 @@
 		color: #285bc7;
 	}
 
+	.collapsible__heading[aria-expanded="true"] .collapsible__actionLabel {
+		bottom: -1.4rem;
+		background-color: transparent;
+	}
+
 	.collapsible__actionLabel:focus,
 	.collapsible__actionLabel:hover {
 		color: #1c3f8b;
