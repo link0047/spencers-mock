@@ -62,7 +62,7 @@
 		padding: 32px 8px;
 		justify-content: center;
 		display: grid;
-		row-gap: 16px;
+		row-gap: 2rem;
 	}
 
 	.notification {
@@ -86,7 +86,7 @@
 		display: grid;
 		grid-template-columns: minmax(32px, auto) 1fr;
 		align-items: top;
-		gap: 16px;
+		gap: 1rem;
 		max-width: 600px;
 	}
 
