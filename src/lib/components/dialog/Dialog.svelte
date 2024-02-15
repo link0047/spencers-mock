@@ -8,7 +8,7 @@
   const id = $state.drawerId;
   let ref: HTMLElement;
   
-  let focusableElements;  
+  let focusableElements: HTMLElement[] | null;  
   let lastElementWithFocus: HTMLElement | null = null;
 
   function close() {
