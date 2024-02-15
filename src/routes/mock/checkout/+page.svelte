@@ -88,6 +88,10 @@
 </script>
 <div class="page page--form">
   <form>
+    <div class="form__header">
+      <h2>Payment</h2>
+      <p>All transactions are secure and encrypted.</p>
+    </div>
     <Textfield variant="float-above" label="Card Name" autocomplete="cc-name" inputmode="text" type="text" required />
     <Textfield bind:value={cardValue} on:blur={handleBlur} on:input={handleInput} variant="float-above" label="Card Number" autocomplete="cc-number" inputmode="numeric" pattern="[0-9]*" type="text" required>
       <svelte:fragment slot="trailing">
@@ -104,11 +108,14 @@
   </form>
 </div>
 <style>
+  :global(body) {
+    background-color: #f7f7f7;
+  }
+
   .page {
     -moz-osx-font-smoothing: grayscale;
     -webkit-font-smoothing: antialiased;
     -webkit-tap-highlight-color: transparent;
-    background-color: #fff;
     direction: ltr;
     font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
     font-feature-settings: "liga","kern";
@@ -130,33 +137,62 @@
     height: 50vh;
   }
 
+  .form__header {
+    border-bottom: 1px solid #d6d6d6;
+    height: 48px;
+    align-items: center;
+  }
+
+  h2 {
+    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
+    font-size: 20px;
+    font-weight: 500;
+    line-height: 1.2;
+    margin: 0;
+  }
+
+  p {
+    font-size: .75rem;
+    line-height: 1.2;
+    margin: 0;
+    padding: 0;
+  }
+
 	form {
 		display: grid;
 		gap: .75rem;
 		grid-template-columns: 1fr 1fr;
-		grid-template-areas: 
+		grid-template-areas:
+      "header header" 
 			"name name"
 			"number number"
 			"exp csc";
 		max-width: 600px;
-		border: 1px solid #949499;
-		border-radius: 4px;
+		/* border: 1px solid #949499; */
+		border-radius: 8px;
+    overflow: hidden;
 		padding: 1rem;
+    background-color: #fff;
+    box-shadow: rgba(0, 0, 0, 0.04) 0px 2px 4px, rgba(0, 0, 0, 0.04) 0px 2px 8px, rgba(0, 0, 0, 0.06) 0px 4px 10px, rgba(0, 0, 0, 0.04) 0px 6px 12px;
 	}
 
-	form > :global(:nth-child(1)) {
-		grid-area: name;
+  form > :global(:nth-child(1)) {
+		grid-area: header;
 	}
 
 	form > :global(:nth-child(2)) {
-		grid-area: number;
+		grid-area: name;
 	}
 
 	form > :global(:nth-child(3)) {
+		grid-area: number;
+	}
+
+	form > :global(:nth-child(4)) {
 		grid-area: exp;
 	}
 	
-	form > :global(:nth-child(4)) {
+	form > :global(:nth-child(5)) {
 		grid-area: csc;
 	}
 </style>
