@@ -122,6 +122,10 @@
 	margin: 0;
 }
 
+.textfield__message:empty {
+	display: none;
+}
+
 .error .textfield__message {
 	color: #b00020;
 }

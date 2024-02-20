@@ -41,7 +41,7 @@
     }
   }
 
-  $: open = $state.open;
+  let open = $state.open;
   $: if (open) {
     if (browser) {
       if (ref) ref.inert = false;
@@ -79,7 +79,7 @@
   >
     <slot />
   </div>
-  <Backdrop {open} />
+  <Backdrop {open} on:click={close}/>
 </Portal>
 
 <style>

@@ -41,11 +41,11 @@
 	}
 
 	function handleInput({ target }) {
-    if (isMasked && cardValue.length > cardLen) {
-			cardValue = storedCardNumber.slice(0, cardLen)
+		if (isMasked && cardValue.length > cardLen) {
+			cardValue = cardValue.slice(0, cardLen)
 			return;
 		}
-    
+		
 		if (isMasked && cardValue.length < cardLen) {
 			cardValue = storedCardNumber.slice(0, cardValue.length);
 			isMasked = false;
@@ -62,7 +62,7 @@
 		
 		if (cardValue.length >= 2) {
 			const cardType = detectCreditCardType(cardValue);
-			console.log("Card type:", cardType);
+			// console.log("Card type:", cardType);
 			cardName = cardType.name;
 			cardLen = cardType.len;
 		}
@@ -73,7 +73,7 @@
 	}
 
 	function handleBlur() {
-		if (cardLen !== null && cardValue.length >= cardLen) {
+		if (!isMasked && cardLen !== null && cardValue.length >= cardLen) {
 			storedCardNumber = cardValue;
 			cardValue = cardValue.replace(/.(?=.{4})/g, "*");
 			isActionShown = true;
