@@ -4,6 +4,8 @@
 	export let label = "";
   export let value = "";
 	export let variant = "default";
+	export let error = false;
+	export let message = null;
 	
 	const uid = generateId("textfield");
 	const id = `uikit-textfield-${uid}`;
@@ -47,6 +49,7 @@
 <div 
 	class="textfield" 
 	class:textfield--float-above={variant === "float-above"}
+	class:error={ error }
 >
 	{#if variant !== "float-above"}
 	<label 
@@ -100,6 +103,7 @@
 		<slot name="trailing"/>
 	</div>
 	{/if}
+	<div class="textfield__message" aria-live="assertive" id="form-firstname-message" role="alert">{message ? message : ""}</div>
 </div>
 
 <style>
@@ -108,6 +112,18 @@
 	display: grid;
 	gap: 4px;
 	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+}
+
+.textfield__message {
+	font-size: 12px;
+	font-style: italic;
+	line-height: 1.6;
+	color: #212121;
+	margin: 0;
+}
+
+.error .textfield__message {
+	color: #b00020;
 }
 
 .textfield__label {

@@ -2,6 +2,7 @@
   import Portal from "svelte-portal";
   import { browser } from "$app/environment";
   import { onMount } from "svelte";
+  import Backdrop from "$lib/components/backdrop/Backdrop.svelte";
   export let variant = "default";
   export let state;
 
@@ -12,12 +13,14 @@
   let lastElementWithFocus: HTMLElement | null = null;
 
   function close() {
+    console.log("close");
     $state.open = false;
   }
 
   function handleKeydown(event) {
     if (event.key === 'Esc' || event.key == 'Escape') {
       close();
+      return;
     }
 
     const current = document.activeElement;
@@ -44,13 +47,14 @@
       if (ref) ref.inert = false;
       document.body.setAttribute("style", "overflow:hidden");
       lastElementWithFocus = document.activeElement as HTMLElement;
-      focusableElements[0].focus();
+      console.log("open", focusableElements);
+      focusableElements[0]?.focus();
     }
   } else {
     if (browser) {
       if (ref) ref.inert = true;
       document.body.removeAttribute("style");
-      lastElementWithFocus && lastElementWithFocus.focus();
+      lastElementWithFocus?.focus();
     }
   }
 
@@ -71,9 +75,11 @@
     class:dialog--fullscreen={variant === "fullscreen"}
     tabindex="-1"
     on:keydown={handleKeydown}
+    {...$$restProps}
   >
     <slot />
   </div>
+  <Backdrop {open} />
 </Portal>
 
 <style>
@@ -95,7 +101,7 @@
     opacity: 0;
     transition: opacity .15s ease-in;
     pointer-events: none;
-    z-index: 99;
+    z-index: 519;
   }
 
   .dialog--open {

@@ -4,12 +4,17 @@
   const selectId = `aria-uikit-select-${uid}`;
   const labelId = `${selectId}-label`;
   const errorId = `${selectId}-error`;
+  export let label = "";
   export let value: string | number | undefined = undefined;
 </script>
 
 <div class="select">
   <label id={labelId} for={selectId} class="select__label">
-    <slot name="label" />
+    {#if $$slots.label}
+      <slot name="label" />
+    {:else}
+      {label}
+    {/if}
   </label>
   <select
     id={selectId}
@@ -18,6 +23,7 @@
     on:contextmenu
     on:input
     bind:value
+    {...$$restProps}
   >
     <slot />
   </select>

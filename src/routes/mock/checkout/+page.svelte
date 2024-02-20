@@ -41,6 +41,11 @@
 	}
 
 	function handleInput({ target }) {
+    if (isMasked && cardValue.length > cardLen) {
+			cardValue = storedCardNumber.slice(0, cardLen)
+			return;
+		}
+    
 		if (isMasked && cardValue.length < cardLen) {
 			cardValue = storedCardNumber.slice(0, cardValue.length);
 			isMasked = false;
