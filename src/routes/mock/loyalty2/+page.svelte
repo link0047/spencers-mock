@@ -153,8 +153,8 @@
   <div class="dialog__content">
     <p>Hey there! We've noticed you have a loyalty account with us. Sign in now to earn points for this transaction and unlock exclusive rewards!</p>
     <form class="form">
-      <Textfield variant="float-above" label="Email" on:blur={handleBlur} autocomplete="email" autocorrect="off" spellcheck="false" type="text" required />
-      <Textfield variant="float-above" label="Password" on:blur={handleBlur} autocomplete="password" autocorrect="off" spellcheck="false" type="text" required />
+      <Textfield variant="float-above" label="Email" autocomplete="email" autocorrect="off" spellcheck="false" type="text" required />
+      <Textfield variant="float-above" label="Password" autocomplete="password" autocorrect="off" spellcheck="false" type="text" required />
       <Button variant="primary">
         Sign In
       </Button>
