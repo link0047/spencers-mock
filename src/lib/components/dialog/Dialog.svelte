@@ -1,10 +1,12 @@
 <script lang="ts">
   import Portal from "svelte-portal";
   import { browser } from "$app/environment";
-  import { onMount } from "svelte";
+  import { onMount, setContext } from "svelte";
   import Backdrop from "$lib/components/backdrop/Backdrop.svelte";
   export let variant = "default";
   export let state;
+
+  setContext("close", close);
 
   const id = $state.drawerId;
   let ref: HTMLElement;
@@ -41,7 +43,7 @@
     }
   }
 
-  let open = $state.open;
+  $: open = $state.open;
   $: if (open) {
     if (browser) {
       if (ref) ref.inert = false;
@@ -96,12 +98,13 @@
     width: 100%;
     max-width: calc(100vw - 16px);
     background-color: #fff;
-    padding: 8px;
     box-shadow: 0 6px 12px -2px rgba(50,50,93,0.25),0 3px 7px -3px rgba(0,0,0,0.3);
     opacity: 0;
+    overflow: hidden;
     transition: opacity .15s ease-in;
     pointer-events: none;
     z-index: 519;
+    border-radius: 8px;
   }
 
   .dialog--open {
@@ -120,6 +123,7 @@
     max-height: 100vh;
     transform: none;
     box-shadow: none;
+    border-radius: 0;
   }
 
   @supports (width: 100dvw) {

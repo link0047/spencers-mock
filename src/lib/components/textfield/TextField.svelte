@@ -1,47 +1,48 @@
-<script>
-	import generateId from "$lib/client/util/local-unique-id-generator.js"
-	
-	export let label = "";
-  export let value = "";
-	export let variant = "default";
-	export let error = false;
-	export let message = null;
-	
-	const uid = generateId("textfield");
-	const id = `uikit-textfield-${uid}`;
-	const labelId = `${id}-label`;
-	let shouldLabelFloatAbove = false;
+<script lang="ts">
+	import generateId from "$lib/client/util/local-unique-id-generator.js";
+  import { onMount } from "svelte";
 
-	function handleBlur({ target }) {
-		if (!target.value.length) {
-			shouldLabelFloatAbove = false;
-		}
-	}
+  export let label: string = "";
+  export let value: string = "";
+  export let variant: "default" | "float-above" = "default";
+  export let error: boolean = false;
+  export let message: string | null = null;
 
-	function handleFocus({ target }) {
-		if (!target.value.length) {
-			shouldLabelFloatAbove = true;
-		}
-	}
+  const uid: string = generateId("textfield");
+  const id: string = `uikit-textfield-${uid}`;
+  const labelId: string = `${id}-label`;
+  let shouldLabelFloatAbove: boolean = false;
 
-	function handleKeyUp({ target }) {
-		if (variant === "float-above" && !shouldLabelFloatAbove) {
-			shouldLabelFloatAbove = true;
-		}
-	}
-	
-	function handleChange({ target }) {
-		if (target.value.length) {
-			shouldLabelFloatAbove = true;
-		}
-	}
+  function handleBlur({ target }: FocusEvent) {
+    if (!(target as HTMLInputElement).value.length) {
+      shouldLabelFloatAbove = false;
+    }
+  }
 
-	function handleAnimation({ target, animationName }) {
+  function handleFocus({ target }: FocusEvent) {
+    if (!(target as HTMLInputElement).value.length) {
+      shouldLabelFloatAbove = true;
+    }
+  }
+
+  function handleKeyUp({ target }: KeyboardEvent) {
+    if (variant === "float-above" && !shouldLabelFloatAbove) {
+      shouldLabelFloatAbove = true;
+    }
+  }
+
+  function handleChange({ target }: Event) {
+    if ((target as HTMLInputElement).value.length) {
+      shouldLabelFloatAbove = true;
+    }
+  }
+
+	function handleAnimation({ target, animationName }: AnimationEvent) {
 		if (animationName.toLowerCase().includes("start")) {
 			shouldLabelFloatAbove = true;
 		}
 
-		if (animationName.toLowerCase().includes("cancel") && !target.value.length) {
+		if (animationName.toLowerCase().includes("cancel") && !(target as HTMLInputElement).value.length) {
 			shouldLabelFloatAbove = false;
 		}
 	}
@@ -103,7 +104,9 @@
 		<slot name="trailing"/>
 	</div>
 	{/if}
-	<div class="textfield__message" aria-live="assertive" id="form-firstname-message" role="alert">{message ? message : ""}</div>
+	<div class="textfield__message" aria-live="assertive" id="form-firstname-message" role="alert">
+    {message ? message : ""}
+  </div>
 </div>
 
 <style>
@@ -206,7 +209,7 @@
 	top: 0;
 	left: 0;
 	right: 0;
-	bottom: 0;
+	height: 36px;
 	display: grid;
 	grid-template-columns: 8px minmax(auto, max-content) 1fr;
 }	
