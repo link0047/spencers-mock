@@ -3,11 +3,11 @@ import generateId from "$lib/client/util/local-unique-id-generator.js";
 
 function useDialogState(open = false) {
   const id = generateId("dialog");
-  return writable({
+  return {
     dialogId: `aria-uikit-dialog-${id}`,
     disclosureId: `aria-uikit-dialog-disclosure-${id}`,
-    open,
-  });
+    open: writable(open)
+  };
 }
 
 export default useDialogState;

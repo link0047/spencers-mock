@@ -105,7 +105,7 @@
     // if (validateEmail(value)) {
     //   console.log("valid");
     // }
-    $dialogState.open = true;
+    dialogState.open.set(true);
   }
 
   const dialogState = useDialogState();

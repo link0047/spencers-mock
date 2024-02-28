@@ -2,14 +2,12 @@
   import Button from "$lib/components/button";
   export let state;
 
-	const id = $state.disclosureId;
-	const dialogId = $state.dialogId;
+	const id = state.disclosureId;
+	const dialogId = state.dialogId;
 	
 	function handleClick() {
-		$state.open = !$state.open;
+		state.open.set(true);
 	}
-	
-	$: open = $state.open;
 </script>
 <Button 
   id={id} 

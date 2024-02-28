@@ -1,0 +1,11 @@
+<script lang="ts">
+  import Page from "$lib/components/page/Page.svelte";
+</script>
+
+<Page>
+  
+</Page>
+
+<style>
+
+</style>

@@ -8,60 +8,80 @@
 
   setContext("close", close);
 
-  const id = $state.drawerId;
+  const id = state.drawerId;
   let ref: HTMLElement;
   
   let focusableElements: HTMLElement[] | null;  
   let lastElementWithFocus: HTMLElement | null = null;
 
+  let isOpen = state.open;
+
   function close() {
     console.log("close");
-    $state.open = false;
+    state.open.set(false);
   }
 
   function handleKeydown(event) {
-    if (event.key === 'Esc' || event.key == 'Escape') {
+    if (event.key === "Esc" || event.key == "Escape") {
       close();
       return;
     }
 
     const current = document.activeElement;
-    focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
+    focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
     const first = focusableElements[0];
     const last = focusableElements[focusableElements.length - 1];
 
-    if (event.key === 'Tab') {
+    if (event.key === "Tab") {
       if (event.shiftKey && current === first) {
         last.focus();
-      }
-
-      if (!event.shiftKey && current === last) {
+        event.preventDefault();
+      } else if (!event.shiftKey && current === last) {
         first.focus();
+        event.preventDefault();
       }
-
-      event.preventDefault();
     }
   }
 
-  $: open = $state.open;
-  $: if (open) {
-    if (browser) {
-      if (ref) ref.inert = false;
-      document.body.setAttribute("style", "overflow:hidden");
-      lastElementWithFocus = document.activeElement as HTMLElement;
-      console.log("open", focusableElements);
-      focusableElements[0]?.focus();
-    }
-  } else {
-    if (browser) {
-      if (ref) ref.inert = true;
-      document.body.removeAttribute("style");
-      lastElementWithFocus?.focus();
-    }
+  if (browser) {
+    console.log(browser)
+    state.open.subscribe(openState => {
+      isOpen = openState;
+      if (isOpen) {
+        if (ref) ref.inert = false;
+        document.body.setAttribute("style", "overflow:hidden");
+        lastElementWithFocus = document.activeElement as HTMLElement;
+        console.log("open-dialog", focusableElements);
+        focusableElements[0]?.focus();
+      } else {
+        if (ref) ref.inert = true;
+        document.body.removeAttribute("style");
+        console.log("close-dialog", focusableElements);
+        lastElementWithFocus?.focus();
+      }
+    });
   }
+
+  // $: open = $state.open;
+  // $: if (open) {
+  //   if (browser) {
+  //     if (ref) ref.inert = false;
+  //     document.body.setAttribute("style", "overflow:hidden");
+  //     lastElementWithFocus = document.activeElement as HTMLElement;
+  //     console.log("open-dialog", focusableElements);
+  //     focusableElements[0]?.focus();
+  //   }
+  // } else {
+  //   if (browser) {
+  //     if (ref) ref.inert = true;
+  //     document.body.removeAttribute("style");
+  //     console.log("close-dialog", focusableElements);
+  //     lastElementWithFocus?.focus();
+  //   }
+  // }
 
   onMount(() => {
-    focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
+    focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
   });
 </script>
 
@@ -73,7 +93,7 @@
     aria-modal="true"
     role="dialog"
     class="dialog"
-    class:dialog--open={open}
+    class:dialog--open={isOpen}
     class:dialog--fullscreen={variant === "fullscreen"}
     tabindex="-1"
     on:keydown={handleKeydown}
@@ -81,7 +101,7 @@
   >
     <slot />
   </div>
-  <Backdrop {open} on:click={close}/>
+  <Backdrop open={isOpen} on:click={close}/>
 </Portal>
 
 <style>
