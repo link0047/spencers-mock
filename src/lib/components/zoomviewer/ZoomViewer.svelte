@@ -114,6 +114,7 @@
 		width="640"
 		height="640"
 		decoding="async"
+		draggable="false"
 		{src}
 		alt=""
 	/>
