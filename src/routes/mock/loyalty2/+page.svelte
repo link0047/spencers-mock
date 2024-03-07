@@ -99,8 +99,8 @@
     state: z.string().nonempty("Please select a valid State/Province"),
 });
 
-  function handleBlur({ target }: Event): void {
-    const value: string | null = target?.value;
+  function handleBlur({ target }: FocusEvent): void {
+    const value: string | null = (target as HTMLInputElement)?.value;
 
     // if (validateEmail(value)) {
     //   console.log("valid");

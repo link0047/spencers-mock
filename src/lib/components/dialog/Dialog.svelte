@@ -21,8 +21,8 @@
     state.open.set(false);
   }
 
-  function handleKeydown(event) {
-    if (event.key === "Esc" || event.key == "Escape") {
+  function handleKeydown(event: KeyboardEvent) {
+    if (event.key === "Esc" || event.key === "Escape") {
       close();
       return;
     }
@@ -44,41 +44,20 @@
   }
 
   if (browser) {
-    console.log(browser)
     state.open.subscribe(openState => {
       isOpen = openState;
       if (isOpen) {
         if (ref) ref.inert = false;
         document.body.setAttribute("style", "overflow:hidden");
         lastElementWithFocus = document.activeElement as HTMLElement;
-        console.log("open-dialog", focusableElements);
-        focusableElements[0]?.focus();
+        focusableElements && focusableElements[0]?.focus();
       } else {
         if (ref) ref.inert = true;
         document.body.removeAttribute("style");
-        console.log("close-dialog", focusableElements);
         lastElementWithFocus?.focus();
       }
     });
   }
-
-  // $: open = $state.open;
-  // $: if (open) {
-  //   if (browser) {
-  //     if (ref) ref.inert = false;
-  //     document.body.setAttribute("style", "overflow:hidden");
-  //     lastElementWithFocus = document.activeElement as HTMLElement;
-  //     console.log("open-dialog", focusableElements);
-  //     focusableElements[0]?.focus();
-  //   }
-  // } else {
-  //   if (browser) {
-  //     if (ref) ref.inert = true;
-  //     document.body.removeAttribute("style");
-  //     console.log("close-dialog", focusableElements);
-  //     lastElementWithFocus?.focus();
-  //   }
-  // }
 
   onMount(() => {
     focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
