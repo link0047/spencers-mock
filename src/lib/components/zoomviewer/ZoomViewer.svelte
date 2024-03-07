@@ -94,7 +94,7 @@
 		}
 	})
 </script>
-<div
+<!-- <div
 	bind:this={ref}
 	data-state={state}
 	class="zoomviewer"
@@ -107,6 +107,13 @@
 	on:pointerenter={handlePointerEnter}
 	on:keydown={handleKeyDown}
 	tabindex="0"
+> -->
+<div 
+	bind:this={ref}
+	data-state={state}
+	class="zoomviewer"
+	role="button"
+	aria-label="Zoom viewer"
 >
 	<img 
 		class="zoomviewer__image"
