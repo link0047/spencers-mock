@@ -76,7 +76,7 @@
 
 	@media(max-width: 560px) {
 		.product-gallery {
-			grid-template-columns: 100%;
+			grid-template-columns: calc(100vw - 1rem);
 		}
 		.product-gallery__thumbnails {
 			display: none;
