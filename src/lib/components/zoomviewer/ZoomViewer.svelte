@@ -124,6 +124,7 @@
 		width="640"
 		height="640"
 		decoding="async"
+		draggable="false"
 		data-src={detailedSrc}
 		src={userIntendsToView ? detailedSrc : undefined}
 		on:load={detailedImageLoaded}
@@ -140,6 +141,7 @@
 		border: 1px solid transparent;
 		border-radius: 4px;
 		overflow: hidden;
+		border: 1px solid #ccc;
 	}
 
 	[data-state="zoomedIn"].zoomviewer {
@@ -157,6 +159,7 @@
 	.zoomviewer__image {
 		min-width: 320px;
 		width: 100%;
+		height: auto;
 		opacity: 1;
 		cursor: zoom-in;
 		object-fit: contain;
@@ -169,6 +172,8 @@
 		position: absolute;
 		top: 0;
 		left: 0;
+		width: 100%;
+		height: 100%;
 		opacity: 0;
 		z-index: 1;
 		pointer-events: none;

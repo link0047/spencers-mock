@@ -44,6 +44,11 @@
 		// Calculate the Euclidean distance between two points
 		return Math.sqrt((pos2.x - pos1.x) ** 2 + (pos2.y - pos1.y) ** 2);
 	}
+
+  function isDecimal(num) {
+    // Check if the number is not NaN and has a fractional part
+    return !isNaN(num) && num % 1 !== 0;
+  }
 	
 	function insertBefore(referenceNode, newNode) {
 		// Insert newNode before referenceNode in the DOM
@@ -82,19 +87,17 @@
 	
 	function prevSlide() {
 		if (transitioning) return;
-		console.log("prev click");
-		gotoSlide(--slideIndex, "right");
+		gotoSlide(Math.floor(--slideIndex), "right");
 	}
 	
 	function nextSlide() {
 		if (transitioning) return;
-		console.log("next click", slideIndex);
-		gotoSlide(++slideIndex, "left");
+		gotoSlide(Math.ceil(++slideIndex), "left");
 	}
 	
 	export function gotoSlide(index, direction) {
-		const endIndex = carouselTrackRef.childElementCount - slidesPerView;
-		
+		const endIndex = carouselTrackRef.childElementCount - 1;
+
 		if (!loop) {
 			if (index < 0) {
 				slideIndex = 0;
@@ -126,6 +129,7 @@
 		} 
 		
 		if (!slideRects.length) return;
+    console.log("index", index);
 		const rect = { x: slideRects[index].x }; 
 		transitioning = true;
 		carouselTrackRef.style.transition = 'transform .3s';
@@ -190,10 +194,9 @@
 		} else if (position.x > currentPosition.x) {
 			direction = "left";
 		}
-		console.log(position, currentPosition);
+
 		const distance = calculateDistance(position, currentPosition);
 		move += Math.round(distance) * dir;
-		console.log(direction, move)
 		carouselTrackRef.style.transition = "none";
 		carouselTrackRef.style.transform = `translate3d(${move}px,0,0)`;
 		position = currentPosition;
@@ -202,14 +205,9 @@
 	function handlePointerUp(event) {
 		if (direction) {
 			const localMove = move > 0 ? move : move * -1;
-			const rangeIndex = slidesPerView - 1;
-			const range = !(rangeIndex) ? slides.length : -rangeIndex;
-			// console.log(range);
-			console.log("up")
-			// console.log("closest point",closestPoint(localMove, slideRects.slice(0, range)))
 			const currentPosition = (direction === "right" && slideIndex === 0)
 				? { x: 0, idx: 0 }
-				: closestPoint(localMove, slideRects.slice(0, range));
+				: closestPoint(localMove, slideRects.slice(0, slides.length));
 			const x = currentPosition.x * -1;
 
 			carouselTrackRef.style.transition = "transform .3s";
