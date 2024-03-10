@@ -49,7 +49,7 @@
 
     const distance = calculateDistance(position, currentPosition);
 
-    move += Math.round(distance.x) * -1;
+    move += Math.round(distance.x);
 
     styling = `transition:none;transform:translate3d(${move}px,0,0)`;
     position = currentPosition;
