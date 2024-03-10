@@ -1,11 +1,10 @@
 <script lang="ts">
-
   let transitoning = false;
-  let message = "";
+  let message = "no state";
 
-  function handlePointerUp(event) {
+  function handlePointerDown(event) {
     transitoning = true;
-    message = `Up ${JSON.stringify(event)}`;
+    message = `Down ${JSON.stringify(event)}`;
   }
 
   function handlePointerMove(event) {
@@ -13,9 +12,9 @@
     message = `Move ${JSON.stringify(event)}`;
   }
 
-  function handlePointerDown(event) {
+  function handlePointerUp(event) {
     transitoning = false;
-    message = `Down ${JSON.stringify(event)}`;
+    message = `Up ${JSON.stringify(event)}`;
   }
 
   const slides = [1,2,3,4,5,6,7,8,9,10];
@@ -30,7 +29,9 @@
   <div class="carousel__viewport">
     <div class="carousel__track">
       {#each slides as slide}
-        <div class="box"></div>
+        <div class="box">
+          {slide}
+        </div>
       {/each}
     </div>
   </div>
