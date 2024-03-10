@@ -74,7 +74,7 @@
   class="carousel"
   aria-roledescription="carousel"
   role="region"
-  on:touchup={handlePointerUp}
+  on:pointerup={handlePointerUp}
   on:pointermove={handlePointerMove}
   on:pointerdown={handlePointerDown}
   on:contextmenu={preventContextMenu}
