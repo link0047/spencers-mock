@@ -2,7 +2,7 @@
   let transitioning: boolean = false;
   let message: string = "no state";
   let styling: string = "";
-  let touchPosition: { x: number, y: number } | null = null;
+  let position: { x: number, y: number } | null = null;
   let direction: "left" | "right" | null = null;
   let move: number = 0;
 
@@ -27,20 +27,21 @@
 
   function handlePointerDown(event: PointerEvent) {
     transitioning = true;
-    touchPosition = getPosition(event);
-    message = `Down ${touchPosition.x}, ${touchPosition.y}`;
+    position = getPosition(event);
+    message = `Down ${position.x}, ${position.y}`;
   }
 
   function handlePointerMove(event: PointerEvent) {
-    if (!transitioning || !touchPosition) return;
+    if (!transitioning || !position) return;
 
     const currentPosition = getPosition(event);
-    direction = touchPosition.x > currentPosition.x ? "left" : "right";
+    direction = position.x > currentPosition.x ? "left" : "right";
 
-    const distance = calculateDistance(touchPosition, currentPosition);
-    move = Math.round(distance) * Math.sign(touchPosition.x - currentPosition.x);
+    const distance = calculateDistance(position, currentPosition);
+    move += Math.round(distance) * (position.x > currentPosition.x ? -1 : 1);
 
     styling = `transition:none;transform:translate3d(${move}px,0,0)`;
+    position = currentPosition;
 
     message = `Move ${currentPosition.x}, ${currentPosition.y}`;
   }
@@ -49,7 +50,7 @@
     transitioning = false;
     const currentPosition = getPosition(event);
 
-    move = currentPosition.x;
+    // move = currentPosition.x;
     message = `Up ${JSON.stringify(event)}`;
   }
 
