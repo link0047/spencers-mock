@@ -129,7 +129,6 @@
 		} 
 		
 		if (!slideRects.length) return;
-    console.log("index", index);
 		const rect = { x: slideRects[index].x }; 
 		transitioning = true;
 		carouselTrackRef.style.transition = 'transform .3s';
