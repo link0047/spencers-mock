@@ -1,18 +1,24 @@
-<script>
-let message = "";
-function handlePointerUp(event) {
-  message = `Up ${JSON.stringify(event)}`
-}
+<script lang="ts">
 
-function handlePointerMove(event) {
-  message = `Move ${JSON.stringify(event)}`
-}
+  let transitoning = false;
+  let message = "";
 
-function handlePointerDown(event) {
-  message = `Down ${JSON.stringify(event)}`
-}
+  function handlePointerUp(event) {
+    transitoning = true;
+    message = `Up ${JSON.stringify(event)}`;
+  }
 
-const slides = [1,2,3,4,5,6,7,8,9,10]
+  function handlePointerMove(event) {
+    if (!transitoning) return;
+    message = `Move ${JSON.stringify(event)}`;
+  }
+
+  function handlePointerDown(event) {
+    transitoning = false;
+    message = `Down ${JSON.stringify(event)}`;
+  }
+
+  const slides = [1,2,3,4,5,6,7,8,9,10];
 </script>
 {message}
 <div
@@ -39,6 +45,7 @@ const slides = [1,2,3,4,5,6,7,8,9,10]
 		position: relative;
 		width: 100%;
 		overflow: hidden;
+    padding: 8px;
 	}
 
 	.carousel__track {
@@ -52,5 +59,8 @@ const slides = [1,2,3,4,5,6,7,8,9,10]
     height: 400px;
     border: 2px solid;
     border-radius: 8px;
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
   }
 </style>
