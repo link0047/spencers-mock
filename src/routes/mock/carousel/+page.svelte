@@ -68,8 +68,9 @@
   const slides: number[] = [1,2,3,4,5,6,7,8,9,10];
   const boxes: number[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 </script>
-
-{message}
+<header class="header">
+  Test Carousel
+</header>
 <div
   class="carousel"
   aria-roledescription="carousel"
@@ -83,12 +84,15 @@
     <div class="carousel__track" style={styling}>
       {#each slides as slide}
         <div class="slide">
-          {slide}
+          <div class="box">
+            {slide}
+          </div>
         </div>
       {/each}
     </div>
   </div>
 </div>
+<div class="carousel-message">{message}</div>
 <div class="grid grid-2-col">
 {#each boxes as box} 
   <div class="box">
@@ -97,13 +101,19 @@
 {/each}
 </div>
 <style>
-  .grid {
-    display: grid;
-    gap: 8px;
+  .header {
+    display: flex;
+    align-items: center;
+    padding-inline: 8px;
+    border-bottom: 1px solid #ccc;
+    background-color: #f2f2f2;
+    box-sizing: border-box;
+    height: 54px;
   }
 
-  .grid-2-col {
-    grid-template-columns: auto auto;
+  .carousel-message {
+    font-size: .875rem;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
   .carousel {
@@ -126,13 +136,22 @@
 
   .slide {
     user-select: none;
-    width: 400px;
-    height: 400px;
-    border: 2px solid;
-    border-radius: 8px;
     flex-grow: 0;
     flex-shrink: 0;
     flex-basis: auto;
+  }
+
+  .slide .box {
+    width: 300px;
+  }
+
+  .grid {
+    display: grid;
+    gap: 8px;
+  }
+
+  .grid-2-col {
+    grid-template-columns: auto auto;
   }
 
   .box {
