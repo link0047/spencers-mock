@@ -401,7 +401,7 @@
 		outline: 0;
     border-radius: 50%;
 		z-index: 1;
-		background-color: transparent;
+		background-color: #fff;
 		overflow: hidden;
 		-ms-touch-action: manipulation;
 		touch-action: manipulation;
@@ -421,8 +421,10 @@
 		background-color: rgba(0, 0, 0, .2);
 	}
 
-  .slide .box {
-    width: 300px;
+  .icon {
+    width: 24px;
+    height: 24px;
+    fill: #212121;
   }
 
   .grid {
