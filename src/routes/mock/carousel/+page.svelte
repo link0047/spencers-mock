@@ -98,8 +98,8 @@
   }
 
   function handleIntersect(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
-    entries.forEach((entry, i) => {
-      slideBreakpoints.push({x: entry.boundingClientRect.width * i});
+    entries.forEach(entry => {
+      slideBreakpoints.push({ x: entry.boundingClientRect.left - 8 });
     });
     
     observer.disconnect();
