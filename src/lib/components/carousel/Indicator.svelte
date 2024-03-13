@@ -1,18 +1,11 @@
 <script>
+	import { beforeUpdate } from "svelte";
 	export let count = 0;
 	export let limit = 5;
 	export let index = 0;
 	let activeDotPosition = 0;
-	const realCount = count - 1;
+	const realCount = count;
 	let layoutState = 0;
-
-	// let layouts = [
-	// 	[4, 4, 4, 2, 1],
-	// 	[2, 4, 4, 4, 2, 1],
-	// 	[1, 2, 4, 4, 4, 2, 1],
-	// 	[1, 2, 4, 4, 4, 2],
-	// 	[1, 2, 4, 4, 4]
-	// ];
 	
 	function positionDots(dotSizes) {
 
@@ -48,8 +41,6 @@
 		}	
 		
 		if (count > limit) {
-			console.log("state",layoutState);
-			
 			if (index === 1 && layoutState === 2) {
 				dots = positionDots([2, 4, 4, 4, 2, 1]);
 				layoutState = 1;
@@ -110,6 +101,12 @@
 		}
 	}
 
+	beforeUpdate(() => {
+		console.log(index, count);
+		activeDotPosition = index;
+		dots = calculateLayout();
+	});
+
 	let dots = calculateLayout() || [];
 </script>
 
@@ -131,6 +128,10 @@
 <style>
 	.indicator {
 		width: 240px;
+	}
+
+	.indicator use:not(.active) {
+		opacity: .2;
 	}
 
 	.active {

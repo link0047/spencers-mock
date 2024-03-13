@@ -369,6 +369,10 @@
 		console.warn(`Invalid orientation "${orientation}" passed. Using default orientation "horizontal".`);
 		orientation = "horizontal";
 	}
+
+	$: slideCount = loop 
+		? slides.length - slidesPerView * 2
+		: slides.length;
 </script>
 <div
 	bind:this={carouselRef}
@@ -400,7 +404,7 @@
 			</button>
 			<div class="carousel__indicator">
 				{#if displayIndicator}
-					<IndicatorDots />
+					<IndicatorDots index={slideIndex} count={slideCount} />
 				{/if}
 			</div>
 		</div>

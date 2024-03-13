@@ -4,9 +4,13 @@
 	import ZoomViewer from "$lib/components/zoomviewer/ZoomViewer.svelte";
 
 	interface Image {
-		src: string;
+		src: {
+			desktop: string;
+			mobile: string;
+		};
 		thumbnail: string;
 		detailedSrc: string;
+		alt: string
 	}
 
 	export let images: Image[] = [];
@@ -37,14 +41,23 @@
 				data-state={selectedImageIndex === index ? "selected" : "unselected" }
 				on:click={changeProduct.bind(null, index)}
 			>
-				<img src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}"/>
+				<img class="product-gallery__thumbnail-image" src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}"/>
 			</button>
 		{/each}
 	</div>
 	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
-		{#each images as { src, detailedSrc }}
+		{#each images as { src, alt }}
 			<CarouselSlide>
-				<ZoomViewer {src} {detailedSrc} />
+				<img 
+					class="product-gallery__image"
+					loading="eager"
+					width={ isMobile ? "320" : "640" }
+					height={ isMobile ? "320" : "640" }
+					decoding="async"
+					draggable="false"
+					src={ isMobile ? src.mobile : src.desktop }
+					{alt}
+				/>
 			</CarouselSlide>
 		{/each}
 	</Carousel>

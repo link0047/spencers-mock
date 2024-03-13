@@ -1,99 +1,126 @@
-<script>
-	import { onDestroy } from "svelte";
-	export let src = "";
-	export let detailedSrc = "";
-	import { browser } from "$app/environment";
-	
-	let ref;
-	let x = 0;
-	let y = 0;
-	let state = "idle";
-	let userIntendsToView = false;
-	let loaded = false;
+<script lang="ts">
+  import { onDestroy } from "svelte";
+  export let src: string = "";
+  export let detailedSrc: string = "";
+  import { browser } from "$app/environment";
 
-	function zoomOut({ target }) {
-		if (browser) {
-			if (!ref.contains(target)) {
-				state = "idle";
-				document.removeEventListener("click", zoomOut);
-			}
-		}
-	}
+  let ref: HTMLDivElement;
+  let x: number = 0;
+  let y: number = 0;
+  let state: "idle" | "focused" | "zoomedIn" = "idle";
+  let userIntendsToView: boolean = false;
+  let loaded: boolean = false;
 
-	function handleFocus() {
-		state = "focused"
-		userIntendsToView = true;
-	}
-	
-	function handlePointerMove({ offsetX, offsetY }) {
-		x = offsetX;
-		y = offsetY;
-	}
-
-	function handlePointerEnter() {
-		userIntendsToView = true;
-	}
-
-	function detailedImageLoaded() {
-		loaded = true;
-	}
-
-	function handlePointerDown(event) {
-
-		if (browser && loaded) {
-			document.addEventListener("click", zoomOut);
-		}
-	}
-
-	function handlePointerUp() {
-		if (state === "idle" || state === "focused") {
-			state = "zoomedIn";
-		} else if (state === "zoomedIn") {
-			state = "idle";
-			document.removeEventListener("click", zoomOut);
-		}
-	}
-
-	function handleKeyDown({ key }) {
-		if (key === "+" || key === "=") {
-			if (browser && loaded) {
-				state = "zoomedIn";
-				document.addEventListener("click", zoomOut);
-			} else {
-				userIntendsToView = true;
-			}
-		}
-
-		if (state === "zoomedIn") {
-			switch (key) {
-				case "ArrowUp":
-					y -= 23;
-					break;
-				case "ArrowDown":
-					y += 23;
-					break;
-				case "ArrowLeft":
-					x -= 23;
-					break;
-				case "ArrowRight":
-					x += 23;
-					break;
-				case "-":
-					state = "idle";
-					break;
-				default:
-					break;
-			}
-      
+  /**
+   * Handles zooming out when clicking outside the component.
+   * @param {MouseEvent} event - The MouseEvent object.
+   */
+  function zoomOut(event: MouseEvent): void {
+    if (browser) {
+      if (!ref.contains(event.target as Node)) {
+        state = "idle";
+        document.removeEventListener("click", zoomOut);
+      }
     }
-	}
+  }
 
-	onDestroy(() => {
-		if(browser) {
-			document.removeEventListener("click", zoomOut);
-		}
-	})
+  /**
+   * Handles focusing on the component.
+   */
+  function handleFocus(): void {
+    state = "focused";
+    userIntendsToView = true;
+  }
+
+  /**
+   * Handles moving the pointer inside the component.
+   * @param {MouseEvent} event - The MouseEvent object.
+   */
+  function handlePointerMove(event: MouseEvent): void {
+    x = event.offsetX;
+    y = event.offsetY;
+  }
+
+  /**
+   * Handles the pointer entering the component.
+   */
+  function handlePointerEnter(): void {
+    userIntendsToView = true;
+  }
+
+  /**
+   * Callback function for detailed image loaded event.
+   */
+  function detailedImageLoaded(): void {
+    loaded = true;
+  }
+
+  /**
+   * Handles pointer down event on the component.
+   * @param {MouseEvent} event - The MouseEvent object.
+   */
+  function handlePointerDown(event: MouseEvent): void {
+    if (browser && loaded) {
+      document.addEventListener("click", zoomOut);
+    }
+  }
+
+  /**
+   * Handles pointer up event on the component.
+   */
+  function handlePointerUp(): void {
+    if (state === "idle" || state === "focused") {
+      state = "zoomedIn";
+    } else if (state === "zoomedIn") {
+      state = "idle";
+      document.removeEventListener("click", zoomOut);
+    }
+  }
+
+  /**
+   * Handles key down event on the component.
+   * @param {KeyboardEvent} event - The KeyboardEvent object.
+   */
+  function handleKeyDown(event: KeyboardEvent): void {
+    if (event.key === "+" || event.key === "=") {
+      if (browser && loaded) {
+        state = "zoomedIn";
+        document.addEventListener("click", zoomOut);
+      } else {
+        userIntendsToView = true;
+      }
+    }
+
+    if (state === "zoomedIn") {
+      switch (event.key) {
+        case "ArrowUp":
+          y -= 23;
+          break;
+        case "ArrowDown":
+          y += 23;
+          break;
+        case "ArrowLeft":
+          x -= 23;
+          break;
+        case "ArrowRight":
+          x += 23;
+          break;
+        case "-":
+          state = "idle";
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
+  onDestroy(() => {
+    if (browser) {
+      document.removeEventListener("click", zoomOut);
+    }
+  });
 </script>
+
 <div
 	bind:this={ref}
 	data-state={state}
@@ -108,7 +135,6 @@
 	on:keydown={handleKeyDown}
 	tabindex="0"
 >
-
 	<img 
 		class="zoomviewer__image"
 		loading="eager"
@@ -142,7 +168,7 @@
 		border: 1px solid transparent;
 		border-radius: 4px;
 		overflow: hidden;
-		border: 1px solid #ccc;
+		border: 1px solid transparent;
 	}
 
 	[data-state="zoomedIn"].zoomviewer {
@@ -151,10 +177,6 @@
 
 	.zoomviewer:focus-visible {
 		outline: 2px solid #0570de;
-	}
-
-	.zoomviewer:hover {
-		/* border-color: #111; */
 	}
 
 	.zoomviewer__image {
