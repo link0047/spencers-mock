@@ -159,7 +159,6 @@
     });
     
     observer.disconnect();
-    console.log("intersection");
   }
 
   /**
@@ -174,7 +173,6 @@
    * Function to handle resizing.
    */
   function resize(): void {
-    console.log("resize");
     // Recalculate breakpoints based on the new screen size
     slideBreakpoints = [];
     slides.forEach((slide: HTMLElement, index: number) => {
@@ -223,7 +221,7 @@
    * @param {"left" | "right"} direction - The direction of navigation.
    */
   export function gotoSlide(index: number, direction: "left" | "right")  {
-    const endIndex = (carouselTrackRef as HTMLElement)?.childElementCount - slidesPerView;
+    const endIndex = (carouselTrackRef as HTMLElement)?.childElementCount - Math.floor(slidesPerView);
 
     if (!loop) {
       if (index < 0) {
@@ -335,7 +333,7 @@
 		transitioning = false;
 		if (slideIndex === startResetIndex || slideIndex === lastResetIndex) {
 			atResetPoint = true;
-      console.log("reset point", atResetPoint);
+
 		}
 	}
 
@@ -358,8 +356,6 @@
     startResetIndex = firstChildIndex - 1;
     lastResetIndex = track?.childElementCount - slidesPerView;
     slideIndex = firstChildIndex;
-
-    console.log({ firstChildIndex, lastChildIndex, startResetIndex, lastResetIndex });
   });
 
   onDestroy(() => {

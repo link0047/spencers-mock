@@ -28,7 +28,7 @@
 	}
 </script>
 
-<div class="product-gallery">
+<div class="product-gallery" aria-label="Product Gallery">
 	<div class="product-gallery__thumbnails">
 		{#each images as { thumbnail }, index}
 			<button 
@@ -37,11 +37,11 @@
 				data-state={selectedImageIndex === index ? "selected" : "unselected" }
 				on:click={changeProduct.bind(null, index)}
 			>
-				<img src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt=""/>
+				<img src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}"/>
 			</button>
 		{/each}
 	</div>
-	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={true}>
+	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
 		{#each images as { src, detailedSrc }}
 			<CarouselSlide>
 				<ZoomViewer {src} {detailedSrc} />
