@@ -8,6 +8,7 @@
     ["size", ["small", "medium", "large", "XL"]]
   ]);
 
+  let name = product.get("name");
   let price = product.get("price") as Array<number>;
   const images = [{
 		src: {
@@ -16,7 +17,7 @@
     },
 		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--nTMya-gn--/c_scale,w_60/v1709237144/jx6nbjhprv6pduzvzedb.webp",
 		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--5JvW6DEy--/v1709237144/jx6nbjhprv6pduzvzedb.webp",
-    alt: "Front View of Pink Gloomy Bear Hoodie"
+    alt: `${name}, Front View`
 	},{
 		src: {
       desktop: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--QJ1U01I7--/c_scale,h_640/v1709237142/cs9wnfguogzx48wsgnqh.webp",
@@ -24,7 +25,7 @@
     },
 		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--2go8J7O_--/c_scale,h_60,w_60/v1709237142/cs9wnfguogzx48wsgnqh.webp",
 		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--qA93iX2F--/c_scale,h_2000/v1709237142/cs9wnfguogzx48wsgnqh.webp",
-    alt: "Back View of Pink Gloomy Bear Hoodie"
+    alt: `${name}, Back View`
 	}, {
 		src: {
       desktop: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--gQA7zTKW--/c_scale,h_640/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
@@ -32,7 +33,7 @@
     },
 		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--VX72t8q2--/c_scale,h_60/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
 		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--tX3fShB6--/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
-    alt: "Detail of Sleeve on Pink Gloomy Bear Hoodie"
+    alt: `${name}, Detail of Sleeve`
 	}];
 
   export let data;

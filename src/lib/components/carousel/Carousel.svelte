@@ -12,11 +12,13 @@
 	export let loop: boolean = false;
 	export let slidesPerView: number = 1;
 	export let displayIndicator: boolean = false;
+	export let swipeThreshold: number = 20;
 
 	let transitioning: boolean = false;
   let atResetPoint: boolean = false;
   let styling: string = "";
   let position: { x: number, y: number } | null = null;
+	let startPosition: { x: number, y: number } | null = null;
   let direction: "left" | "right" | null = null;
   let carouselOffset: number = 0;
   let observer: IntersectionObserver | null = null;
@@ -28,6 +30,9 @@
   let lastResetIndex: number = 0;
   let firstChildIndex:number = -1;
   let lastChildIndex: number = -1;
+	let startTime: number;
+  let endTime: number;
+	let minSwipeTime: number = 250;
 
   const orientations = new Set(["horizontal","vertical"]);
   const uid = generateId("carousel");
@@ -266,7 +271,9 @@
    * @param {PointerEvent} event - The pointer event.
    */
   function handlePointerDown(event: PointerEvent) {
+		startTime = Date.now();
     transitioning = true;
+		startPosition = getPosition(event);
     position = getPosition(event);
 
     if (browser) {
@@ -306,8 +313,50 @@
   /**
    * Handles the pointer up event.
    */
-  function handlePointerUp() {
-    transitioning = false;
+  function handlePointerUp(event: PointerEvent) {
+		endTime = Date.now();
+		const currentPosition = getPosition(event);
+
+		let deltaTime = endTime - startTime;
+		let deltaX = currentPosition.x - (startPosition?.x || 0);
+		let deltaY = currentPosition.y - (startPosition?.y || 0);
+
+		if (deltaTime < minSwipeTime) {
+			if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+				if (deltaX > 0) {
+					if (slideIndex !== 0) {
+						console.log("right gesture", slideIndex);
+						gotoSlide(Math.floor(slideIndex - 1), "right");
+					} else {
+						snapToNearestSlide();
+					}
+				} else {
+					if (slideIndex < slides.length - 1) {
+						console.log("left gesture", slideIndex);
+						gotoSlide(Math.ceil(slideIndex + 1), "left");
+					} else {
+						snapToNearestSlide();
+					}
+				}
+				return;
+			}
+		}
+		
+		snapToNearestSlide();
+  }
+
+  /**
+   * Handles the transition end event.
+   */
+  function handleTransitionEnd() {
+		transitioning = false;
+		if (slideIndex === startResetIndex || slideIndex === lastResetIndex) {
+			atResetPoint = true;
+		}
+	}
+
+	function snapToNearestSlide() {
+		transitioning = false;
     const offset = carouselOffset > 0 ? carouselOffset : carouselOffset * -1;
     const breakpoints = slidesPerView > 1 ? slideBreakpoints.slice(0, slides.length - Math.floor(slidesPerView) + 1) : slideBreakpoints;
     const snapPoint = (direction === "right" && slideIndex === 0)
@@ -324,17 +373,6 @@
       document.removeEventListener("pointermove", handlePointerMove);
 		  document.removeEventListener("pointerup", handlePointerUp);
     }
-  }
-
-  /**
-   * Handles the transition end event.
-   */
-  function handleTransitionEnd() {
-		transitioning = false;
-		if (slideIndex === startResetIndex || slideIndex === lastResetIndex) {
-			atResetPoint = true;
-
-		}
 	}
 
 	onMount(() => {

@@ -46,7 +46,7 @@
 		{/each}
 	</div>
 	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
-		{#each images as { src, alt }}
+		{#each images as { src, alt }, index}
 			<CarouselSlide>
 				<img 
 					class="product-gallery__image"
@@ -56,7 +56,7 @@
 					decoding="async"
 					draggable="false"
 					src={ isMobile ? src.mobile : src.desktop }
-					{alt}
+					alt="Image {index + 1} of {alt}"
 				/>
 			</CarouselSlide>
 		{/each}

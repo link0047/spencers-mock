@@ -102,7 +102,6 @@
 	}
 
 	beforeUpdate(() => {
-		console.log(index, count);
 		activeDotPosition = index;
 		dots = calculateLayout();
 	});
@@ -116,7 +115,7 @@
 		<circle id="circle0" cx="0" cy="0" r="0" />
     <circle id="circle1" cx="0" cy="0" r="1" />
     <circle id="circle2" cx="0" cy="0" r="2" />
-    <circle id="circle4" cx="0" cy="0" r="4" />
+    <circle id="circle4" cx="0" cy="0" r="2.5" />
   </defs>
 
 
