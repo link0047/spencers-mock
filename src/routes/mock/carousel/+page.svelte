@@ -12,7 +12,6 @@
 
   let transitioning: boolean = false;
   let atResetPoint: boolean = false;
-  let message: string = "no state";
   let styling: string = "";
   let position: { x: number, y: number } | null = null;
   let direction: "left" | "right" | null = null;
@@ -49,11 +48,6 @@
     x: number;
     y: number;
   }
-
-  if (!orientations.has(orientation)) {
-		console.warn(`Invalid orientation "${orientation}" passed. Using default orientation "horizontal".`);
-		orientation = "horizontal";
-	}
 
   /**
    * Gets the position from a pointer event.
@@ -169,16 +163,22 @@
   }
 
   /**
-   * Handles the resize event
+   * Handles the resize event by debouncing the provided function.
+   * @param {ResizeObserverCallback} func - The function to be debounced.
+   * @param {number} delay - The delay in milliseconds.
+   * @returns {ResizeObserverCallback} - The debounced function.
    */
-  const handleResize = debounce(resize, 250);
+  const handleResize = debounce(resize, 250) as ResizeObserverCallback;
 
-  function resize() {
-    console.log("resize")
+  /**
+   * Function to handle resizing.
+   */
+  function resize(): void {
+    console.log("resize");
     // Recalculate breakpoints based on the new screen size
     slideBreakpoints = [];
-    slides.forEach((slide, index) => {
-      const { width } = slide.getBoundingClientRect()
+    slides.forEach((slide: HTMLElement, index: number) => {
+      const { width } = slide.getBoundingClientRect();
       slideBreakpoints.push({ 
         x: (width + gap) * index
       });
@@ -275,8 +275,6 @@
       document.addEventListener("pointermove", handlePointerMove);
       document.addEventListener("pointerup", handlePointerUp);
     }
-
-    message = `Down position: {x:${position.x}, y:${position.y}}`;
   }
 
   /**
@@ -305,8 +303,6 @@
 
     styling = `transition:none;transform:translate3d(${carouselOffset}px,0,0)`;
     position = currentPosition;
-
-    message = `Move distance: {x:${distance.x}, y:${distance.y}} position: {x:${currentPosition.x}, y:${currentPosition.y}}`
   }
 
   /**
@@ -330,8 +326,6 @@
       document.removeEventListener("pointermove", handlePointerMove);
 		  document.removeEventListener("pointerup", handlePointerUp);
     }
-
-    message = `Up direction: ${direction} snap point: {x: ${snapPoint.x}, index: ${snapPoint.index}}`;
   }
 
   /**
@@ -377,6 +371,12 @@
 		  document.removeEventListener("pointerup", handlePointerUp);
     }
   });
+
+  if (!orientations.has(orientation)) {
+		console.warn(`Invalid orientation "${orientation}" passed. Using default orientation "horizontal".`);
+		orientation = "horizontal";
+	}
+
   const slideWidth = `calc((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView})`;
 </script>
 
@@ -422,7 +422,6 @@
     </div>
   </div>
 </div>
-<div class="carousel-message">{message}</div>
 <div class="grid grid-2-col">
 {#each boxesData as box} 
   <div class="box">
@@ -439,11 +438,6 @@
     background-color: #f2f2f2;
     box-sizing: border-box;
     height: 54px;
-  }
-
-  .carousel-message {
-    font-size: .875rem;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   }
 
   .carousel {

@@ -1,23 +1,31 @@
-<script>
+<script lang="ts">
 	import Carousel from "$lib/components/carousel/Carousel.svelte";
 	import CarouselSlide from "$lib/components/carousel/CarouselSlide.svelte";
 	import ZoomViewer from "$lib/components/zoomviewer/ZoomViewer.svelte";
-  import { onMount } from "svelte";
 
-	export let images = [];
-	let carousel;
-	let isMobile;
+	interface Image {
+		src: string;
+		thumbnail: string;
+		detailedSrc: string;
+	}
 
-	let selectedImageIndex = 0;
+	export let images: Image[] = [];
+	export let isMobile: boolean = false;
+	export let index: number = 0;
+	export let slidesPerView = {
+		mobile: 1.5,
+		desktop: 1
+	};
 	
-	function changeProduct(index) {
-		carousel.gotoSlide(index);
+
+	let carousel: Carousel;
+	let selectedImageIndex: number = index;
+	const localSlidesPerView = isMobile ? slidesPerView.mobile : slidesPerView.desktop;
+
+	function changeProduct(index: number) {
+		carousel.gotoSlide(index, "left");
 		selectedImageIndex = index;
 	}
-	
-	onMount(() => {
-		isMobile = window.matchMedia("(max-width: 560px)");
-	})
 </script>
 
 <div class="product-gallery">
@@ -33,7 +41,7 @@
 			</button>
 		{/each}
 	</div>
-	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={1} displayIndicator={true}>
+	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={true}>
 		{#each images as { src, detailedSrc }}
 			<CarouselSlide>
 				<ZoomViewer {src} {detailedSrc} />

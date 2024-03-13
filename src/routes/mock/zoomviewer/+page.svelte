@@ -21,17 +21,14 @@
 		src: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--gQA7zTKW--/c_scale,h_640/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
 		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--VX72t8q2--/c_scale,h_60/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
 		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--tX3fShB6--/v1709237145/ui91s88zyfrwg6cbxfdy.webp"
-	}]
+	}];
+
+  export let data;
+  let { isMobile } = data;
 </script>
 
 <Page>
-  <!-- <img alt="" src="https://res.cloudinary.com/dle2ecsgk/image/upload/s--xzjWsYzJ--/c_scale,h_74/v1709237135/jx6nbjhprv6pduzvzedb.webp" />
-  <img alt="" src="https://res.cloudinary.com/dle2ecsgk/image/upload/s--xzjWsYzJ--/c_scale,h_74/v1709237142/cs9wnfguogzx48wsgnqh.webp" />
-  <img alt="" src="https://res.cloudinary.com/dle2ecsgk/image/upload/s--xzjWsYzJ--/c_scale,h_74/v1709237135/ui91s88zyfrwg6cbxfdy.webp" />
-  
-  <h1>{product.get("name")}</h1>
-  <div>{price[0]}</div> -->
-    <ProductGallery {images} />
+  <ProductGallery {images} {isMobile}/>
 </Page>
 
 <style>
