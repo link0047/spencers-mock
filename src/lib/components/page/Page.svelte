@@ -21,5 +21,6 @@
     text-rendering: auto;
     unicode-bidi: embed;
     width: 100%;
+    padding: .5rem;
   }
 </style>

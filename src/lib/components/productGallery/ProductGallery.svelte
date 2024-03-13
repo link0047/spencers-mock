@@ -85,7 +85,9 @@
 	@media(max-width: 560px) {
 		.product-gallery {
 			grid-template-columns: calc(100vw - 1rem);
+			gap: 0;
 		}
+
 		.product-gallery__thumbnails {
 			display: none;
 		}

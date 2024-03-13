@@ -309,7 +309,7 @@
   function handlePointerUp() {
     transitioning = false;
     const offset = carouselOffset > 0 ? carouselOffset : carouselOffset * -1;
-    const breakpoints = slidesPerView > 1 ? slideBreakpoints.slice(0, slides.length - slidesPerView + 1) : slideBreakpoints;
+    const breakpoints = slidesPerView > 1 ? slideBreakpoints.slice(0, slides.length - Math.floor(slidesPerView) + 1) : slideBreakpoints;
     const snapPoint = (direction === "right" && slideIndex === 0)
       ? { x: 0, index: 0 }
       : closestPoint(offset, breakpoints);
@@ -432,6 +432,12 @@
 		white-space: nowrap;
 	}
 	
+	.icon {
+		width: 24px;
+		height: 24px;
+		fill: #212121;
+	}
+
 	.carousel {
     position: relative;
     touch-action: pan-y;
