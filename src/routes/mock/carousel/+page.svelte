@@ -2,8 +2,11 @@
   import { onMount, onDestroy } from "svelte";
   import generateId from "$lib/client/util/local-unique-id-generator.js";
   import { browser } from "$app/environment";
+  import { debounce } from "$lib/client/util/utilities";
 
-  let loop: boolean = false;
+  let displayIndicator = false;
+  let orientation = "horizontal";
+  let loop: boolean = true;
   let gap: number = 8;
   let slidesPerView:number = 3;
 
@@ -22,8 +25,10 @@
   let slideBreakpoints: {x: number}[] = [];
   let startResetIndex: number = -1;
   let lastResetIndex: number = 0;
+  let firstChildIndex:number = -1;
+  let lastChildIndex: number = -1;
 
-
+  const orientations = new Set(["horizontal","vertical"]);
   const uid = generateId("carousel");
 	const id = `uikit-carousel-${uid}`;
 	const trackId = `${id}-track`;
@@ -44,6 +49,11 @@
     x: number;
     y: number;
   }
+
+  if (!orientations.has(orientation)) {
+		console.warn(`Invalid orientation "${orientation}" passed. Using default orientation "horizontal".`);
+		orientation = "horizontal";
+	}
 
   /**
    * Gets the position from a pointer event.
@@ -114,21 +124,74 @@
   }
 
   /**
+   * Generates clones of slides and inserts them at the beginning and end of the carousel track.
+   */
+  function generateClones() {
+    if (!carouselTrackRef || !carouselTrackRef.children.length) return;
+
+    const currentSlides: HTMLDivElement[] = Array.from(carouselTrackRef?.children) as HTMLDivElement[];;
+    const frag = document.createDocumentFragment();
+
+    const startSlides: HTMLDivElement[] = currentSlides.slice(-slidesPerView);
+    const endSlides: HTMLDivElement[] = currentSlides.slice(0, slidesPerView);
+
+    const addClonesToFragment = (slides: HTMLDivElement[]) => {
+      slides.forEach((slide) => {
+        const clone = slide.cloneNode(true) as HTMLDivElement;
+        clone.classList.add("clone");
+        frag.appendChild(clone);
+      });
+    };
+
+    addClonesToFragment(startSlides);
+    carouselTrackRef.insertBefore(frag, carouselTrackRef.firstChild);
+    frag.replaceChildren();
+    addClonesToFragment(endSlides);
+    carouselTrackRef.appendChild(frag);
+  }
+
+  /**
    * Handles the intersection observer entries.
    * @param {IntersectionObserverEntry[]} entries - The array of intersection observer entries.
    * @param {IntersectionObserver} observer - The intersection observer instance.
    */
   function handleIntersect(entries: IntersectionObserverEntry[], observer: IntersectionObserver) {
     entries.forEach(entry => {
-      slideBreakpoints.push({ x: entry.boundingClientRect.left - gap });
+      slideBreakpoints.push({ 
+        x: entry.boundingClientRect.left - gap,
+      });
     });
     
     observer.disconnect();
+    console.log("intersection");
+    styling = `transition:none;transform:translate3d(${-slideBreakpoints[slideIndex].x}px,0,0)`;
+    carouselOffset = -slideBreakpoints[slideIndex].x;
+  }
+
+  /**
+   * Handles the resize event
+   */
+  const handleResize = debounce(resize, 250);
+
+  function resize() {
+    console.log("resize")
+    // Recalculate breakpoints based on the new screen size
+    slideBreakpoints = [];
+    slides.forEach((slide, index) => {
+      const { width } = slide.getBoundingClientRect()
+      slideBreakpoints.push({ 
+        x: (width + gap) * index
+      });
+    });
+
+    // Update slideIndex to position the current slide correctly after the resize
+    const offset = -slideBreakpoints[slideIndex].x;
+    styling = `transition:none;transform:translate3d(${offset}px,0,0)`;
+    carouselOffset = offset;
   }
 
   function applyCarouselStyles() {
 		const slideWidth = `calc((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView})`;
-		const slideMargin = `${gap}px`;
     if (browser) {
       const styleElement = document.createElement("style");
       styleElement.textContent = `.carousel .carousel__slide{flex: 0 0 ${slideWidth}}`;
@@ -141,7 +204,6 @@
    */
   function prevSlide() {
     if (transitioning) return;
-    console.log("prev", slideIndex);
     // Decrement slide index and navigate to the previous slide with the "right" direction
     gotoSlide(Math.floor(--slideIndex), "right");
   }
@@ -151,7 +213,6 @@
    */
   function nextSlide() {
     if (transitioning) return;
-    console.log("next", slideIndex);
     // Increment slide index and navigate to the next slide with the "left" direction
     gotoSlide(Math.ceil(++slideIndex), "left");
   }
@@ -177,7 +238,20 @@
     }
 
     if (loop && atResetPoint) {
-      console.log(direction);
+      const resetIndexes = direction === "left" 
+        ? { currentIndex: firstChildIndex, nextIndex: firstChildIndex + 1}
+        : { currentIndex: lastChildIndex, nextIndex: lastChildIndex - 1}
+
+      // Reset carousel track position
+      styling = `transition:none;transform:translate3d(${-slideBreakpoints[resetIndexes.currentIndex].x}px,0,0)`;
+      
+      // Apply transition for smooth reset
+      requestAnimationFrame(() => {
+        styling = `transition:transform .3s;transform:translate3d(${-slideBreakpoints[resetIndexes.nextIndex].x}px,0,0)`;
+        slideIndex = resetIndexes.nextIndex;
+        carouselOffset = -slideBreakpoints[resetIndexes.nextIndex].x;
+        atResetPoint = false;
+      });
       return;
     }
 
@@ -212,6 +286,16 @@
   function handlePointerMove(event: PointerEvent) {
     if (!transitioning || !position) return;
 
+    if (loop && atResetPoint) {
+      const newIndex = slideIndex === startResetIndex ? lastChildIndex : firstChildIndex;
+      const x = -slideBreakpoints[newIndex].x;
+      styling = `transition:none;transform:translate3d(${x}px,0,0)`;
+      slideIndex = newIndex;
+      carouselOffset = x;
+      atResetPoint = false;
+      return;
+    }
+
     const currentPosition = getPosition(event);
     direction = position.x > currentPosition.x ? "left" : "right";
 
@@ -236,7 +320,6 @@
       ? { x: 0, index: 0 }
       : closestPoint(offset, breakpoints);
 
-    console.log(breakpoints);  
     const x = snapPoint.x * -1;
 
     styling = `transition:.3s;transform:translate3d(${x}px,0,0)`;
@@ -258,24 +341,34 @@
 		transitioning = false;
 		if (slideIndex === startResetIndex || slideIndex === lastResetIndex) {
 			atResetPoint = true;
+      console.log("reset point", atResetPoint);
 		}
 	}
 
-  applyCarouselStyles();
+  // applyCarouselStyles();
   const slidesData: number[] = [1,2,3,4,5,6,7,8,9,10];
   const boxesData: number[] = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 
   onMount(() => {
     const track = carouselTrackRef as HTMLDivElement;
+    if (loop) generateClones();
     observer = new IntersectionObserver(handleIntersect, { 
       root: carouselRef, 
       rootMargin: "0px",
       threshold: .5
     });
     slides = Array.from(track.children) as HTMLDivElement[];
-    slides.forEach(slide => observer!.observe(slide));
-    startResetIndex = -1;
+    slides.forEach(slide => observer?.observe(slide));
+    const len = slides.length - 1;
+    const resizeObserver = new ResizeObserver(handleResize);
+		resizeObserver.observe(carouselRef as HTMLDivElement);
+    firstChildIndex = (loop) ? slidesPerView : 0;
+		lastChildIndex = (loop) ? len - slidesPerView : len;
+    startResetIndex = firstChildIndex - 1;
     lastResetIndex = track?.childElementCount - slidesPerView;
+    slideIndex = firstChildIndex;
+
+    console.log({ firstChildIndex, lastChildIndex, startResetIndex, lastResetIndex });
   });
 
   onDestroy(() => {
@@ -283,7 +376,8 @@
       document.removeEventListener("pointermove", handlePointerMove);
 		  document.removeEventListener("pointerup", handlePointerUp);
     }
-  })
+  });
+  const slideWidth = `calc((100% - ${(slidesPerView - 1) * gap}px) / ${slidesPerView})`;
 </script>
 
 <header class="header">
@@ -319,7 +413,7 @@
       on:transitionend={handleTransitionEnd}
     >
       {#each slidesData as slide}
-        <div class="carousel__slide">
+        <div class="carousel__slide" style={`flex: 0 0 ${slideWidth}`}>
           <div class="box">
             {slide}
           </div>
