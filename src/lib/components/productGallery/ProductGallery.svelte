@@ -30,9 +30,9 @@
 	
 
 	let carousel: Carousel;
+	let lightboxCarousel: Carousel;
 	let selectedImageIndex: number = index;
-	let lightboxSelectedImageIndex: number = 0;
-	let lastTap: number = 0;
+
 	const localSlidesPerView = isMobile ? slidesPerView.mobile : slidesPerView.desktop;
 
 	if (!Array.isArray(images) || images.some(image => typeof image !== 'object' || !('src' in image))) {
@@ -44,27 +44,13 @@
 		selectedImageIndex = index;
 	}
 
-	function openLightBox() {
-		lightboxSelectedImageIndex = selectedImageIndex;
-		lightboxState.open.set(true);
+	function changeLightBoxProduct(index: number) {
+		lightboxCarousel.gotoSlide(index, "left");
 	}
 
-	/**
-	 * Function to detect double taps on touch devices.
-	 * @param {PointerEvent} event - The pointer event.
-	 * @param {DoubleTapOptions} options - Options for detecting double taps.
-	 */
-	// function detectDoubleTap(event: PointerEvent, { threshold = 600 }: DoubleTapOptions = {}) {
-	// 	if (event.pointerType !== 'touch') return; // Only handle touch events
-
-	// 	const now = new Date().getTime();
-	// 	const timesince = now - lastTap;
-	// 	if (timesince < threshold && timesince > 0) {
-	// 		// Double tap detected
-	// 		console.log('Double tap detected!');
-	// 	}
-	// 	lastTap = now;
-	// }
+	function openLightBox() {
+		lightboxState.open.set(true);
+	}
 
 	const lightboxState = useDialogState();
 </script>
@@ -116,13 +102,25 @@
 </div>
 <Dialog state={lightboxState} variant="lightbox">
 	<DialogDismiss />
-	<Carousel slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
+	<Carousel bind:slideIndex={selectedImageIndex} bind:this={lightboxCarousel} slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
 		{#each images as { src, detailedSrc, alt }}
 			<CarouselSlide>
 				<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck/>
 			</CarouselSlide>
 		{/each}
 	</Carousel>
+	<div class="product-gallery__thumbnails" data-orientation="horizontal">
+		{#each images as { thumbnail }, index}
+			<button 
+				class="product-gallery__btn" 
+				type="button"
+				data-state={selectedImageIndex === index ? "selected" : "unselected" }
+				on:click={changeLightBoxProduct.bind(null, index)}
+			>
+				<img class="product-gallery__thumbnail-image" src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}"/>
+			</button>
+		{/each}
+	</div>
 </Dialog>
 
 
@@ -146,6 +144,10 @@
 		display: flex;
 		flex-flow: column;
 		gap: 1rem;
+	}
+
+	[data-orientation="horizontal"].product-gallery__thumbnails {
+		flex-flow: row;
 	}
 
 	.product-gallery__zoom-btn {

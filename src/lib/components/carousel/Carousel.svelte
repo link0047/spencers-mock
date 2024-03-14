@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { onMount, onDestroy } from "svelte";
+	import { onMount, beforeUpdate, onDestroy } from "svelte";
 	import IndicatorDots from "$lib/components/carousel/Indicator.svelte";
 	import generateId from "$lib/client/util/local-unique-id-generator.js";
   import { browser } from "$app/environment";
@@ -404,6 +404,10 @@
     lastResetIndex = track?.childElementCount - slidesPerView;
     slideIndex = firstChildIndex;
   });
+
+	beforeUpdate(() => {
+		// console.log("before", slideIndex);
+	});
 
   onDestroy(() => {
     if (browser) {
