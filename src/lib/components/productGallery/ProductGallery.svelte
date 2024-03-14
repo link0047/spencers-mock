@@ -93,6 +93,7 @@
 
 	[data-state="selected"].product-gallery__btn {
 		border-color: #000;
+		outline: 1px solid #000;
 	}
 
 	@media(max-width: 560px) {

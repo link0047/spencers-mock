@@ -33,6 +33,7 @@
 	let startTime: number;
   let endTime: number;
 	let minSwipeTime: number = 250;
+	let gestureState = "none";
 
   const orientations = new Set(["horizontal","vertical"]);
   const uid = generateId("carousel");
@@ -287,7 +288,7 @@
    * @param {PointerEvent} event - The pointer event.
    */
   function handlePointerMove(event: PointerEvent) {
-    if (!transitioning || !position) return;
+    if (!transitioning || !position || gestureState === "swipe") return;
 
     if (loop && atResetPoint) {
       const newIndex = slideIndex === startResetIndex ? lastChildIndex : firstChildIndex;
@@ -323,16 +324,17 @@
 
 		if (deltaTime < minSwipeTime) {
 			if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > swipeThreshold) {
+				
 				if (deltaX > 0) {
 					if (slideIndex !== 0) {
-						console.log("right gesture", slideIndex);
+						gestureState = "swipe";
 						gotoSlide(Math.floor(slideIndex - 1), "right");
 					} else {
 						snapToNearestSlide();
 					}
 				} else {
 					if (slideIndex < slides.length - 1) {
-						console.log("left gesture", slideIndex);
+						gestureState = "swipe";
 						gotoSlide(Math.ceil(slideIndex + 1), "left");
 					} else {
 						snapToNearestSlide();
@@ -341,7 +343,7 @@
 				return;
 			}
 		}
-		
+
 		snapToNearestSlide();
   }
 
@@ -350,6 +352,10 @@
    */
   function handleTransitionEnd() {
 		transitioning = false;
+		if (gestureState === "swipe") {
+			gestureState = "none";
+		}
+
 		if (slideIndex === startResetIndex || slideIndex === lastResetIndex) {
 			atResetPoint = true;
 		}

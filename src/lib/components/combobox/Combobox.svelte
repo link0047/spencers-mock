@@ -315,7 +315,7 @@
 		pointer-events: none;
 		max-height: 512px;
 		overflow-y: auto;
-		z-index: 100;
+		z-index: 520;
 		transition: opacity .15s ease-in;
 		box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 	}

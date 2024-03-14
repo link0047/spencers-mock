@@ -17,7 +17,6 @@
   let isOpen = state.open;
 
   function close() {
-    console.log("close");
     state.open.set(false);
   }
 
@@ -29,6 +28,9 @@
 
     const current = document.activeElement;
     focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
+    
+    if (!focusableElements.length) return;
+
     const first = focusableElements[0];
     const last = focusableElements[focusableElements.length - 1];
 
@@ -44,6 +46,7 @@
   }
 
   if (browser) {
+    console.log(state);
     state.open.subscribe(openState => {
       isOpen = openState;
       if (isOpen) {
@@ -64,7 +67,6 @@
   });
 </script>
 
-<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 <Portal>
   <div
     bind:this={ref}

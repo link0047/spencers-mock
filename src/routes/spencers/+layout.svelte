@@ -302,13 +302,13 @@
 	}
 
   function openDialog() {
-    $searchDialogState.open = true;
+    searchDialogState.open.set(true);
   }
 
   function handleOptionClick(event) {
     searchQuery = event.currentTarget.dataset.value;
     if (isMobile) {
-      $searchDialogState.open = false;
+      searchDialogState.open.set(false);
       comboboxRefInDialog.close();
     } else {
       comboboxRef.close();
@@ -316,7 +316,7 @@
   }
 
   function handleDialogClose() { 
-    $searchDialogState.open = false; 
+    searchDialogState.open.set(false); 
     comboboxRefInDialog.close();
   }
 

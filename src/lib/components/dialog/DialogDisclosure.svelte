@@ -5,6 +5,8 @@
 	const id = state.disclosureId;
 	const dialogId = state.dialogId;
 	
+	$: open = state.open
+
 	function handleClick() {
 		state.open.set(true);
 	}

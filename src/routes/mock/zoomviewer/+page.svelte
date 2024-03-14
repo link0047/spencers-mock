@@ -1,6 +1,8 @@
 <script lang="ts">
   import Page from "$lib/components/page/Page.svelte";
   import ProductGallery from "$lib/components/productGallery/ProductGallery.svelte";
+  import ZoomViewer from "$lib/components/zoomviewer/ZoomViewer.svelte";
+  
   const product = new Map<string, string | number | Array<string | number>>([
     ["name", "Pink Gloomy Bear Hoodie"],
     ["price", [54.99, 59.99]],
@@ -39,6 +41,11 @@
   export let data;
   let { isMobile } = data;
 </script>
+
+<svelte:head>
+  <title>ZoomViewer Demo</title>
+  <meta name="description" content="Explore the dynamic features of ZoomViewer with our interactive demo. Revolutionize your viewing experience today!"/>
+</svelte:head>
 
 <Page>
   <ProductGallery {images} {isMobile}/>

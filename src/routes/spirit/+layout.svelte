@@ -242,7 +242,7 @@
     console.log("option pointerup", event.target.tagName);
     searchQuery = event.currentTarget.dataset.value;
     if (isMobile) {
-      $searchDialogState.open = false;
+      searchDialogState.open.set(false);
       comboboxRef.close();
     } else {
       comboboxRef.close();
@@ -272,7 +272,7 @@
 	}
 
   function handleDialogClose() { 
-    $searchDialogState.open = false; 
+    searchDialogState.open.set(false); 
     comboboxRef.close();
   }
 
