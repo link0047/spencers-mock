@@ -157,7 +157,7 @@
 		margin: 0;
 		box-sizing: border-box;
 		background-color: transparent;
-		border: 1px solid #ccc;
+		border: 1px solid transparent;
 	}
 
 	.product-gallery__btn {
