@@ -3,7 +3,7 @@
 	export let active: boolean ;
 
 	let ref: HTMLDivElement;
-
+	// should remove this
 	afterUpdate(() => {
 		if (ref) {
 			ref.inert = !active;
