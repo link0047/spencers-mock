@@ -129,8 +129,20 @@
   }
 
   .lightbox {
+    top: auto;
     width: calc(100vw - 1rem);
     max-width: 1660px;
+    height: 100vh;
+    max-height: calc(100vh - 7.5rem);
+    bottom: 1.5rem;
+  }
+
+  @media(max-width: 560px) {
+    .lightbox {
+      width: 100vw;
+      bottom: 0;
+      max-height: calc(100vh - 5rem);
+    }
   }
 
   @supports (width: 100dvw) {

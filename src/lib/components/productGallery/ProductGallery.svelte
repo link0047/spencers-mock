@@ -114,7 +114,7 @@
 		</Carousel>
 	</div>
 </div>
-<Dialog state={lightboxState} variant="fullscreen">
+<Dialog state={lightboxState} variant="lightbox">
 	<DialogDismiss />
 	<Carousel slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
 		{#each images as { src, detailedSrc, alt }}
