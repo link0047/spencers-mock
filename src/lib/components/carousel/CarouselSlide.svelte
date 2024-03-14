@@ -1,4 +1,16 @@
-<div class="carousel__slide" role="group" aria-roledescription="slide">
+<script lang="ts">
+	import { afterUpdate } from "svelte";
+	export let active: boolean ;
+
+	let ref: HTMLDivElement;
+
+	afterUpdate(() => {
+		if (ref) {
+			ref.inert = !active;
+		}
+	});
+</script>
+<div bind:this={ref} class="carousel__slide" role="group" aria-roledescription="slide">
 	<slot />
 </div>
 

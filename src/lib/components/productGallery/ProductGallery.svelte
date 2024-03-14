@@ -78,7 +78,7 @@
 		</div>
 		<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
 			{#each images as { src, detailedSrc, alt }, index}
-				<CarouselSlide>
+				<CarouselSlide active={selectedImageIndex === index}>
 					{#if isMobile}
 						<button class="product-gallery__zoom-btn" type="button" on:click={openLightBox}>
 							<img 
@@ -103,9 +103,9 @@
 <Dialog state={lightboxState} variant="lightbox">
 	<DialogDismiss />
 	<Carousel bind:slideIndex={selectedImageIndex} bind:this={lightboxCarousel} slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
-		{#each images as { src, detailedSrc, alt }}
-			<CarouselSlide>
-				<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck/>
+		{#each images as { src, detailedSrc, alt }, index}
+			<CarouselSlide active={selectedImageIndex === index}>
+				<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
 			</CarouselSlide>
 		{/each}
 	</Carousel>
@@ -172,6 +172,7 @@
 		width: 60px;
 		height: 60px;
 		box-sizing: border-box;
+		overflow: hidden;
 		background-color: transparent;
 		border: 1px solid #ccc;
 		border-radius: 4px;

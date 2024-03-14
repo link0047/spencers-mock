@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount, onDestroy } from "svelte";
+  import { onDestroy, beforeUpdate, afterUpdate } from "svelte";
   export let src: string = "";
   export let detailedSrc: string = "";
   export let alt = "";
@@ -66,6 +66,7 @@
    * @param {MouseEvent} event - The MouseEvent object.
    */
   function handlePointerDown(event: MouseEvent): void {
+    ref.inert = false;
     if (browser && loaded) {
       if (state === "transitioning") {
         state = "idle";
@@ -125,10 +126,6 @@
       }
     }
   }
-
-  onMount(() => {
-    ref.inert = true;
-  });
 
   onDestroy(() => {
     if (browser) {
