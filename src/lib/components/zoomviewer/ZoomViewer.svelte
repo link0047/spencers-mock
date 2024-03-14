@@ -4,6 +4,7 @@
   export let detailedSrc: string = "";
   export let alt = "";
   import { browser } from "$app/environment";
+  export let disableMoveCheck = false;
 
   let ref: HTMLDivElement;
   let x: number = 0;
@@ -38,7 +39,7 @@
    * @param {MouseEvent} event - The MouseEvent object.
    */
   function handlePointerMove(event: MouseEvent): void {
-    if (state === "focused" || state === "idle") {
+    if (state === "focused" || state === "idle" && !disableMoveCheck) {
       state = "transitioning";
       return;
     }

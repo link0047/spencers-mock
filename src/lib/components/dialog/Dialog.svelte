@@ -76,6 +76,7 @@
     class="dialog"
     class:dialog--open={isOpen}
     class:dialog--fullscreen={variant === "fullscreen"}
+    class:lightbox={variant === "lightbox"}
     tabindex="-1"
     on:keydown={handleKeydown}
     {...$$restProps}
@@ -97,7 +98,7 @@
     max-height: 80vh;
     transform: translate3d(-50%, 0, 0);
     width: 100%;
-    max-width: calc(100vw - 16px);
+    max-width: calc(100vw - 1rem);
     background-color: #fff;
     box-shadow: 0 6px 12px -2px rgba(50,50,93,0.25),0 3px 7px -3px rgba(0,0,0,0.3);
     opacity: 0;
@@ -125,6 +126,11 @@
     transform: none;
     box-shadow: none;
     border-radius: 0;
+  }
+
+  .lightbox {
+    width: calc(100vw - 1rem);
+    max-width: 1660px;
   }
 
   @supports (width: 100dvw) {

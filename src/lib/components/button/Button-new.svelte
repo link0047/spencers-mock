@@ -31,6 +31,10 @@
   on:mouseover
   on:mouseenter
   on:mouseleave
+  on:pointerdown
+  on:pointerenter
+  on:pointerleave
+  on:pointerup
   on:blur
   on:focus
   {...$$restProps}
