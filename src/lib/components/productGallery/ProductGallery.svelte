@@ -2,6 +2,8 @@
 	import Carousel from "$lib/components/carousel/Carousel.svelte";
 	import CarouselSlide from "$lib/components/carousel/CarouselSlide.svelte";
 	import ZoomViewer from "$lib/components/zoomviewer/ZoomViewer.svelte";
+	import Button from "$lib/components/button/Button-new.svelte";
+	import Icon from "$lib/components/icon/Icon.svelte";
 
 	interface Image {
 		src: {
@@ -45,29 +47,51 @@
 			</button>
 		{/each}
 	</div>
-	<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
-		{#each images as { src, alt }, index}
-			<CarouselSlide>
-				<img 
-					class="product-gallery__image"
-					loading="eager"
-					width={ isMobile ? "320" : "640" }
-					height={ isMobile ? "320" : "640" }
-					decoding="async"
-					draggable="false"
-					src={ isMobile ? src.mobile : src.desktop }
-					alt="Image {index + 1} of {alt}"
-				/>
-			</CarouselSlide>
-		{/each}
-	</Carousel>
+	<div>
+		<div class="product-gallery__controls">
+			<Button variant="icon" elevation={1}>
+				<Icon>
+					<path d="m15.5 14 5 5-1.5 1.5-5-5v-.79l-.27-.28C12.59 15.41 11.11 16 9.5 16A6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3 6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.57 4.23l.28.27h.79m-6 0C12 14 14 12 14 9.5S12 5 9.5 5 5 7 5 9.5 7 14 9.5 14m2.5-4h-2v2H9v-2H7V9h2V7h1v2h2v1Z"/>
+				</Icon>
+			</Button>
+		</div>
+		<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
+			{#each images as { src, detailedSrc, alt }, index}
+				<CarouselSlide>
+					{#if isMobile}
+						<img 
+							class="product-gallery__image"
+							loading="eager"
+							width={ isMobile ? "320" : "640" }
+							height={ isMobile ? "320" : "640" }
+							decoding="async"
+							draggable="false"
+							src={ isMobile ? src.mobile : src.desktop }
+							alt="Image {index + 1} of {alt}"
+						/>
+					{:else}
+						<ZoomViewer src={src.desktop} {detailedSrc} {alt} />
+					{/if}
+				</CarouselSlide>
+			{/each}
+		</Carousel>
+	</div>
 </div>
 
 <style>
 	.product-gallery {
+		position: relative;
 		display: grid;
 		grid-template-columns: 62px 640px;
 		gap: .5rem;
+		width: fit-content;
+	}
+
+	.product-gallery__controls {
+		position: absolute;
+		top: 1rem;
+		right: 1rem;
+		z-index: 1;
 	}
 
 	.product-gallery__thumbnails {

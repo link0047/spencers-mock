@@ -555,6 +555,6 @@
 	.next:hover,
 	.previous:hover {
 		cursor: pointer;
-		background-color: rgba(0, 0, 0, .2);
+		background-color: #eaeaea;
 	}
 </style>

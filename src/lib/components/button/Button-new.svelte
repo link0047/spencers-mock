@@ -5,6 +5,7 @@
   export let size: string | null = null;
   export let state: string | null = null;
 	export let type: "button" | "reset" | "submit" = "button";
+  export let elevation: number = 0;
 
   let internalState: string | null = null;
   
@@ -23,6 +24,7 @@
 	class:btn--icon={variant === "icon"}
   class:btn--sizeXS={size === "xs"}
   class:btn--sizeSM={size === "sm"}
+  class:elevation1={elevation === 1}
   data-state={state}
   {type}
   on:click
@@ -154,5 +156,15 @@
   .btn:focus-visible {
     outline-offset: 2px;
     outline: 2px solid #007acc;
+  }
+
+  .elevation1 {
+    background-color: #fff;
+    box-shadow: 0 .0625rem .125rem .0625rem #00000026;
+  }
+
+  .elevation1:not(:disabled):hover {
+    --btn-hover-background-color: #EAEAEA;
+    border: 1px solid transparent;
   }
 </style>

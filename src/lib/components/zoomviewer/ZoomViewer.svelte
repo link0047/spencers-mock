@@ -2,12 +2,13 @@
   import { onDestroy } from "svelte";
   export let src: string = "";
   export let detailedSrc: string = "";
+  export let alt = "";
   import { browser } from "$app/environment";
 
   let ref: HTMLDivElement;
   let x: number = 0;
   let y: number = 0;
-  let state: "idle" | "focused" | "zoomedIn" = "idle";
+  let state: "idle" | "focused" | "transitioning" | "zoomedIn" = "idle";
   let userIntendsToView: boolean = false;
   let loaded: boolean = false;
 
@@ -37,6 +38,10 @@
    * @param {MouseEvent} event - The MouseEvent object.
    */
   function handlePointerMove(event: MouseEvent): void {
+    if (state === "focused" || state === "idle") {
+      state = "transitioning";
+      return;
+    }
     x = event.offsetX;
     y = event.offsetY;
   }
@@ -61,6 +66,9 @@
    */
   function handlePointerDown(event: MouseEvent): void {
     if (browser && loaded) {
+      if (state === "transitioning") {
+        state = "idle";
+      }
       document.addEventListener("click", zoomOut);
     }
   }
@@ -72,6 +80,9 @@
     if (state === "idle" || state === "focused") {
       state = "zoomedIn";
     } else if (state === "zoomedIn") {
+      state = "idle";
+      document.removeEventListener("click", zoomOut);
+    } else if (state === "transitioning") {
       state = "idle";
       document.removeEventListener("click", zoomOut);
     }
@@ -143,7 +154,7 @@
 		decoding="async"
 		draggable="false"
 		{src}
-		alt=""
+		{alt}
 	/>
 	<img 
 		class="zoomviewer__detailed-image"
@@ -156,7 +167,7 @@
 		src={userIntendsToView ? detailedSrc : undefined}
 		on:load={detailedImageLoaded}
 		style={state === "zoomedIn" ? `transform-origin:${x}px ${y}px;transform:scale(2.33333)` : null}
-		alt=""
+		alt="{alt}(detailed version)"
 	/>
 </div>
 <style>
