@@ -141,7 +141,9 @@
     .lightbox {
       width: 100vw;
       bottom: 0;
-      max-height: calc(100vh - 5rem);
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+      max-height: calc(100% - 5rem);
     }
   }
 
