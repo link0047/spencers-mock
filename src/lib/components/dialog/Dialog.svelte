@@ -8,7 +8,7 @@
 
   setContext("close", close);
 
-  const id = state.drawerId;
+  const id = state.dialogId;
   let ref: HTMLElement;
   
   let focusableElements: HTMLElement[] | null;  
@@ -46,7 +46,6 @@
   }
 
   if (browser) {
-    console.log(state);
     state.open.subscribe(openState => {
       isOpen = openState;
       if (isOpen) {
@@ -63,6 +62,7 @@
   }
 
   onMount(() => {
+    ref.inert = true;
     focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
   });
 </script>

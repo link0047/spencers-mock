@@ -546,7 +546,6 @@
 		padding: 0;
 		margin: 0;
 		border: none;
-		outline: 0;
     border-radius: 50%;
 		z-index: 1;
 		background-color: #fff;
@@ -567,5 +566,10 @@
 	.previous:hover {
 		cursor: pointer;
 		background-color: #eaeaea;
+	}
+
+	.next:focus-visible,
+	.previous:focus-visible {
+		outline: 2px solid #007acc;
 	}
 </style>

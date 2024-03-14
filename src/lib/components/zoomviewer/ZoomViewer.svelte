@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy } from "svelte";
+  import { onMount, onDestroy } from "svelte";
   export let src: string = "";
   export let detailedSrc: string = "";
   export let alt = "";
@@ -125,6 +125,10 @@
       }
     }
   }
+
+  onMount(() => {
+    ref.inert = true;
+  });
 
   onDestroy(() => {
     if (browser) {
