@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onDestroy, beforeUpdate, afterUpdate } from "svelte";
+  import { onDestroy } from "svelte";
   export let src: string = "";
   export let detailedSrc: string = "";
   export let alt = "";

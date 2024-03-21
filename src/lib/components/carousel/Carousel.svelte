@@ -264,7 +264,7 @@
     if (!slideBreakpoints.length) return;
     transitioning = true;
     const x = slideBreakpoints[index].x * -1
-    styling = `transition:.3s;transform:translate3d(${x}px,0,0)`;
+    styling = `transition:transform .3s;transform:translate3d(${x}px,0,0)`;
     slideIndex = index;
     carouselOffset = x;
   }
@@ -374,7 +374,7 @@
 
     const x = snapPoint.x * -1;
 
-    styling = `transition:.3s;transform:translate3d(${x}px,0,0)`;
+    styling = `transition:transform .3s;transform:translate3d(${x}px,0,0)`;
     carouselOffset = x;
     slideIndex = snapPoint.index ? snapPoint.index : 0;
 
@@ -444,14 +444,14 @@
 	<div class="carousel__viewport">
 		<div class="carousel__controls">
 			{#if showPrevNextButtons && slideIndex > 0}
-				<button class="previous" aria-controls={trackId} aria-label="Previous Slide" on:click={prevSlide}>
+				<button class="carousel__controls-btn previous" aria-controls={trackId} aria-label="Previous Slide" on:click={prevSlide}>
 					<svg class="icon" role="presentation" focusable="false" viewBox="0 0 24 24">
 						<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
 					</svg>
 				</button>
 			{/if}
 			{#if showPrevNextButtons && slideIndex < slideCount - 1}
-				<button class="next" aria-controls={trackId} aria-label="Next Slide" on:click={nextSlide}>
+				<button class="carousel__controls-btn next" aria-controls={trackId} aria-label="Next Slide" on:click={nextSlide}>
 					<svg class="icon" role="presentation" focusable="false" viewBox="0 0 24 24">
 						<path d="M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z" />
 					</svg>
@@ -533,8 +533,7 @@
 		right: 2px;
 	}
 
-	.next,
-	.previous {
+	.carousel__controls-btn {
 		position: absolute;
     top: 50%;
 		height: 40px;
