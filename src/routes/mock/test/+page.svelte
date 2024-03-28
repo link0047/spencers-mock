@@ -24,15 +24,25 @@
       const currentTime = new Date().getTime();
       const tapLength = currentTime - lastTap;
       if (tapLength < 300 && tapLength > 0) {
-        console.log("double tap");
+        userIntendsToView = true;
+        state = "zoomedIn"
       } else {
         lastTap = currentTime;
       }
     }
   }
-  function handlePointerMove(event: PointerEvent) {}
-  function handlePointerUp(event: PointerEvent) {}
-  function detailedImageLoaded() {}
+  
+  function handlePointerMove(event: PointerEvent) {
+
+  }
+
+  function handlePointerUp(event: PointerEvent) {
+
+  }
+
+  function detailedImageLoaded() {
+
+  }
 </script>
 
 <div

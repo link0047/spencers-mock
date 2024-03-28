@@ -1,11 +1,27 @@
 <script lang="ts">
-  import { setContext } from "svelte";
-  export let state;
-  export let labeledBy: string | undefined = undefined;
+  import type { Writable } from "svelte/store";
+	import { writable } from "svelte/store";
+	import { setContext } from "svelte"
+	
+	export let value: string = "";	
+	export let tag: string = "div";
+  
+	const valueStore: Writable<string> = writable(value);
+	setContext("value", valueStore);
 
-  setContext("state", state);
+	$: {
+		value = $valueStore;
+	}
 </script>
 
-<div aria-labelledby={labeledBy} class="radio-group" role="radiogroup">
-  <slot />
-</div>
+<svelte:element class="radio-group" role="radiogroup" this={tag} {...$$restProps}>
+	<slot />
+</svelte:element>
+
+<style>
+	.radio-group {
+		display: flex;
+		gap: 8px;
+		flex-flow: row wrap;
+	}
+</style>

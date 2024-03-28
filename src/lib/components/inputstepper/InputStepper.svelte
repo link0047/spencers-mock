@@ -1,21 +1,35 @@
-<script>
+<script lang="ts">
   import Icon from "$lib/components/icon";
-  export let min = 1;
-  export let max = 99;
-  export let value = 1;
+  export let min: number = 1;
+  export let max: number = 99;
+	export let maxlength: number = 2;
+  export let value: number = 1;
 
-  let isDecrementDisabled = false;
-  let isIncreaseDisabled = false;
+	function increment() {
+		value = value + 1;
+	}
+
+	function decrement() {
+		value = value - 1;
+	}
+
+	function handleChange({ target }: Event) {
+		if (parseInt((target as HTMLInputElement)?.value) <= 0) {
+			value = 1;
+		}
+	}
+
+	$: isDecrementDisabled = value <= min;
+  $: isIncrementDisabled = value >= max;
 </script>
 
 <div class="input-stepper">
   <button
     type="button"
-    tabindex="-1"
     disabled={isDecrementDisabled}
-    aria-disabled={isDecrementDisabled}
-    aria-label="button to decrement counter for number stepper"
-    class="input-stepper__decrement-action"
+    aria-label="decrease quantity"
+    class="input-stepper__action input-stepper__action--decrement"
+		on:click={decrement}
   >
     <Icon>
       <path d="M19 13H5v-2h14v2Z" />
@@ -23,27 +37,25 @@
   </button>
   <input
     bind:value
-    inputmode="decimal"
-    type="text"
+		on:change={handleChange}
+    type="number"
     pattern="[0-9]*(.[0-9]+)?"
     aria-label="Number Stepper"
-    role="spinbutton"
     aria-valuemin={min}
     aria-valuemax={max}
     aria-valuenow={value}
     aria-valuetext={`${value}`}
     autocomplete="off"
     autocorrect="off"
-    maxlength="3"
+    {maxlength}
     class="input-stepper__native-control"
   />
   <button
     type="button"
-    tabindex="-1"
-    disabled={isIncreaseDisabled}
-    aria-disabled={isIncreaseDisabled}
-    aria-label="button to increment counter for number stepper"
-    class="input-stepper__increment-action"
+    disabled={isIncrementDisabled}
+    aria-label="increase quantity"
+    class="input-stepper__action input-stepper__action--increment"
+		on:click={increment}
   >
     <Icon>
       <path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2Z" />
@@ -55,18 +67,17 @@
   .input-stepper {
     width: fit-content;
     display: grid;
-    grid-template-columns: 36px 40px 36px;
+    grid-template-columns: 36px 36px 36px;
   }
 
-  .input-stepper__decrement-action,
-  .input-stepper__increment-action {
+  .input-stepper__action {
     width: 36px;
     height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     outline: 0;
-    background-color: transparent;
+    background-color: #fff;
     overflow: hidden;
     touch-action: manipulation;
     user-select: none;
@@ -74,14 +85,23 @@
     border: 1px solid;
     border-color: #949499;
     cursor: pointer;
+		transition: background-color ease-in-out .3s;
   }
 
-  .input-stepper__increment-action {
+	.input-stepper__action[disabled] :global(.icon) {
+		fill: #989596;
+	}
+
+	.input-stepper__action:hover {
+		background-color: #f2f2f2;
+	}
+
+  .input-stepper__action--increment {
     border-radius: 0 8px 8px 0;
     border-left: none;
   }
 
-  .input-stepper__decrement-action {
+  .input-stepper__action--decrement {
     border-radius: 8px 0 0 8px;
     border-right: none;
   }
@@ -89,10 +109,26 @@
   .input-stepper__native-control {
     border-radius: 0;
     border: 1px solid;
+		border-left: none;
+		border-right: none;
     border-color: #949499;
     padding: 0;
     margin: 0;
+		outline: 0;
     appearance: none;
     text-align: center;
+		background-color: #fff;
+		color: #212121;
   }
+	
+	input::-webkit-outer-spin-button,
+	input::-webkit-inner-spin-button {
+	  -webkit-appearance: none;
+	  margin: 0;
+	}
+
+	/* Firefox */
+	input[type=number] {
+	  -moz-appearance: textfield;
+	}
 </style>

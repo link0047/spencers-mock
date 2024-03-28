@@ -17,7 +17,7 @@
     font-weight: 400;
     line-height: 1.4em;
     margin: 0 auto;
-    max-width: 75pc;
+    max-width: 1400px;
     text-rendering: auto;
     unicode-bidi: embed;
     width: 100%;

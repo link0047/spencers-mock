@@ -19,17 +19,34 @@
   setContext("state", state);
 </script>
 
-<div class="fulfillment-group" role="group">
-  <slot />
-</div>
-<div class="fulfillment-message">
-  Your store: <Link variant="underline">Mays Landing</Link>
+<div class="fulfillment-container">
+  <h2 class="fulfillment__heading">
+    How you'll get this item
+  </h2>
+  <div class="fulfillment-group" role="group">
+    <slot />
+  </div>
+  <div class="fulfillment-message">
+    Your store: <Link variant="underline">Mays Landing</Link>
+  </div>
 </div>
 
 <style>
+  .fulfillment-container {
+    display: grid;
+    gap: 8px;
+  }
+
+  .fulfillment__heading {
+    margin: 0;
+    font-size: 1rem;
+    color: #393939;
+    color: #2e2f32;
+  }
+
   .fulfillment-group {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(164px, 1fr));
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 8px;
   }
 

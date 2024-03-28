@@ -1,72 +1,86 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-  import { getContext, onMount } from "svelte";
-  import generateId from "$lib/client/util/local-unique-id-generator.js";
-  export let id = generateId("radio");
-  export let checked = false;
-  export let value: string | undefined = undefined;
-  let state: Writable<Map<String, HTMLInputElement>> = getContext("state");
-  let ref: HTMLInputElement;
+	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import { getContext, onMount } from "svelte";
 
-  function handleChange(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    const { name } = <HTMLInputElement>target;
-    if (name && $state?.has(name)) {
-      const elem = $state?.get(name);
-      elem?.setAttribute("aria-checked", "false");
-      elem?.parentElement?.setAttribute("data-checked", "false");
-    }
+	export let value: string = "";
+  export let variant: string | null = null;
 
-    if (name) {
-      $state?.set(name, target);
-    }
+  const valueStore: Writable<string> = getContext("value");
+	
+	const uid: string = generateId("radio");
+	const id: string =`uikit-radio-${uid}`;
+  let inputRef: HTMLInputElement;
 
-    target?.setAttribute("aria-checked", "true");
-    target?.parentElement?.setAttribute("data-checked", "false");
-  }
+  /**
+   * Handles the change event of the input element.
+   * 
+   * @param {Event} event - The event object.
+   * @returns {void}
+   */
+	function handleChange({ target }: Event): void {
+		$valueStore = (target as HTMLInputElement)?.value;
+	}
 
-  onMount(async () => {
-    if (ref.name && checked) {
-      $state?.set(ref.name, ref);
+  onMount(() => {
+    if (inputRef.checked) {
+      $valueStore = inputRef.value;
     }
   });
 </script>
 
-<label class="radio" data-checked={checked}>
-  <input
-    bind:this={ref}
-    aria-checked={checked}
-    {checked}
-    class="radio__native-control"
-    {id}
-    {value}
-    type="radio"
-    on:focus
-    on:blur
-    on:change={handleChange}
-    on:change
-    {...$$restProps}
-  />
-  <slot />
-</label>
+<div class="radio" class:radio--box={variant === "box"}>
+	<input 
+		{id}
+    bind:this={inputRef}
+		class="radio__native-control"
+		type="radio"
+		{value}
+		on:change={handleChange}
+		{...$$restProps}
+	>
+	<label class="radio__label" for={id}>
+		<slot />
+	</label>
+</div>
 
 <style>
   .radio {
-    box-sizing: border-box;
-    font-size: 0.875rem;
-    font-weight: 400;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
     position: relative;
-    display: flex;
+    display: inline-flex;
     min-height: 24px;
     align-items: center;
     flex-flow: row wrap;
-    line-height: 1;
     cursor: pointer;
   }
 
+	.radio--box .radio__label {
+		box-sizing: border-box;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		min-height: 40px;
+		min-width: 56px;
+		border-radius: 4px;
+		border: 1px solid #626369;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		font-size: .875rem;
+	}
+
+  .radio--box:has(.radio__native-control:checked) .radio__label {
+    outline: 2px solid #000;
+    font-weight: 700;
+	}
+
+	.radio--box:has(.radio__native-control:focus-visible) .radio__label {
+		outline: 2px solid #015fcc;
+	}
+
+  .radio--box:has(:hover) .radio__label {
+    background-color: #f7f7f7;
+    outline: 1px solid #212121;
+  }
+	
   .radio__native-control {
     position: absolute;
     top: 0;
@@ -77,10 +91,9 @@
     padding: 0;
     opacity: 0;
     cursor: inherit;
-    z-index: -1;
   }
 
-  .radio:before {
+  .radio:not(.radio--box):before {
     box-sizing: border-box;
     content: "";
     width: 18px;
@@ -90,20 +103,19 @@
     margin-right: 4px;
   }
 
-  .radio:has(.radio__native-control:focus):before,
-  .radio:hover:before {
+  .radio:not(.radio--box):has(.radio__native-control:focus-visible, :hover):before {
     border-color: #000;
   }
 
-  .radio[data-checked="true"]:before {
+  .radio:not(.radio--box):has(.radio__native-control:checked):before {
     border-color: #0075ff;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Ccircle fill='%230075ff' cx='50%25' cy='50%25' r='8'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
     background-size: cover;
   }
 
-  .radio[data-checked="true"]:focus:before,
-  .radio[data-checked="true"]:hover:before {
+  .radio:not(.radio--box):has(.radio__native-control:checked):focus:before,
+  .radio:not(.radio--box):has(.radio__native-control:checked):hover:before {
     border-color: #004699;
   }
 </style>
