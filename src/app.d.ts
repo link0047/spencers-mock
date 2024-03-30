@@ -1,7 +1,6 @@
 // See https://kit.svelte.dev/docs/types#app
 // for information about these interfaces
 import type { SupabaseClient, Session } from "@supabase/supabase-js";
-import type { S } from "vitest/dist/reporters-5f784f42";
 
 declare global {
 	interface Window {
@@ -22,7 +21,7 @@ declare global {
 		// interface Error {}
 		interface Locals {
 			supabase: SupabaseClient
-			getSession: Promise<Session | null>
+			getSession(): Promise<Session | null>
 			ua: string | undefined
 		}
 		
