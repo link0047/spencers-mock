@@ -11,6 +11,9 @@
   import InputStepper from "$lib/components/inputstepper";
   import { Breadcrumb, Crumb } from "$lib/components/breadcrumbs";
   import Icon from "$lib/components/icon";
+  import Table from "$lib/components/table";
+  import Link from "$lib/components/link";
+  import RatingAndReview from "$lib/components/ratingandreview";
 
   let sizeGroupValue = "";
   let name = "Pink Gloomy Bear Hoodie"
@@ -63,6 +66,15 @@
     text: name,
     current: true
   }];
+  const tableData = [
+    ['Size', 'Chest', 'Body Length'],
+    ['Small', '40"', '28"'],
+    ['Medium', '40"', '29"'],
+    ['Large', '44"', '30"'],
+    ['Extra Large', '48"', '31"'],
+    ['2XL', '52"', '32"'],
+    ['3XL', '56"', '33"']
+  ];
 
   let payLaterPrice = divideByFourAndRound(price);
 
@@ -106,7 +118,9 @@
 
 <Page>
   <div class="product-page-container">
-    <ProductGallery {images} {isMobile}/>
+    <div class="product-page__gallery">
+      <ProductGallery {images} {isMobile}/>
+    </div>
     <div class="product-page">
       <Breadcrumb>
         {#each breadcrumbs as { href, current, text}}
@@ -168,9 +182,21 @@
         <InputStepper/>
         <Button variant="success">Add to Cart</Button>
       </div>
-      <div class="product-page__pay-later">or 4 interest-free payments of ${payLaterPrice} with </div>
+      <div class="product-page__pay-later">
+        <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>
+        <svg class="icon" viewBox="0 0 24 24">
+          <path d="m17.7 8.7-9.2 10H5.1c-.2 0-.4-.2-.4-.5L7 4c0-.3.3-.6.7-.6h5.7c3.9.2 5 2.2 4.3 5.3z" style="fill:#002c8a"/>
+          <path d="M17.8 7.7c1.4.8 1.7 2.2 1.3 4-.6 2.8-2.4 3.9-5.1 4h-.8c-.3 0-.5.2-.5.5l-.6 3.8c0 .3-.3.6-.7.6H8.6c-.2 0-.4-.2-.4-.5l1-6.7c.1-.3 8.6-5.7 8.6-5.7z" style="fill:#009be1"/>
+          <path d="m9.2 13.7.9-6c.1-.3.3-.5.6-.5h4.5c1.1 0 1.9.2 2.5.5-.2 2.1-1.2 5.4-6 5.5H9.8c-.3 0-.5.2-.6.5z" style="fill:#001f6b"/>
+        </svg>
+        or
+        <svg class="icon" viewBox="0 0 72 24">
+          <path d="M15.5,5h-3.2c0,2.5-1.2,4.8-3.3,6.3l-1.3.9,4.8,6.4h4l-4.4-5.8c2.1-2.1,3.3-4.8,3.3-7.7ZM4.2,5h3.2v13.5h-3.2V5ZM17.5,5h3v13.5h-3s0-13.5,0-13.5ZM47,9c-1.2,0-2.3.4-3,1.3v-1h-2.9v9.4h2.9v-4.9c0-1.5,1-2.2,2.2-2.2s2,.7,2,2.2v5h2.9v-6c0-2.3-1.7-3.7-4.1-3.7h0ZM29.6,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM27,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM37,10.5v-1.2h-3v9.4h3v-4.4c0-1.5,1.6-2.3,2.8-2.3v-2.7c-1.2,0-2.3.5-2.8,1.2h0ZM60,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM57.3,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM65,9.5c0-.2,0-.3-.3-.3h-.3v.7h0v-.3h.2v.3h.3v-.5h0ZM64.8,9.6h-.2v-.3h.2v.3Z"/>
+          <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>          
+        </svg>
+      </div>
       <div class="product-page__details">
-        <Accordion>
+        <Accordion open>
           <svelte:fragment slot="label">Description</svelte:fragment>
           <p>Cozy up with your favorite pop culture character with this pink Gloomy Bear hoodie! This cozy hoodie is perfect for indoors or outdoors and is sure to let everyone know you're a Gloomy Bear fan.</p>
           <ul class="list">
@@ -187,16 +213,37 @@
         </Accordion>
         <Accordion>
           <svelte:fragment slot="label">Size Chart</svelte:fragment>
+          <div class="size-chart">
+            <p class="size-chart__label">When trying to decide between two sizes, choose the larger size for a better fit.</p>
+            <Table variant="bordered" {tableData} />
+          </div>  
         </Accordion>
         <Accordion>
           <svelte:fragment slot="label">Shipping & Returns</svelte:fragment>
+          <div class="shippingAndReturns">
+            <div class="shippingAndReturns__block">
+              <h3 class="shippingAndReturns__heading">Shipping</h3>
+              <p class="shippingAndReturns__content">We greatly appreciate your order. Therefore, we provide prompt, secure, and dependable shipping options for every item.</p>
+              <Link href="/shipping-policy" alt="Shipping Policy">Read our Shipping Policy</Link>
+            </div>
+            <div class="shippingAndReturns__block">
+              <h3 class="shippingAndReturns__heading">30-Day Return</h3>
+              <p class="shippingAndReturns__content">Not loving it? We offer returns for items within 30 days of delivery for a refund.</p>
+              <Link href="/shipping-return-policy" alt="30-Day Return Policy">Read our 30-Day Return Policy</Link>
+            </div>
+          </div>
         </Accordion>
       </div>
     </div>
   </div>
+  <RatingAndReview />
 </Page>
 
 <style>
+  .icon {
+    height: 24px;
+  }
+
   .list {
     list-style-type: disc;
     padding-left: 1.5rem;
@@ -219,11 +266,56 @@
     border-top-color: rgb(238, 238, 238);
   }
 
+  .size-chart {
+    display: grid;
+    gap: .5rem;
+    padding: .5rem 0;
+  }
+
+  .size-chart__label {
+    font-size: .875rem;
+    line-height: 1;
+    margin: 0;
+  }
+
+  .shippingAndReturns {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 1rem;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	}
+	
+	.shippingAndReturns__block {
+		display: flex;
+		flex-flow: column nowrap;
+		gap: .5rem;
+	}
+	
+	.shippingAndReturns__heading {
+		margin: 0;
+		font-size: 1.1rem;
+		line-height: 1;
+		font-weight: 500;
+		height: fit-content;
+	}
+	
+	.shippingAndReturns__content {
+		margin: 0;
+		font-size: .875rem;
+		line-height: 1.5;
+	}
+
   .product-page-container {
     display: grid;
     column-gap: 1rem;
     grid-template-columns: minmax(auto, 710px) 1fr;
     padding: 1rem 0;
+  }
+
+  .product-page__gallery {
+    position: sticky;
+    top: 102px;
+    height: fit-content;
   }
 
   .product-page {
@@ -267,9 +359,17 @@
   }
 
   .product-page__pay-later {
+    display: inline-flex;
+    flex-flow: row wrap;
+    align-items: center;
+    justify-content: center;
     font-size: .875rem;
-    text-align: center;
     line-height: 1.2;
+    gap: 4px;
+  }
+
+  .paylater-text {
+    text-wrap: nowrap
   }
 
   .product-page__details {
@@ -278,9 +378,24 @@
     padding-top: 2.5rem;
   }
 
-  @media(max-width:560px) {
+  @media(max-width: 560px) {
     .product-page-container {
       grid-template-columns: none;
+    }
+
+    .product-page__gallery {
+      position: relative;
+      top: initial;
+    }
+
+    .product-page__pay-later {
+      font-size: .75rem;
+    }
+  }
+
+  @media(max-width: 320px) {
+    .icon {
+      height: 16px;
     }
   }
 </style>
