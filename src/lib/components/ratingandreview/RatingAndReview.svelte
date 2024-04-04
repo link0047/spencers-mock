@@ -106,6 +106,15 @@
   @media (max-width:560px) {
     .ratings-and-reviews__container {
       grid-template-columns: 1fr;
+      row-gap: 1rem;
+    }
+
+    .ratings-and-reviews__cta-section {
+      width: 100%;
+    }
+
+    .cta-section__label {
+      display: none;
     }
   }
 </style>
