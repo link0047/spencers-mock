@@ -102,5 +102,11 @@
 		line-height: 1;
 		margin: 0;
 	}
+
+  @media (max-width:560px) {
+    .ratings-and-reviews__container {
+      grid-template-columns: 1fr;
+    }
+  }
 </style>
 
