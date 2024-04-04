@@ -10,7 +10,7 @@
 		<div class="ratings-and-reviews__stats">
 			<h4 class="ratings-and-reviews__stats-heading">{rating}</h4>
 			<StarRating {rating} />
-			<p class="ratings-and-reviews__stats-desc">Unfortunatly, this product has no reviews.</p>
+			<p class="ratings-and-reviews__stats-desc">Unfortunately, this product has no reviews.</p>
 		</div>
 		<div class="ratings-and-reviews__cta-section">
 			<p class="cta-section__label">Share your thoughts with our customers</p>

@@ -134,7 +134,7 @@
       </div>
       <div class="product-page__price">
         <span class="salePrice"></span>
-        <span class="basePrice">{price}</span>
+        <span class="basePrice">${price}</span>
       </div>
       <hr />
       <div class="product-page__variants" role="group">
