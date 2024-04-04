@@ -52,6 +52,7 @@
       sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     box-sizing: border-box;
     border: 1px solid #888;
+    color: #212121;
     border-radius: 8px;
     padding: 16px;
     user-select: none;

@@ -70,6 +70,7 @@
     border-top-left-radius: .25rem;
 		border-top-right-radius: .25rem;
     background-color: #fff;
+		color: #212121;
     overflow: hidden;
     cursor: pointer;
     touch-action: manipulation;
