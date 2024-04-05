@@ -131,10 +131,9 @@
   .lightbox {
     top: auto;
     width: calc(100vw - 1rem);
-    max-width: 1660px;
-    height: 100vh;
-    max-height: calc(100vh - 7.5rem);
-    bottom: 1.5rem;
+    max-width: 1400px;
+    height: 80vh;
+    bottom: 10vh;
   }
 
   @media(max-width: 560px) {
@@ -143,7 +142,8 @@
       bottom: 0;
       border-bottom-left-radius: 0;
       border-bottom-right-radius: 0;
-      max-height: calc(100% - 5rem);
+      max-height: 90vh;
+      height: 90vh;
     }
   }
 

@@ -76,7 +76,7 @@
 				</Icon>
 			</Button>
 		</div>
-		<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={localSlidesPerView} displayIndicator={isMobile}>
+		<Carousel bind:slideIndex={selectedImageIndex} bind:this={carousel} slidesPerView={1} displayIndicator={isMobile}>
 			{#each images as { src, detailedSrc, alt }, index}
 				<CarouselSlide active={selectedImageIndex === index}>
 					{#if isMobile}
@@ -101,30 +101,73 @@
 	</div>
 </div>
 <Dialog state={lightboxState} variant="lightbox">
-	<DialogDismiss />
-	<Carousel bind:slideIndex={selectedImageIndex} bind:this={lightboxCarousel} slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
-		{#each images as { src, detailedSrc, alt }, index}
-			<CarouselSlide active={selectedImageIndex === index}>
-				<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
-			</CarouselSlide>
-		{/each}
-	</Carousel>
-	<div class="product-gallery__thumbnails" data-orientation="horizontal">
-		{#each images as { thumbnail }, index}
-			<button 
-				class="product-gallery__btn" 
-				type="button"
-				data-state={selectedImageIndex === index ? "selected" : "unselected" }
-				on:click={changeLightBoxProduct.bind(null, index)}
-			>
-				<img class="product-gallery__thumbnail-image" src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}" draggable="false"/>
-			</button>
-		{/each}
+	<header class="dialog__header">
+		<h2 class="dialog__title">Images</h2>
+		<DialogDismiss />
+	</header>
+	<div class="product-lightbox">
+		<div class="product-gallery__thumbnails" data-orientation="horizontal">
+			{#each images as { thumbnail }, index}
+				<button 
+					class="product-gallery__btn" 
+					type="button"
+					data-state={selectedImageIndex === index ? "selected" : "unselected" }
+					on:click={changeLightBoxProduct.bind(null, index)}
+				>
+					<img class="product-gallery__thumbnail-image" src={thumbnail} loading="lazy" width="112" height="112" decoding="async" alt="Thumbnail {index + 1}" draggable="false"/>
+				</button>
+			{/each}
+		</div>
+		<Carousel bind:slideIndex={selectedImageIndex} bind:this={lightboxCarousel} slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
+			{#each images as { src, detailedSrc, alt }, index}
+				<CarouselSlide active={selectedImageIndex === index}>
+					<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
+				</CarouselSlide>
+			{/each}
+		</Carousel>
 	</div>
 </Dialog>
 
-
 <style>
+	.product-lightbox {
+		display: grid;
+		grid-template-columns: 352px minmax(auto, 640px);
+		grid-template-areas: "thumbnails carousel";
+		gap: 1rem;
+		padding: 1rem;
+		justify-content: space-evenly;
+	}
+
+	.dialog__header {
+		padding: .5rem 1rem;
+		display: flex;
+		align-items: center;
+		height: 40px;
+		justify-content: space-between;
+	}
+
+	.dialog__title {
+		line-height: 1;
+		margin: 0;
+		font-size: 1.2rem;
+	}
+
+	.product-lightbox .product-gallery__thumbnails {
+		grid-area: thumbnails;
+	}
+
+	@media(max-width:1024px) {
+		.product-lightbox {
+			grid-template-columns: 100%;
+			grid-template-areas: "carousel" "thumbnails";
+		}
+	}
+
+	.product-lightbox .product-gallery__btn {
+		width: 112px;
+		height: 112px;
+	}
+
 	.product-gallery {
 		position: relative;
 		display: grid;
@@ -184,13 +227,25 @@
 	}
 
 	@media(max-width: 560px) {
+		.product-gallery .product-gallery__thumbnails {
+			/** this should fixed later*/
+			display: none;
+		}
+
 		.product-gallery {
 			grid-template-columns: calc(100vw - 1rem);
 			gap: 0;
 		}
 
-		.product-gallery__thumbnails {
-			display: none;
+		.product-lightbox .product-gallery__btn {
+			width: 60px;
+			height: 60px;
+		}
+
+		.product-lightbox .product-gallery__btn img {
+			width: 100%;
+			height: auto;
+			display: block;
 		}
 	}
 </style>

@@ -14,6 +14,8 @@
   import Table from "$lib/components/table";
   import Link from "$lib/components/link";
   import RatingAndReview from "$lib/components/ratingandreview";
+  import Carousel from "$lib/components/carousel/Carousel.svelte";
+  import CarouselSlide from "$lib/components/carousel/CarouselSlide.svelte";
 
   let sizeGroupValue = "";
   let name = "Pink Gloomy Bear Hoodie"
@@ -75,6 +77,7 @@
     ['2XL', '52"', '32"'],
     ['3XL', '56"', '33"']
   ];
+  const recommendationData = [{"name":"Towelie Hoodie - South Park","price":"44.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04346060-a?wid=220&hei=220&fmt=webp","alt":"04346086 - Towelie Hoodie - South Park"},"url":"http://www.spencersonline.com/product/towelie-hoodie-south-park/262420.uts"},{"name":"Eating Gloomy Bear Sweatshirt","price":"44.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/03941192-a?wid=220&hei=220&fmt=webp","alt":"03941234 - Eating Gloomy Bear Sweatshirt"},"url":"http://www.spencersonline.com/product/eating-gloomy-bear-sweatshirt/237779.uts"},{"name":"Stitch 3D Hoodie - Lilo & Stitch","price":"54.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04281796-a?wid=220&hei=220&fmt=webp","alt":"04281838 - Stitch 3D Hoodie - Lilo & Stitch"},"url":"http://www.spencersonline.com/product/stitch-3d-hoodie-lilo-stitch/253059.uts"},{"name":"Have a Creamy Day Zip Hoodie - South Park","price":"49.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04343489-a?wid=220&hei=220&fmt=webp","alt":"04343505 - Have a Creamy Day Zip Hoodie - South Park"},"url":"http://www.spencersonline.com/product/have-a-creamy-day-zip-hoodie-south-park/262214.uts"},{"name":"Jack and Sally Together Forever Tie Dye Hoodie - The Nightmare Before","price":"49.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04312112-a?wid=220&hei=220&fmt=webp","alt":"04312146 - Jack and Sally Together Forever Tie Dye Hoodie - The Nightmare Before"},"url":"http://www.spencersonline.com/product/jack-and-sally-together-forever-tie-dye-hoodie-the-nightmare-before-christmas/259261.uts"}];
 
   let payLaterPrice = divideByFourAndRound(price);
 
@@ -236,10 +239,87 @@
       </div>
     </div>
   </div>
+  <section class="recommendation-section">
+    <h2 class="recommendation-section__heading">More Cool Stuff</h2>
+    <div class="recommendation-section__carousel">
+      {#each recommendationData as { image, name, price, url}, index}
+        <a href={url} class="product-card">
+          <img 
+            class="product-card__image"
+            loading="eager"
+            width=""
+            height=""
+            decoding="async"
+            draggable="false"
+            src={image.src}
+            alt={image.alt}
+          />
+          <div class="product-card__name">{name}</div>
+          <div class="product-card__price">${price}</div>
+        </a>
+      {/each}
+    </div>
+  </section>
   <RatingAndReview />
 </Page>
 
 <style>
+  .recommendation-section {
+    margin: 3rem 0;
+    display: grid;
+    gap: .5rem;
+  }
+
+  .recommendation-section__heading {
+    font-size: 1.5rem;
+    line-height: 1;
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-weight: 400;
+  }
+
+  .recommendation-section__carousel {
+    display: flex;
+    gap: 1rem;
+    flex-flow: row nowrap;
+  }
+
+  .product-card, .product-card:visited {
+    display: flex;
+    flex-flow: column nowrap;
+    gap: .5rem;
+    color: #212121;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    text-decoration: none;
+    flex: 0 0 calc((100% - 0px) / 5);
+  }
+
+  .product-card__image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .product-card__name {
+    font-size: .875rem;
+    font-weight: 400;
+    line-height: 1.4;
+    color: #000;
+  }
+
+  .product-card__price {
+    font-size: 1rem;
+    font-weight: 500;
+    line-height: 1.2;
+    color: #000;
+  }
+
+  @media(max-width:560px) {
+    .product-card, .product-card:visited {
+      flex: 0 0 calc((100% - 0px) / 2.5);
+    }
+  }
+
   .icon {
     height: 24px;
   }
