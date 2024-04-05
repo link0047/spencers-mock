@@ -289,6 +289,7 @@
     margin: 3rem 0;
     display: grid;
     gap: .5rem;
+    overflow: hidden;
   }
 
   .recommendation-section__heading {
@@ -303,6 +304,7 @@
     display: flex;
     gap: 1rem;
     flex-flow: row nowrap;
+    overflow-x: auto;
   }
 
   .product-card, .product-card:visited {
