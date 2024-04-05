@@ -152,5 +152,10 @@
       height: 100dvh;
       max-height: 100dvh;
     }
+
+    .lightbox {
+      max-height: 90dvh;
+      height: 90dvh;
+    }
   }
 </style>
