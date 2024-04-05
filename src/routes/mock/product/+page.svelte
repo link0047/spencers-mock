@@ -284,7 +284,7 @@
     </div>
   </section>
   <RatingAndReview />
-  <section class="recommendation-section">
+  <section class="recommendation-section mb-120">
     <h2 class="recommendation-section__heading">Recently Viewed</h2>
     <div class="recommendation-section__carousel">
       {#each [recommendationData[0]] as { image, name, price, url}, index}
@@ -353,6 +353,10 @@
   @media(max-width: 560px) {
     .page-controls {
       display: grid;
+    }
+
+    .mb-120 {
+      margin-bottom: 140px!important;
     }
   }
 
