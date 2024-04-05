@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onMount } from "svelte";
   import Page from "$lib/components/page/Page.svelte";
   import ProductGallery from "$lib/components/productGallery/ProductGallery.svelte";
   import StarRating from "$lib/components/starrating";
@@ -17,11 +18,14 @@
   import Carousel from "$lib/components/carousel/Carousel.svelte";
   import CarouselSlide from "$lib/components/carousel/CarouselSlide.svelte";
 
+  let ctaRef: HTMLElement;
+  let pageRef: HTMLElement;
   let sizeGroupValue = "";
   let name = "Pink Gloomy Bear Hoodie"
   let colors = ["Pink"];
   let sizes = ["S", "M", "L", "XL", "2X"];
   let price = 54.99;
+  let showControls = false;
   const images = [{
 		src: {
       desktop: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--IpxXvxyE--/c_scale,w_640/v1709237144/jx6nbjhprv6pduzvzedb.webp",
@@ -104,6 +108,20 @@
     return decimal;
   }
 
+  function handleObserver(entries, observer) {
+		entries.forEach(entry => {
+			if (entry.isIntersecting) {
+				console.log(`${entry.target.textContent} is visible`);
+        showControls = false;
+			} else {
+				console.log(`${entry.target.textContent} is not visible`);
+        if (window.scrollY > 100) {
+          showControls = true;
+        }
+			}
+    });
+	}
+
   export let data;
   let { isMobile } = data;
 
@@ -112,6 +130,11 @@
   } else {
     price = 54.99;
   }
+
+  onMount(() => {
+    const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5});
+    observer.observe(ctaRef);
+  });
 </script>
 
 <svelte:head>
@@ -120,7 +143,7 @@
 </svelte:head>
 
 <Page>
-  <div class="product-page-container">
+  <div class="product-page-container" bind:this={pageRef}>
     <div class="product-page__gallery">
       <ProductGallery {images} {isMobile}/>
     </div>
@@ -181,7 +204,7 @@
           <svelte:fragment slot="description">Order by 2pm to get it today!</svelte:fragment>
         </ShippingFulfillmentOption>
       </ShippingFulfillmentGroup>
-      <div class="product-page__action">
+      <div class="product-page__action" bind:this={ctaRef}>
         <InputStepper/>
         <Button variant="success">Add to Cart</Button>
       </div>
@@ -283,8 +306,60 @@
     </div>
   </section>
 </Page>
+<div class="page-controls" class:page-controls--show={showControls}>
+  <div class="product-page__action">
+    <InputStepper/>
+    <Button variant="success">Add to Cart</Button>
+  </div>
+  <div class="product-page__pay-later">
+    <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>
+    <svg class="icon" viewBox="0 0 24 24">
+      <path d="m17.7 8.7-9.2 10H5.1c-.2 0-.4-.2-.4-.5L7 4c0-.3.3-.6.7-.6h5.7c3.9.2 5 2.2 4.3 5.3z" style="fill:#002c8a"/>
+      <path d="M17.8 7.7c1.4.8 1.7 2.2 1.3 4-.6 2.8-2.4 3.9-5.1 4h-.8c-.3 0-.5.2-.5.5l-.6 3.8c0 .3-.3.6-.7.6H8.6c-.2 0-.4-.2-.4-.5l1-6.7c.1-.3 8.6-5.7 8.6-5.7z" style="fill:#009be1"/>
+      <path d="m9.2 13.7.9-6c.1-.3.3-.5.6-.5h4.5c1.1 0 1.9.2 2.5.5-.2 2.1-1.2 5.4-6 5.5H9.8c-.3 0-.5.2-.6.5z" style="fill:#001f6b"/>
+    </svg>
+    or
+    <svg class="icon" viewBox="0 0 72 24">
+      <path d="M15.5,5h-3.2c0,2.5-1.2,4.8-3.3,6.3l-1.3.9,4.8,6.4h4l-4.4-5.8c2.1-2.1,3.3-4.8,3.3-7.7ZM4.2,5h3.2v13.5h-3.2V5ZM17.5,5h3v13.5h-3s0-13.5,0-13.5ZM47,9c-1.2,0-2.3.4-3,1.3v-1h-2.9v9.4h2.9v-4.9c0-1.5,1-2.2,2.2-2.2s2,.7,2,2.2v5h2.9v-6c0-2.3-1.7-3.7-4.1-3.7h0ZM29.6,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM27,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM37,10.5v-1.2h-3v9.4h3v-4.4c0-1.5,1.6-2.3,2.8-2.3v-2.7c-1.2,0-2.3.5-2.8,1.2h0ZM60,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM57.3,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM65,9.5c0-.2,0-.3-.3-.3h-.3v.7h0v-.3h.2v.3h.3v-.5h0ZM64.8,9.6h-.2v-.3h.2v.3Z"/>
+      <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>          
+    </svg>
+  </div>
+</div>
+
 
 <style>
+  .page-controls {
+    display: none;
+    transition: opacity .25s ease-in-out;
+    opacity: 0;
+    pointer-events: none;
+    position: fixed;
+    border-top: 1px solid rgba(0, 0, 0, 0.08);
+    bottom: 0;
+    box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.3);
+    left: 0;
+    gap: .5rem;
+    z-index: 10;
+    background-color: #fff;
+    padding: 1rem;
+    width: 100vw;
+  }
+
+  .page-controls--show {
+    opacity: 1;
+    pointer-events: initial;
+  }
+
+  @media(max-width: 560px) {
+    .page-controls {
+      display: grid;
+    }
+  }
+
+  .page-controls .product-page__action {
+    padding: 0;
+  }
+
   .recommendation-section {
     margin: 3rem 0;
     display: grid;
