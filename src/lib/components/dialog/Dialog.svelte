@@ -136,7 +136,7 @@
     bottom: 10vh;
   }
 
-  @media(max-width: 560px) {
+  @media(max-width: 1024px) {
     .lightbox {
       width: 100vw;
       bottom: 0;

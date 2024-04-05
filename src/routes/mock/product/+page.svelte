@@ -261,6 +261,27 @@
     </div>
   </section>
   <RatingAndReview />
+  <section class="recommendation-section">
+    <h2 class="recommendation-section__heading">Recently Viewed</h2>
+    <div class="recommendation-section__carousel">
+      {#each [recommendationData[0]] as { image, name, price, url}, index}
+        <a href={url} class="product-card">
+          <img 
+            class="product-card__image"
+            loading="eager"
+            width=""
+            height=""
+            decoding="async"
+            draggable="false"
+            src={image.src}
+            alt={image.alt}
+          />
+          <div class="product-card__name">{name}</div>
+          <div class="product-card__price">${price}</div>
+        </a>
+      {/each}
+    </div>
+  </section>
 </Page>
 
 <style>
