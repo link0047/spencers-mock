@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { onDestroy } from "svelte";
+	import { browser } from "$app/environment";
 	/**
    * @typedef {Object} Props
    * @property {string} src - Source URL for the thumbnail image.
@@ -32,7 +33,10 @@
 		state = "idle";
 		x = 0;
 		y = 0;
-		document.removeEventListener("click", handleClick);
+
+		if (browser) {
+			document.removeEventListener("click", handleClick);
+		}
 	}
 
 	/**
@@ -120,7 +124,9 @@
 		} else {
 			if (enableDoubleTapZoom) return;
 			state = "zoomedIn";
-			document.addEventListener("click", handleClick);
+			if (browser) {
+				document.addEventListener("click", handleClick);
+			}
 		}
 		console.log("up",{x, y});
 	}
@@ -133,13 +139,17 @@
 		if (userIntendsToZoomIn) {
 			if (enableDoubleTapZoom) return;
 			state = "zoomedIn";
-			document.addEventListener("click", handleClick);
+			if (browser) {
+				document.addEventListener("click", handleClick);
+			}
 		}
 	}
 
 	/** @type {DestroyCallback} */
 	function cleanup() {
-		document.removeEventListener("click", handleClick);
+		if (browser) {
+			document.removeEventListener("click", handleClick);
+		}
 	}
 
 	onDestroy(cleanup);
