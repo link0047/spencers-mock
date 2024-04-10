@@ -11,6 +11,26 @@
 </div>
 
 <style>
+  .imageviewer {
+		position: relative;
+		min-width: 320px;
+		width: fit-content;
+		box-sizing: border-box;
+		border: 1px solid #000;
+		border-radius: 4px;
+		overflow: hidden;
+		touch-action: none;
+		user-select: none;
+	}
+
+  .imageviewer__image {
+		display: block;
+		width: 100%;
+		height: auto;
+		aspect-ratio: 1 / 1;
+		cursor: zoom-in;
+	}
+
 	.lightbox {
 		position: fixed;
     top: auto;

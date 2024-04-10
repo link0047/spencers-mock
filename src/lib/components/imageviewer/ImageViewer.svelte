@@ -206,7 +206,7 @@
 		border: 1px solid transparent;
 		border-radius: 4px;
 		overflow: hidden;
-		touch-action: manipulation;
+		touch-action: none;
 		user-select: none;
 	}
 
@@ -238,7 +238,6 @@
 		transition: transform 0.12s ease-in-out 0s;
 		pointer-events: none;
 		opacity: 0;
-		touch-action: manipulation;
 		cursor: zoom-out;
 	}
 
