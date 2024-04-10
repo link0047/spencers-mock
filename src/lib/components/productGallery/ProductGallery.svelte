@@ -139,10 +139,10 @@
 	}
 
 	.dialog__header {
-		padding: .5rem 1rem;
+		padding: .5rem;
 		display: flex;
 		align-items: center;
-		height: 40px;
+		height: 56px;
 		justify-content: space-between;
 	}
 
@@ -150,6 +150,10 @@
 		line-height: 1;
 		margin: 0;
 		font-size: 1.2rem;
+		text-decoration: underline;
+		text-decoration-thickness: 3px;
+    text-decoration-color: #2a508f;
+    text-underline-offset: 2px;
 	}
 
 	.product-lightbox .product-gallery__thumbnails {

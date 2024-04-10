@@ -181,7 +181,6 @@
 		border: 1px solid transparent;
 		border-radius: 4px;
 		overflow: hidden;
-		border: 1px solid transparent;
 	}
 
 	[data-state="zoomedIn"].zoomviewer {
