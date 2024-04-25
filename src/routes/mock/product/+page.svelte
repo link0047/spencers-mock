@@ -140,6 +140,7 @@
 <svelte:head>
   <title>Product Demo</title>
   <meta name="description" content="Product page redesign"/>
+  <link rel="preload" as="image" href={isMobile ? "https://res.cloudinary.com/dle2ecsgk/image/upload/s--b7FnYPyM--/c_scale,w_320/v1709237144/jx6nbjhprv6pduzvzedb.webp" : "https://res.cloudinary.com/dle2ecsgk/image/upload/s--IpxXvxyE--/c_scale,w_640/v1709237144/jx6nbjhprv6pduzvzedb.webp"}>
 </svelte:head>
 
 <Page>
