@@ -269,9 +269,9 @@
         <a href={url} class="product-card">
           <img 
             class="product-card__image"
-            loading="eager"
-            width=""
-            height=""
+            loading="lazy"
+            width="277"
+            height="277"
             decoding="async"
             draggable="false"
             src={image.src}
@@ -291,9 +291,9 @@
         <a href={url} class="product-card">
           <img 
             class="product-card__image"
-            loading="eager"
-            width=""
-            height=""
+            loading="lazy"
+            width="277"
+            height="277"
             decoding="async"
             draggable="false"
             src={image.src}
@@ -325,7 +325,6 @@
     </svg>
   </div>
 </div>
-
 
 <style>
   .page-controls {
