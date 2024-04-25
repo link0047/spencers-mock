@@ -6,6 +6,7 @@
 <li class="breadcrumbs__crumb">
   {#if !current}
   <a 
+    aria-label={title}
     class="breadcrumbs__link" 
     {href}
     {title}
@@ -16,7 +17,7 @@
     <slot />
   </a>
   {:else}
-    <div class="breadcrumbs__link" aria-current="page" {title}>
+    <div class="breadcrumbs__link" aria-current="page" {title} aria-label={title}>
       <slot/>
     </div>
   {/if}
@@ -50,8 +51,7 @@
   text-decoration: underline
 }
 
-[aria-current=page].breadcrumbs__link,
-[aria-current=page].breadcrumbs__link:visited{
+[aria-current=page].breadcrumbs__link {
   color: #212121;
   cursor: default
 }
