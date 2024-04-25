@@ -4,17 +4,22 @@
   export let title: string | undefined | null = undefined;
 </script>
 <li class="breadcrumbs__crumb">
+  {#if !current}
   <a 
     class="breadcrumbs__link" 
-    href={href}
-    title={title}
-    aria-current="{current ? 'page' : undefined}"
+    {href}
+    {title}
     on:click
     on:focus
     on:blur
   >
     <slot />
   </a>
+  {:else}
+    <div class="breadcrumbs__link" aria-current="page" {title}>
+      <slot/>
+    </div>
+  {/if}
 </li>
 <style>
 .breadcrumbs__crumb {
