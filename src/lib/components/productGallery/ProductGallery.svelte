@@ -55,6 +55,13 @@
 	const transparentPixel = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 	const lightboxState = useDialogState();
+	let loadLightBoxThumbnails = false;
+
+	lightboxState.open.subscribe(openState => {
+		if (openState && !loadLightBoxThumbnails) {
+			loadLightBoxThumbnails = true;
+		}
+	});
 </script>
 
 <div class="product-gallery" aria-label="Product Gallery">
@@ -116,7 +123,7 @@
 					data-state={selectedImageIndex === index ? "selected" : "unselected" }
 					on:click={changeLightBoxProduct.bind(null, index)}
 				>
-					<img class="product-gallery__thumbnail-image" src={thumbnail} loading="lazy" width="112" height="112" decoding="async" alt="Thumbnail {index + 1}" draggable="false"/>
+					<img class="product-gallery__thumbnail-image" src={loadLightBoxThumbnails ? thumbnail : transparentPixel} loading="lazy" width="112" height="112" decoding="async" alt="Thumbnail {index + 1}" draggable="false"/>
 				</button>
 			{/each}
 		</div>
