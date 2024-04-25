@@ -15,8 +15,6 @@
   import Table from "$lib/components/table";
   import Link from "$lib/components/link";
   import RatingAndReview from "$lib/components/ratingandreview";
-  import Carousel from "$lib/components/carousel/Carousel.svelte";
-  import CarouselSlide from "$lib/components/carousel/CarouselSlide.svelte";
 
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
@@ -28,27 +26,27 @@
   let showControls = false;
   const images = [{
 		src: {
-      desktop: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--IpxXvxyE--/c_scale,w_640/v1709237144/jx6nbjhprv6pduzvzedb.webp",
-      mobile: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--b7FnYPyM--/c_scale,w_320/v1709237144/jx6nbjhprv6pduzvzedb.webp"
+      desktop: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=640&hei=640&fmt=webp",
+      mobile: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=480&hei=480&fmt=webp"
     },
-		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--nTMya-gn--/c_scale,w_60/v1709237144/jx6nbjhprv6pduzvzedb.webp",
-		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--5JvW6DEy--/v1709237144/jx6nbjhprv6pduzvzedb.webp",
+		thumbnail: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=60&hei=60&fmt=webp",
+		detailedSrc: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=2000&hei=2000&fmt=webp",
     alt: `${name}, Front View`
 	},{
 		src: {
-      desktop: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--QJ1U01I7--/c_scale,h_640/v1709237142/cs9wnfguogzx48wsgnqh.webp",
-      mobile: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--DgmzEDXo--/c_scale,w_320/v1709237142/cs9wnfguogzx48wsgnqh.webp"
+      desktop: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=640&hei=640&fmt=webp",
+      mobile: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=480&hei=480&fmt=webp"
     },
-		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--2go8J7O_--/c_scale,h_60,w_60/v1709237142/cs9wnfguogzx48wsgnqh.webp",
-		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--qA93iX2F--/c_scale,h_2000/v1709237142/cs9wnfguogzx48wsgnqh.webp",
+		thumbnail: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=60&hei=60&fmt=webp",
+		detailedSrc: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=2000&hei=2000&fmt=webp",
     alt: `${name}, Back View`
 	}, {
 		src: {
-      desktop: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--gQA7zTKW--/c_scale,h_640/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
-      mobile: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--Fei-sa9A--/c_scale,w_320/v1709237145/ui91s88zyfrwg6cbxfdy.webp"
+      desktop: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=640&hei=640&fmt=webp",
+      mobile: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=480&hei=480&fmt=webp"
     },
-		thumbnail: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--VX72t8q2--/c_scale,h_60/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
-		detailedSrc: "https://res.cloudinary.com/dle2ecsgk/image/upload/s--tX3fShB6--/v1709237145/ui91s88zyfrwg6cbxfdy.webp",
+		thumbnail: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=60&hei=60&fmt=webp",
+		detailedSrc: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=2000&hei=2000&fmt=webp",
     alt: `${name}, Detail of Sleeve`
 	}];
   const breadcrumbs = [{
@@ -140,7 +138,7 @@
 <svelte:head>
   <title>Product Demo</title>
   <meta name="description" content="Product page redesign"/>
-  <link rel="preload" as="image" href={isMobile ? "https://res.cloudinary.com/dle2ecsgk/image/upload/s--b7FnYPyM--/c_scale,w_320/v1709237144/jx6nbjhprv6pduzvzedb.webp" : "https://res.cloudinary.com/dle2ecsgk/image/upload/s--IpxXvxyE--/c_scale,w_640/v1709237144/jx6nbjhprv6pduzvzedb.webp"}>
+  <link rel="preload" as="image" href={isMobile ? "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=480&hei=480&fmt=webp" : "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=640&hei=640&fmt=webp"}>
 </svelte:head>
 
 <Page>
@@ -167,7 +165,7 @@
       <div class="product-page__variants" role="group">
         <VariantSelector label="Color">
           {#each colors as color, index}
-            <Swatch color={color} name="color" value={color} checked={index === 0} />
+            <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
           {/each}
         </VariantSelector>
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
