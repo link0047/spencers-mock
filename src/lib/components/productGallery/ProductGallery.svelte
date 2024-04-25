@@ -52,6 +52,8 @@
 		lightboxState.open.set(true);
 	}
 
+	const transparentPixel = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
+
 	const lightboxState = useDialogState();
 </script>
 
@@ -64,7 +66,7 @@
 				data-state={selectedImageIndex === index ? "selected" : "unselected" }
 				on:click={changeProduct.bind(null, index)}
 			>
-				<img class="product-gallery__thumbnail-image" src={thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}" draggable="false"/>
+				<img class="product-gallery__thumbnail-image" src={isMobile ? transparentPixel : thumbnail} loading="lazy" width="60" height="60" decoding="async" alt="Thumbnail {index + 1}" draggable="false"/>
 			</button>
 		{/each}
 	</div>
