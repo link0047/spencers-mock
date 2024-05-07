@@ -224,15 +224,14 @@
 </div>
 <Portal>
 	<div
-		bind:this={listboxRef}
-		data-state={$open ? "open" : ""}
-		id={listboxId}
-		class="combobox__listbox"
-		class:combobox__listbox--expanded={stayOpen}
-		role="listbox"
+		data-state={$open ? "open" : "closed"}
+		class="combobox__popover"
+		class:combobox__popover--expanded={stayOpen}
 		style={listboxStyling}
 	>
-		<slot />
+		<div bind:this={listboxRef} id={listboxId} class="combobox__listbox" role="listbox">
+			<slot />
+		</div>
 	</div>
 </Portal>
 
@@ -288,11 +287,6 @@
 		background-color: #f5f5f5;
 	}
 
-	[data-state="open"] .combobox__native-control {
-		/* border-bottom-left-radius: 0px;
-		border-bottom-right-radius: 0px; */
-	}
-
 	.combobox__native-control:focus {
 		background-color: #fff;
 	}
@@ -302,7 +296,7 @@
 		outline: 2px solid #174ea6;
 	}
 	
-	.combobox__listbox {
+	.combobox__popover {
 		position: fixed;
 		border: 1px solid #dcdcdc;
 		background-color: #fff;
@@ -320,12 +314,12 @@
 		box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
 	}
 
-	.combobox__listbox[data-state="open"] {
+	.combobox__popover[data-state="open"] {
 		opacity: 1;
 		pointer-events: initial;
 	}
 
-	.combobox__listbox--expanded {
+	.combobox__popover--expanded {
 		box-shadow: none;
 		border: transparent;
 	}

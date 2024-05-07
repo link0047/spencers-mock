@@ -10,7 +10,8 @@
   import Group from "$lib/components/group";
   import Icon from "$lib/components/icon";
   import { Combobox, Option } from "$lib/components/combobox";
-  import { Chip, Chips } from "$lib/components/chip";
+  import { Chips } from "$lib/components/chip";
+  import Chip from "$lib/components/chip/Chip-new.svelte";
   import {
     Drawer,
     DrawerDisclosure,
@@ -429,6 +430,8 @@
       });
     });
   });
+
+  $: console.log(searchMenu);
 </script>
 <Drawer state={zipDrawerState} alignment="right"></Drawer>
 <Drawer state={bopisDrawerState} alignment="right"></Drawer>
@@ -607,7 +610,7 @@
             {#if name == "categories" || name == "trending"}
               <Chips style="padding: 0 8px;">
               {#each items as item}
-                <Chip rounded>{item}</Chip>
+                <Chip rounded role="option">{item}</Chip>
               {/each}
               </Chips>
             {/if}

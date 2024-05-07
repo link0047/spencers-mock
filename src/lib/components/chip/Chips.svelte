@@ -2,8 +2,8 @@
   export let label = "";
 </script>
 <div 
-	class="chips" 
-	role="grid" 
+	class="chips"
+  role="group" 
 	aria-label={label} 
 	{...$$restProps}
 >

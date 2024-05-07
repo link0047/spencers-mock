@@ -16,6 +16,7 @@
 <div 
 	class="chip"
 	class:chip--outlined={variant === "outlined"}
+	{...$$restProps}
 >
 	<slot />
 	{#if isFunction(onClose)}
@@ -32,12 +33,27 @@
 		height: 32px;
 		box-sizing: border-box;
 		border-radius: 18px;
-		display: flex;
+		line-height: 1;
+		font-weight: 500;
+  	display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		padding: 0 12px;
-		background-color: #aaadb2;
+		font-size: 0.8125rem;
+		letter-spacing: .0178571429em;
+  	color: #000000de;
+		background-color: #f2f2f2;
+		-moz-osx-font-smoothing: grayscale;
+		-webkit-font-smoothing: antialiased;
+		appearance: none;
+		cursor: pointer;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+	}
+
+	.chip:focus,
+	.chip:hover {
+		border-color: #000;
+		box-shadow: inset 0 0 0 1px #000;
 	}
 
 	.chip--outlined {
