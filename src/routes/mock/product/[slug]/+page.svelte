@@ -332,7 +332,11 @@
   {#await reviewData}
     <div>waiting</div>
   {:then data}
-    <RatingsAndReviewsCard data={data} url={review_endpoint}/>
+    <RatingsAndReviewsCard data={data} url={review_endpoint}>
+      <svelte:fragment slot="subheading">
+        Our <Link href="/help/article/community-guidelines">Community Guidelines</Link> help customers write honest reviews.
+      </svelte:fragment>
+    </RatingsAndReviewsCard>
   {:catch error}
     <div>Something went wrong</div>
   {/await}
@@ -445,7 +449,7 @@
     color: #212121;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     text-decoration: none;
-    flex: 0 0 calc((100% - 0px) / 5);
+    flex: 0 0 calc((100% - (4*8px)) / 5);
   }
 
   .product-card__image {

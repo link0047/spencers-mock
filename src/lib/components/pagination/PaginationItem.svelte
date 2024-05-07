@@ -10,10 +10,12 @@
     href={href}
     title={title}
     aria-disabled={disabled}
-    aria-current={current ? 'page' : undefined}
+    aria-current={current ? "page" : undefined}
     on:click
     on:focus
-    on:blur>
+    on:blur
+    {...$$restProps}
+  >
     <slot />
     {#if current} 
       <span class="a11y-hide"> - current page</span>

@@ -82,7 +82,8 @@
 {/if}
 <svelte:element 
 	this={tag} 
-	class="searchbox" 
+	class="searchbox"
+	class:searchbox--hasAction={hasSearchAction}
 	class:searchbox--float-above={variant === "float-above"}
 	role="search"
 >
@@ -246,7 +247,11 @@
 		right: 8px;
 		touch-action: manipulation;
     user-select: none;
-		transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+		transition: background-color 0.25s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.searchbox--hasAction .searchbox__clear-action {
+		right: 40px;
 	}
 
 	.hide {

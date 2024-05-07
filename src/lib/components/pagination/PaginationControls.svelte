@@ -3,7 +3,8 @@
   export let variant = undefined;
 </script>
 <button 
-  type="button" 
+  type="button"
+  aria-label={`${variant} page`} 
   aria-disabled={disabled}
 	{disabled}
   class="pagination__control"

@@ -66,7 +66,9 @@
 	<div class="ratings-and-reviews__container">
 		<h2 class="ratings-and-reviews__heading">
 			Ratings & Reviews
-			<div class="ratings-and-reviews__subheading">Our <Link>Community Guidelines</Link> help customers write honest reviews.</div>
+			<div class="ratings-and-reviews__subheading">
+				<slot name="subheading"/>
+			</div>
 		</h2>
 		<div class="ratings-and-reviews__card">
 			<div class="ratings-and-reviews__stats">
