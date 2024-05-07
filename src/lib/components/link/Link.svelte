@@ -1,11 +1,13 @@
 <script>
   export let href = "";
   export let variant = "default";
+  export let color = "primary";
 </script>
 
 <a
   class="link"
   class:link--underline={variant === "underline"}
+  class:link--color-secondary={color === "secondary"}
   {href}
   {...$$restProps}
 >
@@ -35,5 +37,9 @@
     outline: 2px solid #174ea6;
     outline-offset: 2px;
     color: #174eab;
+  }
+
+  .link--color-secondary {
+    color: #212121;
   }
 </style>

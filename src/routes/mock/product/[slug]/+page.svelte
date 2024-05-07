@@ -14,62 +14,98 @@
   import Icon from "$lib/components/icon";
   import Table from "$lib/components/table";
   import Link from "$lib/components/link";
-  import RatingAndReview from "$lib/components/ratingandreview";
+  import { RatingsAndReviewsCard } from "$lib/components/ratingsandreviewscard";
+  import { fetchData } from "$lib/client/util/utilities.js";
+  import { browser } from "$app/environment";
+  import IconSet from "$lib/components/iconset";
+  
+  export let data;
+
+  let { isMobile, product } = data;
+  const merchantId = "7874";
+	const locale = "en_US";
+	const pageId = product?.sku;
+	const pagingSize = 10;
+	const apiKey = "4299eaeb-b748-43e4-adba-e46a09962a74";
+	const noconfig = true;
+	const timeout = 5000;
+
+  const review_endpoint = `https://readservices-b2c.powerreviews.com/m/${merchantId}/l/${locale}/product/${pageId}/reviews?paging.size=${pagingSize}&apikey=${apiKey}&_noconfig=${noconfig}`;
+  const sizeScorer = {
+    xs: 0,
+    small: 1,
+    s: 1,
+    medium: 2,
+    m: 2,
+    large: 3,
+    l: 3,
+    xl: 4,
+    xxl: 5,
+    "2x": 6,
+    "3x": 7,
+  };
+
+  function mapSizes(sizes) {
+    const sizeMapping = {
+      'small': 'S',
+      'medium': 'M',
+      'large': 'L',
+      'ex large': 'XL'
+    };
+
+    // Iterate over each size in the array
+    const mappedSizes = sizes.map(size => {
+      // Convert size to lowercase for case-insensitive matching
+      const lowercaseSize = size.toLowerCase();
+      // Check if the size contains any of the words and map accordingly
+      if (lowercaseSize.includes('small')) {
+        return sizeMapping['small'];
+      } else if (lowercaseSize.includes('medium')) {
+        return sizeMapping['medium'];
+      } else if (lowercaseSize.includes('ex large')) {
+        return sizeMapping['ex large'];
+      } else if (lowercaseSize.includes('large')) {
+        return sizeMapping['large'];
+      } else {
+        // If the size doesn't contain any of the words, return the original size
+        return size;
+      }
+    });
+
+    return mappedSizes;
+  }
+
+  function sortSize(a, b) {
+    return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
+  }
 
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
   let sizeGroupValue = "";
-  let name = "Pink Gloomy Bear Hoodie"
-  let colors = ["Pink"];
-  let sizes = ["S", "M", "L", "XL", "2X"];
-  let price = 54.99;
+  let sku = product?.sku;
+  let name = product?.name.split(" - Spencer's")[0];
+  let colors = product?.variantInfo.variants.map((variant) => {
+    return variant?.COLOR_NAME  
+  });
+  colors = [...new Set(colors)];
+  let sizes = mapSizes(product?.variantInfo.variants.map((variant) => {
+    return variant?.SIZE_NAME  
+  })).sort(sortSize);
+  sizes = [...new Set(sizes.filter(item => item !== ''))];
+  let price = product?.variantInfo.lowPrice;
   let showControls = false;
-  const images = [{
-		src: {
-      desktop: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=640&hei=640&fmt=webp",
-      mobile: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=480&hei=480&fmt=webp"
-    },
-		thumbnail: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=60&hei=60&fmt=webp",
-		detailedSrc: "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=2000&hei=2000&fmt=webp",
-    alt: `${name}, Front View`
-	},{
-		src: {
-      desktop: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=640&hei=640&fmt=webp",
-      mobile: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=480&hei=480&fmt=webp"
-    },
-		thumbnail: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=60&hei=60&fmt=webp",
-		detailedSrc: "https://spencers.scene7.com/is/image/Spencers/04281861-b?wid=2000&hei=2000&fmt=webp",
-    alt: `${name}, Back View`
-	}, {
-		src: {
-      desktop: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=640&hei=640&fmt=webp",
-      mobile: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=480&hei=480&fmt=webp"
-    },
-		thumbnail: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=60&hei=60&fmt=webp",
-		detailedSrc: "https://spencers.scene7.com/is/image/Spencers/04281861-c?wid=2000&hei=2000&fmt=webp",
-    alt: `${name}, Detail of Sleeve`
-	}];
-  const breadcrumbs = [{
-    href: "/",
-    text: "Home",
-    current: false
-  },{
-    href: "/category/pop-culture/4655.uts",
-    text: "Pop Culture",
-    current: false
-  },{
-    href: "/category/anime/pc/4655/2507.uts",
-    text: "Anime",
-    current: false
-  },{
-    href: "/category/gloomy-bear/pc/4655/c/2507/5500.uts",
-    text: "Gloomy Bear",
-    current: false
-  },{
-    href: null,
-    text: name,
-    current: true
-  }];
+  const images = product?.images?.map((image, index) => {
+    return {
+      src: {
+        desktop: `${image}?wid=640&hei=640&fmt=webp`,
+        mobile: `${image}?wid=480&hei=480&fmt=webp`,
+      },
+      thumbnail: `${image}?wid=60&hei=60&fmt=webp`,
+      detailedSrc: `${image}?wid=2000&hei=2000&fmt=webp`,
+      alt: `${name} ${index + 1}`
+    }
+  });
+  const breadcrumbs = product?.breadcrumb;
   const tableData = [
     ['Size', 'Chest', 'Body Length'],
     ['Small', '40"', '28"'],
@@ -79,9 +115,9 @@
     ['2XL', '52"', '32"'],
     ['3XL', '56"', '33"']
   ];
-  const recommendationData = [{"name":"Towelie Hoodie - South Park","price":"44.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04346060-a?wid=220&hei=220&fmt=webp","alt":"04346086 - Towelie Hoodie - South Park"},"url":"http://www.spencersonline.com/product/towelie-hoodie-south-park/262420.uts"},{"name":"Eating Gloomy Bear Sweatshirt","price":"44.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/03941192-a?wid=220&hei=220&fmt=webp","alt":"03941234 - Eating Gloomy Bear Sweatshirt"},"url":"http://www.spencersonline.com/product/eating-gloomy-bear-sweatshirt/237779.uts"},{"name":"Stitch 3D Hoodie - Lilo & Stitch","price":"54.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04281796-a?wid=220&hei=220&fmt=webp","alt":"04281838 - Stitch 3D Hoodie - Lilo & Stitch"},"url":"http://www.spencersonline.com/product/stitch-3d-hoodie-lilo-stitch/253059.uts"},{"name":"Have a Creamy Day Zip Hoodie - South Park","price":"49.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04343489-a?wid=220&hei=220&fmt=webp","alt":"04343505 - Have a Creamy Day Zip Hoodie - South Park"},"url":"http://www.spencersonline.com/product/have-a-creamy-day-zip-hoodie-south-park/262214.uts"},{"name":"Jack and Sally Together Forever Tie Dye Hoodie - The Nightmare Before","price":"49.99","image":{"src":"https://spencers.scene7.com/is/image/Spencers/04312112-a?wid=220&hei=220&fmt=webp","alt":"04312146 - Jack and Sally Together Forever Tie Dye Hoodie - The Nightmare Before"},"url":"http://www.spencersonline.com/product/jack-and-sally-together-forever-tie-dye-hoodie-the-nightmare-before-christmas/259261.uts"}];
-
-  let payLaterPrice = divideByFourAndRound(price);
+  const description = product?.description;
+  const recommendationData = product?.recommendationData;
+  let payLaterPrice = divideByFourAndRound(Number(price));
 
   function getDeliveryDate() {
     const today = new Date();
@@ -120,27 +156,31 @@
     });
 	}
 
-  export let data;
-  let { isMobile } = data;
-
   $: if (sizeGroupValue === "2X") {
-    price = 59.99;
+    price = product?.variantInfo.highPrice;
   } else {
-    price = 54.99;
+    price = product?.variantInfo.lowPrice;
   }
 
-  onMount(() => {
+  const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
+
+  onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5});
     observer.observe(ctaRef);
+
+    const data = await reviewData;
+    console.log(data);
   });
 </script>
 
 <svelte:head>
-  <title>Product Demo</title>
+  <title>{name}</title>
   <meta name="description" content="Product page redesign"/>
-  <link rel="preload" as="image" href={isMobile ? "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=480&hei=480&fmt=webp" : "https://spencers.scene7.com/is/image/Spencers/04281861-a?wid=640&hei=640&fmt=webp"}>
+  <link rel="preload" as="image" href={isMobile ? images[0].src.mobile : images[0].src.desktop}>
 </svelte:head>
-
+<IconSet>
+	<symbol id="recommended-check"><path d="M2.836 10.855L0 13.473l7.418 6.982L24 5.618 21.164 3 7.418 15.218"/></symbol>
+</IconSet>
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
     <div class="product-page__gallery">
@@ -154,8 +194,22 @@
       </Breadcrumb>
       <h1 class="product-page__name">{name}</h1>
       <div class="product-page__rating">
-        <StarRating />
-        <span>No Ratings</span>
+        {#if browser}
+
+        {#await reviewData}
+          <StarRating />
+          <span>No Ratings</span>
+        {:then data}
+          <StarRating rating={data.results[0].rollup.average_rating}/>
+          <span>
+            {`(${data.results[0].rollup.average_rating})`} 
+            <Link href="#" color="secondary">{`${data.paging.total_results} reviews`}</Link>
+          </span>
+        {:catch error}
+          <StarRating />
+          <span>No Ratings</span>
+        {/await}
+        {/if}
       </div>
       <div class="product-page__price">
         <span class="salePrice"></span>
@@ -168,11 +222,13 @@
             <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
           {/each}
         </VariantSelector>
+        {#if sizes.length}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
           {#each sizes as size}
             <Radio variant="box" name="size" value={size} checked={size === "M"}>{size}</Radio>
           {/each}
         </VariantSelector>
+        {/if}
       </div>
       <hr />
       <ShippingFulfillmentGroup>
@@ -223,18 +279,8 @@
       <div class="product-page__details">
         <Accordion open>
           <svelte:fragment slot="label">Description</svelte:fragment>
-          <p>Cozy up with your favorite pop culture character with this pink Gloomy Bear hoodie! This cozy hoodie is perfect for indoors or outdoors and is sure to let everyone know you're a Gloomy Bear fan.</p>
-          <ul class="list">
-            <li>Officially licensed</li>
-            <li>Exclusively at Spencer's</li>
-            <li>Crewneck</li>
-            <li>Long sleeves</li>
-            <li>Material: Cotton</li>
-            <li>Care: Machine wash; tumble dry low</li>
-            <li>Imported</li>
-            <li>This shirt is Unisex Sizing only</li>
-            <li>For a fitted look, order one size smaller than your normal size</li>
-          </ul>
+          <div>Item# {sku}</div>
+          {@html description}
         </Accordion>
         <Accordion>
           <svelte:fragment slot="label">Size Chart</svelte:fragment>
@@ -282,7 +328,15 @@
       {/each}
     </div>
   </section>
-  <RatingAndReview />
+  {#if browser}
+  {#await reviewData}
+    <div>waiting</div>
+  {:then data}
+    <RatingsAndReviewsCard data={data} url={review_endpoint}/>
+  {:catch error}
+    <div>Something went wrong</div>
+  {/await}
+  {/if}
   <section class="recommendation-section mb-120">
     <h2 class="recommendation-section__heading">Recently Viewed</h2>
     <div class="recommendation-section__carousel">
@@ -422,12 +476,6 @@
 
   .icon {
     height: 24px;
-  }
-
-  .list {
-    list-style-type: disc;
-    padding-left: 1.5rem;
-    margin: 1rem 0;
   }
 
   hr {
