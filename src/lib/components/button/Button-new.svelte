@@ -6,11 +6,18 @@
   export let state: string | null = null;
 	export let type: "button" | "reset" | "submit" = "button";
   export let elevation: number = 0;
+  export let canBeSelected: boolean = false;
 
   let internalState: string | null = null;
   
   $: internalState = state;
   
+  function handleClick() {
+		if (canBeSelected) {
+			state = state !== "selected" ? "selected" : null;
+		}
+	}
+
   afterUpdate(() => {
     internalState = state;
   }); 
@@ -27,6 +34,7 @@
   class:elevation1={elevation === 1}
   data-state={state}
   {type}
+  on:click={handleClick}
   on:click
   on:mouseover
   on:mouseenter
@@ -171,4 +179,15 @@
     --btn-hover-background-color: #EAEAEA;
     border: 1px solid transparent;
   }
+
+  .btn[data-state="selected"] {
+		border-color:  #333335;
+		background-color: #333335;
+		color: #fff;
+	}
+
+	.btn[data-state="selected"]:hover {
+		background-color: #555659;
+		border-color: #555659;
+	}
 </style>

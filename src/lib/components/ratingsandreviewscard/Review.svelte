@@ -16,17 +16,16 @@
 		},
 		badges: {
 			is_verified_buyer,
-			is_verified_reviewer
 		},
 		metrics: {
 			rating,
-			helpful_votes
+			helpful_votes,
+			not_helpful_votes
 		}, 
-		ugc_id, 
-		review_id
+		ugc_id,
 	} = data);
 
-	$: votes = helpful_votes;
+	$: votes = helpful_votes - not_helpful_votes;
 
 	async function handleUpDownVote(event) {
 		if (event.target.dataset.state === "selected") {
@@ -37,6 +36,7 @@
 			}
 		} else {
 			votes -= 1;
+			const data = await submitVote(ugc_id, "unhelpful");
 		}
 	}
 </script>

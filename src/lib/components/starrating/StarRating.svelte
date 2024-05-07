@@ -19,7 +19,7 @@
     });
 	}
 	
-	let starClasses: (string | null)[] = calculateStarClasses(rating);
+	$: starClasses = calculateStarClasses(rating);
 </script>
 <svg class="ratings" focusable="false" role="presentation" viewBox="0 0 120 24">
 	<defs>
