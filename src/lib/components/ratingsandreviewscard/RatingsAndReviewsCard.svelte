@@ -119,9 +119,11 @@
 				<Review data={review} />
 			{/each}
 			</Reviews>
-			<div class="ratings-and-reviews__pagination">
-				<Pagination count={pages_total} page={1} handleChange={pageChange}/>
-			</div>
+			{#if pages_total > 1}
+				<div class="ratings-and-reviews__pagination">
+					<Pagination count={pages_total} page={1} handleChange={pageChange}/>
+				</div>
+			{/if}
 		{/if}
 	</div>
 </div>

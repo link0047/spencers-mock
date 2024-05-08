@@ -363,7 +363,7 @@
   <section class="recommendation-section">
     <h2 class="recommendation-section__heading">More Cool Stuff</h2>
     <div class="recommendation-section__carousel">
-      {#each recommendationData as { image, name, price, url}, index}
+      {#each recommendationData as { image, name, price, url}}
         <a href={url} class="product-card">
           <img 
             class="product-card__image"
