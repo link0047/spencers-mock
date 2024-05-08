@@ -18,6 +18,7 @@
   import { fetchData } from "$lib/client/util/utilities.js";
   import { browser } from "$app/environment";
   import IconSet from "$lib/components/iconset";
+  import { Collapsible } from "$lib/components/collapsible";
   
   export let data;
 
@@ -332,8 +333,10 @@
       <div class="product-page__details">
         <Accordion open>
           <svelte:fragment slot="label">Description</svelte:fragment>
-          {@html description}
-          <div class="item-sku">Item# {sku}</div>
+          <Collapsible height="150px">
+            {@html description}
+            <div class="item-sku">Item# {sku}</div>
+          </Collapsible>
         </Accordion>
         <Accordion>
           <svelte:fragment slot="label">Size Chart</svelte:fragment>
