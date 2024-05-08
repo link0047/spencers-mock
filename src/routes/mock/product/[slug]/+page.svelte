@@ -194,6 +194,7 @@
     alt: `${name} ${index + 1}`
   })) || [];
   const breadcrumbs = product?.breadcrumb || [];
+  const restrictions = product?.restrictions || [];
   const tableData = [
     ['Size', 'Chest', 'Body Length'],
     ['Small', '40"', '28"'],

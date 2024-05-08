@@ -5,6 +5,10 @@
 	export let maxlength: number = 2;
   export let value: number = 1;
 
+  function isNumber(value: any): boolean {
+    return typeof value === 'number' && !isNaN(value);
+  }
+
 	function increment() {
 		value = value + 1;
 	}
@@ -13,11 +17,21 @@
 		value = value - 1;
 	}
 
-	function handleChange({ target }: Event) {
-		if (parseInt((target as HTMLInputElement)?.value) <= 0) {
+	function handleChange() {
+		if (isNaN(value) || value <= 0) {
 			value = 1;
 		}
 	}
+
+  function handleInput() {
+    if (!isNumber(value)) return;
+
+    if (value < min) {
+      value = 1;
+    } else if (value > max) {
+      value = max;
+    }
+  }
 
 	$: isDecrementDisabled = value <= min;
   $: isIncrementDisabled = value >= max;
@@ -37,6 +51,7 @@
   </button>
   <input
     bind:value
+    on:input={handleInput}
 		on:change={handleChange}
     type="number"
     pattern="[0-9]*(.[0-9]+)?"

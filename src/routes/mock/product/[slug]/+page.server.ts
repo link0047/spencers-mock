@@ -2,6 +2,7 @@ import { error } from '@sveltejs/kit';
 import parser from "ua-parser-js";
 
 const dataStore = [{
+  "maximumquantity": 2,
   "name": "Talking Tiffany Doll - 20 Inch",
   "pid": "166117",
   "sku": "03366192",
@@ -34,7 +35,8 @@ const dataStore = [{
   "promos": [],
   "description": "<p>A true classic never goes out of style! This talking Tiffany doll is the perfect addition to every horror buff's collection. With her signature white dress, black jacket and authentic chest tattoo, this Tiffany doll looks just like the real deal.</p><ul><li>Officially licensed</li><li>Exclusively at Spencer's</li><li>Spoken Phrases:<ul><li>Take it from me honey, plastic is no substitute for a nice hunk of wood!</li><li>Oh, Chucky look at us. We belong dead. Goodbye darling. I'll see you in hell.</li><li>We could do this the easy way or the hard way. It's really up to you.</li><li>I believe we already met, haven't we, sweet-face? I hope you left room for dessert!</li></ul></li><li>Head turns and mouth moves</li><li>Battery Type: 3AAA (included)</li><li>Dimensions: 20\" H x 8\" W x 11\" D (13.5\" sitting)</li><li>Material: Polyester, faux leather, synthetic fibers</li><li>Care: Wipe clean</li><li>Imported</li></ul>",
   "restrictions": [
-    "Maximum Quantity"
+    {type: "Maximum Quantity", message: "Maximum quantity of item is limited per order.", level: 2},
+    {type: "Oversize Item ", message: "This item is considered oversized and will require an additional shipping fee. Shipping promos are valid, but oversize charge will still apply.", level: 1}
   ],
   "reviewData": {},
   "valProps": [],
@@ -96,6 +98,7 @@ const dataStore = [{
   },
   recommendationData: [{ "name": "Talking Chucky Doll - 24 inch", "price": "89.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/02842623-a?wid=277&hei=277&fmt=webp", "alt": "02842623 - Talking Chucky Doll - 24 inch" }, "url": "http://www.spencersonline.com/product/talking-chucky-doll-24-inch/21683.uts" }, { "name": "Glen Doll - Chucky", "price": "69.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/04208567-a?wid=277&hei=277&fmt=webp", "alt": "04208567 - Glen Doll - Chucky" }, "url": "http://www.spencersonline.com/product/glen-doll-chucky/250687.uts" }, { "name": "Bride of Chucky Tiffany Doll", "price": "69.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/02402865-a?wid=277&hei=277&fmt=webp", "alt": "02402865 - Bride of Chucky Tiffany Doll" }, "url": "http://www.spencersonline.com/product/bride-of-chucky-tiffany-doll/25401.uts" }, { "name": "Good Guys Chucky Doll - 24 Inch", "price": "89.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/04132239-a?wid=277&hei=277&fmt=webp", "alt": "04132239 - Good Guys Chucky Doll - 24 Inch" }, "url": "http://www.spencersonline.com/product/good-guys-chucky-doll-24-inch/242620.uts" }, { "name": "Chucky Doll", "price": "69.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/02402873-a?wid=277&hei=277&fmt=webp", "alt": "02402873 - Chucky Doll" }, "url": "http://www.spencersonline.com/product/chucky-doll/743.uts" }]
 }, {
+  "maximumquantity": 99,
   "name": "Pink Gloomy Bear Hoodie",
   "pid": "253020",
   "sku": "04281861",
@@ -268,6 +271,7 @@ const dataStore = [{
   },
   recommendationData: [{ "name": "Towelie Hoodie - South Park", "price": "44.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/04346060-a?wid=277&hei=277&fmt=webp", "alt": "04346086 - Towelie Hoodie - South Park" }, "url": "http://www.spencersonline.com/product/towelie-hoodie-south-park/262420.uts" }, { "name": "Eating Gloomy Bear Sweatshirt", "price": "44.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03941192-a?wid=277&hei=277&fmt=webp", "alt": "03941234 - Eating Gloomy Bear Sweatshirt" }, "url": "http://www.spencersonline.com/product/eating-gloomy-bear-sweatshirt/237779.uts" }, { "name": "Stitch 3D Hoodie - Lilo & Stitch", "price": "54.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/04281796-a?wid=277&hei=277&fmt=webp", "alt": "04281838 - Stitch 3D Hoodie - Lilo & Stitch" }, "url": "http://www.spencersonline.com/product/stitch-3d-hoodie-lilo-stitch/253059.uts" }, { "name": "Have a Creamy Day Zip Hoodie - South Park", "price": "49.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/04343489-a?wid=277&hei=277&fmt=webp", "alt": "04343505 - Have a Creamy Day Zip Hoodie - South Park" }, "url": "http://www.spencersonline.com/product/have-a-creamy-day-zip-hoodie-south-park/262214.uts" }, { "name": "Jack and Sally Together Forever Tie Dye Hoodie - The Nightmare Before", "price": "49.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/04312112-a?wid=277&hei=277&fmt=webp", "alt": "04312146 - Jack and Sally Together Forever Tie Dye Hoodie - The Nightmare Before" }, "url": "http://www.spencersonline.com/product/jack-and-sally-together-forever-tie-dye-hoodie-the-nightmare-before-christmas/259261.uts" }]
 }, {
+  "maximumquantity": 99,
   "name": "Black Vibrating Barbell - 14 Gauge - Spencer's",
   "pid": "178495",
   "sku": "03516903",
