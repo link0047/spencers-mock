@@ -652,7 +652,7 @@
 
   .product-page__pay-later {
     display: inline-flex;
-    flex-flow: row wrap;
+    flex-flow: row nowrap;
     align-items: center;
     justify-content: center;
     font-size: .875rem;
