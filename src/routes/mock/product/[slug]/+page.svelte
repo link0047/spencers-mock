@@ -179,7 +179,7 @@
   let pageRef: HTMLElement;
   let sizeGroupValue = "";
   let sku = product?.sku;
-  let name = product?.name.split(" - Spencer's")[0];
+  let name = product?.name;
   let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo.variants || []);
   let price = product?.variantInfo.lowPrice;
   let showControls = false;
@@ -227,6 +227,7 @@
   <meta name="description" content="Product page redesign"/>
   <link rel="preload" as="image" href={isMobile ? images[0].src.mobile : images[0].src.desktop}>
 </svelte:head>
+
 <IconSet>
 	<symbol id="recommended-check"><path d="M2.836 10.855L0 13.473l7.418 6.982L24 5.618 21.164 3 7.418 15.218"/></symbol>
 </IconSet>
