@@ -253,7 +253,7 @@
             <span class="product-page__feedbackCount">
               {#if data.results[0].rollup.average_rating}
                 {`(${data.results[0].rollup.average_rating})`} 
-                <Link href="#" color="secondary">{`${data.paging.total_results} reviews`}</Link>
+                <Link href="#" color="secondary">{`${data.paging.total_results} review${data.paging.total_results > 1 ? "s" : ""}`}</Link>
               {:else}
                 <Link href="#" color="secondary">be the first!</Link>
               {/if}
