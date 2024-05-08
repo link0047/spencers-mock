@@ -36,9 +36,13 @@
 }
 
 .breadcrumbs__link {
+  border-radius: 4px;
   text-decoration: none;
   -webkit-tap-highlight-color: transparent;
-  outline: 0
+}
+
+.breadcrumbs__link:focus-visible {
+  outline: 2px solid #285bc7;
 }
 
 .breadcrumbs__link,

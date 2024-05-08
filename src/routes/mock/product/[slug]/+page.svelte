@@ -31,95 +31,40 @@
 	const timeout = 5000;
 
   const review_endpoint = `https://readservices-b2c.powerreviews.com/m/${merchantId}/l/${locale}/product/${pageId}/reviews?paging.size=${pagingSize}&apikey=${apiKey}&_noconfig=${noconfig}`;
-  const sizeScorer = {
-    xs: 0,
-    small: 1,
-    s: 1,
-    medium: 2,
-    m: 2,
-    large: 3,
-    l: 3,
-    xl: 4,
-    xxl: 5,
-    "2x": 6,
-    "3x": 7,
-  };
 
-  function mapSizes(sizes) {
-    const sizeMapping = {
-      'small': 'S',
-      'medium': 'M',
-      'large': 'L',
-      'ex large': 'XL'
+  /**
+   * Compares two sizes and returns a value indicating their relative order.
+   * @param {string} a - The first size to compare.
+   * @param {string} b - The second size to compare.
+   * @returns {number} A negative value if a is smaller than b, 0 if they are equal, or a positive value if a is larger than b.
+   */
+  function sortSize(a: string, b: string): number {
+    /**
+     * A scoring system for different size labels.
+     * @type {{ [key: string]: number }}
+     */
+    const sizeScorer: { [key: string]: number } = {
+      xs: 0,
+      small: 1,
+      s: 1,
+      medium: 2,
+      m: 2,
+      large: 3,
+      l: 3,
+      xl: 4,
+      xxl: 5,
+      "2x": 6,
+      "3x": 7,
     };
 
-    // Iterate over each size in the array
-    const mappedSizes = sizes.map(size => {
-      // Convert size to lowercase for case-insensitive matching
-      const lowercaseSize = size.toLowerCase();
-      // Check if the size contains any of the words and map accordingly
-      if (lowercaseSize.includes('small')) {
-        return sizeMapping['small'];
-      } else if (lowercaseSize.includes('medium')) {
-        return sizeMapping['medium'];
-      } else if (lowercaseSize.includes('ex large')) {
-        return sizeMapping['ex large'];
-      } else if (lowercaseSize.includes('large')) {
-        return sizeMapping['large'];
-      } else {
-        // If the size doesn't contain any of the words, return the original size
-        return size;
-      }
-    });
-
-    return mappedSizes;
-  }
-
-  function sortSize(a, b) {
     return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
   }
 
-  let ctaRef: HTMLElement;
-  let pageRef: HTMLElement;
-  let sizeGroupValue = "";
-  let sku = product?.sku;
-  let name = product?.name.split(" - Spencer's")[0];
-  let colors = product?.variantInfo.variants.map((variant) => {
-    return variant?.COLOR_NAME  
-  });
-  colors = [...new Set(colors)];
-  let sizes = mapSizes(product?.variantInfo.variants.map((variant) => {
-    return variant?.SIZE_NAME  
-  })).sort(sortSize);
-  sizes = [...new Set(sizes.filter(item => item !== ''))];
-  let price = product?.variantInfo.lowPrice;
-  let showControls = false;
-  const images = product?.images?.map((image, index) => {
-    return {
-      src: {
-        desktop: `${image}?wid=640&hei=640&fmt=webp`,
-        mobile: `${image}?wid=480&hei=480&fmt=webp`,
-      },
-      thumbnail: `${image}?wid=60&hei=60&fmt=webp`,
-      detailedSrc: `${image}?wid=2000&hei=2000&fmt=webp`,
-      alt: `${name} ${index + 1}`
-    }
-  });
-  const breadcrumbs = product?.breadcrumb;
-  const tableData = [
-    ['Size', 'Chest', 'Body Length'],
-    ['Small', '40"', '28"'],
-    ['Medium', '40"', '29"'],
-    ['Large', '44"', '30"'],
-    ['Extra Large', '48"', '31"'],
-    ['2XL', '52"', '32"'],
-    ['3XL', '56"', '33"']
-  ];
-  const description = product?.description;
-  const recommendationData = product?.recommendationData;
-  let payLaterPrice = divideByFourAndRound(Number(price));
-
-  function getDeliveryDate() {
+  /**
+   * Calculates the estimated delivery date, which is 7 days from the current date.
+   * @returns {string} A string indicating the estimated delivery date.
+   */
+  function getDeliveryDate(): string {
     const today = new Date();
     const deliveryDate = new Date(today.getTime() + 7 * 24 * 60 * 60 * 1000);
     const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
@@ -131,7 +76,12 @@
     return `Get it by ${dayName}, ${monthAbbrev} ${dayOfMonth}`;
   }
 
-  function divideByFourAndRound(price: number) {
+  /**
+   * Divides a price by four and rounds the result to two decimal places.
+   * @param {number} price - The price to be divided.
+   * @returns {number} The result of dividing the price by four and rounding it to two decimal places.
+   */
+  function divideByFourAndRound(price: number): number {
     // Convert price to a whole number by multiplying by 100
     const wholeNumber = Math.round(price * 100);
     
@@ -142,35 +92,134 @@
     return decimal;
   }
 
-  function handleObserver(entries, observer) {
-		entries.forEach(entry => {
-			if (entry.isIntersecting) {
-				console.log(`${entry.target.textContent} is visible`);
+  /**
+   * Handles intersection observer entries.
+   * @param {IntersectionObserverEntry[]} entries - The array of intersection observer entries.
+   * @param {IntersectionObserver} observer - The intersection observer instance.
+   */
+  function handleObserver(entries: IntersectionObserverEntry[], observer: IntersectionObserver): void {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        console.log(`${entry.target.textContent} is visible`);
         showControls = false;
-			} else {
-				console.log(`${entry.target.textContent} is not visible`);
+      } else {
+        console.log(`${entry.target.textContent} is not visible`);
         if (window.scrollY > 100) {
           showControls = true;
         }
-			}
+      }
     });
-	}
+  }
+
+  /**
+   * Extracts color names and size names from an array of variant objects,
+   * avoiding duplicates and empty strings.
+   * @param {Array<{ COLOR_NAME: string; SIZE_NAME: string; }>} variantsArray - The array of variant objects.
+   * @returns {[string[], string[]]} An array containing two arrays: color names and size names.
+   */
+  function extractColorAndSizeNames(variantsArray: Array<{ COLOR_NAME: string; SIZE_NAME: string; }>): [string[], string[]] {
+    if (!variantsArray || variantsArray.length === 0) {
+      return [[], []]; // Return empty arrays if variantsArray is empty or undefined
+    }
+    const colorNames: string[] = [];
+    const sizeNames: string[] = [];
+
+    // Object to keep track of unique color names and size names
+    const colorNameSet: { [key: string]: boolean } = {};
+    const sizeNameSet: { [key: string]: boolean } = {};
+
+    /**
+     * A mapping of full size names to their abbreviated forms.
+     * @type {{ [key: string]: string }}
+     */
+     const sizeMapping: { [key: string]: string } = {
+      "small": "S",
+      "medium": "M",
+      "large": "L",
+      "ex large": "XL"
+    };
+
+    // Loop over each variant object
+    variantsArray.forEach(variant => {
+      // Extract COLOR_NAME and SIZE_NAME properties
+      const { COLOR_NAME, SIZE_NAME } = variant;
+
+      // Add non-empty color names to the array
+      if (COLOR_NAME.trim() !== "" && !colorNameSet[COLOR_NAME]) {
+        colorNames.push(COLOR_NAME);
+        colorNameSet[COLOR_NAME] = true; // Mark color name as encountered
+      }
+
+      // Add non-empty size names to the array
+      if (SIZE_NAME.trim() !== "" && !sizeNameSet[SIZE_NAME]) {
+
+        const lowercaseSize: string = SIZE_NAME.toLowerCase();
+        // Check if the size contains any of the words and map accordingly
+        if (lowercaseSize.includes("small")) {
+          sizeNames.push(sizeMapping["small"]);
+        } else if (lowercaseSize.includes("medium")) {
+          sizeNames.push(sizeMapping["medium"]);
+        } else if (lowercaseSize.includes("ex large")) {
+          sizeNames.push(sizeMapping["ex large"]);
+        } else if (lowercaseSize.includes("large")) {
+          sizeNames.push(sizeMapping["large"]);
+        } else {
+          // If the size doesn't contain any of the words, return the original size
+          sizeNames.push(SIZE_NAME);
+        }
+
+        sizeNameSet[SIZE_NAME] = true; // Mark size name as encountered
+      }
+    });
+
+    return [colorNames, sizeNames.sort(sortSize)];
+  }
+
+  let ctaRef: HTMLElement;
+  let pageRef: HTMLElement;
+  let sizeGroupValue = "";
+  let sku = product?.sku;
+  let name = product?.name.split(" - Spencer's")[0];
+  let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo.variants || []);
+  let price = product?.variantInfo.lowPrice;
+  let showControls = false;
+  const images = product?.images?.map((image, index) => ({
+    src: {
+      desktop: `${image}?wid=640&hei=640&fmt=webp`,
+      mobile: `${image}?wid=480&hei=480&fmt=webp`,
+    },
+    thumbnail: `${image}?wid=60&hei=60&fmt=webp`,
+    detailedSrc: `${image}?wid=2000&hei=2000&fmt=webp`,
+    alt: `${name} ${index + 1}`
+  })) || [];
+  const breadcrumbs = product?.breadcrumb || [];
+  const tableData = [
+    ['Size', 'Chest', 'Body Length'],
+    ['Small', '40"', '28"'],
+    ['Medium', '40"', '29"'],
+    ['Large', '44"', '30"'],
+    ['Extra Large', '48"', '31"'],
+    ['2XL', '52"', '32"'],
+    ['3XL', '56"', '33"']
+  ];
+  const description = product?.description;
+  const recommendationData = product?.recommendationData || [];
+  let payLaterPrice = divideByFourAndRound(Number(price));
+  const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
+
+  onMount(async () => {
+    const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
+    observer.observe(ctaRef);
+
+    const data = await reviewData;
+    console.log(data);
+  });
 
   $: if (sizeGroupValue === "2X") {
     price = product?.variantInfo.highPrice;
   } else {
     price = product?.variantInfo.lowPrice;
   }
-
-  const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
-
-  onMount(async () => {
-    const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5});
-    observer.observe(ctaRef);
-
-    const data = await reviewData;
-    console.log(data);
-  });
 </script>
 
 <svelte:head>
@@ -195,20 +244,23 @@
       <h1 class="product-page__name">{name}</h1>
       <div class="product-page__rating">
         {#if browser}
-
-        {#await reviewData}
-          <StarRating />
-          <span>No Ratings</span>
-        {:then data}
-          <StarRating rating={data.results[0].rollup.average_rating}/>
-          <span>
-            {`(${data.results[0].rollup.average_rating})`} 
-            <Link href="#" color="secondary">{`${data.paging.total_results} reviews`}</Link>
-          </span>
-        {:catch error}
-          <StarRating />
-          <span>No Ratings</span>
-        {/await}
+          {#await reviewData}
+            <StarRating />
+            <span>No Ratings</span>
+          {:then data}
+            <StarRating rating={data.results[0].rollup.average_rating}/>
+            <span class="product-page__feedbackCount">
+              {#if data.results[0].rollup.average_rating}
+                {`(${data.results[0].rollup.average_rating})`} 
+                <Link href="#" color="secondary">{`${data.paging.total_results} reviews`}</Link>
+              {:else}
+                <Link href="#" color="secondary">be the first!</Link>
+              {/if}
+            </span>
+          {:catch error}
+            <StarRating />
+            <span>No Ratings</span>
+          {/await}
         {/if}
       </div>
       <div class="product-page__price">
