@@ -9,9 +9,7 @@
 	const valueStore: Writable<string> = writable(value);
 	setContext("value", valueStore);
 
-	$: {
-		value = $valueStore;
-	}
+	$: value = $valueStore;
 </script>
 
 <svelte:element class="radio-group" role="radiogroup" this={tag} {...$$restProps}>

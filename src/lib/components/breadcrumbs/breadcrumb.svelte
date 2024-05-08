@@ -20,7 +20,7 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-tap-highlight-color: transparent;
   font-synthesis: none;
-  font-feature-settings: 'liga','kern'
+  font-feature-settings: 'liga','kern';
 }
   
 .breadcrumbs__list {
@@ -30,4 +30,11 @@
   margin: 0;
   padding: 0
 }
+
+/* @media (max-width:560px) {
+  .breadcrumbs__list {
+    flex-wrap: initial;
+    overflow-x: auto;
+  }
+} */
 </style>

@@ -19,11 +19,13 @@
    * @returns {void}
    */
 	function handleChange({ target }: Event): void {
-		$valueStore = (target as HTMLInputElement)?.value;
+    if ($valueStore) {
+		  $valueStore = (target as HTMLInputElement)?.value;
+    }
 	}
 
   onMount(() => {
-    if (inputRef.checked) {
+    if (inputRef.checked && $valueStore) {
       $valueStore = inputRef.value;
     }
   });
@@ -61,15 +63,16 @@
 		justify-content: center;
 		min-height: 40px;
 		min-width: 56px;
+		flex: 1 1 0;
 		border-radius: 4px;
-		border: 1px solid #626369;
+		border: 1px solid #888;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 		font-size: .875rem;
 	}
 
   .radio--box:has(.radio__native-control:checked) .radio__label {
     outline: 2px solid #000;
-    font-weight: 700;
+		outline-offset: -1px;
 	}
 
 	.radio--box:has(.radio__native-control:focus-visible) .radio__label {

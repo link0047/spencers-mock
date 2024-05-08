@@ -332,8 +332,8 @@
       <div class="product-page__details">
         <Accordion open>
           <svelte:fragment slot="label">Description</svelte:fragment>
-          <div>Item# {sku}</div>
           {@html description}
+          <div class="item-sku">Item# {sku}</div>
         </Accordion>
         <Accordion>
           <svelte:fragment slot="label">Size Chart</svelte:fragment>
@@ -437,6 +437,13 @@
 </div>
 
 <style>
+  .item-sku {
+    font-size: .875rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: #4c4c4c;
+  }
+
   .page-controls {
     display: none;
     transition: opacity .25s ease-in-out;

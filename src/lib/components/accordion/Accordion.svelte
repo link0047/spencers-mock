@@ -24,7 +24,7 @@
 		class="accordion__button"
 		on:click={handleClick}
 	>
-		<span>
+		<span class="accordion__heading">
 			<slot name="label" />
 		</span>
 		<svg class="icon" focusable="false" role="presentation" viewBox="0 0 24 24">
@@ -92,6 +92,11 @@
 		background-color: #f7f7f7;
 	}
 	
+	.accordion__heading {
+		font-weight: 700;
+		line-height: 1.4;
+	}
+
 	.accordion__content {
 		display: none;
 		padding: .5rem;
