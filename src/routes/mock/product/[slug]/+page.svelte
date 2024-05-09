@@ -19,6 +19,7 @@
   import { browser } from "$app/environment";
   import IconSet from "$lib/components/iconset";
   import { Collapsible } from "$lib/components/collapsible";
+  import Badge from "$lib/components/badge/Badge.svelte";
   
   export let data;
 
@@ -204,6 +205,7 @@
     detailedSrc: `${image}?wid=2000&hei=2000&fmt=webp`,
     alt: `${name} ${index + 1}`
   })) || [];
+  const badges = product?.badges || [];
   const breadcrumbs = product?.breadcrumb || [];
   const restrictions = product?.restrictions || [];
   const tableData = [
@@ -258,6 +260,11 @@
         {/each}
       </Breadcrumb>
       <h1 class="product-page__name">{name}</h1>
+      <div class="product-page__badges">
+        {#each badges as badge}
+          <div class="badge">{badge}</div>
+        {/each}
+      </div>
       <div class="product-page__rating">
         {#if browser}
           {#await reviewData}
@@ -639,6 +646,30 @@
     gap: 8px;
     color: #2e2f32;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  }
+
+  .product-page__badges {
+    display: flex;
+    flex-flow: row wrap;
+    gap: 8px;
+  }
+
+  .badge {
+    background-color: #2a508f;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+      Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1;
+    display: flex;
+    height: 24px;
+    min-width: 24px;
+    padding: 0 8px;
+    align-items: center;
+    justify-content: center;
+    letter-spacing: .02rem;
+    color: #fff;
+    border-radius: 4px;
   }
 
   .product-page__name {
