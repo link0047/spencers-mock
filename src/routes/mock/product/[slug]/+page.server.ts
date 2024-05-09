@@ -1,7 +1,8 @@
 import { error } from '@sveltejs/kit';
 import parser from "ua-parser-js";
 
-const dataStore = [{
+const dataStore = [
+{
   "maximumquantity": 2,
   "name": "Talking Tiffany Doll - 20 Inch",
   "pid": "166117",
@@ -293,7 +294,7 @@ const dataStore = [{
   },
   "badges": [],
   "promos": [],
-  "description": "\n<ul>\n\t<li>\n\t\tPiercing Type: Tongue</li>\n\t<li>\n\t\tBarbell Material: 316L Surgical steel</li>\n\t<li>\n\t\tAccent Material: Metal alloy</li>\n\t<li>\n\t\tGauge: 14 Gauge</li>\n\t<li>\n\t\tBall Size: 5mm</li>\n\t<li>\n\t\tBattery Type: Cell battery (included)</li>\n\t<li>\n\t\tThreaded closure</li>\n\t<li>\n\t\tBattery Type: 3 L736.392 Cell Batteries (Included)</li>\n\t<li>\n\t\tJewelry Care: Clean with antibacterial soap and warm water</li>\n\t<li>\n\t\tPiercing Care: Clean with saline solution</li>\n\t<li>\n\t\tImported</li>\n\t<li>\n\t\tNote: Do not use rubbing alcohol to clean jewelry. Normal alcohol consumption and/or mouthwash may accelerate wear and tear</li>\n\t<li>\n\t\tNote: To start vibrations, remove circular paper tab from battery compartment.</li>\n\t<li>\n\t\tDo not over-thread or apply excess pressure when adding/removing beads as breakage could occur</li>\n\t<li>\n\t\tSurgical steel may contain trace amounts of nickel&nbsp;</li>\n</ul>\n",
+  "description": "<ul><li>Piercing Type: Tongue</li><li>Barbell Material: 316L Surgical steel</li><li>Accent Material: Metal alloy</li><li>Gauge: 14 Gauge</li><li>Ball Size: 5mm</li><li>Battery Type: Cell battery (included)</li><li>Threaded closure</li><li>Battery Type: 3 L736.392 Cell Batteries (Included)</li><li>Jewelry Care: Clean with antibacterial soap and warm water</li><li>Piercing Care: Clean with saline solution</li><li>Imported</li><li>Note: Do not use rubbing alcohol to clean jewelry. Normal alcohol consumption and/or mouthwash may accelerate wear and tear</li><li>Note: To start vibrations, remove circular paper tab from battery compartment.</li><li>Do not over-thread or apply excess pressure when adding/removing beads as breakage could occur</li><li>Surgical steel may contain trace amounts of nickel&nbsp;</li></ul>",
   "restrictions": [],
   "reviewData": {},
   "valProps": [],

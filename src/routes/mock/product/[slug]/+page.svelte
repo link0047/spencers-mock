@@ -54,8 +54,10 @@
       l: 3,
       xl: 4,
       xxl: 5,
-      "2x": 6,
-      "3x": 7,
+      "1x": 6,
+      "2x": 7,
+      "3x": 8,
+      "4x": 9
     };
 
     return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
@@ -208,6 +210,7 @@
   const recommendationData = product?.recommendationData || [];
   let payLaterPrice = divideByFourAndRound(Number(price));
   const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
+  const hasLimitedQuantity = product?.maximumquantity != 99 || false;
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -314,8 +317,13 @@
           <svelte:fragment slot="description">Order by 2pm to get it today!</svelte:fragment>
         </ShippingFulfillmentOption>
       </ShippingFulfillmentGroup>
+      {#if hasLimitedQuantity}
+        <div class="product-page__limited-quantity">
+          Maxiumum of {product?.maximumquantity} units per order
+        </div>
+      {/if}
       <div class="product-page__action" bind:this={ctaRef}>
-        <InputStepper/>
+        <InputStepper max={product?.maximumquantity} />
         <Button variant="success">Add to Cart</Button>
       </div>
       <div class="product-page__pay-later">
@@ -652,6 +660,14 @@
     display: grid;
     grid-template-columns: auto 1fr;
     gap: 1rem;
+  }
+
+  .product-page:has(.product-page__limited-quantity) .product-page__action  {
+    padding-top: 0;
+  }
+
+  .product-page__limited-quantity {
+    padding-top: 2.5rem;
   }
 
   .product-page__pay-later {

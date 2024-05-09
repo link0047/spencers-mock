@@ -142,6 +142,7 @@
   .btn.btn--success {
     background-color: #008a00;
     color: #fff;
+    font-weight: 700;
   }
 
   .btn--underline {
