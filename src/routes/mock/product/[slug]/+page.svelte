@@ -178,6 +178,15 @@
     return [colorNames, sizeNames.sort(sortSize)];
   }
 
+  /**
+   * Get the default size from an array of sizes.
+   * @param {string[]} sizes - An array of sizes.
+   * @returns {string | null} - The default size ("m" if it exists, else the first size in the array), or null if the array is empty.
+   */
+  function getDefaultSize(sizes: string[]): string | null {
+    return sizes.includes("M") ? "M" : sizes.length > 0 ? sizes[0] : null;
+  }
+
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
   let sizeGroupValue = "";
@@ -211,6 +220,7 @@
   let payLaterPrice = divideByFourAndRound(Number(price));
   const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
   const hasLimitedQuantity = product?.maximumquantity != 99 || false;
+  const defaultSize = getDefaultSize(sizes);
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -283,7 +293,7 @@
         {#if sizes.length}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
           {#each sizes as size}
-            <Radio variant="box" name="size" value={size} checked={size === "M"}>{size}</Radio>
+            <Radio variant="box" name="size" value={size} checked={size === defaultSize}>{size}</Radio>
           {/each}
         </VariantSelector>
         {/if}
