@@ -2,7 +2,7 @@
 	import generateId from "$lib/client/util/local-unique-id-generator";
 	import Button from "$lib/components/button/Button-new.svelte";
 	export let open = false;
-	export let height = null;
+	export let height = "";
 	
 	const uid = generateId("collapsible");
 	const id = `uikit-collapsible-${uid}`;
@@ -17,7 +17,7 @@
 	{id}
 	role="region"
 	class="collapsible"
-	class:collapsible--hasScrim={height !== null}
+	class:collapsible--hasScrim={height !== ""}
 	aria-hidden={open}
 	style={`--collapsible-height:${open ? "" : height || 0}`}
 >
