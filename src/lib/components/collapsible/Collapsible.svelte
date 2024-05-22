@@ -3,6 +3,7 @@
 	import Button from "$lib/components/button/Button-new.svelte";
 	export let open = false;
 	export let height = "";
+	export let hasScrim = true;
 	
 	const uid = generateId("collapsible");
 	const id = `uikit-collapsible-${uid}`;
@@ -17,7 +18,7 @@
 	{id}
 	role="region"
 	class="collapsible"
-	class:collapsible--hasScrim={height !== ""}
+	class:collapsible--hasScrim={hasScrim && height !== ""}
 	aria-hidden={open}
 	style={`--collapsible-height:${open ? "" : height || 0}`}
 >

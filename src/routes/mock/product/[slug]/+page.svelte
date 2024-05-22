@@ -19,7 +19,7 @@
   import { browser } from "$app/environment";
   import IconSet from "$lib/components/iconset";
   import { Collapsible } from "$lib/components/collapsible";
-  import Badge from "$lib/components/badge/Badge.svelte";
+  import WarningCard from "$lib/components/warningcard";
   
   export let data;
 
@@ -33,6 +33,24 @@
 	const timeout = 5000;
 
   const review_endpoint = `https://readservices-b2c.powerreviews.com/m/${merchantId}/l/${locale}/product/${pageId}/reviews?paging.size=${pagingSize}&apikey=${apiKey}&_noconfig=${noconfig}`;
+
+  /**
+	 * Extracts the first sequence of digits from a string and returns it as a number.
+	 * @param {string} input - The string from which to extract the number.
+	 * @returns {number} - The first number found in the string, or NaN if no number is found or if the input is not a string.
+	 */
+	function getNumberFromString(input: string) {
+	  // Check if the input is a valid string and trim any surrounding whitespace
+	  if (typeof input !== 'string' || input.trim() === '') {
+	    return NaN;
+	  }
+	
+	  // Match any sequence of digits (\d+)
+	  const digitMatch = input.match(/\d+/);
+	
+	  // Return the matched number or NaN if no match is found
+	  return digitMatch?.[0] ? parseInt(digitMatch[0], 10) : NaN;
+	}
 
   /**
    * Compares two sizes and returns a value indicating their relative order.
@@ -207,7 +225,9 @@
   })) || [];
   const badges = product?.badges || [];
   const breadcrumbs = product?.breadcrumb || [];
-  const restrictions = product?.restrictions || [];
+  const restrictions = Object.entries(product?.restrictions || {});
+
+  console.log("restrictions",restrictions);
   const tableData = [
     ['Size', 'Chest', 'Body Length'],
     ['Small', '40"', '28"'],
@@ -260,18 +280,14 @@
         {/each}
       </Breadcrumb>
       <h1 class="product-page__name">{name}</h1>
-      <div class="product-page__badges">
-        {#each badges as badge}
-          <div class="badge">{badge}</div>
-        {/each}
-      </div>
+      
       <div class="product-page__rating">
         {#if browser}
           {#await reviewData}
-            <StarRating />
+            <StarRating --ratings-height="20px" />
             <span>No Ratings</span>
           {:then data}
-            <StarRating rating={data.results[0].rollup.average_rating}/>
+            <StarRating rating={data.results[0].rollup.average_rating} --ratings-height="20px" />
             <span class="product-page__feedbackCount">
               {#if data.results[0].rollup.average_rating}
                 {`(${data.results[0].rollup.average_rating})`} 
@@ -289,6 +305,11 @@
       <div class="product-page__price">
         <span class="salePrice"></span>
         <span class="basePrice">${price}</span>
+      </div>
+      <div class="product-page__badges">
+        {#each badges as badge}
+          <div class="badge">{badge}</div>
+        {/each}
       </div>
       <hr />
       <div class="product-page__variants" role="group">
@@ -356,6 +377,17 @@
           <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>          
         </Icon>
       </div>
+      {#if restrictions.length}
+      <div class="product-page__restrictions">
+        {#each restrictions as [level, warnings]}
+          <WarningCard level={getNumberFromString(level)}>
+            {#each warnings as {type, message}}
+              <div><strong>{type}</strong> - {message}</div>
+            {/each}
+          </WarningCard>
+        {/each}
+      </div>
+      {/if}
       <div class="product-page__details">
         <Accordion open>
           <svelte:fragment slot="label">Description</svelte:fragment>
@@ -364,6 +396,7 @@
             <div class="item-sku">Item# {sku}</div>
           </Collapsible>
         </Accordion>
+        {#if sizes.length}
         <Accordion>
           <svelte:fragment slot="label">Size Chart</svelte:fragment>
           <div class="size-chart">
@@ -371,6 +404,7 @@
             <Table variant="bordered" {tableData} />
           </div>  
         </Accordion>
+        {/if}
         <Accordion>
           <svelte:fragment slot="label">Shipping & Returns</svelte:fragment>
           <div class="shippingAndReturns">
@@ -567,10 +601,6 @@
     }
   }
 
-  .icon {
-    height: 24px;
-  }
-
   hr {
     width: 100%;
     margin-top: 8px;
@@ -728,7 +758,11 @@
   .product-page__details {
     display: grid;
     gap: .5rem;
-    padding-top: 2.5rem;
+    margin-top: 2.5rem;
+  }
+
+  .product-page__restrictions {
+    margin-top: 2.5rem;
   }
 
   @media(max-width: 560px) {

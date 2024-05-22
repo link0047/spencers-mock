@@ -15,17 +15,17 @@
     background-color: #2a508f;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
       Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 12px;
+    font-size: .75rem;
     font-weight: 400;
     line-height: 1;
     display: flex;
-    height: 16px;
-    min-width: 16px;
-    padding: 0 4px;
+    height: 1rem;
+    min-width: 1rem;
+    padding: 0 .25rem;
     align-items: center;
     justify-content: center;
     color: #fff;
-    border-radius: 8px;
+    border-radius: .5rem;
     position: absolute;
     top: 0;
     right: 0;

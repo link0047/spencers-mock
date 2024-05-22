@@ -35,10 +35,10 @@ const dataStore = [
   ],
   "promos": [],
   "description": "<p>A true classic never goes out of style! This talking Tiffany doll is the perfect addition to every horror buff's collection. With her signature white dress, black jacket and authentic chest tattoo, this Tiffany doll looks just like the real deal.</p><ul><li>Officially licensed</li><li>Exclusively at Spencer's</li><li>Spoken Phrases:<ul><li>Take it from me honey, plastic is no substitute for a nice hunk of wood!</li><li>Oh, Chucky look at us. We belong dead. Goodbye darling. I'll see you in hell.</li><li>We could do this the easy way or the hard way. It's really up to you.</li><li>I believe we already met, haven't we, sweet-face? I hope you left room for dessert!</li></ul></li><li>Head turns and mouth moves</li><li>Battery Type: 3AAA (included)</li><li>Dimensions: 20\" H x 8\" W x 11\" D (13.5\" sitting)</li><li>Material: Polyester, faux leather, synthetic fibers</li><li>Care: Wipe clean</li><li>Imported</li></ul>",
-  "restrictions": [
-    {type: "Maximum Quantity", message: "Maximum quantity of item is limited per order.", level: 2},
-    {type: "Oversize Item ", message: "This item is considered oversized and will require an additional shipping fee. Shipping promos are valid, but oversize charge will still apply.", level: 1}
-  ],
+  "restrictions": {
+    level1: [{type: "Oversize Item ", message: "This item is considered oversized and will require an additional shipping fee. Shipping promos are valid, but oversize charge will still apply."}],
+    level2: [{type: "Maximum Quantity", message: "Maximum quantity of item is limited per order."}],
+  },
   "reviewData": {},
   "valProps": [],
   "variantInfo": {

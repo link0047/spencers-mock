@@ -1,53 +1,67 @@
-<script>
+<script lang="ts">
 	import generateId from "$lib/client/util/local-unique-id-generator.js";
 	import { onMount } from "svelte";
-	export let open = false;
-	export let label = "";
+	
+	export let open: boolean = false;
+	export let label: string = "";
+	export let readMoreText: string = "Read more";
+  export let readLessText: string = "Read less";
+	export let minimumContentHeightEm: number = 2;
 
-	const uid = generateId("collapsible");
-	const id = `uikit-collapsible-${uid}`;
-	const contentId = `${id}-content`;
+	const uid: string = generateId("expandable-section");
+	const id: string = `uikit-expandable-section-${uid}`;
+	const contentId: string = `${id}-content`;
 
-	let contentRef;
-	let showReadMore = false;
+	let contentRef: HTMLDivElement;
+	let showReadMore: boolean = false;
 
-	function handleClick() {
+	function handleClick(): void {
 		if (!showReadMore) return;
 		open = !open;
 	}
 	
 	onMount(() => {
-		const rect = contentRef.getBoundingClientRect();
-		
-		showReadMore = rect.height > 16*1.4*2;
+		const { height } = contentRef.getBoundingClientRect();
+		const lineHeightInPixels = parseFloat(getComputedStyle(contentRef).lineHeight);
+    const minHeightInPixels = minimumContentHeightEm * lineHeightInPixels;
+    showReadMore = height > minHeightInPixels;
 	});
 </script>
-<div class="collapsible" {...$$restProps}>
+<div class="expandable-section">
 	<button 
-		class="collapsible__heading"
+		class="expandable-section__controller"
 		type="button"
 		aria-expanded={open}
 		aria-controls={contentId}
 		aria-label={label}
-		style={open ? "height:auto;overflow:initial" : null }
-		on:click={handleClick}
+		style={open ? `height:auto;overflow:initial;--line-count:${minimumContentHeightEm}` : `--line-count:${minimumContentHeightEm}` }
 		data-expandable={showReadMore}
+		on:click={handleClick}
+		on:click
+		on:blur
+		on:focus
 	>
 		<div 
 			bind:this={contentRef} 
-			class="collapsible__content" 
+			class="expandable-section__content" 
 			id={contentId}
+  		role="region"
 		>
 			<slot name="content"/>
 		</div>
 		{#if showReadMore}
-		<div class="collapsible__actionLabel">{open ? "Read less" : "Read more"}</div>
+			<div class="expandable-section__actionLabel">{open ? readLessText : readMoreText}</div>
 		{/if}
 	</button>
 </div>
 
 <style>
-	.collapsible__heading {
+	:root {
+		--line-height: 1.4rem;
+		--line-count: 2;
+	}
+
+	.expandable-section__controller {
 		-webkit-tap-highlight-color: transparent;
 		position: relative;
 		box-sizing: border-box;
@@ -59,28 +73,28 @@
 		background-color: transparent;
 		margin: 0;
 		padding: 0;
-		height: 2.8rem;
+		height: calc(var(--line-height, 1.4rem) * var(--line-count));
 		overflow: hidden;
 		touch-action: manipulation;
     user-select: none;
     appearance: none;
 	}
 	
-	.collapsible__heading[data-expandable="true"] {
+	.expandable-section__controller[data-expandable="true"] {
     cursor: pointer;
   }
 
-	.collapsible__heading:focus-visible {
+	.expandable-section__controller:focus-visible {
 		outline: 2px solid #111;
 	}
 	
-	.collapsible__content {
+	.expandable-section__content {
 		position: relative;
-		line-height: 1.4rem;
+		line-height: var(--line-height, 1.4rem);
 		text-align: left;
 	}
 
-	.collapsible__actionLabel {
+	.expandable-section__actionLabel {
 		position: absolute;
 		right: 0;
 		bottom: 0;
@@ -90,24 +104,24 @@
 		color: #285bc7;
 	}
 
-	.collapsible__heading[aria-expanded="true"] .collapsible__actionLabel {
-		bottom: -1.2rem;
+	.expandable-section__controller[aria-expanded="true"] .expandable-section__actionLabel {
+		bottom: calc((var(--line-height, 1.4rem) - .2rem) * -1);
 		background-color: transparent;
 	}
 
-	.collapsible__actionLabel:focus,
-	.collapsible__actionLabel:hover {
+	.expandable-section__actionLabel:focus,
+	.expandable-section__actionLabel:hover {
 		color: #1c3f8b;
 	}
 
 	@media (max-width: 560px) {
-		.collapsible__heading {
+		.expandable-section__controller {
 			font-size: .875rem;
-			height: 2.4rem;
+			height: calc((var(--line-height, 1.4rem) - .2rem) * 2);
 		}
 
-		.collapsible__content {
-			line-height: 1.2rem;
+		.expandable-section__content {
+			line-height: calc(var(--line-height, 1.4rem) - .2rem);
 		}
 	}
 </style>
