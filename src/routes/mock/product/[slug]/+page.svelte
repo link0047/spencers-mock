@@ -226,8 +226,6 @@
   const badges = product?.badges || [];
   const breadcrumbs = product?.breadcrumb || [];
   const restrictions = Object.entries(product?.restrictions || {});
-
-  console.log("restrictions",restrictions);
   const tableData = [
     ['Size', 'Chest', 'Body Length'],
     ['Small', '40"', '28"'],
@@ -280,7 +278,6 @@
         {/each}
       </Breadcrumb>
       <h1 class="product-page__name">{name}</h1>
-      
       <div class="product-page__rating">
         {#if browser}
           {#await reviewData}
@@ -312,13 +309,16 @@
         {/each}
       </div>
       <hr />
+      {#if sizes.length > 1}
       <div class="product-page__variants" role="group">
-        <VariantSelector label="Color">
-          {#each colors as color, index}
-            <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
-          {/each}
+        <VariantSelector label="Color" bind:groupValue={colors[0]}>
+          {#if colors.length > 1}
+            {#each colors as color, index}
+              <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
+            {/each}
+          {/if}
         </VariantSelector>
-        {#if sizes.length}
+        {#if sizes.length > 1}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
           {#each sizes as size}
             <Radio variant="box" name="size" value={size} checked={size === defaultSize}>{size}</Radio>
@@ -327,6 +327,7 @@
         {/if}
       </div>
       <hr />
+      {/if}
       <ShippingFulfillmentGroup>
         <ShippingFulfillmentOption>
           <Icon slot="icon">
@@ -423,6 +424,7 @@
       </div>
     </div>
   </div>
+  {#if recommendationData.length}
   <section class="recommendation-section">
     <h2 class="recommendation-section__heading">More Cool Stuff</h2>
     <div class="recommendation-section__carousel">
@@ -444,6 +446,7 @@
       {/each}
     </div>
   </section>
+  {/if}
   {#if browser}
   {#await reviewData}
     <div>waiting</div>
@@ -457,7 +460,8 @@
     <div>Something went wrong</div>
   {/await}
   {/if}
-  <section class="recommendation-section mb-120">
+  {#if recommendationData.length}
+  <section class="recommendation-section">
     <h2 class="recommendation-section__heading">Recently Viewed</h2>
     <div class="recommendation-section__carousel">
       {#each [recommendationData[0]] as { image, name, price, url}, index}
@@ -478,6 +482,7 @@
       {/each}
     </div>
   </section>
+  {/if}
 </Page>
 <div class="page-controls" class:page-controls--show={showControls}>
   <div class="product-page__action">
@@ -505,6 +510,7 @@
     font-weight: 500;
     line-height: 1.4;
     color: #4c4c4c;
+    margin-top: 1rem;
   }
 
   .page-controls {
