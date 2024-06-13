@@ -28,7 +28,7 @@ const dataStore = [
     "isSoldOut": false,
     "price": {
       "displayedPrice": 89.99,
-      "msrpPrice": "89.99"
+      "msrpPrice": 89.99
     },
     "badges": [
       "Exclusive", "Best Seller"
@@ -118,7 +118,7 @@ const dataStore = [
     "isSoldOut": false,
     "price": {
       "displayedPrice": 54.99,
-      "msrpPrice": "54.99"
+      "msrpPrice": 54.99
     },
     "badges": [],
     "promos": [],
@@ -290,7 +290,7 @@ const dataStore = [
     "isSoldOut": false,
     "price": {
       "displayedPrice": 23.99,
-      "msrpPrice": "29.99"
+      "msrpPrice": 29.99
     },
     "badges": [],
     "promos": [],
@@ -387,7 +387,7 @@ const dataStore = [
     "isSoldOut": false,
     "price": {
       "displayedPrice": 19.99,
-      "msrpPrice": "24.99"
+      "msrpPrice": 24.99
     },
     "badges": [],
     "promos": [],

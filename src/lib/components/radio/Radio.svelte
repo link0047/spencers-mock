@@ -39,6 +39,9 @@
 		type="radio"
 		{value}
 		on:change={handleChange}
+    on:blur
+    on:focus
+    on:change
 		{...$$restProps}
 	>
 	<label class="radio__label" for={id}>

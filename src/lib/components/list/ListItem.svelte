@@ -9,7 +9,6 @@
 	class:list__item--bold={ bold }
 	class:list__item--iconWithText={ variant == "iconWithText" }	
   {...$$restProps}
-	on:click
 >
 	<slot />
 </li>
