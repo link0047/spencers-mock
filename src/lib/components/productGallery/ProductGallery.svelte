@@ -252,7 +252,7 @@
 		}
 
 		.product-gallery {
-			grid-template-columns: calc(100vw - 1rem);
+			grid-template-columns: 0 calc(100vw - 1rem);
 			gap: 0;
 		}
 

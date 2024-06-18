@@ -16,11 +16,10 @@
 
 <style>
   .link {
-    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial,
-      sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
+    font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol;
     font-size: 16px;
     font-weight: 400;
-    color: #1a73e8;
+    color: #1957b4;
   }
 
   .link--underline,
@@ -29,7 +28,7 @@
   }
 
   .link:hover {
-    color: #174ea6;
+    color: #1957b4;
   }
 
   .link:focus-visible {
