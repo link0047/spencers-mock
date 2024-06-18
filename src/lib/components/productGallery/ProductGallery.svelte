@@ -77,7 +77,7 @@
 			</button>
 		{/each}
 	</div>
-	<div>
+	<div class="product-gallery__carousel">
 		<div class="product-gallery__controls">
 			<Button variant="icon" elevation={1} aria-label="Zoom image modal" on:click={openLightBox}>
 				<Icon>
@@ -184,9 +184,14 @@
 	.product-gallery {
 		position: relative;
 		display: grid;
-		grid-template-columns: 62px 640px;
+		grid-template-columns: 62px minmax(400px, 640px);
 		gap: .5rem;
 		width: fit-content;
+		grid-template-areas: "thumbnails carousel";
+	}
+
+	.product-gallery__carousel {
+		grid-area: carousel;
 	}
 
 	.product-gallery__controls {
@@ -200,6 +205,7 @@
 		display: flex;
 		flex-flow: column;
 		gap: 1rem;
+		grid-area: thumbnails;
 	}
 
 	[data-orientation="horizontal"].product-gallery__thumbnails {
@@ -259,6 +265,14 @@
 			width: 100%;
 			height: auto;
 			display: block;
+		}
+	}
+
+	@media(max-width:820px) {
+		.product-gallery {
+			grid-template-areas: 
+				"carousel carousel"
+				"thumbnails thumbnails";
 		}
 	}
 </style>

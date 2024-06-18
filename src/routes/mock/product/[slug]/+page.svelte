@@ -53,36 +53,6 @@
 	}
 
   /**
-   * Compares two sizes and returns a value indicating their relative order.
-   * @param {string} a - The first size to compare.
-   * @param {string} b - The second size to compare.
-   * @returns {number} A negative value if a is smaller than b, 0 if they are equal, or a positive value if a is larger than b.
-   */
-  function sortSize(a: string, b: string): number {
-    /**
-     * A scoring system for different size labels.
-     * @type {{ [key: string]: number }}
-     */
-    const sizeScorer: { [key: string]: number } = {
-      xs: 0,
-      small: 1,
-      s: 1,
-      medium: 2,
-      m: 2,
-      large: 3,
-      l: 3,
-      xl: 4,
-      xxl: 5,
-      "1x": 6,
-      "2x": 7,
-      "3x": 8,
-      "4x": 9
-    };
-
-    return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
-  }
-
-  /**
    * Calculates the estimated delivery date, which is 7 days from the current date.
    * @returns {string} A string indicating the estimated delivery date.
    */
@@ -154,76 +124,136 @@
   }
 
   /**
-   * Extracts color names and size names from an array of variant objects,
-   * avoiding duplicates and empty strings.
-   * @param {Array<{ COLOR_NAME: string; SIZE_NAME: string; }>} variantsArray - The array of variant objects.
-   * @returns {[string[], string[]]} An array containing two arrays: color names and size names.
+   * Compares two sizes and returns a value indicating their relative order.
+   * @param {string} a - The first size to compare.
+   * @param {string} b - The second size to compare.
+   * @returns {number} A negative value if a is smaller than b, 0 if they are equal, or a positive value if a is larger than b.
    */
-  function extractColorAndSizeNames(variantsArray: Array<{ COLOR_NAME: string; SIZE_NAME: string; }>): [string[], string[]] {
-    if (!variantsArray || variantsArray.length === 0) {
-      return [[], []]; // Return empty arrays if variantsArray is empty or undefined
-    }
-    const colorNames: string[] = [];
-    const sizeNames: string[] = [];
-
-    // Object to keep track of unique color names and size names
-    const colorNameSet: { [key: string]: boolean } = {};
-    const sizeNameSet: { [key: string]: boolean } = {};
-
+   function sortSize(a: string, b: string): number {
     /**
-     * A mapping of full size names to their abbreviated forms.
-     * @type {{ [key: string]: string }}
+     * A scoring system for different size labels.
+     * @type {{ [key: string]: number }}
      */
-     const sizeMapping: { [key: string]: string } = {
-      "small": "S",
-      "medium": "M",
-      "large": "L",
-      "ex large": "XL"
+    const sizeScorer: { [key: string]: number } = {
+      xs: 0,
+      small: 1,
+      s: 1,
+      medium: 2,
+      m: 2,
+      large: 3,
+      l: 3,
+      xl: 4,
+      xxl: 5,
+      "1x": 6,
+      "2x": 7,
+      "3x": 8,
+      "4x": 9
     };
 
-    // Loop over each variant object
-    variantsArray.forEach(variant => {
-      // Extract COLOR_NAME and SIZE_NAME properties
-      const { COLOR_NAME, SIZE_NAME } = variant;
-
-      // Add non-empty color names to the array
-      if (COLOR_NAME && COLOR_NAME?.trim() !== "" && !colorNameSet[COLOR_NAME]) {
-        colorNames.push(COLOR_NAME);
-        colorNameSet[COLOR_NAME] = true; // Mark color name as encountered
-      }
-
-      // Add non-empty size names to the array
-      if (SIZE_NAME?.trim() !== "" && !sizeNameSet[SIZE_NAME]) {
-        const lowercaseSize: string = SIZE_NAME.toLowerCase();
-        // Check if the size contains any of the words and map accordingly
-        if (lowercaseSize.includes("small")) {
-          sizeNames.push(sizeMapping["small"]);
-        } else if (lowercaseSize.includes("medium")) {
-          sizeNames.push(sizeMapping["medium"]);
-        } else if (lowercaseSize.includes("ex large")) {
-          sizeNames.push(sizeMapping["ex large"]);
-        } else if (lowercaseSize.includes("large")) {
-          sizeNames.push(sizeMapping["large"]);
-        } else {
-          // If the size doesn't contain any of the words, return the original size
-          sizeNames.push(SIZE_NAME);
-        }
-
-        sizeNameSet[SIZE_NAME] = true; // Mark size name as encountered
-      }
-    });
-
-    return [colorNames, sizeNames.sort(sortSize)];
+    return sizeScorer[a.toLowerCase()] - sizeScorer[b.toLowerCase()];
   }
 
   /**
-   * Get the default size from an array of sizes.
-   * @param {string[]} sizes - An array of sizes.
-   * @returns {string | null} - The default size ("m" if it exists, else the first size in the array), or null if the array is empty.
-   */
-  function getDefaultSize(sizes: string[]): string | null {
-    return sizes.includes("M") ? "M" : sizes.length > 0 ? sizes[0] : null;
+ * Extracts color names, size names, and out of stock status from an array of variant objects,
+ * avoiding duplicates and empty strings.
+ * @param {Array<{
+ *   COLOR_NAME: string;
+ *   SIZE_NAME: string;
+ *   stock: boolean;
+ * }>} variantsArray - The array of variant objects.
+ * @returns {[string[], { name: string, outOfStock: boolean }[]]} An array containing two arrays: color names and an array of size objects with their out of stock status.
+ */
+function extractColorAndSizeNames(variantsArray: Array<{ COLOR_NAME: string; SIZE_NAME: string; stock: boolean; }>): [string[], { name: string, outOfStock: boolean }[]] {
+  if (!variantsArray || variantsArray.length === 0) {
+    return [[], []]; // Return empty arrays if variantsArray is empty or undefined
   }
+  const colorNames: string[] = [];
+  const sizes: { name: string, outOfStock: boolean }[] = [];
+
+  // Object to keep track of unique color names
+  const colorNameSet: { [key: string]: boolean } = {};
+
+  /**
+   * A mapping of full size names to their abbreviated forms.
+   * @type {{ [key: string]: string }}
+   */
+  const sizeMapping: { [key: string]: string } = {
+    "small": "S",
+    "medium": "M",
+    "large": "L",
+    "ex large": "XL"
+  };
+
+  // Loop over each variant object
+  variantsArray.forEach(variant => {
+    // Extract COLOR_NAME, SIZE_NAME, and stock status
+    const { COLOR_NAME, SIZE_NAME, stock } = variant;
+
+    // Add non-empty color names to the array
+    if (COLOR_NAME && COLOR_NAME?.trim() !== "" && !colorNameSet[COLOR_NAME]) {
+      colorNames.push(COLOR_NAME);
+      colorNameSet[COLOR_NAME] = true; // Mark color name as encountered
+    }
+
+    // Add non-empty size names to the array
+    if (SIZE_NAME?.trim() !== "") {
+      let sizeDisplayName: string;
+
+      const lowercaseSize: string = SIZE_NAME.toLowerCase();
+      // Check if the size contains any of the words and map accordingly
+      if (lowercaseSize.includes("small")) {
+        sizeDisplayName = sizeMapping["small"];
+      } else if (lowercaseSize.includes("medium")) {
+        sizeDisplayName = sizeMapping["medium"];
+      } else if (lowercaseSize.includes("ex large")) {
+        sizeDisplayName = sizeMapping["ex large"];
+      } else if (lowercaseSize.includes("large")) {
+        sizeDisplayName = sizeMapping["large"];
+      } else {
+        // If the size doesn't contain any of the words, return the original size
+        sizeDisplayName = SIZE_NAME;
+      }
+
+      // Check if the size name already exists
+      const existingSize = sizes.find(size => size.name === sizeDisplayName);
+      if (!existingSize) {
+        // Add the size with its stock status
+        sizes.push({
+          name: sizeDisplayName,
+          outOfStock: !stock
+        });
+      }
+    }
+  });
+
+  // Sort sizes by using sortSize function
+  sizes.sort((a, b) => sortSize(a.name, b.name));
+
+  return [colorNames, sizes];
+}
+
+
+  /**
+ * Get the default size from an array of size objects.
+ * @param {{ name: string, outOfStock: boolean }[]} sizes - An array of size objects.
+ * @returns {string | null} - The default size ("M" if it exists and is in stock, else the first size in the array that is in stock), or null if the array is empty or all sizes are out of stock.
+ */
+function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string | null {
+  // Check if "M" size exists and is in stock
+  console.log({sizes});
+  const mediumSize = sizes.find(size => size.name.toLowerCase() === "m" && !size.outOfStock);
+  if (mediumSize) {
+    return "M";
+  }
+
+  // Find the first size that is in stock
+  const firstInStockSize = sizes.find(size => !size.outOfStock);
+  if (firstInStockSize) {
+    return firstInStockSize.name;
+  }
+
+  return null; // Return null if no sizes are in stock
+}
 
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
@@ -294,7 +324,7 @@
       <ProductGallery {images} {isMobile}/>
     </div>
     <div class="product-page">
-      <Breadcrumb>
+      <Breadcrumb label="Product Breadcrumbs">
         {#each breadcrumbs as { href, current, text}}
           <Crumb {href} {current}>{text}</Crumb>
         {/each}
@@ -356,8 +386,8 @@
         {#if sizes.length}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
           {#if sizes.length > 0}
-          {#each sizes as size}
-            <Radio variant="box" name="size" value={size} checked={size === defaultSize} aria-label={`${size} ${size === defaultSize ? "selected" : ""}`}>{size}</Radio>
+          {#each sizes as { name, outOfStock }}
+            <Radio disabled={outOfStock} variant="box" name="size" value={name} checked={name === defaultSize} aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}>{name}</Radio>
           {/each}
           {/if}
         </VariantSelector>

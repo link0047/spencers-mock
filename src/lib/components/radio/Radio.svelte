@@ -59,6 +59,18 @@
     cursor: pointer;
   }
 
+  .radio__native-control {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    opacity: 0;
+    cursor: inherit;
+  }
+
 	.radio--box .radio__label {
 		box-sizing: border-box;
 		display: flex;
@@ -72,11 +84,11 @@
 		border: 1px solid #888;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 		font-size: .875rem;
+    outline-offset: -2px;
 	}
 
   .radio--box:has(.radio__native-control:checked) .radio__label {
     outline: 2px solid #000;
-		outline-offset: -1px;
 	}
 
 	.radio--box:has(.radio__native-control:focus-visible) .radio__label {
@@ -85,19 +97,28 @@
 
   .radio--box:has(:hover) .radio__label {
     background-color: #f7f7f7;
-    outline: 1px solid #212121;
+    outline: 2px solid #212121;
   }
-	
-  .radio__native-control {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    opacity: 0;
-    cursor: inherit;
+
+  .radio--box:has(.radio__native-control:disabled) .radio__label {
+    color: #444547;
+    font-weight: 400;
+    background-color: #eeeeef;
+    border: 1px solid #eeeeef;
+    box-shadow: none;
+    background-image: url("data:image/svg+xml,%3Csvg fill='%23666' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='m23.8 0 .2.2L.2 24l-.2-.2L23.8 0Z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center;
+  }
+
+  .radio--box:has(.radio__native-control:disabled) {
+    cursor: not-allowed;
+  }
+
+  .radio--box:has(.radio__native-control:disabled:hover) .radio__label {
+    outline: none;
+    background-color: #eeeeef;
   }
 
   .radio:not(.radio--box):before {
