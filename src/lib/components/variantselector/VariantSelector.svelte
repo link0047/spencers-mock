@@ -26,6 +26,10 @@
 		gap: 12px;
 	}
 
+	:global(.variant-selector:has(.radio-group:empty)) {
+		gap: 0;
+	}
+
 	.variant-selector__heading {
 		line-height: 1;
 		margin: 0;

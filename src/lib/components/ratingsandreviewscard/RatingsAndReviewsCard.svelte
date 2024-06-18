@@ -48,11 +48,9 @@
 	
 	let {
 		average_rating,
-		review_count,
 		rating_count,
 		review_histogram,
-		rating_histogram
-	} = $dataStore.results[0].rollup;
+	} = $dataStore.results[0].rollup ?? { average_rating: 0, rating_count: 0 };
 	$: ({
 		current_page_number,
 		page_size,

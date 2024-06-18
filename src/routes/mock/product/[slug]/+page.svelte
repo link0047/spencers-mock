@@ -187,14 +187,13 @@
       const { COLOR_NAME, SIZE_NAME } = variant;
 
       // Add non-empty color names to the array
-      if (COLOR_NAME.trim() !== "" && !colorNameSet[COLOR_NAME]) {
+      if (COLOR_NAME && COLOR_NAME?.trim() !== "" && !colorNameSet[COLOR_NAME]) {
         colorNames.push(COLOR_NAME);
         colorNameSet[COLOR_NAME] = true; // Mark color name as encountered
       }
 
       // Add non-empty size names to the array
-      if (SIZE_NAME.trim() !== "" && !sizeNameSet[SIZE_NAME]) {
-
+      if (SIZE_NAME?.trim() !== "" && !sizeNameSet[SIZE_NAME]) {
         const lowercaseSize: string = SIZE_NAME.toLowerCase();
         // Check if the size contains any of the words and map accordingly
         if (lowercaseSize.includes("small")) {
@@ -230,7 +229,8 @@
   let pageRef: HTMLElement;
   let sku = product?.sku;
   let name = product?.name;
-  let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo.variants || []);
+  let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo?.variants || []);
+  console.log({colors, sizes});
   let price = product?.variantInfo.lowPrice || 0;
   let salePrice = product?.price.msrpPrice || 0;
   let shouldShowSalePrice = price !== salePrice;
@@ -306,10 +306,10 @@
             <StarRating --ratings-height="20px" />
             <span>No Ratings</span>
           {:then data}
-            <StarRating rating={data.results[0].rollup.average_rating} --ratings-height="20px" />
+            <StarRating rating={data.results[0]?.rollup?.average_rating || 0} --ratings-height="20px" />
             <span class="product-page__feedbackCount">
-              {#if data.results[0].rollup.average_rating}
-                {`(${data.results[0].rollup.average_rating})`} 
+              {#if data.results[0]?.rollup?.average_rating}
+                {`(${data.results[0]?.rollup?.average_rating})`} 
                 <Link href="#" color="secondary">{`${data.paging.total_results} review${data.paging.total_results > 1 ? "s" : ""}`}</Link>
               {:else}
                 <Link href="#" color="secondary">be the first!</Link>
@@ -334,26 +334,32 @@
           <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span>
         </div>
       {/if}
+      {#if badges.length}
       <div class="product-page__badges">
         {#each badges as badge}
           <div class="badge">{badge}</div>
         {/each}
       </div>
+      {/if}
       <hr />
-      {#if sizes.length > 1}
+      {#if sizes.length || colors.length && !colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
+        {#if colors.length && !colors.includes("MULTI-COLOR")}
         <VariantSelector label="Color" bind:groupValue={colors[0]}>
           {#if colors.length > 1}
-            {#each colors as color, index}
-              <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
-            {/each}
+          {#each colors as color, index}
+            <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
+          {/each}
           {/if}
         </VariantSelector>
-        {#if sizes.length > 1}
+        {/if}
+        {#if sizes.length}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
+          {#if sizes.length > 0}
           {#each sizes as size}
             <Radio variant="box" name="size" value={size} checked={size === defaultSize} aria-label={`${size} ${size === defaultSize ? "selected" : ""}`}>{size}</Radio>
           {/each}
+          {/if}
         </VariantSelector>
         {/if}
       </div>
@@ -742,8 +748,7 @@
 
   .badge {
     background-color: #2a508f;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-      Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     font-size: 12px;
     font-weight: 500;
     line-height: 1;
@@ -755,7 +760,7 @@
     justify-content: center;
     letter-spacing: .02rem;
     color: #fff;
-    border-radius: 4px;
+    border-radius: 12px;
   }
 
   .product-page__name {
