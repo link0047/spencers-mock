@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
   import Page from "$lib/components/page/Page.svelte";
   import ProductGallery from "$lib/components/productGallery/ProductGallery.svelte";
   import StarRating from "$lib/components/starrating";
@@ -154,108 +154,119 @@
   }
 
   /**
- * Extracts color names, size names, and out of stock status from an array of variant objects,
- * avoiding duplicates and empty strings.
- * @param {Array<{
- *   COLOR_NAME: string;
- *   SIZE_NAME: string;
- *   stock: boolean;
- * }>} variantsArray - The array of variant objects.
- * @returns {[string[], { name: string, outOfStock: boolean }[]]} An array containing two arrays: color names and an array of size objects with their out of stock status.
- */
-function extractColorAndSizeNames(variantsArray: Array<{ COLOR_NAME: string; SIZE_NAME: string; stock: boolean; }>): [string[], { name: string, outOfStock: boolean }[]] {
-  if (!variantsArray || variantsArray.length === 0) {
-    return [[], []]; // Return empty arrays if variantsArray is empty or undefined
-  }
-  const colorNames: string[] = [];
-  const sizes: { name: string, outOfStock: boolean }[] = [];
-
-  // Object to keep track of unique color names
-  const colorNameSet: { [key: string]: boolean } = {};
-
-  /**
-   * A mapping of full size names to their abbreviated forms.
-   * @type {{ [key: string]: string }}
+   * Extracts color names, size names, and out of stock status from an array of variant objects,
+   * avoiding duplicates and empty strings.
+   * @param {Array<{
+   *   COLOR_NAME: string;
+   *   SIZE_NAME: string;
+   *   stock: boolean;
+   * }>} variantsArray - The array of variant objects.
+   * @returns {[string[], { name: string, outOfStock: boolean }[]]} An array containing two arrays: color names and an array of size objects with their out of stock status.
    */
-  const sizeMapping: { [key: string]: string } = {
-    "small": "S",
-    "medium": "M",
-    "large": "L",
-    "ex large": "XL"
-  };
-
-  // Loop over each variant object
-  variantsArray.forEach(variant => {
-    // Extract COLOR_NAME, SIZE_NAME, and stock status
-    const { COLOR_NAME, SIZE_NAME, stock } = variant;
-
-    // Add non-empty color names to the array
-    if (COLOR_NAME && COLOR_NAME?.trim() !== "" && !colorNameSet[COLOR_NAME]) {
-      colorNames.push(COLOR_NAME);
-      colorNameSet[COLOR_NAME] = true; // Mark color name as encountered
+  function extractColorAndSizeNames(variantsArray: Array<{ COLOR_NAME: string; SIZE_NAME: string; stock: boolean; }>): [string[], { name: string, outOfStock: boolean }[]] {
+    if (!variantsArray || variantsArray.length === 0) {
+      return [[], []]; // Return empty arrays if variantsArray is empty or undefined
     }
+    const colorNames: string[] = [];
+    const sizes: { name: string, outOfStock: boolean }[] = [];
 
-    // Add non-empty size names to the array
-    if (SIZE_NAME?.trim() !== "") {
-      let sizeDisplayName: string;
+    // Object to keep track of unique color names
+    const colorNameSet: { [key: string]: boolean } = {};
 
-      const lowercaseSize: string = SIZE_NAME.toLowerCase();
-      // Check if the size contains any of the words and map accordingly
-      if (lowercaseSize.includes("small")) {
-        sizeDisplayName = sizeMapping["small"];
-      } else if (lowercaseSize.includes("medium")) {
-        sizeDisplayName = sizeMapping["medium"];
-      } else if (lowercaseSize.includes("ex large")) {
-        sizeDisplayName = sizeMapping["ex large"];
-      } else if (lowercaseSize.includes("large")) {
-        sizeDisplayName = sizeMapping["large"];
-      } else {
-        // If the size doesn't contain any of the words, return the original size
-        sizeDisplayName = SIZE_NAME;
+    /**
+     * A mapping of full size names to their abbreviated forms.
+     * @type {{ [key: string]: string }}
+     */
+    const sizeMapping: { [key: string]: string } = {
+      "small": "S",
+      "medium": "M",
+      "large": "L",
+      "ex large": "XL"
+    };
+
+    // Loop over each variant object
+    variantsArray.forEach(variant => {
+      // Extract COLOR_NAME, SIZE_NAME, and stock status
+      const { COLOR_NAME, SIZE_NAME, stock } = variant;
+
+      // Add non-empty color names to the array
+      if (COLOR_NAME && COLOR_NAME?.trim() !== "" && !colorNameSet[COLOR_NAME]) {
+        colorNames.push(COLOR_NAME);
+        colorNameSet[COLOR_NAME] = true; // Mark color name as encountered
       }
 
-      // Check if the size name already exists
-      const existingSize = sizes.find(size => size.name === sizeDisplayName);
-      if (!existingSize) {
-        // Add the size with its stock status
-        sizes.push({
-          name: sizeDisplayName,
-          outOfStock: !stock
-        });
+      // Add non-empty size names to the array
+      if (SIZE_NAME?.trim() !== "") {
+        let sizeDisplayName: string;
+
+        const lowercaseSize: string = SIZE_NAME.toLowerCase();
+        // Check if the size contains any of the words and map accordingly
+        if (lowercaseSize.includes("small")) {
+          sizeDisplayName = sizeMapping["small"];
+        } else if (lowercaseSize.includes("medium")) {
+          sizeDisplayName = sizeMapping["medium"];
+        } else if (lowercaseSize.includes("ex large")) {
+          sizeDisplayName = sizeMapping["ex large"];
+        } else if (lowercaseSize.includes("large")) {
+          sizeDisplayName = sizeMapping["large"];
+        } else {
+          // If the size doesn't contain any of the words, return the original size
+          sizeDisplayName = SIZE_NAME;
+        }
+
+        // Check if the size name already exists
+        const existingSize = sizes.find(size => size.name === sizeDisplayName);
+        if (!existingSize) {
+          // Add the size with its stock status
+          sizes.push({
+            name: sizeDisplayName,
+            outOfStock: !stock
+          });
+        }
       }
+    });
+
+    // Sort sizes by using sortSize function
+    sizes.sort((a, b) => sortSize(a.name, b.name));
+
+    return [colorNames, sizes];
+  }
+
+
+    /**
+   * Get the default size from an array of size objects.
+   * @param {{ name: string, outOfStock: boolean }[]} sizes - An array of size objects.
+   * @returns {string | null} - The default size ("M" if it exists and is in stock, else the first size in the array that is in stock), or null if the array is empty or all sizes are out of stock.
+   */
+  function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string | null {
+    // Check if "M" size exists and is in stock
+    const mediumSize = sizes.find(size => size.name.toLowerCase() === "m" && !size.outOfStock);
+    if (mediumSize) {
+      return "M";
     }
-  });
 
-  // Sort sizes by using sortSize function
-  sizes.sort((a, b) => sortSize(a.name, b.name));
+    // Find the first size that is in stock
+    const firstInStockSize = sizes.find(size => !size.outOfStock);
+    if (firstInStockSize) {
+      return firstInStockSize.name;
+    }
 
-  return [colorNames, sizes];
-}
-
+    return null; // Return null if no sizes are in stock
+  }
 
   /**
- * Get the default size from an array of size objects.
- * @param {{ name: string, outOfStock: boolean }[]} sizes - An array of size objects.
- * @returns {string | null} - The default size ("M" if it exists and is in stock, else the first size in the array that is in stock), or null if the array is empty or all sizes are out of stock.
- */
-function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string | null {
-  // Check if "M" size exists and is in stock
-  const mediumSize = sizes.find(size => size.name.toLowerCase() === "m" && !size.outOfStock);
-  if (mediumSize) {
-    return "M";
+   * Scrolls to the size chart container and opens the accordion.
+   */
+  async function scrollToAndOpenAccordion() {
+    sizeChartOpenState = true;
+    await tick();
+    sizeChartContainerRef.scrollIntoView({ behavior: "smooth", block: "center" });
   }
-
-  // Find the first size that is in stock
-  const firstInStockSize = sizes.find(size => !size.outOfStock);
-  if (firstInStockSize) {
-    return firstInStockSize.name;
-  }
-
-  return null; // Return null if no sizes are in stock
-}
 
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
+  let sizeChartContainerRef: HTMLElement;
+  let sizeChartOpenState: boolean = false;
   let sku = product?.sku;
   let name = product?.name;
   let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo?.variants || []);
@@ -316,6 +327,9 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
 <IconSet>
 	<symbol id="recommended-check"><path d="M2.836 10.855L0 13.473l7.418 6.982L24 5.618 21.164 3 7.418 15.218"/></symbol>
   <symbol id="ruler-flat"><path d="M21.4 16.8H2.6c-.7 0-1.4-.6-1.4-1.3V8.7c0-.7.6-1.4 1.4-1.4h18.8c.7 0 1.3.6 1.3 1.4v6.8c0 .7-.6 1.3-1.3 1.3ZM2.8 15.2h18.5V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H7.6v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H2.5v6.5Z"/></symbol>
+  <symbol id="ship-to-me"><path d="M12.1 23.8h-.2L1.5 17.6c-.1 0-.2-.2-.2-.4V6.1c0-.2 0-.3.2-.4L11.9.3h.4l10.1 5.4c.1 0 .2.2.2.4v11.2c0 .1 0 .3-.2.4l-10.1 6.2h-.2Zm.4-10.8v9.7l9.4-5.7V7.2l-9.4 5.9ZM2.1 17l9.5 5.6v-9.7l-2.7-1.7v3.9c0 .2-.1.3-.3.4-.2 0-.4 0-.5-.2l-1.9-3.2-1.5 1.1c-.1 0-.3.1-.4 0-.1 0-.2-.2-.2-.4V8.1L2 6.8v10Zm4.4-5.8c.1 0 .2 0 .3.2l1.4 2.3v-2.8L5 8.9v3.4l1.2-.9h.3Zm3.1-.5 2.5 1.6 9.6-6-3.3-1.8-8.9 6.2ZM5.7 8.2l3.2 2 8.9-6.1L15 2.6c0 .1-9.3 5.6-9.3 5.6Zm-3.3-2 2.5 1.5 9.3-5.5-2.1-1.1-9.7 5.1Z"/></symbol>
+  <symbol id="same-day"><path d="M.9 5.7h4.3v.9H.9v-.9ZM5 7.9h3.4v.9H5v-.9ZM1.6 9.8h9.8v.9H1.6v-.9Zm4.1 2.3h5.9v.9H5.7v-.9Zm-3.4.7h3v.9h-3v-.9ZM1 15.1h2.7v.9H1v-.9Zm22-4.3-3.1-1.4.4-2.7c0-.3 0-.6-.2-.8-.2-.2-.4-.3-.7-.3H5.8v.9H16L15.5 9c-.1.3 0 .5.2.8.2.2.4.3.7.3h3c0-.1 3.2 1.4 3.2 1.4L21.2 15h-2c-.1-.4-.2-.7-.5-1-.3-.4-.8-.5-1.3-.5-.9 0-1.9.6-2.5 1.5h-3.8c0-.4-.2-.8-.4-1.1-.3-.4-.8-.6-1.4-.6-1 0-2 .7-2.6 1.7H4.6v.9h1.8c0 .6 0 1.3.3 1.7s.9.7 1.4.7c1.2 0 2.5-1 2.8-2.3 0-.1 3.6-.1 3.6-.1-.2.7-.1 1.4.3 1.9.3.4.9.7 1.4.7 1.2 0 2.5-1 2.8-2.3 0-.1 0-.2.1-.2H21c.4 0 .7-.2.9-.6l1.4-3.5c.2-.4.1-.9-.3-1.1Zm-6.7-1.5.6-2.7h2.5L19 9.2h-2.7v.4-.3Zm1.1 5.2c.3 0 .6.1.7.3s.2.4.2.7c0 .2 0 .3-.1.4-.2.9-1.1 1.7-2 1.7s-.6-.1-.7-.3c-.2-.3-.3-.7-.1-1.1.3-.9 1.2-1.7 2-1.7Zm-7.2 1.3c-.2.9-1.1 1.7-2 1.7s-.6-.1-.7-.3c-.2-.3-.3-.7 0-1.1.2-.9 1.1-1.7 2-1.7s.6.1.7.3c.1.2.2.4.2.7 0 .1-.1.4 0 .4Z" /></symbol>
+  <symbol id="pickup"><path d="M2.4 9.1v.8c0 1.1.7 2.1 1.7 2.6v8.4c0 1 .8 1.7 1.7 1.7h12.5c1 0 1.7-.8 1.7-1.7v-8.4c1.3-.5 2-1.5 2-2.7V9l-1.9-7.2-.1-.2H4.5m10.1 12.6H9.3l-.3.3v7H5.9c-.4 0-.6-.3-.6-.6v-8.1c1 0 1.8-.5 2.4-1.2.5.7 1.4 1.2 2.3 1.2.9 0 1.8-.5 2.3-1.2.5.8 1.4 1.2 2.3 1.2.9 0 1.8-.4 2.3-1.2.5.7 1.3 1.2 2.2 1.2V21c0 .4-.3.6-.6.6h-3.6v-7l-.3-.4zm-1.8-5.7V2.7h2.6l.8 5.8h-3.4zm0 1.3v-.2h3.5v.2c0 1-.8 1.7-1.7 1.7s-1.8-.7-1.8-1.7zm4.5-1.3-.8-5.8h2.7l1.5 5.8h-3.4zm-9.1 0 .6-5.8h2.8v5.8H8.2zm0 1.3v-.2h3.5v.2c0 1-.8 1.7-1.7 1.7-1 0-1.8-.7-1.8-1.7zM3.8 8.5l1.4-5.8h2.6l-.7 5.8H3.8zm-.3.8H7v.6c0 1-.8 1.7-1.7 1.7s-1.7-.8-1.7-1.7v-.6zm13.9.5v-.2h3.5v.2c0 1-.8 1.7-1.7 1.7s-1.8-.7-1.8-1.7zm-7.3 11.7v-6.2h3.6v6.2h-3.6z"/></symbol>
 </IconSet>
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
@@ -385,7 +399,7 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
         {#if sizes.length}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
           <svelte:fragment slot="action">
-            <Button variant="icon" size="small" aria-label="Size Chart">
+            <Button variant="icon" size="small" aria-label="Size Chart" on:click={scrollToAndOpenAccordion}>
               <Icon>
                 <use href="#ruler-flat" />
               </Icon>
@@ -405,7 +419,7 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
       <ShippingFulfillmentGroup>
         <ShippingFulfillmentOption>
           <Icon slot="icon">
-            <path d="M12 18H6v-4h6m9 0v-2l-1-5H4l-1 5v2h1v6h10v-6h4v6h2v-6m0-10H4v2h16V4Z" />
+            <use href="#ship-to-me" />
           </Icon>
           <svelte:fragment slot="heading">
             Shipping
@@ -416,15 +430,14 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
         </ShippingFulfillmentOption>
         <ShippingFulfillmentOption>
           <Icon slot="icon">
-            <path d="M.9 5.7h4.3v.9H.9zM5 7.9h3.4v.9H5zM1.6 9.8h9.8v.9H1.6zM5.7 12.1h5.9v.9H5.7zM2.3 12.8h3v.9h-3zM1 15.1h2.7v.9H1z" />
-            <path d="m23 10.8-3.1-1.4.4-2.7c0-.3 0-.6-.2-.8-.2-.2-.4-.3-.7-.3H5.8v.9H16L15.5 9c-.1.3 0 .5.2.8.2.2.4.3.7.3l3-.1 3.2 1.5-1.4 3.5h-2c-.1-.4-.2-.7-.5-1-.3-.4-.8-.5-1.3-.5-.9 0-1.9.6-2.5 1.5h-3.8c0-.4-.2-.8-.4-1.1-.3-.4-.8-.6-1.4-.6-1 0-2 .7-2.6 1.7H4.6v.9h1.8c-.1.6 0 1.3.3 1.7.3.4.9.7 1.4.7 1.2 0 2.5-1 2.8-2.3v-.1h3.6c-.2.7-.1 1.4.3 1.9.3.4.9.7 1.4.7 1.2 0 2.5-1 2.8-2.3 0-.1 0-.2.1-.2H21c.4 0 .7-.2.9-.6l1.4-3.5c.2-.4.1-.9-.3-1.1zm-6.7-1.5.6-2.7h2.5v.1L19 9.2l-2.7.1v.3-.3zm1.1 5.2c.3 0 .6.1.7.3.1.2.2.4.2.7v.1c0 .1 0 .2-.1.3-.2.9-1.1 1.7-2 1.7-.3 0-.6-.1-.7-.3-.2-.3-.3-.7-.1-1.1.3-.9 1.2-1.7 2-1.7zm-7.2 1.3c-.2.9-1.1 1.7-2 1.7-.3 0-.6-.1-.7-.3-.2-.3-.3-.7-.1-1.1.2-.9 1.1-1.7 2-1.7.3 0 .6.1.7.3.1.2.2.4.2.7v.1l-.1.3z"/>
+            <use href="#pickup" />
           </Icon>
           <svelte:fragment slot="heading">Pickup</svelte:fragment>
           <svelte:fragment slot="description">Free pickup today</svelte:fragment>
         </ShippingFulfillmentOption>
         <ShippingFulfillmentOption>
           <Icon slot="icon">
-            <path d="M12.1 23.8c-.1 0-.1 0-.2-.1L1.5 17.6c-.1-.1-.2-.2-.2-.4V6.1c0-.2.1-.3.2-.4L11.9.3c.1-.1.3-.1.4 0l10.1 5.4c.1.1.2.2.2.4v11.1c0 .1-.1.3-.2.4l-10.1 6.1c-.1.1-.1.1-.2.1zm.3-10.7v9.6l9.3-5.7V7.2l-9.3 5.9zM2.1 17l9.5 5.6V13L9 11.3v3.9c0 .2-.1.3-.3.4-.2 0-.4 0-.5-.2l-1.9-3.2-1.5 1.1c-.1.1-.3.1-.4 0-.1-.1-.2-.2-.2-.4V8.3L2.1 7v10zm4.3-5.8c.1 0 .1 0 0 0 .2 0 .3.1.4.2l1.4 2.3v-2.9L5 8.8v3.4l1.2-.9c.1 0 .1-.1.2-.1zm3.1-.5 2.5 1.6 9.6-6-3.3-1.8.1.1-8.9 6.1zM5.6 8.3l3.1 2 8.8-6.1-2.8-1.5.1.1-9.2 5.5zM2.4 6.2l2.5 1.5 9.3-5.5-2.1-1.1-9.7 5.1z"/>
+            <use href="#same-day" />
           </Icon>
           <svelte:fragment slot="heading">Same Day Delivery</svelte:fragment>
           <svelte:fragment slot="description">Order by 2pm to get it today!</svelte:fragment>
@@ -472,9 +485,9 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
           </Collapsible>
         </Accordion>
         {#if sizes.length}
-        <Accordion>
+        <Accordion bind:open={sizeChartOpenState}>
           <svelte:fragment slot="label">Size Chart</svelte:fragment>
-          <div class="size-chart">
+          <div class="size-chart" bind:this={sizeChartContainerRef}>
             <p class="size-chart__label">When trying to decide between two sizes, choose the larger size for a better fit.</p>
             <Table variant="bordered" {tableData} />
           </div>  
@@ -711,7 +724,7 @@ hr {
 /* You Save Block */
 .yousave-block__label {
   background-color: #eaf3e6;
-  color: #2a8703;
+  color: #256b09;
   display: inline-flex;
   align-items: center;
   justify-content: center;
