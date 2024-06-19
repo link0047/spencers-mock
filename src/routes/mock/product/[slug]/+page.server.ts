@@ -540,6 +540,7 @@ const dataStore = [
     },
     "recommendationData:": []
   }, {
+    "maximumquantity": 99,
     "name": "White Teeth Crawler Cartilage Barbell - 18 Gauge",
     "pid": "241752",
     "sku": "04115739",
@@ -712,6 +713,7 @@ const dataStore = [
       }
     ]
   }, {
+    "maximumquantity": 99,
     "name": "Black Velvet Waterproof 20-Function Multi-Speed Rechargeable Wand Massager 7 Inch - Hott Love Extreme",
     "pid": "241556",
     "sku": "04112496",
@@ -885,6 +887,7 @@ const dataStore = [
       }
     ]
   }, {
+    "maximumquantity": 99,
     "name": "Nirvana Neon In Utero T Shirt",
     "pid": "263234",
     "sku": "04360368",
@@ -1110,6 +1113,7 @@ const dataStore = [
       }
     ]
   }, {
+    "maximumquantity": 99,
     "name": "Multi-Pack CZ Heart L-Bend Nose Rings 6 Pack - 20 Gauge",
     "pid": "224372",
     "sku": "03753480",
