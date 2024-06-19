@@ -358,7 +358,7 @@ const dataStore = [
       "sizeSingleValueLabel": "Size",
       "productName": "Black+Vibrating+Barbell+-+14+Gauge"
     },
-    recommendationData: [{ "name": "Black Cum Here Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03638731-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400", "alt": "03638731 - Black Cum Here Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/black-cum-here-vibrating-barbell-14-gauge/215832.uts" }, { "name": "Blue and Black Koosh Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/00813022-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400", "alt": "00813022 - Blue and Black Koosh Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/blue-and-black-koosh-vibrating-barbell-14-gauge/60044.uts" }, { "name": "Cum Here Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03731833-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400", "alt": "03731833 - Cum Here Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/cum-here-vibrating-barbell-14-gauge/222710.uts" }, { "name": "Black Fuck Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03516929-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400", "alt": "03516929 - Black Fuck Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/black-fuck-vibrating-barbell-14-gauge/178497.uts" }, { "name": "Black and White Koosh Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03980968-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400", "alt": "03980968 - Black and White Koosh Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/black-and-white-koosh-vibrating-barbell-14-gauge/239612.uts" }]
+    recommendationData: [{ "name": "Black Cum Here Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03638731-a?wid=240&hei=240&fmt=webp", "alt": "03638731 - Black Cum Here Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/black-cum-here-vibrating-barbell-14-gauge/215832.uts" }, { "name": "Blue and Black Koosh Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/00813022-a?wid=240&hei=240&fmt=webp", "alt": "00813022 - Blue and Black Koosh Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/blue-and-black-koosh-vibrating-barbell-14-gauge/60044.uts" }, { "name": "Cum Here Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03731833-a?wid=240&hei=240&fmt=webp", "alt": "03731833 - Cum Here Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/cum-here-vibrating-barbell-14-gauge/222710.uts" }, { "name": "Black Fuck Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03516929-a?wid=240&hei=240&fmt=webp", "alt": "03516929 - Black Fuck Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/black-fuck-vibrating-barbell-14-gauge/178497.uts" }, { "name": "Black and White Koosh Vibrating Barbell - 14 Gauge", "price": "29.99", "image": { "src": "https://spencers.scene7.com/is/image/Spencers/03980968-a?wid=240&hei=240&fmt=webp", "alt": "03980968 - Black and White Koosh Vibrating Barbell - 14 Gauge" }, "url": "http://www.spencersonline.com/product/black-and-white-koosh-vibrating-barbell-14-gauge/239612.uts" }]
   }, {
     "maximumquantity": 99,
     "name": "Sleep Token Ascension T Shirt - Spencer's",
@@ -669,7 +669,7 @@ const dataStore = [
         "name": "Black Coiled Snake Helix Cuff - 16 Gauge",
         "price": "$14.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03912003-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03912003-a?wid=240&hei=240&fmt=webp",
           "alt": "04277976 - Black Coiled Snake Helix Cuff - 16 Gauge"
         },
         "url": "http://www.spencersonline.com/product/black-coiled-snake-helix-cuff-16-gauge/235677.uts"
@@ -678,7 +678,7 @@ const dataStore = [
         "name": "Silvertone Spike Curve Chain Cartilage Earring - 18 Gauge",
         "price": "$14.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/04144069-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/04144069-a?wid=240&hei=240&fmt=webp",
           "alt": "04276812 - Silvertone Spike Curve Chain Cartilage Earring - 18 Gauge"
         },
         "url": "http://www.spencersonline.com/product/silvertone-spike-curve-chain-cartilage-earring-18-gauge/243451.uts"
@@ -687,7 +687,7 @@ const dataStore = [
         "name": "3 Flower Cartilage Earring - 16 Gauge",
         "price": "$16.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03640372-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03640372-a?wid=240&hei=240&fmt=webp",
           "alt": "04100848 - 3 Flower Cartilage Earring - 16 Gauge"
         },
         "url": "http://www.spencersonline.com/product/3-flower-cartilage-earring-16-gauge/216019.uts"
@@ -696,7 +696,7 @@ const dataStore = [
         "name": "CZ Ear Crawler Cartilage Earrings - 18 Gauge",
         "price": "$16.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03946316-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03946316-a?wid=240&hei=240&fmt=webp",
           "alt": "03946316 - CZ Ear Crawler Cartilage Earrings - 18 Gauge"
         },
         "url": "http://www.spencersonline.com/product/cz-ear-crawler-cartilage-earrings-18-gauge/237964.uts"
@@ -705,7 +705,7 @@ const dataStore = [
         "name": "Snake Cartilage Earring - 16 Gauge",
         "price": "$14.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03640380-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03640380-a?wid=240&hei=240&fmt=webp",
           "alt": "03912037 - Snake Cartilage Earring - 16 Gauge"
         },
         "url": "http://www.spencersonline.com/product/snake-cartilage-earring-16-gauge/216020.uts"
@@ -842,7 +842,7 @@ const dataStore = [
         "name": "Purple Wiggle Wand 8-Function Double-Ended Rechargeable Waterproof Mas",
         "price": "$59.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/04102299-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/04102299-a?wid=240&hei=240&fmt=webp",
           "alt": "04102299 - Purple Wiggle Wand 8-Function Double-Ended Rechargeable Waterproof Mas"
         },
         "url": "http://www.spencersonline.com/product/purple-wiggle-wand-8-function-double-ended-rechargeable-waterproof-massager-9-inch-hott-love-extreme/240918.uts"
@@ -851,7 +851,7 @@ const dataStore = [
         "name": "Full Bloom Rechargeable Tongue Vibrator 3 Inch - Hott Love Extreme",
         "price": "$44.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03886942-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03886942-a?wid=240&hei=240&fmt=webp",
           "alt": "03886942 - Full Bloom Rechargeable Tongue Vibrator 3 Inch - Hott Love Extreme"
         },
         "url": "http://www.spencersonline.com/product/rose-rechargeable-tongue-vibrator-3-inch/233929.uts"
@@ -860,7 +860,7 @@ const dataStore = [
         "name": "Midnight Magic 20-Function Vibrating Rechargeable Wand Massager - Hott",
         "price": "$44.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/04215398-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/04215398-a?wid=240&hei=240&fmt=webp",
           "alt": "04215398 - Midnight Magic 20-Function Vibrating Rechargeable Wand Massager - Hott"
         },
         "url": "http://www.spencersonline.com/product/midnight-magic-20-function-vibrating-rechargeable-wand-massager-hott-love-extreme/248009.uts"
@@ -869,7 +869,7 @@ const dataStore = [
         "name": "Purple Velvet Lust Waterproof 20-Function Multi-Speed Rechargeable Wan",
         "price": "$49.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/04248860-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/04248860-a?wid=240&hei=240&fmt=webp",
           "alt": "04248860 - Purple Velvet Lust Waterproof 20-Function Multi-Speed Rechargeable Wan"
         },
         "url": "http://www.spencersonline.com/product/purple-velvet-lust-waterproof-20-function-multi-speed-rechargeable-wand-massager-7-inch-hott-love-extreme/250177.uts"
@@ -878,7 +878,7 @@ const dataStore = [
         "name": "Secret Love Panty Vibrator 2.0 - Hott Love Extreme",
         "price": "$54.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/04169447-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/04169447-a?wid=240&hei=240&fmt=webp",
           "alt": "04169447 - Secret Love Panty Vibrator 2.0 - Hott Love Extreme"
         },
         "url": "http://www.spencersonline.com/product/secret-love-panty-vibrator-2-0-hott-love-extreme/245070.uts"
@@ -1067,7 +1067,7 @@ const dataStore = [
         "name": "Forest In Utero Nirvana T Shirt",
         "price": "$24.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03123486-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03123486-a?wid=240&hei=240&fmt=webp",
           "alt": "03448164 - Forest In Utero Nirvana T Shirt"
         },
         "url": "http://www.spencersonline.com/product/forest-in-utero-nirvana-t-shirt/140538.uts"
@@ -1076,7 +1076,7 @@ const dataStore = [
         "name": "In Utero Album T Shirt - Nirvana",
         "price": "$24.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03942521-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03942521-a?wid=240&hei=240&fmt=webp",
           "alt": "04363982 - In Utero Album T Shirt - Nirvana"
         },
         "url": "http://www.spencersonline.com/product/in-utero-album-t-shirt-nirvana/237819.uts"
@@ -1085,7 +1085,7 @@ const dataStore = [
         "name": "Floral Heart Nirvana T Shirt",
         "price": "$24.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03455649-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03455649-a?wid=240&hei=240&fmt=webp",
           "alt": "03455664 - Floral Heart Nirvana T Shirt"
         },
         "url": "http://www.spencersonline.com/product/floral-heart-nirvana-t-shirt/173370.uts"
@@ -1094,7 +1094,7 @@ const dataStore = [
         "name": "Come As You Are Nirvana T Shirt",
         "price": "$24.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/03841541-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/03841541-a?wid=240&hei=240&fmt=webp",
           "alt": "03841566 - Come As You Are Nirvana T Shirt"
         },
         "url": "http://www.spencersonline.com/product/come-as-you-are-nirvana-t-shirt/231299.uts"
@@ -1103,7 +1103,7 @@ const dataStore = [
         "name": "Nirvana Smiley Face T Shirt",
         "price": "$24.99",
         "image": {
-          "src": "https://spencers.scene7.com/is/image/Spencers/04206371-a?wid=400&qlt=85,1&resMode=bicub&fmt=jpeg&op_sharpen=1&hei=400",
+          "src": "https://spencers.scene7.com/is/image/Spencers/04206371-a?wid=240&hei=240&fmt=webp",
           "alt": "04206397 - Nirvana Smiley Face T Shirt"
         },
         "url": "http://www.spencersonline.com/product/nirvana-smiley-face-t-shirt/247368.uts"
