@@ -70,7 +70,7 @@
 		</h2>
 		<div class="ratings-and-reviews__card">
 			<div class="ratings-and-reviews__stats">
-				<h4 class="ratings-and-reviews__stats-heading">{average_rating}</h4>
+				<h3 class="ratings-and-reviews__stats-heading">{average_rating}</h3>
 				<StarRating rating={average_rating} />
 				<p class="ratings-and-reviews__stats-desc">{totalReviews ? `${totalReviews} Reviews` : "Unfortunatly, this product has no reviews."}</p>
 			</div>

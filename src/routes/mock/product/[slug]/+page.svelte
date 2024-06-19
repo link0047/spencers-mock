@@ -315,6 +315,7 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
 
 <IconSet>
 	<symbol id="recommended-check"><path d="M2.836 10.855L0 13.473l7.418 6.982L24 5.618 21.164 3 7.418 15.218"/></symbol>
+  <symbol id="ruler-flat"><path d="M21.4 16.8H2.6c-.7 0-1.4-.6-1.4-1.3V8.7c0-.7.6-1.4 1.4-1.4h18.8c.7 0 1.3.6 1.3 1.4v6.8c0 .7-.6 1.3-1.3 1.3ZM2.8 15.2h18.5V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H7.6v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H2.5v6.5Z"/></symbol>
 </IconSet>
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
@@ -383,6 +384,14 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
         {/if}
         {#if sizes.length}
         <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
+          <svelte:fragment slot="action">
+            <Button variant="icon" size="small" aria-label="Size Chart">
+              <Icon>
+                <use href="#ruler-flat" />
+              </Icon>
+              Size Chart
+            </Button>
+          </svelte:fragment>
           {#if sizes.length > 0}
           {#each sizes as { name, outOfStock }}
             <Radio disabled={outOfStock} variant="box" name="size" value={name} checked={name === defaultSize} aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}>{name}</Radio>
@@ -629,12 +638,13 @@ hr {
   display: inline-flex;
   align-items: center;
   gap: 4px;
+  min-height: 24px;
   font-size: .875rem;
 }
 
 .product-page__variants {
   display: grid;
-  gap: 16px;
+  gap: .5rem;
 }
 
 .product-page__action {
