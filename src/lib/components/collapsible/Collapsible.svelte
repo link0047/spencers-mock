@@ -54,4 +54,14 @@
 		opacity: 0;
 		pointer-events: none;
 	}
+
+	:global(.btn.btn--ghost) {
+		color: #1957b4;
+	}
+
+	:global(.btn.btn--ghost):hover {
+		border-color: transparent!important;
+		background-color: transparent!important;
+		text-decoration: underline;
+	}
 </style>

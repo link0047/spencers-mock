@@ -302,6 +302,7 @@
   const hasLimitedQuantity = product?.maximumquantity != 99 || false;
   const defaultSize = getDefaultSize(sizes);
   let sizeGroupValue = defaultSize;
+  let colorGroupValue = colors[0];
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -388,7 +389,7 @@
       {#if sizes.length || colors.length && !colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
         {#if colors.length && !colors.includes("MULTI-COLOR")}
-        <VariantSelector label="Color" bind:groupValue={colors[0]}>
+        <VariantSelector label="Color" bind:groupValue={colorGroupValue}>
           {#if colors.length > 1}
           {#each colors as color, index}
             <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
@@ -715,7 +716,7 @@ hr {
 /* Item SKU */
 .item-sku {
   font-size: .875rem;
-  font-weight: 500;
+  font-weight: 700;
   line-height: 1.4;
   color: #4c4c4c;
   margin-top: 1rem;
