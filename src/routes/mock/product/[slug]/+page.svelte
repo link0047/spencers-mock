@@ -240,7 +240,6 @@ function extractColorAndSizeNames(variantsArray: Array<{ COLOR_NAME: string; SIZ
  */
 function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string | null {
   // Check if "M" size exists and is in stock
-  console.log({sizes});
   const mediumSize = sizes.find(size => size.name.toLowerCase() === "m" && !size.outOfStock);
   if (mediumSize) {
     return "M";
@@ -260,7 +259,6 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
   let sku = product?.sku;
   let name = product?.name;
   let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo?.variants || []);
-  console.log({colors, sizes});
   let price = product?.variantInfo.lowPrice || 0;
   let salePrice = product?.price.msrpPrice || 0;
   let shouldShowSalePrice = price !== salePrice;
@@ -270,7 +268,7 @@ function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string 
       desktop: `${image}?wid=640&hei=640&fmt=webp`,
       mobile: `${image}?wid=480&hei=480&fmt=webp`,
     },
-    thumbnail: `${image}?wid=60&hei=60&fmt=webp`,
+    thumbnail: `${image}?wid=120&hei=120&fmt=webp`,
     detailedSrc: `${image}?wid=2000&hei=2000&fmt=webp`,
     alt: `${name} ${index + 1}`
   })) || [];
