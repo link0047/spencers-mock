@@ -31,8 +31,223 @@
 	const apiKey = "4299eaeb-b748-43e4-adba-e46a09962a74";
 	const noconfig = true;
 	const timeout = 5000;
-
   const review_endpoint = `https://readservices-b2c.powerreviews.com/m/${merchantId}/l/${locale}/product/${pageId}/reviews?paging.size=${pagingSize}&apikey=${apiKey}&_noconfig=${noconfig}`;
+  
+  interface ColorData {
+    name: string;
+    displayName: string;
+    colorCode: string;
+  }
+
+  const colorMapping: ColorData[] = [
+    {"name": "AUBURN", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "AUBURN/BLACK", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "AMETHYST", "displayName": "Purple", "colorCode": "#A020F0"},
+    {"name": "ANIMAL PRINT", "displayName": "Print", "colorCode": "linear-gradient(to right,#000407,#faf9f9,#f7eed8,#ddaa36,#03050f,#cb8c35)"},
+    {"name": "AQUAMARINE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "AQUARIUS", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "ASSORTED COLORS", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "AUSTIN", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "BERRY", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "BLACK AND  BLUE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLUE RASPBERRY", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLACK AND RED", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "BEIGE", "displayName": "Natural", "colorCode": "#F5F5DC"},
+    {"name": "BURGUNDY", "displayName": "Burgundy", "colorCode": "#800020"},
+    {"name": "BLUE LIQUID WHITE WAX", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLACK AND SILVER", "displayName": "Black and Silver", "colorCode": "linear-gradient(to right,#000,#C0C0C0)"},
+    {"name": "BLACK", "displayName": "Black", "colorCode": "#000"},
+    {"name": "BLUE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BRONZE", "displayName": "Bronze", "colorCode": "#CD7F32"},
+    {"name": "BLACK ONYX", "displayName": "Black", "colorCode": "#000"},
+    {"name": "BLACK AND PINK", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "BLUE LIQUID YELLOW WAX", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BROWN", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "BLUE AND SILVER", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLACK AND TAN", "displayName": "Tan", "colorCode": "#D2B48C"},
+    {"name": "BUTTER", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "BASIL", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "BLACK AND WHITE", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "BORDEAUX", "displayName": "Burgundy", "colorCode": "#800020"},
+    {"name": "BLUEBERRY", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLACK AND GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "BLACK AND ORANGE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "BLACK AND PURPLE", "displayName": "Purple", "colorCode": "#A020F0"},
+    {"name": "BLONDE", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "BLACK/BLUE/PINK", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "BLACK/BLUE/RED", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "BLACK AND YELLOW", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "BLACK/GOLD", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "COLA", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "CLEAR LIQUID BLACK WAX", "displayName": "Black", "colorCode": "#000"},
+    {"name": "COTTON CANDY", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "CLEAR LIQUID RED WAX", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "CERISE", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "COFFEE", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "CHERRY", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "CAMOUFLAGE", "displayName": "Print", "colorCode": "linear-gradient(to right,#000407,#faf9f9,#f7eed8,#ddaa36,#03050f,#cb8c35)"},
+    {"name": "CINNAMON", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "COCONUT", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "COPPER", "displayName": "Copper", "colorCode": "#B87333"},
+    {"name": "CANDY-APPLE RED", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "CYAN", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "CUBIC ZIRCONIA", "displayName": "Clear", "colorCode": "#DDDDDF"},
+    {"name": "DANDELION", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "DIAMOND", "displayName": "Clear", "colorCode": "#DDDDDF"},
+    {"name": "DARK BROWN", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "DARK GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "DIAMOND-WHITE", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "ECRU", "displayName": "Natural", "colorCode": "#F5F5DC"},
+    {"name": "ECRU/BLACK", "displayName": "Natural", "colorCode": "#F5F5DC"},
+    {"name": "EBONY", "displayName": "Black", "colorCode": "#000"},
+    {"name": "EMERALD", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "EMERALD AND BLACK", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "FROSTED", "displayName": "Clear", "colorCode": "#DDDDDF"},
+    {"name": "FOREST GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "FUCHSIA", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "GOLD", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "GOLD AND BLACK", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "GOLD AND RED", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "GOLD/PINK/RED", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "GREEN APPLE", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "GRAPHITE", "displayName": "Gray", "colorCode": "#808080"},
+    {"name": "GRANITE", "displayName": "Gray", "colorCode": "#808080"},
+    {"name": "GOLD LIQUID WHITE WAX", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "GREEN/BLUE", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "GREEN/GREY", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "GREEN/BLACK", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "HICKORY", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "ICE", "displayName": "Clear", "colorCode": "#DDDDDF"},
+    {"name": "IVORY", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "ICE BLUE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "JASPER", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "JUTE", "displayName": "Natural", "colorCode": "#F5F5DC"},
+    {"name": "JET BLACK", "displayName": "Black", "colorCode": "#000"},
+    {"name": "JUNIPER", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "KIWI", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "LAPIS", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "LEMON", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "LAVENDER", "displayName": "Purple", "colorCode": "#A020F0"},
+    {"name": "LIGHT GREY", "displayName": "Gray", "colorCode": "#808080"},
+    {"name": "LIGHT PINK", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "LIGHT YELLOW", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "LIGHT GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "LIME", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "MAGENTA", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "MALACHITE", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "MANDARIN ORANGE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "MAHOGANY", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "MANGO", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "MOCHA", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "MILK CHOCOLATE", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "MINT", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "MINT GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "MULTI COLOR", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI-GREEN", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI-COLORED", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI PASTEL", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI/PASTELS", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI/BLACK", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI COLORED", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI/WHITE", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI/BROWN", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI/SILVER", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI COLOR BLACK", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTI COLOR/BLACK", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MULTICOLOR", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "MUSTARD", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "NAVY", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "OLIVE", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "ONYX", "displayName": "Black", "colorCode": "#000"},
+    {"name": "ORANGE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE AND BLACK", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE AND BLUE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE AND WHITE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE/BLUE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE/PINK", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE/RED", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "PALE YELLOW", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "PALE BLUE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "PEACH", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "PEARL", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "PINE", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "PINK", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "PINK/BLACK", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "PINK AND WHITE", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "PINK BLACK", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "PINK PEARL", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "PASTEL MULTI", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "PLUM", "displayName": "Purple", "colorCode": "#A020F0"},
+    {"name": "PURPLE", "displayName": "Purple", "colorCode": "#A020F0"},
+    {"name": "RAINBOW", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "RED", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "RED AND BLACK", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "RED/BLACK", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "RED AND GOLD", "displayName": "Gold", "colorCode": "#FFD700"},
+    {"name": "RED ORANGE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ROSE", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "RUBY", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "RUBY RED", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "SAGE", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "SALMON", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "SAND", "displayName": "Natural", "colorCode": "#F5F5DC"},
+    {"name": "SAPPHIRE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "SCARLET", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "SILVER", "displayName": "Silver", "colorCode": "#C0C0C0"},
+    {"name": "SILVER AND BLACK", "displayName": "Silver", "colorCode": "#C0C0C0"},
+    {"name": "SILVER-WHITE", "displayName": "Silver", "colorCode": "#C0C0C0"},
+    {"name": "SILVER/GREY", "displayName": "Silver", "colorCode": "#C0C0C0"},
+    {"name": "SKY BLUE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "SMOKED", "displayName": "Gray", "colorCode": "#808080"},
+    {"name": "SPICE", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "TAN", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "TANGERINE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "TANGERINE AND BLACK", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "TEAL", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "TERRACOTTA", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "TIGER", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "TOPAZ", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "TURQUOISE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "UNCOLORED", "displayName": "Clear", "colorCode": "#DDDDDF"},
+    {"name": "VIOLET", "displayName": "Purple", "colorCode": "#A020F0"},
+    {"name": "WHITE", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "WHITE/BLACK", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "WHITE AND BLACK", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "WHITE/GRAY", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "WHITE/BLUE", "displayName": "White", "colorCode": "#FFF"},
+    {"name": "YELLOW", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "YELLOW/BLACK", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "YELLOW AND BLACK", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "YELLOW AND BLUE", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "YELLOW/BLUE", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "YELLOW GREEN", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "BLOW BERRY", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "BLUE ICE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLONDE/PINK", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "ORANGE/BLUE", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "ORANGE/GREEN", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "ZIRCON", "displayName": "Orange", "colorCode": "#FFA500"},
+    {"name": "BLONDE AND BLUE", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "AUBURN AND BLONDE", "displayName": "Red", "colorCode": "#FF0000"},
+    {"name": "BLONDE AND BLACK", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "BLONDE/BROWN", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "ZEBRA PRINT", "displayName": "Print", "colorCode": "linear-gradient(to right,#000407,#faf9f9,#f7eed8,#ddaa36,#03050f,#cb8c35)"},
+    {"name": "BLUE / WHITE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "TEST", "displayName": "No Color", "colorCode": ""},
+    {"name": "BLACK / MULTI", "displayName": "Black", "colorCode": "#000"},
+    {"name": "BLACK AND FUCHSIA", "displayName": "Pink", "colorCode": "#FFC0CB"},
+    {"name": "BLACK AND IVORY", "displayName": "Natural", "colorCode": "#F5F5DC"},
+    {"name": "BLACK/PURPLE/GREEN", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "BLACK/RED/ORANGE", "displayName": "Multi", "colorCode": "linear-gradient(to right,orange,yellow,green,cyan,blue,violet)"},
+    {"name": "BLACK/GRAY", "displayName": "Gray", "colorCode": "#808080"},
+    {"name": "BLACK/TURQUOISE", "displayName": "Blue", "colorCode": "#0000FF"},
+    {"name": "BLUE/GREEN", "displayName": "Green", "colorCode": "#00FF00"},
+    {"name": "BLUE/YELLOW", "displayName": "Yellow", "colorCode": "#FFFF00"},
+    {"name": "DARK BROWN", "displayName": "Brown", "colorCode": "#964B00"},
+    {"name": "LIGHT BROWN", "displayName": "Brown", "colorCode": "#964B00"}
+  ];
 
   /**
 	 * Extracts the first sequence of digits from a string and returns it as a number.
@@ -232,8 +447,7 @@
     return [colorNames, sizes];
   }
 
-
-    /**
+  /**
    * Get the default size from an array of size objects.
    * @param {{ name: string, outOfStock: boolean }[]} sizes - An array of size objects.
    * @returns {string | null} - The default size ("M" if it exists and is in stock, else the first size in the array that is in stock), or null if the array is empty or all sizes are out of stock.
@@ -261,6 +475,16 @@
     sizeChartOpenState = true;
     await tick();
     sizeChartContainerRef.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+
+  /**
+   * Gets the mapped color data for a given color name.
+   *
+   * @param {string} color - The color name to search for.
+   * @returns {ColorData | undefined} The color data if found, otherwise undefined.
+   */
+  function getMappedColorData(color: string): ColorData | undefined {
+    return colorMapping.find(item => item.name === color);
   }
 
   let ctaRef: HTMLElement;
@@ -392,7 +616,7 @@
         <VariantSelector label="Color" bind:groupValue={colorGroupValue}>
           {#if colors.length > 1}
           {#each colors as color, index}
-            <Swatch aria-label={color} color={color} name="color" value={color} checked={index === 0} />
+            <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
           {/each}
           {/if}
         </VariantSelector>

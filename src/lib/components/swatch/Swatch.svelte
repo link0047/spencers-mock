@@ -72,7 +72,7 @@
 	}
 
 	.swatch__label:before {
-		background-color: var(--swatch-color, transparent);
+		background: var(--swatch-color, transparent);
     content: "";
 		display: flex;
     width: 40px;
