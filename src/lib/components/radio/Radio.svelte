@@ -50,6 +50,12 @@
 </div>
 
 <style>
+  :root {
+    --ui-kit-radio-checked-color: #000;
+    --ui-kit-radio-focus-visible-color: #015fcc;
+  }
+
+
   .radio {
     position: relative;
     display: inline-flex;
@@ -88,17 +94,23 @@
 	}
 
   .radio--box:has(.radio__native-control:checked) .radio__label {
-    outline: 2px solid #000;
+    outline: 2px solid var(--ui-kit-radio-checked-color);
 	}
 
 	.radio--box:has(.radio__native-control:focus-visible) .radio__label {
-		outline: 2px solid #015fcc;
+		outline: 2px solid var(--ui-kit-radio-focus-visible-color);
 	}
 
   .radio--box:has(:hover) .radio__label {
     background-color: #f7f7f7;
     outline: 2px solid #212121;
   }
+
+  .radio--box:has(:checked:hover) .radio__label {
+    background-color: #f4f9f4;
+    outline: 2px solid var(--ui-kit-radio-checked-color);
+  }
+
 
   .radio--box:has(.radio__native-control:disabled) .radio__label {
     color: #444547;

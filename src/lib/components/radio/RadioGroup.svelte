@@ -3,23 +3,84 @@
 	import { writable } from "svelte/store";
 	import { setContext } from "svelte"
 	
-	export let value: string = "";	
-	export let tag: string = "div";
-  
-	const valueStore: Writable<string> = writable(value);
+	export let useRovingIndex = false;
+	export let required = false;
+	export let direction = "ltr";
+	export let value: string = "";
+
+	export const valueStore: Writable<string> = writable(value);
+	const selected = writable("");
+	
+	setContext("selected", selected);
 	setContext("value", valueStore);
 
-	$: value = $valueStore;
+	/**
+   * Roving index action for keyboard navigation.
+   * @param {HTMLElement} node - The element to which the action is applied.
+   * @returns {{destroy: () => void}} - An object with a destroy method to clean up event listeners.
+   */
+	function rovingIndex(node: HTMLElement) {
+		let items: HTMLElement[] = Array.from(node.querySelectorAll("[tabindex]:not(:disabled)"));
+		let currentIndex = items.findIndex(element => element.id === $selected);
+		
+		function handleKeyDown(event: KeyboardEvent) {
+			switch (event.key) {
+				case "ArrowDown":
+				case "ArrowRight":
+					currentIndex = (currentIndex + 1) % items.length;
+					break;
+				case "ArrowUp":
+				case "ArrowLeft":
+					currentIndex = (currentIndex - 1 + items.length) % items.length;
+					break;
+				case "Home":
+					currentIndex = 0;
+					break;
+				case "End":
+					currentIndex = items.length - 1;
+					break;
+				default:
+					return;
+			}
+
+
+			$selected = items[currentIndex].id;
+			$valueStore = items[currentIndex]?.value;
+			items[currentIndex].focus({ focusVisible: true });
+			event.preventDefault();
+		}
+
+		node.addEventListener("keydown", handleKeyDown);
+		
+		return {
+			destroy() {
+				node.removeEventListener("keydown", handleKeyDown);
+			}
+		}
+	}
+
+	let rovingIndexAction = useRovingIndex ? rovingIndex : () => {};
+
+	valueStore.subscribe((val) => {
+    value = val;
+  });
 </script>
 
-<svelte:element class="radio-group" role="radiogroup" this={tag} {...$$restProps}>
+<div 
+	role="radiogroup" 
+	aria-required={required}
+	dir={direction}
+	class="radio-group"
+	use:rovingIndexAction
+	{...$$restProps}
+>
 	<slot />
-</svelte:element>
+</div>
 
 <style>
 	.radio-group {
-		display: flex;
-		gap: 8px;
-		flex-flow: row wrap;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
+		gap: .5rem;
 	}
 </style>

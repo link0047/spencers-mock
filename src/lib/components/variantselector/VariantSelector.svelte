@@ -7,6 +7,8 @@
 	
 	const uid: string = generateId("variantselector");
 	const id: string =`uikit-variant-selector-${uid}-heading`;
+
+	$: console.log({groupValue});
 </script>
 
 <div class="variant-selector">
@@ -28,6 +30,11 @@
 
 	:global(.variant-selector:has(.radio-group:empty)) {
 		gap: 0;
+	}
+
+	.variant-selector :global(.radio) {
+		--ui-kit-radio-checked-color: #008300;
+    --ui-kit-radio-focus-visible-color: #008300;
 	}
 
 	.variant-selector__heading {

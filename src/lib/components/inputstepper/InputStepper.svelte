@@ -103,6 +103,10 @@
 		transition: background-color ease-in-out .3s;
   }
 
+  .input-stepper__action:disabled {
+    cursor: not-allowed;
+  }
+
 	.input-stepper__action[disabled] :global(.icon) {
 		fill: #989596;
 	}

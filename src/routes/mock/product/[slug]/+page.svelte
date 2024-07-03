@@ -1,4 +1,5 @@
 <script lang="ts">
+  import type { Writable } from "svelte/store";
   import { onMount, tick } from "svelte";
   import Page from "$lib/components/page/Page.svelte";
   import ProductGallery from "$lib/components/productGallery/ProductGallery.svelte";
@@ -6,7 +7,7 @@
   import VariantSelector from "$lib/components/variantselector";
   import { Radio } from "$lib/components/radio";
   import Swatch from "$lib/components/swatch";
-  import { ShippingFulfillmentGroup, ShippingFulfillmentOption } from "$lib/components/shippingfulfillment";
+  import { FulfillmentRadioGroup, FulfillmentOption } from "$lib/components/fulfillmentRadioGroup";
   import Button from "$lib/components/button";
   import Accordion from "$lib/components/accordion";
   import InputStepper from "$lib/components/inputstepper";
@@ -20,6 +21,7 @@
   import IconSet from "$lib/components/iconset";
   import { Collapsible } from "$lib/components/collapsible";
   import WarningCard from "$lib/components/warningcard";
+  import ButtonNew from "$lib/components/button/Button-new.svelte";
   
   export let data;
 
@@ -280,7 +282,7 @@
     const monthAbbrev = monthNames[deliveryDate.getMonth()];
     const dayOfMonth = deliveryDate.getDate();
   
-    return `Get it by ${dayName}, ${monthAbbrev} ${dayOfMonth}`;
+    return `Get it by <strong class="bold">${dayName}, ${monthAbbrev} ${dayOfMonth}</strong>`;
   }
 
   /**
@@ -527,6 +529,21 @@
   const defaultSize = getDefaultSize(sizes);
   let sizeGroupValue = defaultSize;
   let colorGroupValue = colors[0];
+  console.log({sizeGroupValue, colorGroupValue})
+  const fulfillmentTypes = [{
+		type: "shipping",
+		name: "Shipping",
+		message: "In stock",
+	}, {
+		type: "pickup",
+		name: "Pickup",
+		message: "Free pickup today",
+	}, {
+		type: "sameday",
+		name: "Same Day",
+		message: "Order by 2pm to get it today!",
+	}];
+  let fulfillmentValue: Writable<string>;
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -552,9 +569,54 @@
 <IconSet>
 	<symbol id="recommended-check"><path d="M2.836 10.855L0 13.473l7.418 6.982L24 5.618 21.164 3 7.418 15.218"/></symbol>
   <symbol id="ruler-flat"><path d="M21.4 16.8H2.6c-.7 0-1.4-.6-1.4-1.3V8.7c0-.7.6-1.4 1.4-1.4h18.8c.7 0 1.3.6 1.3 1.4v6.8c0 .7-.6 1.3-1.3 1.3ZM2.8 15.2h18.5V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H7.6v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H2.5v6.5Z"/></symbol>
-  <symbol id="ship-to-me"><path d="M12.1 23.8h-.2L1.5 17.6c-.1 0-.2-.2-.2-.4V6.1c0-.2 0-.3.2-.4L11.9.3h.4l10.1 5.4c.1 0 .2.2.2.4v11.2c0 .1 0 .3-.2.4l-10.1 6.2h-.2Zm.4-10.8v9.7l9.4-5.7V7.2l-9.4 5.9ZM2.1 17l9.5 5.6v-9.7l-2.7-1.7v3.9c0 .2-.1.3-.3.4-.2 0-.4 0-.5-.2l-1.9-3.2-1.5 1.1c-.1 0-.3.1-.4 0-.1 0-.2-.2-.2-.4V8.1L2 6.8v10Zm4.4-5.8c.1 0 .2 0 .3.2l1.4 2.3v-2.8L5 8.9v3.4l1.2-.9h.3Zm3.1-.5 2.5 1.6 9.6-6-3.3-1.8-8.9 6.2ZM5.7 8.2l3.2 2 8.9-6.1L15 2.6c0 .1-9.3 5.6-9.3 5.6Zm-3.3-2 2.5 1.5 9.3-5.5-2.1-1.1-9.7 5.1Z"/></symbol>
-  <symbol id="same-day"><path d="M.9 5.7h4.3v.9H.9v-.9ZM5 7.9h3.4v.9H5v-.9ZM1.6 9.8h9.8v.9H1.6v-.9Zm4.1 2.3h5.9v.9H5.7v-.9Zm-3.4.7h3v.9h-3v-.9ZM1 15.1h2.7v.9H1v-.9Zm22-4.3-3.1-1.4.4-2.7c0-.3 0-.6-.2-.8-.2-.2-.4-.3-.7-.3H5.8v.9H16L15.5 9c-.1.3 0 .5.2.8.2.2.4.3.7.3h3c0-.1 3.2 1.4 3.2 1.4L21.2 15h-2c-.1-.4-.2-.7-.5-1-.3-.4-.8-.5-1.3-.5-.9 0-1.9.6-2.5 1.5h-3.8c0-.4-.2-.8-.4-1.1-.3-.4-.8-.6-1.4-.6-1 0-2 .7-2.6 1.7H4.6v.9h1.8c0 .6 0 1.3.3 1.7s.9.7 1.4.7c1.2 0 2.5-1 2.8-2.3 0-.1 3.6-.1 3.6-.1-.2.7-.1 1.4.3 1.9.3.4.9.7 1.4.7 1.2 0 2.5-1 2.8-2.3 0-.1 0-.2.1-.2H21c.4 0 .7-.2.9-.6l1.4-3.5c.2-.4.1-.9-.3-1.1Zm-6.7-1.5.6-2.7h2.5L19 9.2h-2.7v.4-.3Zm1.1 5.2c.3 0 .6.1.7.3s.2.4.2.7c0 .2 0 .3-.1.4-.2.9-1.1 1.7-2 1.7s-.6-.1-.7-.3c-.2-.3-.3-.7-.1-1.1.3-.9 1.2-1.7 2-1.7Zm-7.2 1.3c-.2.9-1.1 1.7-2 1.7s-.6-.1-.7-.3c-.2-.3-.3-.7 0-1.1.2-.9 1.1-1.7 2-1.7s.6.1.7.3c.1.2.2.4.2.7 0 .1-.1.4 0 .4Z" /></symbol>
-  <symbol id="pickup"><path d="M2.4 9.1v.8c0 1.1.7 2.1 1.7 2.6v8.4c0 1 .8 1.7 1.7 1.7h12.5c1 0 1.7-.8 1.7-1.7v-8.4c1.3-.5 2-1.5 2-2.7V9l-1.9-7.2-.1-.2H4.5m10.1 12.6H9.3l-.3.3v7H5.9c-.4 0-.6-.3-.6-.6v-8.1c1 0 1.8-.5 2.4-1.2.5.7 1.4 1.2 2.3 1.2.9 0 1.8-.5 2.3-1.2.5.8 1.4 1.2 2.3 1.2.9 0 1.8-.4 2.3-1.2.5.7 1.3 1.2 2.2 1.2V21c0 .4-.3.6-.6.6h-3.6v-7l-.3-.4zm-1.8-5.7V2.7h2.6l.8 5.8h-3.4zm0 1.3v-.2h3.5v.2c0 1-.8 1.7-1.7 1.7s-1.8-.7-1.8-1.7zm4.5-1.3-.8-5.8h2.7l1.5 5.8h-3.4zm-9.1 0 .6-5.8h2.8v5.8H8.2zm0 1.3v-.2h3.5v.2c0 1-.8 1.7-1.7 1.7-1 0-1.8-.7-1.8-1.7zM3.8 8.5l1.4-5.8h2.6l-.7 5.8H3.8zm-.3.8H7v.6c0 1-.8 1.7-1.7 1.7s-1.7-.8-1.7-1.7v-.6zm13.9.5v-.2h3.5v.2c0 1-.8 1.7-1.7 1.7s-1.8-.7-1.8-1.7zm-7.3 11.7v-6.2h3.6v6.2h-3.6z"/></symbol>
+  <symbol id="shipping">
+    <g fill="#d7d6d6" stroke-width="0"><path d="M.8 16.2V5.4L11.7 2l11.5 4.6v10.8L12.3 22 .8 16.2z"/><path fill="#a3a3a2" d="m11.7 2.2 11.2 4.5v10.5l-10.7 4.5L1 16V5.6l10.7-3.3m0-.5L.6 5.2v11.1l11.7 5.9 11.2-4.7v-11L11.7 1.8Z"/></g><g fill="#c2c1c1" stroke-width="0"><path d="M.8 16.2V5.6L12 10.3v11.6L.8 16.2z"/><path fill="#a3a3a2" d="m1 5.9 10.8 4.6v11L1 16V5.9m-.4-.7v11.1l11.7 5.9v-12L.6 5.2Z"/></g><path fill="none" stroke="#a3a3a2" stroke-miterlimit="10" stroke-width=".8" d="m12 10.3 11.1-3.7"/><path fill="#6b6c6c" d="M20.3 7.7 8.4 2.8 4.2 4.1l11.6 5.1.3 7.4 2.4-3.3 1.9 1.4-.1-7z"/>
+  </symbol>
+  <symbol id="sameday">
+    <g fill="#c2c1c1">
+      <path d="M3.7,15.6H1.7v1.5h1.3c0-.6.3-1.1.7-1.5Z"/>
+      <path d="M20.6,8.4h-3.3c-.4,0-.7.3-.7.7v6.5H6.6c.4.4.7.9.7,1.5h10.6c0-1.1,1-2,2.2-2s2.1.9,2.2,2h1.2v-4.3c0-.1,0-.2,0-.3l-2.1-3.6c-.1-.3-.4-.4-.7-.4Z"/>
+      <path d="M15.9,15.1H1.7V4.8h13.3c.5,0,.9.4.9.9v9.3h0Z" />
+    </g>
+    <g fill="#fff">
+      <polygon points="22.7 12.6 17.2 12.6 17.2 9 20.7 9 22.7 12.6" />
+      <path d="M18.8,13.2h-1.7v-.3s0,0,0,0h1.5s0,0,0,0c0,0,0,.3,0,.3Z" />
+    </g>
+    <g fill="#6b6c6c">
+      <path d="M5.2,15.3c-1.1,0-1.9.9-1.9,1.9s.9,1.9,1.9,1.9,1.9-.9,1.9-1.9-.9-1.9-1.9-1.9ZM5.2,18.2c-.5,0-1-.4-1-1s.4-1,1-1,1,.4,1,1-.4,1-1,1Z"/>
+      <path d="M20,15.3c-1.1,0-1.9.9-1.9,1.9s.9,1.9,1.9,1.9,1.9-.9,1.9-1.9-.9-1.9-1.9-1.9ZM20,18.2c-.5,0-1-.4-1-1s.4-1,1-1,1,.4,1,1-.4,1-1,1Z"/>
+    </g>
+    <g stroke="#6b6c6c" stroke-linecap="round" stroke-miterlimit="10" stroke-width="1.2">
+      <line x1=".6" y1="10.2" x2="6" y2="10.2" />
+      <line x1="1.2" y1="12.5" x2="6.6" y2="12.5" />
+      <line x1="2.2" y1="8" x2="7.6" y2="8" />
+    </g>
+  </symbol>
+  <symbol id="pickup">
+    <rect x="1.9" y="9.9" width="20.9" height="11.3" fill="#c2c1c1" />
+    <g stroke="#fff" stroke-miterlimit="10" stroke-width=".5" fill="#6b6c6c"> 
+      <path d="M19.7,2.8H4.3c-.4,0-.8.3-1,.7L.6,9.8h22.8l-2.8-6.3c-.2-.4-.6-.7-1-.7Z" />
+      <path d="M2.5,11.7c1,0,1.9-.9,1.9-1.9H.6c0,1,.8,1.9,1.9,1.9Z" />
+      <path d="M6.3,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.8,1.9,1.9,1.9Z" />
+      <path d="M13.9,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
+      <path d="M10.1,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
+      <path d="M17.7,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
+      <path d="M21.5,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
+    </g>
+    <g fill="#6b6c6c">
+      <path d="M21.6,18.1h-4.8c-.1,0-.2-.1-.2-.2v-4.1c0-.1.1-.2.2-.2h4.8c.1,0,.2.1.2.2v4.1c0,.1-.1.2-.2.2Z" fill="#6b6c6c" />
+      <rect x="3.6" y="13.5" width="5.7" height="7.6" />
+      <rect x="9.4" y="13.5" width="5.7" height="7.6" />
+    </g>
+    <g fill="#c2c1c1">
+      <rect x="8" y="16.7" width="1.1" height="2.3" />
+      <rect x="9.6" y="16.7" width="1.1" height="2.3" />
+    </g>
+    <path d="M15.4,15H3.1c-.1,0-.2-.1-.2-.2v-1.8c0-.1.1-.2.2-.2h12.3c.1,0,.2.1.2.2v1.8c0,.1-.1.2-.2.2Z" fill="#fff" />
+    <text transform="translate(6.1 14.6)" fill="#6b6c6c" font-family="ArialRoundedMTBold, 'Arial Rounded MT Bold'" font-size="1.8px">
+      STORE
+    </text>
+  </symbol>
 </IconSet>
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
@@ -615,9 +677,9 @@
         {#if colors.length && !colors.includes("MULTI-COLOR")}
         <VariantSelector label="Color" bind:groupValue={colorGroupValue}>
           {#if colors.length > 1}
-          {#each colors as color, index}
-            <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
-          {/each}
+            {#each colors as color, index}
+              <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
+            {/each}
           {/if}
         </VariantSelector>
         {/if}
@@ -632,42 +694,49 @@
             </Button>
           </svelte:fragment>
           {#if sizes.length > 0}
-          {#each sizes as { name, outOfStock }}
-            <Radio disabled={outOfStock} variant="box" name="size" value={name} checked={name === defaultSize} aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}>{name}</Radio>
-          {/each}
+            {#each sizes as { name, outOfStock }}
+              <Radio 
+                disabled={outOfStock} 
+                variant="box" 
+                name="size" 
+                value={name} 
+                checked={name === defaultSize} 
+                aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}
+              >
+                {name}
+              </Radio>
+            {/each}
           {/if}
         </VariantSelector>
         {/if}
       </div>
       <hr />
       {/if}
-      <ShippingFulfillmentGroup>
-        <ShippingFulfillmentOption>
-          <Icon slot="icon">
-            <use href="#ship-to-me" />
-          </Icon>
-          <svelte:fragment slot="heading">
-            Shipping
-          </svelte:fragment>
-          <svelte:fragment slot="description">
-            {getDeliveryDate()}
-          </svelte:fragment>
-        </ShippingFulfillmentOption>
-        <ShippingFulfillmentOption>
-          <Icon slot="icon">
-            <use href="#pickup" />
-          </Icon>
-          <svelte:fragment slot="heading">Pickup</svelte:fragment>
-          <svelte:fragment slot="description">Free pickup today</svelte:fragment>
-        </ShippingFulfillmentOption>
-        <ShippingFulfillmentOption>
-          <Icon slot="icon">
-            <use href="#same-day" />
-          </Icon>
-          <svelte:fragment slot="heading">Same Day Delivery</svelte:fragment>
-          <svelte:fragment slot="description">Order by 2pm to get it today!</svelte:fragment>
-        </ShippingFulfillmentOption>
-      </ShippingFulfillmentGroup>
+      <FulfillmentRadioGroup bind:value={fulfillmentValue}>
+        {#each fulfillmentTypes as { type, name, message }, index}
+          <FulfillmentOption 
+            value={type} 
+            {name} 
+            {message} 
+            label="{name} - {$fulfillmentValue === type ? "selected" : "unselected"} - {index + 1} of {fulfillmentTypes.length} - {message}"
+          >
+            <Icon slot="icon">
+              <use href="#{type}" />
+            </Icon>
+          </FulfillmentOption>
+        {/each}
+        <svelte:fragment slot="group-message">
+          {#if $fulfillmentValue === "shipping"}
+            {@html getDeliveryDate()}
+          {:else if $fulfillmentValue === "pickup"}
+            Pickup at <span class="underline">Ocean County, NJ</span>
+            <ButtonNew variant="ghost" color="primary" underline>Change Store</ButtonNew>
+          {:else if $fulfillmentValue === "sameday"}
+            Delivery to <span class="underline">08234</span>
+            <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew>
+          {/if}
+        </svelte:fragment>
+      </FulfillmentRadioGroup>
       {#if hasLimitedQuantity}
         <div class="product-page__limited-quantity">
           Maxiumum of {product?.maximumquantity} units per order
@@ -804,13 +873,21 @@
 </div>
 
 <style>
-  /* General Styles */
+/* General Styles */
 hr {
   width: 100%;
   margin-top: 8px;
   margin-bottom: 8px;
   border: 0;
   border-top: 1px solid #eeeeee;
+}
+
+:global(.bold) {
+  font-weight: 700;
+}
+
+.underline {
+  text-decoration: underline;
 }
 
 /* Product Page Container */
@@ -847,7 +924,7 @@ hr {
   height: fit-content;
 }
 
-@media(max-width: 560px) {
+@media (max-width: 640px) {
   .product-page__gallery {
     position: relative;
     top: initial;
