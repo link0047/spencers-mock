@@ -593,29 +593,7 @@
     </g>
   </symbol>
   <symbol id="pickup">
-    <rect x="1.9" y="9.9" width="20.9" height="11.3" fill="#c2c1c1" />
-    <g stroke="#fff" stroke-miterlimit="10" stroke-width=".5" fill="#6b6c6c"> 
-      <path d="M19.7,2.8H4.3c-.4,0-.8.3-1,.7L.6,9.8h22.8l-2.8-6.3c-.2-.4-.6-.7-1-.7Z" />
-      <path d="M2.5,11.7c1,0,1.9-.9,1.9-1.9H.6c0,1,.8,1.9,1.9,1.9Z" />
-      <path d="M6.3,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.8,1.9,1.9,1.9Z" />
-      <path d="M13.9,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
-      <path d="M10.1,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
-      <path d="M17.7,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
-      <path d="M21.5,11.7c1,0,1.9-.9,1.9-1.9h-3.8c0,1,.9,1.9,1.9,1.9Z" />
-    </g>
-    <g fill="#6b6c6c">
-      <path d="M21.6,18.1h-4.8c-.1,0-.2-.1-.2-.2v-4.1c0-.1.1-.2.2-.2h4.8c.1,0,.2.1.2.2v4.1c0,.1-.1.2-.2.2Z" fill="#6b6c6c" />
-      <rect x="3.6" y="13.5" width="5.7" height="7.6" />
-      <rect x="9.4" y="13.5" width="5.7" height="7.6" />
-    </g>
-    <g fill="#c2c1c1">
-      <rect x="8" y="16.7" width="1.1" height="2.3" />
-      <rect x="9.6" y="16.7" width="1.1" height="2.3" />
-    </g>
-    <path d="M15.4,15H3.1c-.1,0-.2-.1-.2-.2v-1.8c0-.1.1-.2.2-.2h12.3c.1,0,.2.1.2.2v1.8c0,.1-.1.2-.2.2Z" fill="#fff" />
-    <text transform="translate(6.1 14.6)" fill="#6b6c6c" font-family="ArialRoundedMTBold, 'Arial Rounded MT Bold'" font-size="1.8px">
-      STORE
-    </text>
+    <path fill="#c1c1c1" d="M1.9 11h20.2v10.9H1.9z"/><g style="fill:#6b6b6b;stroke:#fff;stroke-miterlimit:10;stroke-width:.2px"><path d="M19.4 4.3H4.6c-.4 0-.8.2-1 .6l-2.7 6h22l-2.7-6c-.2-.4-.5-.6-1-.6ZM2.8 12.8c1 0 1.8-.8 1.8-1.8H1c0 1 .8 1.8 1.8 1.8ZM6.5 12.8c1 0 1.8-.8 1.8-1.8H4.6c0 1 .8 1.8 1.8 1.8ZM13.8 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8Z"/><path d="M10.2 12.8c1 0 1.8-.8 1.8-1.8H8.3c0 1 .8 1.8 1.8 1.8ZM17.5 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8ZM21.2 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8Z"/></g><g fill="#6b6b6b"><path d="M20.8 18.9h-4.6c-.1 0-.2-.1-.2-.2v-3.9c0-.1.1-.2.2-.2h4.6c.1 0 .2.1.2.2v3.9c0 .1-.1.2-.2.2ZM3.9 14.5h5.5v7.4H3.9zM9.5 14.5H15v7.4H9.5z"/></g><g fill="#c1c1c1"><path d="M8.1 17.6h1v2.2h-1zM9.7 17.6h1v2.2h-1z"/></g><path fill="#fff" d="M6.9 4.9c-.1 0-.3-.2-.3-.4V2.2c0-.2.1-.4.3-.4h10.3c.1 0 .3.2.3.4v2.3c0 .2-.1.4-.3.4H6.9Z"/><path fill="#6b6b6b" d="M17.1 2c.1 0 .2.1.2.3v2.3c0 .2 0 .3-.2.3H6.9c-.1 0-.2-.1-.2-.3V2.3c0-.2 0-.3.2-.3h10.3m-.1-.1H6.9c-.2 0-.3.2-.3.4v2.3c0 .2.1.4.3.4h10.3c.2 0 .3-.2.3-.4V2.3c0-.2-.1-.4-.3-.4Z"/><text style="fill:#6b6b6b;font-family:ArialRoundedMTBold,&quot;Arial Rounded MT Bold&quot;;font-size:2.8px;isolation:isolate" transform="translate(7.2 4.4)">STORE</text>
   </symbol>
 </IconSet>
 <Page>

@@ -1,9 +1,10 @@
-import { env } from "$env/static/private";
+import "dotenv/config";
 import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+import * as schema from "./schema";
 
 let client;
-const connectionString = env.DATABASE_URI;
+const connectionString = process.env.DATABASE_URI;
 
 if (!connectionString) {
   throw new Error("DATABASE_URL is missing in the environment variables.");
@@ -17,4 +18,6 @@ try {
   process.exit(1); // Terminate the process if database connection fails
 }
 
-export const db = drizzle(client);
+const db = drizzle(client, { schema });
+
+export { client, db };

@@ -59,6 +59,7 @@
   .radio {
     position: relative;
     display: inline-flex;
+    width: fit-content;
     min-height: 24px;
     align-items: center;
     flex-flow: row wrap;

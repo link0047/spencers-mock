@@ -8,6 +8,9 @@ import {
   date,
   text,
   timestamp,
+  foreignKey,
+  primaryKey,
+  unique
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 
@@ -36,8 +39,6 @@ export const productsTable =  pgTable("products", {
   is_sale: boolean("is_sale").default(false)
 });
 
-
-
 export const badgesTable = pgTable("badges", {
   badge_id: serial("badge_id").primaryKey(),
   badge_name: varchar("badge_name", { length: 50 }).unique().notNull()
@@ -47,79 +48,86 @@ export const categoriesTable = pgTable("categories", {
   category_id: serial("category_id").primaryKey(),
   category_name: varchar("category_name", { length: 255 }).notNull(),
   parent_category_id: integer("parent_category_id")
-    .notNull()
-    .references(()=> categoriesTable.id, { onDelete: "cascade" })  
+}, (table) => {
+  return {
+    parentReference: foreignKey({
+      columns: [table.parent_category_id],
+      foreignColumns: [table.category_id],
+      name: "parent_category_id_fk",
+    })
+      .onDelete("cascade")
+  };
 });
-
 
 export const product_categoriesTable = pgTable("product_categories", {
-  product_id: INT REFERENCES products(product_id) ON DELETE CASCADE,
-  category_id: INT REFERENCES categories(category_id) ON DELETE CASCADE,
-  PRIMARY KEY (product_id, category_id)
+  product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
+  category_id: integer("category_id").references(() => categoriesTable.category_id, { onDelete: "cascade" })
+}, (table) => {
+  return {
+    pk: primaryKey({ columns: [table.product_id, table.category_id] }),
+    pkWithCustomName: primaryKey({ name: 'product_categories_pk', columns: [table.product_id, table.category_id] }),
+  }
 });
-
 
 export const product_badgesTable = pgTable("product_badges", {
-  product_id: INT REFERENCES products(product_id) ON DELETE CASCADE,
-  badge_id: INT REFERENCES badges(badge_id) ON DELETE CASCADE,
-  PRIMARY KEY (product_id, badge_id)
+  product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
+  badge_id: integer("badge_id").references(() => badgesTable.badge_id, { onDelete: "cascade" })
+},(table) => {
+  return {
+    pk: primaryKey({ columns: [table.product_id, table.badge_id] }),
+    pkWithCustomName: primaryKey({ name: 'product_badges_pk', columns: [table.product_id, table.badge_id] }),
+  }
 });
-
 
 export const storesTable = pgTable("stores", {
   store_id: serial("store_id").primaryKey(),
-  store_name: VARCHAR(255) NOT NULL,
-  street_address: VARCHAR(255) NOT NULL,
-  state: VARCHAR(50) NOT NULL,
-  zip: VARCHAR(20) NOT NULL
+  store_name: varchar("store_name", { length: 255 }).notNull(),
+  street_address: varchar("street_address", { length: 255 }).notNull(),
+  state: varchar("state", { length: 50 }),
+  zip: varchar("zip", { length: 20 }).notNull()
 });
-
 
 export const store_inventoryTable = pgTable("store_inventory", {
   inventory_id: serial("inventory_id").primaryKey(),
-  store_id: INT REFERENCES stores(store_id) ON DELETE CASCADE,
-  product_id: INT REFERENCES products(product_id) ON DELETE CASCADE,
-  stock: INT NOT NULL,
-  UNIQUE(store_id, product_id)
-});
-
+  store_id: integer("store_id").references(() => storesTable.store_id, { onDelete: "cascade" }),
+  product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
+  stock: integer("stock").notNull(),
+}, (table) => ({
+  unq: unique().on(table.store_id, table.product_id)
+}));
 
 export const sizesTable = pgTable("sizes", {
   size_id: serial("size_id").primaryKey(),
-  size: VARCHAR(50) NOT NULL
+  size: varchar("size", { length: 50 })
 });
-
 
 export const colorsTable = pgTable("colors", {
   color_id: serial("color_id").primaryKey(),
-  color_name: VARCHAR(50) NOT NULL,
-  color_value: TEXT NOT NULL  
+  color_name: varchar("color_name", { length: 50 }),
+  color_value: text("color_value").notNull()
 });
-
 
 export const product_variantsTable = pgTable("product_variants", {
-  variant_id: VARCHAR(50) PRIMARY KEY,  
-  product_id: INT REFERENCES products(product_id) ON DELETE CASCADE,
-  size_id: INT REFERENCES sizes(size_id),
-  color_id: INT REFERENCES colors(color_id),
-  price: NUMERIC(10, 2) NOT NULL,
-  sale_price: NUMERIC(10, 2),
-  stock: INT NOT NULL
+  variant_id: varchar("variant_id", { length: 50 }).primaryKey(),
+  product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
+  size_id: integer("size_id").references(() => sizesTable.size_id),
+  color_id: integer("color_id").references(() => colorsTable.color_id),
+  price: numeric("price", {precision: 10, scale: 2 }).notNull(),
+  sale_price: numeric("sale_price", {precision: 10, scale: 2 }),
+  stock: integer("stock").notNull()
 });
-
 
 export const product_imagesTable = pgTable("product_images", {
   image_id: serial("image_id").primaryKey(),
-  product_id: INT REFERENCES products(product_id) ON DELETE CASCADE,
-  image_url: VARCHAR(255) NOT NULL,
-  image_order: INT NOT NULL      
+  product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
+  image_url: varchar("", { length: 255 }).notNull(),
+  image_order: integer("image_order").notNull()      
 });
-
 
 export const product_restrictionsTable = pgTable("product_restrictions", {
   restriction_id: serial("restriction_id").primaryKey(),
-  product_id: INT REFERENCES products(product_id) ON DELETE CASCADE,
-  restriction_level: INT NOT NULL,      
-  restriction_type: VARCHAR(50) NOT NULL,   
-  message: TEXT NOT NULL                    
+  product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
+  restriction_level: integer("restriction_level").notNull(),      
+  restriction_type: varchar("restriction_type", { length: 50 }).notNull(),
+  message: text("message").notNull()
 });

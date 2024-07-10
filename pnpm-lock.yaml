@@ -52,6 +52,9 @@ devDependencies:
   '@types/ua-parser-js':
     specifier: ^0.7.39
     version: 0.7.39
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   drizzle-kit:
     specifier: ^0.22.8
     version: 0.22.8
@@ -79,6 +82,9 @@ devDependencies:
   tslib:
     specifier: ^2.6.3
     version: 2.6.3
+  tsx:
+    specifier: ^4.16.2
+    version: 4.16.2
   typescript:
     specifier: ^5.5.3
     version: 5.5.3
@@ -1643,6 +1649,11 @@ packages:
       path-type: 4.0.0
     dev: true
 
+  /dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
+    dev: true
+
   /drizzle-kit@0.22.8:
     resolution: {integrity: sha512-VjI4wsJjk3hSqHSa3TwBf+uvH6M6pRHyxyoVbt935GUzP9tUR/BRZ+MhEJNgryqbzN2Za1KP0eJMTgKEPsalYQ==}
     hasBin: true
@@ -3151,6 +3162,17 @@ packages:
 
   /tslib@2.6.3:
     resolution: {integrity: sha512-xNvxJEOUiWPGhUuUdQgAJPKOOJfGnIyKySOc09XkKsgdUV/3E2zvwZYdejjmRgPCgcym1juLH3226yA7sEFJKQ==}
+    dev: true
+
+  /tsx@4.16.2:
+    resolution: {integrity: sha512-C1uWweJDgdtX2x600HjaFaucXTilT7tgUZHbOE4+ypskZ1OP8CRCSDkCxG6Vya9EwaFIVagWwpaVAn5wzypaqQ==}
+    engines: {node: '>=18.0.0'}
+    hasBin: true
+    dependencies:
+      esbuild: 0.21.5
+      get-tsconfig: 4.7.5
+    optionalDependencies:
+      fsevents: 2.3.3
     dev: true
 
   /type-check@0.4.0:
