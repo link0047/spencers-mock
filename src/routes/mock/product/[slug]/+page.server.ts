@@ -278,9 +278,9 @@ const dataStore = [
     "sku": "03516903",
     "breadcrumb": [
       { text: "HOME", current: false, href: "/" },
-      { text: "Body Jewelry", current: false, href: "/" },
-      { text: "Tongue Rings", current: false, href: "/" },
-      { text: "Black Vibrating Barbell - 14 Gauge", current: false, href: "/" },
+      { text: "Body Jewelry", current: false, href: "#" },
+      { text: "Tongue Rings", current: false, href: "#" },
+      { text: "Black Vibrating Barbell - 14 Gauge", current: true, href: null },
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/03516903-a",

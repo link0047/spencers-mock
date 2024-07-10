@@ -83,4 +83,8 @@
 		grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
 		gap: .5rem;
 	}
+
+	:global(.radio-group:has(.radio, .swatch)) {
+		display: flex;
+	}
 </style>
