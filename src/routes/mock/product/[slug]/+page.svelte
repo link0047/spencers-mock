@@ -744,7 +744,7 @@
       {/if}
       <div class="product-page__action" bind:this={ctaRef}>
         <InputStepper max={product?.maximumquantity} />
-        <Button variant="success">Add to Cart</Button>
+        <ButtonNew color="success">Add to Cart</ButtonNew>
       </div>
       <div class="product-page__pay-later">
         <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>

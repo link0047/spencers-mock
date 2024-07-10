@@ -1,5 +1,8 @@
-export async function load({ locals: { getSession } }) {
+import type { LayoutServerLoad } from './$types'
+
+export const load: LayoutServerLoad = async ({ locals: { session }, cookies }) => {
   return {
-    session: await getSession(),
+    session,
+    cookies: cookies.getAll(),
   }
 }

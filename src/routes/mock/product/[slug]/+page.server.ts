@@ -1314,7 +1314,6 @@ const dataStore = [
   }
 ];
 
-
 /** @type {import('./$types').PageServerLoad} */
 export async function load({ params, locals }) {
   const ua = parser(locals.ua);
