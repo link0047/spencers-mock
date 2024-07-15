@@ -30,6 +30,13 @@ CREATE TABLE badges (
   badge_name VARCHAR(50) UNIQUE NOT NULL  -- Name of the badge (e.g., "Exclusive", "Best Seller")
 );
 
+-- Table to associate products with badges
+CREATE TABLE product_badges (
+  product_id INT REFERENCES products(product_id) ON DELETE CASCADE,
+  badge_id INT REFERENCES badges(badge_id) ON DELETE CASCADE,
+  PRIMARY KEY (product_id, badge_id)
+);
+
 -- Table to store categories
 CREATE TABLE categories (
   category_id SERIAL PRIMARY KEY,
@@ -43,13 +50,6 @@ CREATE TABLE product_categories (
   product_id INT REFERENCES products(product_id) ON DELETE CASCADE,
   category_id INT REFERENCES categories(category_id) ON DELETE CASCADE,
   PRIMARY KEY (product_id, category_id)
-);
-
--- Table to associate products with badges
-CREATE TABLE product_badges (
-  product_id INT REFERENCES products(product_id) ON DELETE CASCADE,
-  badge_id INT REFERENCES badges(badge_id) ON DELETE CASCADE,
-  PRIMARY KEY (product_id, badge_id)
 );
 
 -- Table to store physical stores

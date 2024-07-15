@@ -84,6 +84,9 @@
 		gap: .5rem;
 	}
 
+	/**
+		need to fix this later
+	*/
 	:global(.radio-group:has(.radio, .swatch)) {
 		display: flex;
 	}

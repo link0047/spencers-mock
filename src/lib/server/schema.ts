@@ -12,7 +12,6 @@ import {
   primaryKey,
   unique
 } from "drizzle-orm/pg-core";
-import { sql } from "drizzle-orm";
 
 export const productsTable =  pgTable("products", {
   product_id: serial("product_id").primaryKey(),
@@ -27,7 +26,7 @@ export const productsTable =  pgTable("products", {
   is_available: boolean("is_available").default(true),
   availability_date: date("availability_date"),
   created_at: timestamp("created_at").defaultNow(),
-  updated_at: timestamp("updatedAt").default(sql`CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)`).notNull(),
+  updated_at: timestamp("updatedAt").defaultNow(),
   meta_title: varchar("meta_title", { length: 255 }),
   meta_description: text("meta_description"),
   meta_keywords: varchar("meta_keywords", { length: 255 }),
@@ -120,7 +119,7 @@ export const product_variantsTable = pgTable("product_variants", {
 export const product_imagesTable = pgTable("product_images", {
   image_id: serial("image_id").primaryKey(),
   product_id: integer("product_id").references(() => productsTable.product_id, { onDelete: "cascade" }),
-  image_url: varchar("", { length: 255 }).notNull(),
+  image_url: varchar("image_url", { length: 255 }).notNull(),
   image_order: integer("image_order").notNull()      
 });
 

@@ -1,5 +1,5 @@
 {
-  "id": "3f80ecf6-cafc-4ad3-8fca-f7e5619f8bdd",
+  "id": "d5308a88-b2d3-4ac2-a763-a9600b532542",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -248,8 +248,8 @@
           "primaryKey": false,
           "notNull": false
         },
-        "": {
-          "name": "",
+        "image_url": {
+          "name": "image_url",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -509,8 +509,8 @@
           "name": "updatedAt",
           "type": "timestamp",
           "primaryKey": false,
-          "notNull": true,
-          "default": "CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3)"
+          "notNull": false,
+          "default": "now()"
         },
         "meta_title": {
           "name": "meta_title",

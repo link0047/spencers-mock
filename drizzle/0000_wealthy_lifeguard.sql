@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS "product_categories" (
 CREATE TABLE IF NOT EXISTS "product_images" (
 	"image_id" serial PRIMARY KEY NOT NULL,
 	"product_id" integer,
-	"" varchar(255) NOT NULL,
+	"image_url" varchar(255) NOT NULL,
 	"image_order" integer NOT NULL
 );
 --> statement-breakpoint
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS "products" (
 	"is_available" boolean DEFAULT true,
 	"availability_date" date,
 	"created_at" timestamp DEFAULT now(),
-	"updatedAt" timestamp DEFAULT CURRENT_TIMESTAMP(3) ON UPDATE CURRENT_TIMESTAMP(3) NOT NULL,
+	"updatedAt" timestamp DEFAULT now(),
 	"meta_title" varchar(255),
 	"meta_description" text,
 	"meta_keywords" varchar(255),

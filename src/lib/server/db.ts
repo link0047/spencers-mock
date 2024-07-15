@@ -1,9 +1,8 @@
 import "dotenv/config";
 import { drizzle } from "drizzle-orm/postgres-js";
-import postgres from "postgres";
-import * as schema from "./schema";
+import postgres, { type Sql } from "postgres";
 
-let client;
+let client: Sql;
 const connectionString = process.env.DATABASE_URI;
 
 if (!connectionString) {
@@ -12,12 +11,12 @@ if (!connectionString) {
 
 try {
   // Disable prefetch as it is not supported for "Transaction" pool mode
-  client = postgres(connectionString, { prepare: false });
+  client = postgres(connectionString, { max: 1 });
 } catch (error) {
   console.error("Error connecting to the database:", error);
   process.exit(1); // Terminate the process if database connection fails
 }
 
-const db = drizzle(client, { schema });
+const db = drizzle(client);
 
-export { client, db };
+export { db, client };

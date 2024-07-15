@@ -1,6 +1,9 @@
-import { db } from "$lib/server/db";
+import { db, client } from "$lib/server/db";
 import { 
-  productsTable
+  productsTable,
+  badgesTable,
+  product_badgesTable,
+  storesTable
 } from "$lib/server/schema";
 
 const data = [
@@ -1316,8 +1319,91 @@ const data = [
   }
 ];
 
-async function seedDB() {
-  const product = data[0];
+async function seedProductData() {
+  try {
+    for (const product of data) {
+      const {
+        maximumquantity,
+        name,
+        pid,
+        sku,
+        description,
+      } = product;
+      
+      await db.insert(productsTable).values({
+        max_quantity: maximumquantity,
+        pid,
+        name,
+        description,
+        sku,
+      });
+    }
+  } catch (error) {
+    console.error("Error inserting products:", error);
+  } finally {
+    // Close the database connection and exit the process
+    await client.end({ timeout: 10 });
+    process.exit(); // Explicitly exit the process when done
+  }
 }
 
-seedDB();
+async function seedBadgesData() {
+  try {
+    for (const product of data) {
+      const { badges } = product;
+      for(const badge of badges) {
+        await db.insert(badgesTable).values({
+          badge_name: badge
+        });
+      }
+    }
+  } catch(error) {
+    console.error("Error inserting products:", error);
+  } finally {
+    // Close the database connection and exit the process
+    await client.end({ timeout: 10 });
+    process.exit(); // Explicitly exit the process when done
+  }
+}
+
+async function seedProductBadgeData() {
+  try {
+    for (const [pid, product] of data.entries()) {
+      const { badges } = product;
+      for(const [index, badge] of badges.entries()) {
+        await db.insert(product_badgesTable).values({
+          product_id: pid + 1,
+          badge_id: index + 1
+        });
+      }
+    }
+  } catch(error) {
+    console.error("Error inserting products:", error);
+  } finally {
+    // Close the database connection and exit the process
+    await client.end({ timeout: 10 });
+    process.exit(); // Explicitly exit the process when done
+  }
+}
+
+async function seedStoreData() {
+  try {
+    await db.insert(storesTable).values({
+      store_name: "Hamilton",
+      street_address: "239 HAMILTON MALL, 4403 BLACK HORSE PIKE STE 2144, MAYS LANDING",
+      state: "NJ",
+      zip: "08330"
+    });
+  } catch(error) {
+    console.error("Error inserting products:", error);
+  } finally {
+    // Close the database connection and exit the process
+    await client.end({ timeout: 10 });
+    process.exit(); // Explicitly exit the process when done
+  }
+}
+
+// seedProductData();
+// seedBadgesData();
+// seedProductBadgeData();
+seedStoreData();
