@@ -10,11 +10,15 @@
   }
 
 	function increment() {
-		value = value + 1;
+    if (value < max) {
+		  value = value + 1;
+    }
 	}
 
 	function decrement() {
-		value = value - 1;
+    if (value > min) {
+		  value = value - 1;
+    }
 	}
 
 	function handleChange() {
@@ -24,12 +28,33 @@
 	}
 
   function handleInput() {
-    if (!isNumber(value)) return;
-
-    if (value < min) {
-      value = 1;
+    console.log(value)
+    if (!isNumber(value)) {
+      return;
+    } else if (value < min) {
+      value = min; // Clamp to min value
     } else if (value > max) {
-      value = max;
+      value = max; // Clamp to max value
+    }
+  }
+
+  function handleKeyDown(event: KeyboardEvent) {
+    // Allowed keys: 0-9, Backspace, Arrow keys, Home, End
+    const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Home', 'End'];
+
+    // Handle negative numbers
+    if (event.key === '-' && value === min) return;
+
+    // Check if the key pressed is allowed
+    if (!allowedKeys.includes(event.key)) {
+      event.preventDefault();
+      return;
+    }
+
+    // Prevent input of multiple leading zeros
+    if (value === 0 && event.key === '0') {
+      event.preventDefault();
+      return;
     }
   }
 
@@ -52,9 +77,11 @@
   <input
     bind:value
     on:input={handleInput}
-		on:change={handleChange}
+    on:change={handleChange}
+    on:keydown={handleKeyDown}
     type="number"
-    pattern="[0-9]*(.[0-9]+)?"
+    pattern="[0-9]*"
+    inputmode="numeric"
     aria-label="Number Stepper"
     aria-valuemin={min}
     aria-valuemax={max}

@@ -1332,7 +1332,7 @@ async function seedProductData() {
       
       await db.insert(productsTable).values({
         max_quantity: maximumquantity,
-        pid,
+        id: pid,
         name,
         description,
         sku,
@@ -1353,7 +1353,7 @@ async function seedBadgesData() {
       const { badges } = product;
       for(const badge of badges) {
         await db.insert(badgesTable).values({
-          badge_name: badge
+          name: badge
         });
       }
     }
@@ -1368,11 +1368,11 @@ async function seedBadgesData() {
 
 async function seedProductBadgeData() {
   try {
-    for (const [pid, product] of data.entries()) {
-      const { badges } = product;
+    for (const product of data) {
+      const { badges, pid } = product;
       for(const [index, badge] of badges.entries()) {
         await db.insert(product_badgesTable).values({
-          product_id: pid + 1,
+          product_id: `${pid}`,
           badge_id: index + 1
         });
       }
@@ -1389,10 +1389,13 @@ async function seedProductBadgeData() {
 async function seedStoreData() {
   try {
     await db.insert(storesTable).values({
-      store_name: "Hamilton",
-      street_address: "239 HAMILTON MALL, 4403 BLACK HORSE PIKE STE 2144, MAYS LANDING",
+      id: "00538",
+      name: "Hamilton",
+      street_address: "239 HAMILTON MALL, 4403 BLACK HORSE PIKE STE 2144",
+      city: "MAYS LANDING",
       state: "NJ",
-      zip: "08330"
+      zip: "08330",
+      opening_hours: "Open today till 09:00 PM"
     });
   } catch(error) {
     console.error("Error inserting products:", error);
@@ -1405,5 +1408,5 @@ async function seedStoreData() {
 
 // seedProductData();
 // seedBadgesData();
-// seedProductBadgeData();
-seedStoreData();
+seedProductBadgeData();
+// seedStoreData();

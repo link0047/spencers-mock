@@ -1,5 +1,5 @@
 {
-  "id": "d5308a88-b2d3-4ac2-a763-a9600b532542",
+  "id": "1ee67ee7-43a7-41e9-bf39-b93076ec2628",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -8,14 +8,14 @@
       "name": "badges",
       "schema": "",
       "columns": {
-        "badge_id": {
-          "name": "badge_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "badge_name": {
-          "name": "badge_name",
+        "name": {
+          "name": "name",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
@@ -25,11 +25,11 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "badges_badge_name_unique": {
-          "name": "badges_badge_name_unique",
+        "badges_name_unique": {
+          "name": "badges_name_unique",
           "nullsNotDistinct": false,
           "columns": [
-            "badge_name"
+            "name"
           ]
         }
       }
@@ -38,14 +38,14 @@
       "name": "categories",
       "schema": "",
       "columns": {
-        "category_id": {
-          "name": "category_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "category_name": {
-          "name": "category_name",
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -67,7 +67,7 @@
             "parent_category_id"
           ],
           "columnsTo": [
-            "category_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -80,20 +80,20 @@
       "name": "colors",
       "schema": "",
       "columns": {
-        "color_id": {
-          "name": "color_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
-        "color_name": {
-          "name": "color_name",
+        "name": {
+          "name": "name",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": false
         },
-        "color_value": {
-          "name": "color_value",
+        "value": {
+          "name": "value",
           "type": "text",
           "primaryKey": false,
           "notNull": true
@@ -110,7 +110,7 @@
       "columns": {
         "product_id": {
           "name": "product_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -123,28 +123,28 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "product_badges_product_id_products_product_id_fk": {
-          "name": "product_badges_product_id_products_product_id_fk",
+        "product_badges_product_id_products_id_fk": {
+          "name": "product_badges_product_id_products_id_fk",
           "tableFrom": "product_badges",
           "tableTo": "products",
           "columnsFrom": [
             "product_id"
           ],
           "columnsTo": [
-            "product_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "product_badges_badge_id_badges_badge_id_fk": {
-          "name": "product_badges_badge_id_badges_badge_id_fk",
+        "product_badges_badge_id_badges_id_fk": {
+          "name": "product_badges_badge_id_badges_id_fk",
           "tableFrom": "product_badges",
           "tableTo": "badges",
           "columnsFrom": [
             "badge_id"
           ],
           "columnsTo": [
-            "badge_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -158,8 +158,8 @@
             "badge_id"
           ]
         },
-        "product_badges_pk": {
-          "name": "product_badges_pk",
+        "badge_pk": {
+          "name": "badge_pk",
           "columns": [
             "product_id",
             "badge_id"
@@ -174,7 +174,7 @@
       "columns": {
         "product_id": {
           "name": "product_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -187,28 +187,28 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "product_categories_product_id_products_product_id_fk": {
-          "name": "product_categories_product_id_products_product_id_fk",
+        "product_categories_product_id_products_id_fk": {
+          "name": "product_categories_product_id_products_id_fk",
           "tableFrom": "product_categories",
           "tableTo": "products",
           "columnsFrom": [
             "product_id"
           ],
           "columnsTo": [
-            "product_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "product_categories_category_id_categories_category_id_fk": {
-          "name": "product_categories_category_id_categories_category_id_fk",
+        "product_categories_category_id_categories_id_fk": {
+          "name": "product_categories_category_id_categories_id_fk",
           "tableFrom": "product_categories",
           "tableTo": "categories",
           "columnsFrom": [
             "category_id"
           ],
           "columnsTo": [
-            "category_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -222,8 +222,8 @@
             "category_id"
           ]
         },
-        "product_categories_pk": {
-          "name": "product_categories_pk",
+        "category_pk": {
+          "name": "category_pk",
           "columns": [
             "product_id",
             "category_id"
@@ -236,26 +236,26 @@
       "name": "product_images",
       "schema": "",
       "columns": {
-        "image_id": {
-          "name": "image_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
         "product_id": {
           "name": "product_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "image_url": {
-          "name": "image_url",
+        "url": {
+          "name": "url",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
         },
-        "image_order": {
-          "name": "image_order",
+        "order": {
+          "name": "order",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
@@ -263,15 +263,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "product_images_product_id_products_product_id_fk": {
-          "name": "product_images_product_id_products_product_id_fk",
+        "product_images_product_id_products_id_fk": {
+          "name": "product_images_product_id_products_id_fk",
           "tableFrom": "product_images",
           "tableTo": "products",
           "columnsFrom": [
             "product_id"
           ],
           "columnsTo": [
-            "product_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -284,26 +284,26 @@
       "name": "product_restrictions",
       "schema": "",
       "columns": {
-        "restriction_id": {
-          "name": "restriction_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
         "product_id": {
           "name": "product_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
-        "restriction_level": {
-          "name": "restriction_level",
+        "level": {
+          "name": "level",
           "type": "integer",
           "primaryKey": false,
           "notNull": true
         },
-        "restriction_type": {
-          "name": "restriction_type",
+        "type": {
+          "name": "type",
           "type": "varchar(50)",
           "primaryKey": false,
           "notNull": true
@@ -317,15 +317,15 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "product_restrictions_product_id_products_product_id_fk": {
-          "name": "product_restrictions_product_id_products_product_id_fk",
+        "product_restrictions_product_id_products_id_fk": {
+          "name": "product_restrictions_product_id_products_id_fk",
           "tableFrom": "product_restrictions",
           "tableTo": "products",
           "columnsFrom": [
             "product_id"
           ],
           "columnsTo": [
-            "product_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -338,15 +338,15 @@
       "name": "product_variants",
       "schema": "",
       "columns": {
-        "variant_id": {
-          "name": "variant_id",
+        "id": {
+          "name": "id",
           "type": "varchar(50)",
           "primaryKey": true,
           "notNull": true
         },
         "product_id": {
           "name": "product_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -383,41 +383,41 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "product_variants_product_id_products_product_id_fk": {
-          "name": "product_variants_product_id_products_product_id_fk",
+        "product_variants_product_id_products_id_fk": {
+          "name": "product_variants_product_id_products_id_fk",
           "tableFrom": "product_variants",
           "tableTo": "products",
           "columnsFrom": [
             "product_id"
           ],
           "columnsTo": [
-            "product_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "product_variants_size_id_sizes_size_id_fk": {
-          "name": "product_variants_size_id_sizes_size_id_fk",
+        "product_variants_size_id_sizes_id_fk": {
+          "name": "product_variants_size_id_sizes_id_fk",
           "tableFrom": "product_variants",
           "tableTo": "sizes",
           "columnsFrom": [
             "size_id"
           ],
           "columnsTo": [
-            "size_id"
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
         },
-        "product_variants_color_id_colors_color_id_fk": {
-          "name": "product_variants_color_id_colors_color_id_fk",
+        "product_variants_color_id_colors_id_fk": {
+          "name": "product_variants_color_id_colors_id_fk",
           "tableFrom": "product_variants",
           "tableTo": "colors",
           "columnsFrom": [
             "color_id"
           ],
           "columnsTo": [
-            "color_id"
+            "id"
           ],
           "onDelete": "no action",
           "onUpdate": "no action"
@@ -430,16 +430,10 @@
       "name": "products",
       "schema": "",
       "columns": {
-        "product_id": {
-          "name": "product_id",
-          "type": "serial",
+        "id": {
+          "name": "id",
+          "type": "varchar(20)",
           "primaryKey": true,
-          "notNull": true
-        },
-        "pid": {
-          "name": "pid",
-          "type": "varchar",
-          "primaryKey": false,
           "notNull": true
         },
         "name": {
@@ -575,13 +569,6 @@
       "foreignKeys": {},
       "compositePrimaryKeys": {},
       "uniqueConstraints": {
-        "products_pid_unique": {
-          "name": "products_pid_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "pid"
-          ]
-        },
         "products_sku_unique": {
           "name": "products_sku_unique",
           "nullsNotDistinct": false,
@@ -595,8 +582,8 @@
       "name": "sizes",
       "schema": "",
       "columns": {
-        "size_id": {
-          "name": "size_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
@@ -617,21 +604,21 @@
       "name": "store_inventory",
       "schema": "",
       "columns": {
-        "inventory_id": {
-          "name": "inventory_id",
+        "id": {
+          "name": "id",
           "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
         "store_id": {
           "name": "store_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
         "product_id": {
           "name": "product_id",
-          "type": "integer",
+          "type": "varchar",
           "primaryKey": false,
           "notNull": false
         },
@@ -644,28 +631,28 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "store_inventory_store_id_stores_store_id_fk": {
-          "name": "store_inventory_store_id_stores_store_id_fk",
+        "store_inventory_store_id_stores_id_fk": {
+          "name": "store_inventory_store_id_stores_id_fk",
           "tableFrom": "store_inventory",
           "tableTo": "stores",
           "columnsFrom": [
             "store_id"
           ],
           "columnsTo": [
-            "store_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
         },
-        "store_inventory_product_id_products_product_id_fk": {
-          "name": "store_inventory_product_id_products_product_id_fk",
+        "store_inventory_product_id_products_id_fk": {
+          "name": "store_inventory_product_id_products_id_fk",
           "tableFrom": "store_inventory",
           "tableTo": "products",
           "columnsFrom": [
             "product_id"
           ],
           "columnsTo": [
-            "product_id"
+            "id"
           ],
           "onDelete": "cascade",
           "onUpdate": "no action"
@@ -687,14 +674,14 @@
       "name": "stores",
       "schema": "",
       "columns": {
-        "store_id": {
-          "name": "store_id",
-          "type": "serial",
+        "id": {
+          "name": "id",
+          "type": "varchar(20)",
           "primaryKey": true,
           "notNull": true
         },
-        "store_name": {
-          "name": "store_name",
+        "name": {
+          "name": "name",
           "type": "varchar(255)",
           "primaryKey": false,
           "notNull": true
@@ -705,17 +692,42 @@
           "primaryKey": false,
           "notNull": true
         },
+        "city": {
+          "name": "city",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": true
+        },
         "state": {
           "name": "state",
           "type": "varchar(50)",
           "primaryKey": false,
-          "notNull": false
+          "notNull": true
         },
         "zip": {
           "name": "zip",
           "type": "varchar(20)",
           "primaryKey": false,
           "notNull": true
+        },
+        "country": {
+          "name": "country",
+          "type": "varchar(100)",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "'US'"
+        },
+        "phone_number": {
+          "name": "phone_number",
+          "type": "varchar(20)",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "opening_hours": {
+          "name": "opening_hours",
+          "type": "varchar(255)",
+          "primaryKey": false,
+          "notNull": false
         }
       },
       "indexes": {},

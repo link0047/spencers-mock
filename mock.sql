@@ -54,11 +54,15 @@ CREATE TABLE product_categories (
 
 -- Table to store physical stores
 CREATE TABLE stores (
-  store_id SERIAL PRIMARY KEY,
+  store_id VARCHAR(20) PRIMARY KEY,
   store_name VARCHAR(255) NOT NULL,
   street_address VARCHAR(255) NOT NULL,
+  city VARCHAR(100) NOT NULL,
   state VARCHAR(50) NOT NULL,
-  zip VARCHAR(20) NOT NULL
+  zip VARCHAR(20) NOT NULL,
+  country VARCHAR(100) NOT NULL DEFAULT 'USA', -- Default to 'USA' if the majority are in the US
+  phone_number VARCHAR(20),
+  opening_hours VARCHAR(255),
 );
 
 -- Table to store store inventory of products
