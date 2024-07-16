@@ -3,7 +3,8 @@ import {
   productsTable,
   badgesTable,
   product_badgesTable,
-  storesTable
+  storesTable,
+  sizesTable
 } from "$lib/server/schema";
 
 const data = [
@@ -1406,7 +1407,47 @@ async function seedStoreData() {
   }
 }
 
+async function seedSizeData() {
+  try {
+    for (const product of data) {
+      const { variantInfo: { variants } } = product;
+      for (const variant of variants) {
+        const { SIZE_NAME } = variant;
+        
+        if (!SIZE_NAME.trim()) {
+          console.warn("Skipping empty size name.");
+          continue;
+        }
+
+        try {
+          await db.insert(sizesTable).values({
+            size: SIZE_NAME
+          })
+          .onConflictDoNothing();
+        } catch (error) {
+          
+            // Check if the error is due to a duplicate key violation
+            if (error.code === "23505") { // 23505 is the PostgreSQL error code for unique_violation
+              console.warn(`Size '${SIZE_NAME}' already exists, skipping insertion.`);
+            } else {
+              console.error("Error inserting size:", error);
+            }
+          
+        }
+      }
+    }
+  } catch (error) {
+    console.error("Error seeding size data:", error);
+  } finally {
+    // Close the database connection and exit the process
+    await client.end({ timeout: 10 });
+    process.exit(); // Explicitly exit the process when done
+  }
+}
+
 // seedProductData();
 // seedBadgesData();
-seedProductBadgeData();
+// seedProductBadgeData();
 // seedStoreData();
+
+seedSizeData();

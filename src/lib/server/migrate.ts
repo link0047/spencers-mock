@@ -6,10 +6,11 @@ async function migrateDB() {
     console.log("Starting database migration...");
     await migrate(db, { migrationsFolder: "drizzle" });
     console.log("Database migration completed successfully.");
-  } catch (error) {
-    console.error("Error during database migration:", error.message);
-    console.error("Stack trace:", error.stack);
-    process.exit(1); // Exit the process with an error code
+  } catch (error: unknown) {
+    if (error instanceof Error) {
+      console.error("Error during database migration:", error.message);
+      console.error("Stack trace:", error.stack);
+    }
   } finally {
     // Close the database connection and exit the process
     await client.end({ timeout: 10 });

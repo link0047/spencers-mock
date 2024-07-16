@@ -100,12 +100,12 @@ export const store_inventoryTable = pgTable("store_inventory", {
 
 export const sizesTable = pgTable("sizes", {
   id: serial("id").primaryKey(),
-  size: varchar("size", { length: 50 })
+  size: varchar("size", { length: 50 }).unique()
 });
 
 export const colorsTable = pgTable("colors", {
   id: serial("id").primaryKey(),
-  name: varchar("name", { length: 50 }),
+  name: varchar("name", { length: 50 }).unique(),
   value: text("value").notNull()
 });
 

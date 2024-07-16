@@ -6,7 +6,7 @@
   export let value: number = 1;
 
   function isNumber(value: any): boolean {
-    return typeof value === 'number' && !isNaN(value);
+    return typeof value === "number" && !isNaN(value);
   }
 
 	function increment() {
@@ -40,10 +40,10 @@
 
   function handleKeyDown(event: KeyboardEvent) {
     // Allowed keys: 0-9, Backspace, Arrow keys, Home, End
-    const allowedKeys = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'Backspace', 'ArrowLeft', 'ArrowRight', 'Home', 'End'];
+    const allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Backspace", "ArrowLeft", "ArrowRight", "Home", "End"];
 
     // Handle negative numbers
-    if (event.key === '-' && value === min) return;
+    if (event.key === "-" && value === min) return;
 
     // Check if the key pressed is allowed
     if (!allowedKeys.includes(event.key)) {
@@ -52,7 +52,7 @@
     }
 
     // Prevent input of multiple leading zeros
-    if (value === 0 && event.key === '0') {
+    if (value === 0 && event.key === "0") {
       event.preventDefault();
       return;
     }
