@@ -763,7 +763,7 @@ const dataStore = [
       "displayedPrice": 49.99,
       "msrpPrice": 49.99
     },
-    "badges": [],
+    "badges": ["Best Seller"],
     "promos": [
       "BOGO 30% Off with Code"
     ],

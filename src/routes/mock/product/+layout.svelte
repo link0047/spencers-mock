@@ -431,7 +431,7 @@
     });
   });
 
-  $: console.log(searchMenu);
+  // $: console.log(searchMenu);
 </script>
 <Drawer state={zipDrawerState} alignment="right"></Drawer>
 <Drawer state={bopisDrawerState} alignment="right"></Drawer>

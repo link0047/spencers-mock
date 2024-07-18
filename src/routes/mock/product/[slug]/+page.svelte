@@ -329,10 +329,10 @@
   function handleObserver(entries: IntersectionObserverEntry[], observer: IntersectionObserver): void {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
-        console.log(`${entry.target.textContent} is visible`);
+        // console.log(`${entry.target.textContent} is visible`);
         showControls = false;
       } else {
-        console.log(`${entry.target.textContent} is not visible`);
+        // console.log(`${entry.target.textContent} is not visible`);
         if (window.scrollY > 100) {
           showControls = true;
         }
@@ -510,6 +510,7 @@
     alt: `${name} ${index + 1}`
   })) || [];
   const badges = product?.badges || [];
+  const promos = product?.promos || [];
   const breadcrumbs = product?.breadcrumb || [];
   const restrictions = Object.entries(product?.restrictions || {});
   const tableData = [
@@ -529,7 +530,6 @@
   const defaultSize = getDefaultSize(sizes);
   let sizeGroupValue = defaultSize;
   let colorGroupValue = colors[0];
-  console.log({sizeGroupValue, colorGroupValue})
   const fulfillmentTypes = [{
 		type: "shipping",
 		name: "Shipping",
@@ -550,7 +550,6 @@
     observer.observe(ctaRef);
 
     const data = await reviewData;
-    console.log(data);
   });
 
   $: if (sizeGroupValue === "2X") {
@@ -602,7 +601,7 @@
       <ProductGallery {images} {isMobile}/>
     </div>
     <div class="product-page">
-      <Breadcrumb label="Product Breadcrumbs">
+      <Breadcrumb label="Product Breadcrumbs" scrollable={isMobile}>
         {#each breadcrumbs as { href, current, text}}
           <Crumb {href} {current}>{text}</Crumb>
         {/each}
@@ -646,6 +645,13 @@
       <div class="product-page__badges">
         {#each badges as badge}
           <div class="badge">{badge}</div>
+        {/each}
+      </div>
+      {/if}
+      {#if promos.length}
+      <div class="product-page__promos">
+        {#each promos as promo}
+          <div class="promo">{promo}</div>
         {/each}
       </div>
       {/if}
@@ -705,7 +711,7 @@
         {/each}
         <svelte:fragment slot="group-message">
           {#if $fulfillmentValue === "shipping"}
-            {@html getDeliveryDate()}
+            <span class="color-success">Read to Ship</span>
           {:else if $fulfillmentValue === "pickup"}
             Pickup at <span class="underline">Ocean County, NJ</span>
             <ButtonNew variant="ghost" color="primary" underline>Change Store</ButtonNew>
@@ -868,6 +874,15 @@ hr {
   text-decoration: underline;
 }
 
+.color-success {
+  color: #008300;
+}
+
+.promo {
+  font-size: .875rem;
+  font-weight: 700;
+}
+
 /* Product Page Container */
 .product-page-container {
   display: grid;
@@ -965,6 +980,10 @@ hr {
 }
 
 @media(max-width: 560px) {
+  .product-page :global(.breadcrumbs) {
+    width: calc(100vw - 1rem);
+  }
+
   .product-page__pay-later {
     font-size: .75rem;
   }
