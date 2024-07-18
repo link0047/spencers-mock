@@ -677,7 +677,7 @@
               Size Chart
             </Button>
           </svelte:fragment>
-          {#if sizes.length > 0}
+          {#if sizes.length > 1}
             {#each sizes as { name, outOfStock }}
               <Radio 
                 disabled={outOfStock} 
@@ -1142,6 +1142,14 @@ hr {
   .product-card,
   .product-card:visited {
     flex: 0 0 calc((100% - 0px) / 2.5);
+  }
+
+  .product-page__name {
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    display: -webkit-box;
   }
 }
 

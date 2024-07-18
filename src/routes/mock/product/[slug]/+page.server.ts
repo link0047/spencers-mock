@@ -746,16 +746,10 @@ const dataStore = [
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/03445640-a",
-      "https://spencers.scene7.com/is/image/Spencers/04112496-a",
       "https://spencers.scene7.com/is/image/Spencers/04112496-b",
-      "https://spencers.scene7.com/is/image/Spencers/03445640-b",
       "https://spencers.scene7.com/is/image/Spencers/03445640-c",
-      "https://spencers.scene7.com/is/image/Spencers/04112496-c",
       "https://spencers.scene7.com/is/image/Spencers/04112496-d",
-      "https://spencers.scene7.com/is/image/Spencers/03445640-d",
       "https://spencers.scene7.com/is/image/Spencers/03445640-e",
-      "https://spencers.scene7.com/is/image/Spencers/04112496-e",
-      "https://spencers.scene7.com/is/image/Spencers/04112496-f",
       "https://spencers.scene7.com/is/image/Spencers/03445640-f"
     ],
     "isSoldOut": false,
