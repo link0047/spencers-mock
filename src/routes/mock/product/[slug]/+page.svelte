@@ -638,7 +638,7 @@
         <div class="yousave-block">
           <span class="yousave-block__label">You save</span>
           <span class="onSale">${(salePrice - price).toFixed(2)}</span>
-          <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span>
+          <!-- <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span> -->
         </div>
       {/if}
       {#if badges.length}
@@ -711,7 +711,7 @@
         {/each}
         <svelte:fragment slot="group-message">
           {#if $fulfillmentValue === "shipping"}
-            <span class="color-success">Read to Ship</span>
+            <span class="color-success">Ready to Ship</span>
           {:else if $fulfillmentValue === "pickup"}
             Pickup at <span class="underline">Ocean County, NJ</span>
             <ButtonNew variant="ghost" color="primary" underline>Change Store</ButtonNew>
