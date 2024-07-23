@@ -512,6 +512,7 @@
   const badges = product?.badges || [];
   const promos = product?.promos || [];
   const breadcrumbs = product?.breadcrumb || [];
+  const valueprop = product?.valueprops;
   const restrictions = Object.entries(product?.restrictions || {});
   const tableData = [
     ['Size', 'Chest', 'Body Length'],

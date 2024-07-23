@@ -5,6 +5,8 @@
 	import Button from "$lib/components/button/Button-new.svelte";
 	import Icon from "$lib/components/icon/Icon.svelte";
 	import { Dialog, DialogDismiss, useDialogState } from "$lib/components/dialog";
+	import { debounce } from "$lib/client/util/utilities";
+  import type { UIEventHandler } from "svelte/elements";
 
 	interface Image {
 		src: {
@@ -28,7 +30,6 @@
 		desktop: 1
 	};
 	
-
 	let carousel: Carousel;
 	let lightboxCarousel: Carousel;
 	let selectedImageIndex: number = index;
@@ -52,6 +53,12 @@
 		lightboxState.open.set(true);
 	}
 
+	function handleWindowResize(): void {
+		isMobile = window.matchMedia("(max-width: 560px)").matches;
+	}
+
+	const debouncedResize = debounce(handleWindowResize, 250);
+
 	const transparentPixel = "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7";
 
 	const lightboxState = useDialogState();
@@ -63,6 +70,10 @@
 		}
 	});
 </script>
+
+<svelte:window 
+	on:resize={() => debouncedResize()}
+/>
 
 <div class="product-gallery" aria-label="Product Gallery">
 	<div class="product-gallery__thumbnails">

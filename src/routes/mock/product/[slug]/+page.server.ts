@@ -6,6 +6,13 @@ const dataStore = [
     "maximumquantity": 2,
     "name": "Talking Tiffany Doll - 20 Inch",
     "pid": "166117",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "03366192",
     "breadcrumb": [
       { text: "Home", current: false, href: "/" },
@@ -102,6 +109,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "Pink Gloomy Bear Hoodie",
     "pid": "253020",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "04281861",
     "breadcrumb": [
       { text: "HOME", current: false, href: "/" },
@@ -275,6 +289,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "Black Vibrating Barbell - 14 Gauge",
     "pid": "178495",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "03516903",
     "breadcrumb": [
       { text: "HOME", current: false, href: "/" },
@@ -363,6 +384,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "Sleep Token Ascension T Shirt",
     "pid": "267647",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "04406526",
     "breadcrumb": [
       {
@@ -543,6 +571,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "White Teeth Crawler Cartilage Barbell - 18 Gauge",
     "pid": "241752",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "04115739",
     "breadcrumb": [
       {
@@ -716,6 +751,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "Black Velvet Waterproof 20-Function Multi-Speed Rechargeable Wand Massager 7 Inch - Hott Love Extreme",
     "pid": "241556",
+    "valueprops": {
+      "power": 3,
+      "sound": 4,
+      "waterproof": true,
+      "rechargeable": true,
+      "bluetooth": false
+    },
     "sku": "04112496",
     "breadcrumb": [
       {
@@ -884,6 +926,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "Nirvana Neon In Utero T Shirt",
     "pid": "263234",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "04360368",
     "breadcrumb": [
       {
@@ -1110,6 +1159,13 @@ const dataStore = [
     "maximumquantity": 99,
     "name": "Multi-Pack CZ Heart L-Bend Nose Rings 6 Pack - 20 Gauge",
     "pid": "224372",
+    "valueprops": {
+      "power": 0,
+      "sound": 0,
+      "waterproof": false,
+      "rechargeable": false,
+      "bluetooth": false
+    },
     "sku": "03753480",
     "breadcrumb": [
       {
