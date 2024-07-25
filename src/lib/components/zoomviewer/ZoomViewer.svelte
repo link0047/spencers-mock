@@ -15,6 +15,7 @@
   let userIntendsToView: boolean = false;
   let loaded: boolean = false;
 
+  console.log("zoomviewer", src);
   /**
    * Handles zooming out when clicking outside the component.
    * @param {MouseEvent} event - The MouseEvent object.
