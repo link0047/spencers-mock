@@ -549,7 +549,6 @@
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
     observer.observe(ctaRef);
-
     const data = await reviewData;
   });
 

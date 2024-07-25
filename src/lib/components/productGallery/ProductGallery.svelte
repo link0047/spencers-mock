@@ -101,7 +101,8 @@
 				<CarouselSlide active={selectedImageIndex === index}>
 					{#if isMobile}
 						<button class="product-gallery__zoom-btn" type="button" on:click={openLightBox}>
-							<img 
+							<img
+								fetchpriority={index === 0 ? "high" : null} 
 								class="product-gallery__image"
 								loading="eager"
 								width={ isMobile ? "320" : "640" }

@@ -11,6 +11,7 @@ import {
   product_variantsTable,
   store_inventoryTable
 } from "$lib/server/schema";
+import { eq } from "drizzle-orm";
 
 interface ColorData {
   name: string;
@@ -1928,3 +1929,24 @@ async function seedStoreInventoryData() {
 // seedRestrictionsData();
 // seedVariantsData();
 // seedStoreInventoryData();
+
+async function queryProduct(pid: string) {
+  try {
+    const product = await db
+      .select()
+      .from(productsTable)
+      .leftJoin(product_variantsTable, eq(productsTable.id, product_variantsTable.product_id))
+      .leftJoin(product_imagesTable, eq(productsTable.id, product_imagesTable.product_id))
+      .where(eq(productsTable.id, pid));
+    
+    console.log(product);
+  } catch (error) {
+    console.error(`Error querying product: ${pid}`)
+  } finally {
+    // Close the database connection and exit the process
+    await client.end({ timeout: 10 });
+    process.exit(); // Explicitly exit the process when done
+  }
+}
+
+queryProduct("253020")
