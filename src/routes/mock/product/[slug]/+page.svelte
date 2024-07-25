@@ -562,7 +562,7 @@
 <svelte:head>
   <title>{name}</title>
   <meta name="description" content="Product page redesign"/>
-  <link rel="preload" as="image" href={isMobile ? images[0].src.mobile : images[0].src.desktop}>
+  {@html `<link rel="preload" as="image" href=${isMobile ? images[0].src.mobile : images[0].src.desktop}>`}
 </svelte:head>
 
 <IconSet>

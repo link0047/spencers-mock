@@ -5,6 +5,8 @@
   export let alt = "";
   import { browser } from "$app/environment";
   export let disableMoveCheck = false;
+  export let loading: "lazy" | "eager" | null | undefined = "eager";
+  export let priority: "auto" | "high" | "low" | null = null;
 
   let ref: HTMLDivElement;
   let x: number = 0;
@@ -150,7 +152,8 @@
 >
 	<img 
 		class="zoomviewer__image"
-		loading="eager"
+		{loading}
+    fetchpriority={priority}
 		width="640"
 		height="640"
 		decoding="async"
@@ -160,7 +163,8 @@
 	/>
 	<img 
 		class="zoomviewer__detailed-image"
-		loading="eager"
+		{loading}
+    fetchpriority={priority}
 		width="640"
 		height="640"
 		decoding="async"

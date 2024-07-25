@@ -6,7 +6,6 @@
 	import Icon from "$lib/components/icon/Icon.svelte";
 	import { Dialog, DialogDismiss, useDialogState } from "$lib/components/dialog";
 	import { debounce } from "$lib/client/util/utilities";
-  import type { UIEventHandler } from "svelte/elements";
 
 	interface Image {
 		src: {
@@ -142,7 +141,7 @@
 		<Carousel bind:slideIndex={selectedImageIndex} bind:this={lightboxCarousel} slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
 			{#each images as { src, detailedSrc, alt }, index}
 				<CarouselSlide active={selectedImageIndex === index}>
-					<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
+					<ZoomViewer loading="lazy" src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
 				</CarouselSlide>
 			{/each}
 		</Carousel>
