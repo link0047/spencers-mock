@@ -562,7 +562,8 @@
 <svelte:head>
   <title>{name}</title>
   <meta name="description" content="Product page redesign"/>
-  {@html `<link rel="preload" as="image" href=${isMobile ? images[0].src.mobile : images[0].src.desktop}>`}
+  {@html `<link rel="preload" fetchpriority="high" as="image" href=${isMobile ? images[0].src.mobile : images[0].src.desktop}>`}
+  <link rel="preconnect" href="https://readservices-b2c.powerreviews.com" />
 </svelte:head>
 
 <IconSet>
