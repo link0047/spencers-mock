@@ -141,7 +141,7 @@
 		<Carousel bind:slideIndex={selectedImageIndex} bind:this={lightboxCarousel} slidesPerView={1} disablePointerEvents showPrevNextButtons={!isMobile}>
 			{#each images as { src, detailedSrc, alt }, index}
 				<CarouselSlide active={selectedImageIndex === index}>
-					<ZoomViewer loading="lazy" src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
+					<ZoomViewer src={ isMobile ? src.mobile : src.desktop } {detailedSrc} {alt} disableMoveCheck />
 				</CarouselSlide>
 			{/each}
 		</Carousel>
