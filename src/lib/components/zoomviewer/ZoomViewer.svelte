@@ -196,7 +196,7 @@
 		outline: 2px solid #0570de;
 	}
 
-	.zoomviewer__image {
+	:global(.zoomviewer__image) {
 		min-width: 320px;
 		width: 100%;
 		height: auto;
@@ -226,7 +226,7 @@
 		min-width: 300px;
 	}
 
-	[data-state="zoomedIn"] .zoomviewer__image {
+	:global([data-state="zoomedIn"] .zoomviewer__image) {
 		opacity: 0;
 	}
 
