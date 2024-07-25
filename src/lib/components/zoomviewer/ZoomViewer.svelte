@@ -151,17 +151,17 @@
 	on:keydown={handleKeyDown}
 	tabindex="0"
 >
-	<img 
+	{@html `<img 
 		class="zoomviewer__image"
-		{loading}
-    fetchpriority={priority}
+		loading=${loading}
+    fetchpriority=${priority}
 		width="640"
 		height="640"
 		decoding="async"
 		draggable="false"
-		{src}
-		{alt}
-	/>
+		src=${src}
+		alt=${alt}
+	/>`}
 	<img 
 		class="zoomviewer__detailed-image"
 		{loading}
