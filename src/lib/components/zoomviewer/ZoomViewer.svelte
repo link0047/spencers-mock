@@ -15,7 +15,6 @@
   let userIntendsToView: boolean = false;
   let loaded: boolean = false;
 
-  console.log("zoomviewer", src);
   /**
    * Handles zooming out when clicking outside the component.
    * @param {MouseEvent} event - The MouseEvent object.
@@ -151,17 +150,17 @@
 	on:keydown={handleKeyDown}
 	tabindex="0"
 >
-	{@html `<img 
+	<img 
 		class="zoomviewer__image"
-		loading=${loading}
-    fetchpriority=${priority}
+		{loading}
+    fetchpriority={priority}
 		width="640"
 		height="640"
 		decoding="async"
 		draggable="false"
-		src=${src}
-		alt=${alt}
-	/>`}
+		{src}
+		{alt}
+	/>
 	<img 
 		class="zoomviewer__detailed-image"
 		{loading}
@@ -196,7 +195,7 @@
 		outline: 2px solid #0570de;
 	}
 
-	:global(.zoomviewer__image) {
+	.zoomviewer__image {
 		min-width: 320px;
 		width: 100%;
 		height: auto;
@@ -226,7 +225,7 @@
 		min-width: 300px;
 	}
 
-	:global([data-state="zoomedIn"] .zoomviewer__image) {
+	[data-state="zoomedIn"] .zoomviewer__image {
 		opacity: 0;
 	}
 
