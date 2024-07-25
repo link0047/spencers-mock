@@ -113,7 +113,7 @@
 							/>
 						</button>
 					{:else}
-						<ZoomViewer src={src.desktop} {detailedSrc} {alt} />
+						<ZoomViewer priority={index === 0 ? "high" : null}  src={src.desktop} {detailedSrc} {alt} />
 					{/if}
 				</CarouselSlide>
 			{/each}
