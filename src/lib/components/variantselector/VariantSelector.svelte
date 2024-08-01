@@ -7,8 +7,6 @@
 	
 	const uid: string = generateId("variantselector");
 	const id: string =`uikit-variant-selector-${uid}-heading`;
-
-	$: console.log({groupValue});
 </script>
 
 <div class="variant-selector">

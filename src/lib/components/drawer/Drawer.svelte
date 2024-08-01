@@ -120,8 +120,8 @@
   }
 
   .drawer__header {
-    display: grid;
-    grid-template-columns: 1fr 40px;
+    display: flex;
+    flex-flow: row nowrap;
     align-items: center;
     border-bottom: 1px solid #93939a;
     padding: 8px;
@@ -147,6 +147,14 @@
   @media (min-width: 561px) {
     .drawer {
       max-width: 352px;
+    }
+
+    .drawer:not(.drawer--alignment-right) {
+      border-top-right-radius: 8px;
+      border-bottom-right-radius: 8px;
+    }
+
+    .drawer--alignment-right {
       border-top-left-radius: 8px;
       border-bottom-left-radius: 8px;
     }

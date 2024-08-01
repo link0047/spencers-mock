@@ -101,7 +101,6 @@
 					{#if isMobile}
 						<button class="product-gallery__zoom-btn" type="button" on:click={openLightBox}>
 							<img
-								fetchpriority={index === 0 ? "high" : null} 
 								class="product-gallery__image"
 								loading="eager"
 								width={ isMobile ? "320" : "640" }
@@ -113,7 +112,7 @@
 							/>
 						</button>
 					{:else}
-						<ZoomViewer priority={index === 0 ? "high" : null}  src={src.desktop} {detailedSrc} {alt} />
+						<ZoomViewer src={src.desktop} {detailedSrc} {alt} />
 					{/if}
 				</CarouselSlide>
 			{/each}

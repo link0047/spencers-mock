@@ -22,6 +22,8 @@
   import { Collapsible } from "$lib/components/collapsible";
   import WarningCard from "$lib/components/warningcard";
   import ButtonNew from "$lib/components/button/Button-new.svelte";
+  import { Drawer, useDrawerState } from "$lib/components/drawer";
+  import PowerAndSound from "$lib/components/powerAndSound/PowerAndSound.svelte";
   
   export let data;
 
@@ -489,6 +491,10 @@
     return colorMapping.find(item => item.name === color);
   }
 
+  function addToCart() {
+    $upsellDrawer.open = true;
+  }
+
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
   let sizeChartContainerRef: HTMLElement;
@@ -545,6 +551,7 @@
 		message: "Order by 2pm to get it today!",
 	}];
   let fulfillmentValue: Writable<string>;
+  const upsellDrawer = useDrawerState();
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -557,6 +564,8 @@
   } else {
     price = product?.variantInfo.lowPrice;
   }
+
+  $: console.log(valueprop);
 </script>
 
 <svelte:head>
@@ -596,6 +605,9 @@
     <path fill="#c1c1c1" d="M1.9 11h20.2v10.9H1.9z"/><g style="fill:#6b6b6b;stroke:#fff;stroke-miterlimit:10;stroke-width:.2px"><path d="M19.4 4.3H4.6c-.4 0-.8.2-1 .6l-2.7 6h22l-2.7-6c-.2-.4-.5-.6-1-.6ZM2.8 12.8c1 0 1.8-.8 1.8-1.8H1c0 1 .8 1.8 1.8 1.8ZM6.5 12.8c1 0 1.8-.8 1.8-1.8H4.6c0 1 .8 1.8 1.8 1.8ZM13.8 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8Z"/><path d="M10.2 12.8c1 0 1.8-.8 1.8-1.8H8.3c0 1 .8 1.8 1.8 1.8ZM17.5 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8ZM21.2 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8Z"/></g><g fill="#6b6b6b"><path d="M20.8 18.9h-4.6c-.1 0-.2-.1-.2-.2v-3.9c0-.1.1-.2.2-.2h4.6c.1 0 .2.1.2.2v3.9c0 .1-.1.2-.2.2ZM3.9 14.5h5.5v7.4H3.9zM9.5 14.5H15v7.4H9.5z"/></g><g fill="#c1c1c1"><path d="M8.1 17.6h1v2.2h-1zM9.7 17.6h1v2.2h-1z"/></g><path fill="#fff" d="M6.9 4.9c-.1 0-.3-.2-.3-.4V2.2c0-.2.1-.4.3-.4h10.3c.1 0 .3.2.3.4v2.3c0 .2-.1.4-.3.4H6.9Z"/><path fill="#6b6b6b" d="M17.1 2c.1 0 .2.1.2.3v2.3c0 .2 0 .3-.2.3H6.9c-.1 0-.2-.1-.2-.3V2.3c0-.2 0-.3.2-.3h10.3m-.1-.1H6.9c-.2 0-.3.2-.3.4v2.3c0 .2.1.4.3.4h10.3c.2 0 .3-.2.3-.4V2.3c0-.2-.1-.4-.3-.4Z"/><text style="fill:#6b6b6b;font-family:ArialRoundedMTBold,&quot;Arial Rounded MT Bold&quot;;font-size:2.8px;isolation:isolate" transform="translate(7.2 4.4)">STORE</text>
   </symbol>
 </IconSet>
+<Drawer state={upsellDrawer} alignment="right">
+
+</Drawer>
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
     <div class="product-page__gallery">
@@ -729,7 +741,7 @@
       {/if}
       <div class="product-page__action" bind:this={ctaRef}>
         <InputStepper max={product?.maximumquantity} />
-        <ButtonNew color="success">Add to Cart</ButtonNew>
+        <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
       </div>
       <div class="product-page__pay-later">
         <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>
@@ -744,6 +756,9 @@
           <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>          
         </Icon>
       </div>
+      {#if valueprop.power && valueprop.sound}
+        <PowerAndSound power={valueprop.power} sound={valueprop.sound} bluetooth={valueprop.bluetooth} rechargeable={valueprop.rechargeable} waterproof={valueprop.waterproof} />
+      {/if}
       {#if restrictions.length}
       <div class="product-page__restrictions">
         {#each restrictions as [level, warnings]}

@@ -1,13 +1,17 @@
-<script>
+<script lang="ts">
   import { afterUpdate } from 'svelte';  
   import PaginationItem from "./PaginationItem.svelte";
   import PaginationControls from "./PaginationControls.svelte";
-  export let count = 1;
-  export let displayCount = 7;
-  export let page = 1;
-  export let handleChange;
 
-  function handleClick(page) {
+  export let count: number = 1;
+  export let displayCount: number = 7;
+  export let page: number = 1;
+  export let handleChange: (page:number) => void;
+
+  const startEllipisBoundary: number = displayCount - 3;
+  const endEllipisBoundary: number = count - 3;
+
+  function handleClick(page: number) {
     handleInternalChange(page);  
   }
 
@@ -30,13 +34,13 @@
     handleChange(page);
   }
 
-  function handleInternalChange(value) {
+  function handleInternalChange(value: number) {
     page = value;
     items = generateItems();
     handleChange(value);
   }
 
-  function generateItems() {
+  function generateItems(): (number | string)[] {
     if (count <= displayCount) {
       return Array.from(Array(count).keys(), i => i + 1);
     }
@@ -58,8 +62,6 @@
     items = generateItems();
   });
 
-  const startEllipisBoundary = displayCount - 3;
-  const endEllipisBoundary = count - 3;
   $: items = generateItems();
 </script>
 <nav aria-labelledby="pagination-heading" class="pagination">

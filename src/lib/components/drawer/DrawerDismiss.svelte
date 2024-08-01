@@ -1,11 +1,11 @@
 <script>
-	import Button from "$lib/components/button";
+	import Button from "$lib/components/button/Button-new.svelte";
   import Icon from "$lib/components/icon";
 </script>
 <Button 
   aria-label="close" 
-	variant="icon"
-	style="border-radius:50%;max-width:36px"
+	rounded
+	variant="tonal"
 	on:click
   on:mouseover
   on:mouseenter
