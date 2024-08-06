@@ -42,6 +42,7 @@
     color: var(--uikit-breadcrumb-text-color);
     text-transform: capitalize;
 		text-wrap: nowrap;
+		white-space: nowrap;
 	}
 
 	.breadcrumbs__crumb:not(:last-child):after {
