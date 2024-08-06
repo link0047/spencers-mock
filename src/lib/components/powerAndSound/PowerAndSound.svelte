@@ -300,7 +300,6 @@
 		.valueprops {
 			padding: .5rem .25rem;
 			column-gap: 0;
-			row-gap: .5rem;
 			--icon-width: 32px;
 			--icon-height: 32px;
 		}
