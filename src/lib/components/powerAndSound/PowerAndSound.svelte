@@ -234,8 +234,9 @@
 
 <style>
 	.powerandsound {
+		width: 100%;
 		display: grid;
-		gap:.5rem;
+		gap: .5rem;
 	}
 
 	.instrument-pointer {
@@ -250,14 +251,18 @@
 
 	.powerandsound__valueprops {
 		display: grid;
-		gap: 2rem;
+		gap: 1.5rem;
 	}
 	
 	.valueprops {
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
-		column-gap: 1.5rem;
-		row-gap: 2rem;
+		border: 1px solid #c5c5c7;
+		border-radius: .5rem;
+		padding: 1rem;
+    background-color: #f7f7f7;
+		column-gap: 1rem;
+		row-gap: 1rem;
 		--icon-width: 48px;
 		--icon-height: 48px;
 	}
@@ -265,7 +270,7 @@
 	.valueprop {
 		display: grid;
 		grid-template-columns: 60px 1fr;
-		grid-template-rows: 1rem 1fr;
+		grid-template-rows: fit-content(2rem) 1fr;
 		grid-template-areas: 
 			"icon heading"
 			"icon desc";
