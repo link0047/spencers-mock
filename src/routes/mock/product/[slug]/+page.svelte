@@ -491,6 +491,10 @@
     return colorMapping.find(item => item.name === color);
   }
 
+  function toggleProductNameClamp(event: Event) {
+    console.log(event.target.classList)
+  }
+
   function addToCart() {
     $upsellDrawer.open = true;
   }
@@ -564,8 +568,6 @@
   } else {
     price = product?.variantInfo.lowPrice;
   }
-
-  $: console.log(valueprop);
 </script>
 
 <svelte:head>
@@ -619,7 +621,7 @@
           <Crumb {href} {current}>{text}</Crumb>
         {/each}
       </Breadcrumb>
-      <h1 class="product-page__name">{name}</h1>
+      <h1 class="product-page__name" on:click={toggleProductNameClamp}>{name}</h1>
       <div class="product-page__rating">
         {#if browser}
           {#await reviewData}

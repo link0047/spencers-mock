@@ -207,7 +207,7 @@
 		<h2 class="powerandsound__heading">Product Features</h2>
 	</header>
 	<div class="powerandsound__valueprops">
-		<div class="valueprops">
+		<div class="valueprops product-features">
 			{#each Object.entries(dynamicProps) as [key, { heading, desc }]}
 				<div class="valueprop">
 					<Icon viewBox="0 0 60 60">
@@ -256,7 +256,7 @@
 	
 	.valueprops {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
+		grid-template-columns: repeat(3, minmax(0, 1fr));
 		border: 1px solid #c5c5c7;
 		border-radius: .5rem;
 		padding: 1rem;
@@ -269,7 +269,7 @@
 
 	.valueprop {
 		display: grid;
-		grid-template-columns: 60px 1fr;
+		grid-template-columns: minmax(32px, 60px) 1fr;
 		grid-template-rows: fit-content(2rem) 1fr;
 		grid-template-areas: 
 			"icon heading"
@@ -292,7 +292,27 @@
 		grid-area: desc;
 		margin: 0;
 		line-height: 1.2;
+		text-wrap: balance;
 		font-size: .875rem;
+	}
+
+	@media(max-width: 560px) {
+		.valueprops {
+			padding: .5rem .25rem;
+			column-gap: 0;
+			row-gap: .5rem;
+			--icon-width: 32px;
+			--icon-height: 32px;
+		}
+		
+		.valueprops.product-features {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			column-gap: .5rem;
+		}
+
+		.valueprop {
+			grid-template-columns: 32px 1fr;
+		}
 	}
 
 	.soundLevel1 :is(.sound-wave-2, .sound-wave-3, .sound-wave-4),
