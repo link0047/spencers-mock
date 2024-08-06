@@ -28,7 +28,6 @@
 	}
 
   function handleInput() {
-    console.log(value)
     if (!isNumber(value)) {
       return;
     } else if (value < min) {
@@ -40,7 +39,7 @@
 
   function handleKeyDown(event: KeyboardEvent) {
     // Allowed keys: 0-9, Backspace, Arrow keys, Home, End
-    const allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Backspace", "ArrowLeft", "ArrowRight", "Home", "End"];
+    const allowedKeys = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "Backspace", "ArrowLeft", "ArrowRight", "Home", "End", "Tab"];
 
     // Handle negative numbers
     if (event.key === "-" && value === min) return;

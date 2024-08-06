@@ -222,6 +222,10 @@
     color: #fff;
   }
 
+	.btn--success:focus-visible {
+		outline-offset: .125rem;
+	}
+
 	.btn--success.btn--outlined:not(:disabled) {
 		background-color: #fff;
 		border: 2px solid #008a00;

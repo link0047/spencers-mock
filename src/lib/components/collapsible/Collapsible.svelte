@@ -24,7 +24,7 @@
 >
 	<slot />
 </div>
-<Button id={buttonId} aria-expanded={open} aria-controls={id} variant="ghost" on:click={handleClick}>
+<Button id={buttonId} aria-expanded={open} aria-controls={id} variant="tonal" on:click={handleClick}>
 	{ open ? "See less" : "See More" }
 </Button>
 
