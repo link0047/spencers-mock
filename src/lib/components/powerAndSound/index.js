@@ -1,0 +1,1 @@
+export { default as PowerAndSound } from "./PowerAndSound.svelte";

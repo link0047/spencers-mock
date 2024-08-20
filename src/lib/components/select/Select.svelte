@@ -134,7 +134,7 @@
     border-color: #949499;
     border-radius: 4px;
     background-color: #fff;
-    height: 36px;
+    height: 2.5rem;
     width: 100%;
     min-width: 88px;
 		outline: none;
@@ -167,7 +167,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 36px;
+		height: 2.5rem;
 		display: grid;
 		grid-template-columns: 8px minmax(auto, max-content) 1fr;
 	}	

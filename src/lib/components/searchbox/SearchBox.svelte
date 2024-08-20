@@ -141,7 +141,7 @@
 	.searchbox { 
 		position: relative;
 		display: grid;
-		grid-template-columns: 1fr 36px;
+		grid-template-columns: 1fr 2.5rem;
 		gap: 0;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 	}
@@ -167,7 +167,7 @@
 		line-height: 1;
 		letter-spacing: 0.04em;
 		width: 100%;
-		height: 36px;
+		height: 2.5rem;
 		padding: 0 8px;
 		border: 1px solid;
 		border-color: #949499;
@@ -270,7 +270,7 @@
 		top: 0;
 		left: 0;
 		right: 0;
-		height: 36px;
+		height: 2.5rem;
 		display: grid;
 		grid-template-columns: 8px minmax(auto, max-content) 1fr;
 	}	

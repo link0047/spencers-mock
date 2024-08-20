@@ -155,7 +155,7 @@
 	line-height: 1;
 	letter-spacing: 0.04em;
 	width: 100%;
-	height: 36px;
+	height: 2.5rem;
 	padding: 0 8px;
 	border: 1px solid;
 	border-color: #949499;

@@ -1,56 +1,108 @@
 <script lang="ts">
-  import { browser } from "$app/environment";
-  import { onMount } from "svelte";
-  import type { Writable } from "svelte/store";
-  import type { DrawerStore } from "./DrawerStore";
-  import DrawerDismiss from "./DrawerDismiss.svelte";
-  import Backdrop from "$lib/components/backdrop";
-  export let state: Writable<DrawerStore>;
+  import { onMount, setContext } from "svelte";
+	import { get } from "svelte/store";
+	import { noop } from "$lib/client/util/utilities";
+
+	export let state;
   export let alignment = "left";
-  let ref: HTMLElement;
+	export let disableBackdrop = false;
+	export let afterClose = noop;
+  
+	let ref;
+	let Backdrop;
+	let focusableElements;
+  let lastElementWithFocus = null;
+	let open = get(state.open);
+	
+  const id = state.drawerId;
+	const ALIGNMENT_OPTIONS = ["left", "right"];
+	const ESC_KEYS = ["Esc", "Escape"];
+	
+	setContext("close_action", close);
+	setContext("state", state.open);
 
-  const id = $state.drawerId;
-  let lastElementWithFocus: HTMLElement | null = null;
-
-  $: open = $state.open;
-
-  $: if (open) {
-    if (browser) {
-      if (ref) ref.inert = false;
-      document.body.setAttribute("style", "overflow:hidden");
-      lastElementWithFocus = document.activeElement as HTMLElement;
-    }
-  } else {
-    if (browser) {
-      if (ref) ref.inert = true;
-      document.body.removeAttribute("style");
-      lastElementWithFocus && lastElementWithFocus.focus();
-    }
-  }
+	if (!ALIGNMENT_OPTIONS.includes(alignment)) {
+		console.warn(`Invalid alignment value: "${alignment}". Defaulting to "left".`);
+		alignment = "left";
+	}
+	
+  
+	state.open.subscribe(isOpen => {
+		open = isOpen;
+		if (isOpen) {
+			if (ref) {
+				focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
+				ref.inert = false;
+				document.body.setAttribute("style", "overflow:hidden");
+				lastElementWithFocus = document.activeElement;
+				focusableElements[0]?.focus();
+			}
+		} else {
+			if (ref) {
+				ref.inert = true;
+				document.body.removeAttribute("style");
+				lastElementWithFocus && lastElementWithFocus.focus();
+			}
+		}
+	})
 
   function close() {
-    $state.open = false;
+    state.open.set(false);
   }
 
-  function drawerEvents(node: HTMLElement) {
-    function handleEscape(event: KeyboardEvent) {
-      const { key } = event;
-      if (key == "Esc" || key == "Escape") {
-        event.stopPropagation();
-        close();
-      }
-    }
+	function handleTransitionEnd(event) {
+		if (event.target === ref && event.propertyName === "transform" && !open) {
+			afterClose();
+		}
+	}
 
-    browser && document.addEventListener("keyup", handleEscape);
-    return {
-      destroy() {
-        browser && document.removeEventListener("keyup", handleEscape);
-      },
-    };
-  }
+	function configureDialogARIAEvents(node) {
+		const controller = new AbortController();
+		
+		function handleKeyup(event) {
+			if (ESC_KEYS.includes(event.key)) {
+				event.stopPropagation();
+				close();
+			}
+		}
+	
+		function handleKeydown(event) {
+			const current = document.activeElement;
+			if (!focusableElements?.length) return;
+	
+			const first = focusableElements[0];
+			const last = focusableElements[focusableElements.length - 1];
+	
+			if (event.key === "Tab") {
+				if (event.shiftKey && current === first) {
+					event.preventDefault();
+					last.focus();
+				} else if (!event.shiftKey && current === last) {
+					event.preventDefault();
+					first.focus();
+				}
+			}
+		}
+	
+		document.addEventListener("keyup", handleKeyup, { signal: controller.signal });
+		document.addEventListener("keydown", handleKeydown, { signal: controller.signal });
+		
+		return {
+			destroy() {
+				controller.abort();
+			}
+		};
+	}
 
   onMount(async () => {
-    ref.inert = true;
+		try {
+			if (!disableBackdrop) {
+				Backdrop = (await import("$lib/components/backdrop")).default;
+			}
+	    ref.inert = true;
+		} catch (error) {
+			console.error("Failed to load Backdrop component:", error);
+		}
   });
 </script>
 
@@ -63,100 +115,118 @@
   class:drawer--alignment-right={alignment === "right"}
   class:drawer--open={open}
   tabindex="-1"
-  use:drawerEvents
+	on:transitionend={handleTransitionEnd}
+  use:configureDialogARIAEvents
 >
-  <header class="drawer__header">
-    <slot name="header" />
-    <DrawerDismiss on:click={close} />
-  </header>
-  {#if $state.showBack}
-    <div class="drawer__back">
-      <slot name="back" />
-    </div>
-  {/if}
+	{#if $$slots.header}
+	  <header class="drawer__header">
+	    <slot name="header" />
+	  </header>
+	{/if}
   <div class="drawer__content">
     <div>
       <slot />
     </div>
   </div>
+	{#if $$slots.footer}
+		<footer class="drawer__footer">
+			<slot name="footer" />
+		</footer>
+	{/if}
 </div>
-<Backdrop {open} on:click={close} />
+
+{#if !disableBackdrop}
+	<svelte:component this={Backdrop} {open} on:click={close} />
+{/if}
 
 <style>
+:root {
+  --uikit-drawer-bg-color: #fff;
+  --uikit-drawer-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  --uikit-drawer-z-index: 519;
+  --uikit-drawer-transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  --uikit-drawer-transition-delay: 0.1s;
+  --uikit-drawer-opacity: 0;
+	--uikit-drawer-border-color: #DFDFDF;
+  --uikit-drawer-header-border-color: #DFDFDF;
+  --uikit-drawer-header-padding: 0.5rem;
+  --uikit-drawer-header-gap: 0.5rem;
+  --uikit-drawer-content-height: calc(100vh - 2.5rem);
+  --uikit-drawer-content-padding: 0 0 2rem;
+  --uikit-drawer-max-width: 25rem;
+  --uikit-drawer-border-radius: 0.5rem;
+}
+
+.drawer {
+  position: fixed;
+  background-color: var(--uikit-drawer-bg-color);
+  font-family: var(--uikit-drawer-font-family);
+  height: 100vh;
+  height: 100dvh;
+  width: 100vw;
+  z-index: var(--uikit-drawer-z-index);
+  top: 0;
+  left: 0;
+  transform: translate3d(-100%, 0, 0);
+  transition: var(--uikit-drawer-transition);
+  transition-delay: var(--uikit-drawer-transition-delay);
+  opacity: var(--uikit-drawer-opacity);
+	display: flex;
+	flex-flow: column;
+}
+
+.drawer:not(.drawer--alignment-right) {
+	border-top-right-radius: var(--uikit-drawer-border-radius);
+	border-bottom-right-radius: var(--uikit-drawer-border-radius);
+}
+
+.drawer--alignment-right {
+	border-top-left-radius: var(--uikit-drawer-border-radius);
+	border-bottom-left-radius: var(--uikit-drawer-border-radius);
+}
+
+.drawer--alignment-right {
+  left: initial;
+  right: 0;
+  transform: translate3d(100%, 0, 0);
+}
+
+.drawer__header {
+  position: relative;
+  display: flex;
+  flex-flow: row wrap;
+  align-items: center;
+	min-height: 3rem;
+	box-sizing: border-box;
+  border-bottom: 1px solid var(--uikit-drawer-header-border-color);
+  padding: var(--uikit-drawer-header-padding);
+  gap: var(--uikit-drawer-header-gap);
+}
+
+.drawer--open {
+  transform: translate3d(0, 0, 0);
+  opacity: 1;
+}
+
+.drawer__content {
+  height: 100%;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.drawer__footer {
+	border-top: 1px solid var(--uikit-drawer-border-color);
+}
+
+@media (min-width: 35.0625rem) {
   .drawer {
-    position: fixed;
-    background-color: #fff;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-      Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-      "Segoe UI Symbol";
-    height: 100vh;
-    height: 100dvh;
-    width: 100vw;
-    z-index: 519;
-    top: 0;
-    left: 0;
-    transform: translate3d(-100%, 0, 0);
-    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    transition-delay: 0.1s;
-    opacity: 0;
+    max-width: var(--uikit-drawer-max-width);
   }
+}
 
-  .drawer--alignment-right {
-    left: initial;
-    right: 0;
-    transform: translate3d(100%, 0, 0);
-  }
-
-  .drawer__back {
-    font-size: 0.875rem;
-    display: flex;
-    align-items: center;
-    background-color: #f2f2f2;
-    height: 32px;
-    gap: 8px;
-    border-bottom: 1px solid #93939a;
-    box-sizing: border-box;
-    cursor: pointer;
-  }
-
-  .drawer__header {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    border-bottom: 1px solid #93939a;
-    padding: 8px;
-  }
-
-  .drawer--open {
-    transform: translate3d(0, 0, 0);
-    opacity: 1;
-  }
-
-  .drawer__content {
-    height: calc(100vh - 72px);
-    height: calc(100dvh - 72px);
-    box-sizing: border-box;
-    overflow: auto;
-  }
-
-  .drawer__content > div {
-    box-sizing: border-box;
-    padding: 4px 0 32px;
-  }
-
-  @media (min-width: 561px) {
-    .drawer {
-      max-width: 352px;
-    }
-
-    .drawer:not(.drawer--alignment-right) {
-      border-top-right-radius: 8px;
-      border-bottom-right-radius: 8px;
-    }
-
-    .drawer--alignment-right {
-      border-top-left-radius: 8px;
-      border-bottom-left-radius: 8px;
-    }
-  }
+@media (max-width: 35rem) {
+	.drawer {
+		max-width: calc(100vw - 1.5rem);
+	}
+}
 </style>

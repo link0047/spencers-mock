@@ -1,21 +1,18 @@
 <script lang="ts">
-	import type { Writable } from "svelte/store";
-	import type { DrawerStore } from "./DrawerStore";
 	import Button from "$lib/components/button";
-	export let state: Writable<DrawerStore>;
+  import { get } from "svelte/store";
+	export let state;
 
-	const id = $state.disclosureId;
-	const drawerId = $state.drawerId;
+	const id = state.disclosureId;
+	const drawerId = state.drawerId;
 	
 	function handleClick() {
-		$state.open = !$state.open;
+		state.open.set(!get(state.open));
 	}
-	
-	$: open = $state.open;
 </script>
 <Button 
   id={id} 
-	aria-expanded={open} 
+	aria-expanded={get(state.open)} 
 	aria-controls={drawerId} 
 	aria-haspopup="dialog"
 	variant="icon"

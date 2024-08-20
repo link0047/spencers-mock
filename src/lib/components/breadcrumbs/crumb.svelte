@@ -3,7 +3,7 @@
 	export let current: boolean = false;
 
 	let tag = current ? "div" : "a";
-	if (current) {
+	if (current && href !== null) {
     console.warn("Breadcrumb item marked as current. Using <div> instead of <a>.");
     href = null;
   }
@@ -13,7 +13,7 @@
 	<svelte:element 
 		this={tag}
 		class="breadcrumbs__link"
-		href={current ? null : href}
+		{...(tag === "a" ? { href } : {})}
 		aria-current={current ? "page" : null}
 		role={null}
 		tabindex={null}

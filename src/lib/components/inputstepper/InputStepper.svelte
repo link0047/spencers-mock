@@ -4,6 +4,7 @@
   export let max: number = 99;
 	export let maxlength: number = 2;
   export let value: number = 1;
+  export let label: string = "Number Stepper";
 
   function isNumber(value: any): boolean {
     return typeof value === "number" && !isNaN(value);
@@ -75,13 +76,11 @@
   </button>
   <input
     bind:value
-    on:input={handleInput}
-    on:change={handleChange}
-    on:keydown={handleKeyDown}
+    class="input-stepper__native-control"
     type="number"
     pattern="[0-9]*"
     inputmode="numeric"
-    aria-label="Number Stepper"
+    aria-label={label}
     aria-valuemin={min}
     aria-valuemax={max}
     aria-valuenow={value}
@@ -89,7 +88,9 @@
     autocomplete="off"
     autocorrect="off"
     {maxlength}
-    class="input-stepper__native-control"
+    on:input={handleInput}
+    on:change={handleChange}
+    on:keydown={handleKeyDown}
   />
   <button
     type="button"
@@ -105,75 +106,87 @@
 </div>
 
 <style>
+  :root {
+    --uikit-input-stepper-action-width: 2.5rem;
+    --uikit-input-stepper-action-height: 2.5rem;
+    --uikit-input-stepper-border-radius: 0.5rem;
+    --uikit-input-stepper-border-color: #949499;
+    --uikit-input-stepper-bg-color: #fff;
+    --uikit-input-stepper-hover-bg-color: #f2f2f2;
+    --uikit-input-stepper-disabled-icon-color: #989596;
+    --uikit-input-stepper-text-color: #212121;
+    --uikit-input-stepper-transition-duration: 0.3s;
+  }
+
   .input-stepper {
     width: fit-content;
     display: grid;
-    grid-template-columns: 36px 36px 36px;
+    grid-template-columns: var(--uikit-input-stepper-action-width) var(--uikit-input-stepper-action-width) var(--uikit-input-stepper-action-width);
   }
 
   .input-stepper__action {
-    width: 36px;
-    height: 36px;
+    width: var(--uikit-input-stepper-action-width);
+    height: var(--uikit-input-stepper-action-height);
     display: flex;
     align-items: center;
     justify-content: center;
     outline: 0;
-    background-color: #fff;
+    background-color: var(--uikit-input-stepper-bg-color);
     overflow: hidden;
     touch-action: manipulation;
     user-select: none;
     appearance: none;
     border: 1px solid;
-    border-color: #949499;
+    border-color: var(--uikit-input-stepper-border-color);
     cursor: pointer;
-		transition: background-color ease-in-out .3s;
+    transition: background-color ease-in-out var(--uikit-input-stepper-transition-duration);
   }
 
   .input-stepper__action:disabled {
     cursor: not-allowed;
   }
 
-	.input-stepper__action[disabled] :global(.icon) {
-		fill: #989596;
-	}
+  .input-stepper__action[disabled] :global(.icon) {
+    fill: var(--uikit-input-stepper-disabled-icon-color);
+  }
 
-	.input-stepper__action:hover {
-		background-color: #f2f2f2;
-	}
+  .input-stepper__action:hover {
+    background-color: var(--uikit-input-stepper-hover-bg-color);
+  }
 
   .input-stepper__action--increment {
-    border-radius: 0 8px 8px 0;
+    border-radius: 0 var(--uikit-input-stepper-border-radius) var(--uikit-input-stepper-border-radius) 0;
     border-left: none;
   }
 
   .input-stepper__action--decrement {
-    border-radius: 8px 0 0 8px;
+    border-radius: var(--uikit-input-stepper-border-radius) 0 0 var(--uikit-input-stepper-border-radius);
     border-right: none;
   }
 
   .input-stepper__native-control {
     border-radius: 0;
     border: 1px solid;
-		border-left: none;
-		border-right: none;
-    border-color: #949499;
+    border-left: none;
+    border-right: none;
+    border-color: var(--uikit-input-stepper-border-color);
     padding: 0;
     margin: 0;
-		outline: 0;
+    outline: 0;
     appearance: none;
     text-align: center;
-		background-color: #fff;
-		color: #212121;
+    background-color: var(--uikit-input-stepper-bg-color);
+    color: var(--uikit-input-stepper-text-color);
   }
-	
-	input::-webkit-outer-spin-button,
-	input::-webkit-inner-spin-button {
-	  -webkit-appearance: none;
-	  margin: 0;
-	}
+  
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
 
-	/* Firefox */
-	input[type=number] {
-	  -moz-appearance: textfield;
-	}
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
 </style>

@@ -57,37 +57,63 @@
 
 <style>
 	:root {
-		--uikit-button--elevation: 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12);
-    --uikit-button-height: 36px;
+		--uikit-btn-elevation: 0 .1875rem .0625rem -.125rem rgba(0, 0, 0, .2), 0 .125rem .125rem 0 rgba(0, 0, 0, .14), 0 .0625rem .3125rem 0 rgba(0, 0, 0, .12);
+		--uikit-btn-height: 2.5rem;
+		--uikit-btn-width: auto;
+		--uikit-btn-border-radius: .25rem;
+		--uikit-btn-font-size: 0.875rem;
+		--uikit-btn-font-weight: 500;
+		--uikit-btn-letter-spacing: 0.04em;
+		--uikit-btn-padding-inline: 0.5rem;
+		--uikit-btn-background-color: #fff;
+		--uikit-btn-border-color: #aaadb2;
+		--uikit-btn-color: #38393b;
+		--uikit-btn-hover-bg-color: #eeeeef;
+		--uikit-btn-hover-border-color: #555659;
+		--uikit-btn-selected-bg-color: #333335;
+		--uikit-btn-selected-border-color: #333335;
+		--uikit-btn-focus-outline-color: #007acc;
+		--uikit-btn-disabled-bg-color: #eeeeef;
+		--uikit-btn-disabled-color: #444547;
+		--uikit-btn-disabled-border-color: #eeeeef;
 	}
-	
+
 	/* base button styles */
 	.btn {
 		box-sizing: border-box;
 		align-items: center;
 		justify-content: center;
-    appearance: none;
-		background-color: #fff;
-		border: 1px solid #aaadb2;
-		border-radius: 4px;
-		color: #38393b;
+		appearance: none;
+		width: var(--uikit-btn-width);
+		background-color: var(--uikit-btn-background-color);
+		border: 1px solid var(--uikit-btn-border-color);
+		border-radius: var(--uikit-btn-border-radius);
+		color: var(--uikit-btn-color);
 		display: inline-flex;
 		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-		font-size: 0.875rem;
-    font-weight: 500;
-		height: var( --uikit-button-height);
-		letter-spacing: 0.04em;
-		padding-inline: .5rem;
+		font-size: var(--uikit-btn-font-size);
+		font-weight: var(--uikit-btn-font-weight);
+		height: var(--uikit-btn-height);
+		letter-spacing: var(--uikit-btn-letter-spacing);
+		padding-inline: var(--uikit-btn-padding-inline);
 		position: relative;
 		touch-action: manipulation;
-    user-select: none;
-		transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform .25s cubic-bezier(0.4, 0, 0.4, 1);;
+		user-select: none;
+		transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1), transform .25s cubic-bezier(0.4, 0, 0.4, 1);
+	}
+
+	.btn--sizeSM {
+		--uikit-btn-height: 2rem;
+	}
+
+	.btn--sizeXS {
+		--uikit-btn-height: 1.5rem;
 	}
 
 	/* variant styles */
 	.btn--filled {
-		border-color:  #333335;
-		background-color: #333335;
+		border-color: var(--uikit-btn-selected-border-color);
+		background-color: var(--uikit-btn-selected-bg-color);
 		color: #fff;
 	}
 
@@ -98,21 +124,21 @@
 	
 	.btn--outlined {
 		background-color: #fff;
-		border: 2px solid #66676a;
+		border: .125rem solid #66676a;
 	}
 
 	.btn--ghost {
 		background-color: transparent;
-		border: 1px solid transparent;
+		border: .0625rem solid transparent;
 		transition: background-color .2s cubic-bezier(0.4, 0, 0.2, 1), border-color .2s cubic-bezier(0.4, 0, 0.2, 1);
 	}
 	
 	.btn:disabled {
 		cursor: not-allowed;
-		color: #444547;
-    font-weight: 400;
-		background-color: #eeeeef;
-		border: 1px solid #eeeeef;
+		color: var(--uikit-btn-disabled-color);
+		font-weight: 400;
+		background-color: var(--uikit-btn-disabled-bg-color);
+		border: .0625rem solid var(--uikit-btn-disabled-border-color);
 		box-shadow: none;
 	}
 
@@ -122,7 +148,7 @@
 
 	.btn:disabled.btn--outlined {
 		background-color: transparent;
-		border: 2px solid #eeeeef;
+		border: .125rem solid var(--uikit-btn-disabled-border-color);
 	}
 
 	.btn:disabled.btn--ghost {
@@ -131,13 +157,13 @@
 	}
 
 	.btn:not(:disabled):hover {
-		background-color: #eeeeef;
+		background-color: var(--uikit-btn-hover-bg-color);
 		cursor: pointer;
 	}
 
 	.btn--filled:not(:disabled):hover {
-		background-color: #555659;
-		border-color: #555659;
+		background-color: var(--uikit-btn-hover-border-color);
+		border-color: var(--uikit-btn-hover-border-color);
 	}
 
 	.btn--tonal:not(:disabled):hover {
@@ -147,23 +173,23 @@
 	
 	.btn:focus-visible {
 		outline-offset: 0;
-    outline: 2px solid #007acc;
+		outline: .125rem solid var(--uikit-btn-focus-outline-color);
 	}
 
 	.btn--outlined:focus-visible {
-		outline-offset: -2px;
+		outline-offset: -.125rem;
 	}
 
 	/* colors */
 	.btn--primary {
 		background-color: #2a508f;
-		border: 1px solid #2a508f;
-    color: #fff;
-  }
+		border: .0625rem solid #2a508f;
+		color: #fff;
+	}
 
 	.btn--primary.btn--outlined:not(:disabled) {
 		background-color: #fff;
-		border: 2px solid #2a508f;
+		border: .125rem solid #2a508f;
 		color: #2a508f;
 	}
 
@@ -186,7 +212,7 @@
 
 	.btn--primary:disabled.btn--outlined {
 		background-color: transparent;
-		border: 2px solid #d1d6e6;
+		border: .125rem solid #d1d6e6;
 	}
 
 	.btn--primary:disabled.btn--ghost {
@@ -196,7 +222,7 @@
 	
 	.btn--primary:not(:disabled):hover {
 		background-color: #3f619a;
-		border: 1px solid #3f619a;
+		border: .0625rem solid #3f619a;
 	}
 
 	.btn--primary.btn--tonal:not(:disabled):hover {
@@ -212,15 +238,15 @@
 
 	.btn--primary.btn--outlined:not(:disabled):hover {
 		background-color: #e9edf3;
-		border-width: 2px;
+		border-width: .125rem;
 		color: #254880;
 	}
 
 	.btn--success {
 		background-color: #008a00;
-		border: 1px solid #008a00;
-    color: #fff;
-  }
+		border: .0625rem solid #008a00;
+		color: #fff;
+	}
 
 	.btn--success:focus-visible {
 		outline-offset: .125rem;
@@ -228,7 +254,7 @@
 
 	.btn--success.btn--outlined:not(:disabled) {
 		background-color: #fff;
-		border: 2px solid #008a00;
+		border: .125rem solid #008a00;
 		color: #076d08;
 	}
 
@@ -251,7 +277,7 @@
 
 	.btn--success:disabled.btn--outlined {
 		background-color: transparent;
-		border: 2px solid #daedda;
+		border: .125rem solid #daedda;
 	}
 
 	.btn--success:disabled.btn--ghost {
@@ -261,7 +287,7 @@
 	
 	.btn--success:not(:disabled):hover {
 		background-color: #076d08;
-		border: 1px solid #076d08;
+		border: .0625rem solid #076d08;
 	}
 
 	.btn--success.btn--tonal:not(:disabled):hover {
@@ -276,39 +302,39 @@
 
 	.btn--success.btn--outlined:not(:disabled):hover {
 		background-color: #f4f9f4;
-		border-width: 2px;
+		border-width: .125rem;
 	}
 
 	/* modifiers */
 	.btn--elevated {
-	  box-shadow: var(--uikit-button--elevation, 0px 3px 1px -2px rgba(0, 0, 0, 0.2), 0px 2px 2px 0px rgba(0, 0, 0, 0.14), 0px 1px 5px 0px rgba(0, 0, 0, 0.12));
+		box-shadow: var(--uikit-btn-elevation);
 	}
 
 	.btn--underline {
 		text-decoration: underline;
-		text-underline-offset: 2px;
+		text-underline-offset: .125rem;
 	}
 
-  .btn--rounded {
-    padding: 0;
-    width: var(--uikit-button-height);
-    border-radius: calc(var(--uikit-button-height) / 2);
-  }
+	.btn--rounded {
+		padding: 0;
+		width: var(--uikit-btn-height);
+		border-radius: calc(var(--uikit-btn-height) / 2);
+	}
 	
 	/* states */
 	.btn[data-state="loading"] {
-		gap: 8px;
+		gap: .5rem;
 	}
 
 	.btn[data-state="selected"] {
-		border-color:  #333335;
-		background-color: #333335;
+		border-color: var(--uikit-btn-selected-border-color);
+		background-color: var(--uikit-btn-selected-bg-color);
 		color: #fff;
 	}
 
 	.btn[data-state="selected"]:hover {
-		background-color: #555659;
-		border-color: #555659;
+		background-color: var(--uikit-btn-hover-border-color);
+		border-color: var(--uikit-btn-hover-border-color);
 	}
 
 	/* animations */
@@ -324,8 +350,8 @@
 	/* icon */
 	.icon {
 		fill: #212121;
-		width: 16px;
-		height: 16px;
+		width: 1rem;
+		height: 1rem;
 		animation: rotating .5s linear infinite;
 	}
 </style>

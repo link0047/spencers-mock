@@ -33,10 +33,10 @@
     font-size: 1rem;
 		font-weight: 400;
 		line-height: 1.2;
-		min-height: 36px;
+		min-height: 2.5rem;
 		display: inline-flex;
 		align-items: center;
-		gap: 4px;
+		gap: .25rem;
 	}
 	
 	.fulfillment-group :global(.bold) {

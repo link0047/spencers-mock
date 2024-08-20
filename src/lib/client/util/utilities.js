@@ -152,11 +152,14 @@ function convertToMilliseconds(duration, unit) {
 }
 
 /**
- * A no-operation (no-op) function that does nothing when called.
+ * A no-operation function that does nothing.
+ * 
+ * This function is useful as a placeholder or default callback.
+ * It can be safely used in scenarios where a function is required but no action is needed.
+ * 
+ * @returns void
  */
-export function noop() {
-	// This function intentionally does nothing.
-}
+export function noop() {}
 
 /**
  * Creates a timeout controller that triggers an action after a specified duration.

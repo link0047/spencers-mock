@@ -2,7 +2,7 @@
   import type { Writable } from "svelte/store";
   import { onMount, tick } from "svelte";
   import Page from "$lib/components/page/Page.svelte";
-  import ProductGallery from "$lib/components/productGallery/ProductGallery.svelte";
+  import { ProductGallery } from "$lib/components/productGallery";
   import StarRating from "$lib/components/starrating";
   import VariantSelector from "$lib/components/variantselector";
   import { Radio } from "$lib/components/radio";
@@ -22,8 +22,11 @@
   import { Collapsible } from "$lib/components/collapsible";
   import WarningCard from "$lib/components/warningcard";
   import ButtonNew from "$lib/components/button/Button-new.svelte";
-  import { Drawer, useDrawerState } from "$lib/components/drawer";
-  import PowerAndSound from "$lib/components/powerAndSound/PowerAndSound.svelte";
+  import { Drawer, DrawerDismiss, DrawerPanel, useDrawerState } from "$lib/components/drawer";
+  import { PowerAndSound } from "$lib/components/powerAndSound";
+  import { Tooltip, useTooltipState } from "$lib/components/tooltip";
+  import { AOVBooster } from "$lib/components/aovBooster";
+  import { Image } from "$lib/components/image";
   
   export let data;
 
@@ -495,9 +498,142 @@
     console.log(event.target.classList)
   }
 
-  function addToCart() {
-    $upsellDrawer.open = true;
-  }
+  const drawerState = useDrawerState();
+	const tooltipState = useTooltipState();
+	let isPanelOpen = false;
+
+	function addToCart() {
+		drawerState.open.set(true);
+	}
+
+	function close() {
+		isPanelOpen = false;
+		drawerState.open.set(false);
+	}
+
+	function openUpSellPanel({ currentTarget: { dataset: { index }}}) {
+		upsell = upsells[parseInt(index)];
+		isPanelOpen = true;
+	}
+
+	function closeUpSellPanel() {
+		isPanelOpen = false;
+    upsell = null;
+	}
+
+	const upsells = [
+		{
+      "image": "https://spencers.scene7.com/is/image/Spencers/04343133-a",
+			"name": "Springtrap T Shirt - Five Nights at Freddy's",
+			"price": "$24.99",
+			"variants": [{
+				"cost": 24.99,
+				"VARIANT_ID": 592811,
+				"swatchColorName": "BLACK",
+				"swatchColorCode": "BK",
+				"priceFormatted": "$19.99",
+				"neverOutOfStock": false,
+				"COLOR_NAME": "BLACK",
+				"invLevel": "97",
+				"orderOnlineMessage": "Order Now! Expected to ship on or before ",
+				"price": {
+						"amountInDollars": 19.99,
+						"amountInCents": 1999,
+						"currencySymbol": "$",
+						"currency": "$"
+				},
+				"orderOnlineEnabled": true,
+				"stock": true,
+				"storePickupMessage": "",
+				"SIZE_NAME": "ADULT SMALL"
+			},
+			{
+				"cost": 24.99,
+				"VARIANT_ID": 592810,
+				"swatchColorName": "BLACK",
+				"swatchColorCode": "BK",
+				"priceFormatted": "$19.99",
+				"neverOutOfStock": false,
+				"COLOR_NAME": "BLACK",
+				"invLevel": "125",
+				"orderOnlineMessage": "Order Now! Expected to ship on or before ",
+				"price": {
+					"amountInDollars": 19.99,
+					"amountInCents": 1999,
+					"currencySymbol": "$",
+					"currency": "$"
+				},
+				"orderOnlineEnabled": true,
+				"stock": true,
+				"storePickupMessage": "",
+				"SIZE_NAME": "ADULT MEDIUM"
+			},
+			{
+				"cost": 24.99,
+				"VARIANT_ID": 592813,
+				"swatchColorName": "BLACK",
+				"swatchColorCode": "BK",
+				"priceFormatted": "$19.99",
+				"neverOutOfStock": false,
+				"COLOR_NAME": "BLACK",
+				"invLevel": "159",
+				"orderOnlineMessage": "Order Now! Expected to ship on or before ",
+				"price": {
+					"amountInDollars": 19.99,
+					"amountInCents": 1999,
+					"currencySymbol": "$",
+					"currency": "$"
+				},
+				"orderOnlineEnabled": true,
+				"stock": true,
+				"storePickupMessage": "",
+				"SIZE_NAME": "ADULT EX LARGE"
+			},
+			{
+				"cost": 24.99,
+				"VARIANT_ID": 592812,
+				"swatchColorName": "BLACK",
+				"swatchColorCode": "BK",
+				"priceFormatted": "$19.99",
+				"neverOutOfStock": false,
+				"COLOR_NAME": "BLACK",
+				"invLevel": "101",
+				"orderOnlineMessage": "Order Now! Expected to ship on or before ",
+				"price": {
+					"amountInDollars": 19.99,
+					"amountInCents": 1999,
+					"currencySymbol": "$",
+					"currency": "$"
+				},
+				"orderOnlineEnabled": true,
+				"stock": true,
+				"storePickupMessage": "",
+				"SIZE_NAME": "ADULT LARGE"
+			}]
+    },
+    {
+			"image": "https://spencers.scene7.com/is/image/Spencers/04132817-a",
+			"name": "Sunnydrop T Shirt - Five Nights at Freddy's",
+			"price": "$24.99"
+    },
+    {
+			"image": "https://spencers.scene7.com/is/image/Spencers/03998515-a",
+			"name": "Kick Retro Sonic the Hedgehog T Shirt",
+			"price": "$24.99"
+    },
+    {
+			"image": "https://spencers.scene7.com/is/image/Spencers/07710429-a",
+			"name": "Sweetest Princess Lolly T Shirt - Candyland",
+			"price": "$24.99"
+    },
+    {
+			"image": "https://spencers.scene7.com/is/image/Spencers/07710197-a",
+			"name": "Candy Land Characters T Shirt",
+			"price": "$24.99"
+    }
+	];
+
+	let upsell = null;
 
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
@@ -555,7 +691,6 @@
 		message: "Order by 2pm to get it today!",
 	}];
   let fulfillmentValue: Writable<string>;
-  const upsellDrawer = useDrawerState();
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -607,9 +742,81 @@
     <path fill="#c1c1c1" d="M1.9 11h20.2v10.9H1.9z"/><g style="fill:#6b6b6b;stroke:#fff;stroke-miterlimit:10;stroke-width:.2px"><path d="M19.4 4.3H4.6c-.4 0-.8.2-1 .6l-2.7 6h22l-2.7-6c-.2-.4-.5-.6-1-.6ZM2.8 12.8c1 0 1.8-.8 1.8-1.8H1c0 1 .8 1.8 1.8 1.8ZM6.5 12.8c1 0 1.8-.8 1.8-1.8H4.6c0 1 .8 1.8 1.8 1.8ZM13.8 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8Z"/><path d="M10.2 12.8c1 0 1.8-.8 1.8-1.8H8.3c0 1 .8 1.8 1.8 1.8ZM17.5 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8ZM21.2 12.8c1 0 1.8-.8 1.8-1.8h-3.7c0 1 .8 1.8 1.8 1.8Z"/></g><g fill="#6b6b6b"><path d="M20.8 18.9h-4.6c-.1 0-.2-.1-.2-.2v-3.9c0-.1.1-.2.2-.2h4.6c.1 0 .2.1.2.2v3.9c0 .1-.1.2-.2.2ZM3.9 14.5h5.5v7.4H3.9zM9.5 14.5H15v7.4H9.5z"/></g><g fill="#c1c1c1"><path d="M8.1 17.6h1v2.2h-1zM9.7 17.6h1v2.2h-1z"/></g><path fill="#fff" d="M6.9 4.9c-.1 0-.3-.2-.3-.4V2.2c0-.2.1-.4.3-.4h10.3c.1 0 .3.2.3.4v2.3c0 .2-.1.4-.3.4H6.9Z"/><path fill="#6b6b6b" d="M17.1 2c.1 0 .2.1.2.3v2.3c0 .2 0 .3-.2.3H6.9c-.1 0-.2-.1-.2-.3V2.3c0-.2 0-.3.2-.3h10.3m-.1-.1H6.9c-.2 0-.3.2-.3.4v2.3c0 .2.1.4.3.4h10.3c.2 0 .3-.2.3-.4V2.3c0-.2-.1-.4-.3-.4Z"/><text style="fill:#6b6b6b;font-family:ArialRoundedMTBold,&quot;Arial Rounded MT Bold&quot;;font-size:2.8px;isolation:isolate" transform="translate(7.2 4.4)">STORE</text>
   </symbol>
 </IconSet>
-<Drawer state={upsellDrawer} alignment="right">
-
+<Drawer state={drawerState} alignment="right" afterClose={closeUpSellPanel}>
+	<svelte:fragment slot="header">
+		<Icon>
+			<path fill="#0a8a00" d="M4 12c0-4.4183 3.5817-8 8-8s8 3.5817 8 8-3.5817 8-8 8-8-3.5817-8-8zm8-10C6.4771 2 2 6.4771 2 12c0 5.5228 4.4771 10 10 10 5.5228 0 10-4.4772 10-10 0-5.5229-4.4772-10-10-10zm4.551 5.5066-5.9727 6.0047L7.419 10.335l-1.418 1.4104 4.5773 4.6019L17.969 8.917l-1.418-1.4104z"/>
+		</Icon>
+		<span>Added to cart</span>
+		<DrawerDismiss alignment="right" id={tooltipState.anchorId} />
+	</svelte:fragment>
+	<div class="product-info">
+		<img
+			class="product-info__image"
+			src="https://spencers.scene7.com/is/image/Spencers/03366192-a?wid=192&amp;hei=192&amp;fmt=webp"
+			loading="lazy"
+			width="80"
+			height="80"
+			decoding="async"
+			alt="Product added to cart"
+		>
+		<div class="product-info__name">Talking Tiffany Doll - 20 Inch</div>
+		<div class="product-info__price">$89.99</div>
+		<div class="product-info__edit-message">Edit delivery method in cart</div>
+	</div>
+	<div class="drawer__aov-booster">
+		<AOVBooster value={13} max={20} />
+	</div>
+	<h2 class="drawer__heading">Customers also bought these products</h2>
+	<div class="upsells">
+		{#each upsells as { image, name, price }, index }
+			<div class="upsell-product">
+				<img
+					class="upsell-product__image"
+					src="{image}?wid=344&hei=344&fmt=webp"
+					loading="lazy"
+					width="172"
+					height="172"
+					decoding="async"
+					alt="Product added to cart"
+				>
+				<div class="upsell-product__name">{name}</div>
+				<div class="upsell-product__price">{price}</div>
+				<ButtonNew data-index={index} variant="outlined" color="success" on:click={openUpSellPanel}>
+					Add to cart
+				</ButtonNew>
+			</div>
+		{/each}
+	</div>
+	<DrawerPanel bind:open={isPanelOpen}>
+		<svelte:fragment slot="header">
+			<div class="drawer__panel-title">
+				<ButtonNew variant="ghost" size="sm" on:click={closeUpSellPanel}>
+					<Icon>
+						<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+					</Icon>
+				</ButtonNew>
+				Choose options
+			</div>
+			{#if upsell !== null}
+				<Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
+			{/if}
+		</svelte:fragment>
+	</DrawerPanel>
+	<svelte:fragment slot="footer">
+		<div class="drawer__footer-actions">
+			<ButtonNew variant="outlined" rounded on:click={close}>
+				Continue shopping
+			</ButtonNew>
+			<ButtonNew rounded>
+				View Cart
+			</ButtonNew>
+		</div>
+	</svelte:fragment>
 </Drawer>
+<!-- <Tooltip state={tooltipState}>
+	Close
+</Tooltip> -->
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
     <div class="product-page__gallery">
@@ -875,6 +1082,115 @@
 </div>
 
 <style>
+.drawer__heading {
+		margin: 0;
+		line-height: 1.25;
+		font-size: 1rem;
+		padding: 1rem 1.5rem;
+	}
+
+	.drawer__aov-booster {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1rem;
+	}
+
+	.drawer__footer-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 1.25rem 1rem;
+		flex-flow: row nowrap;
+		gap: 1rem;
+	}
+
+	.drawer__footer-actions > :global(button) {
+		flex: 0 0 50%;
+	}
+
+	.drawer__panel-title {
+		display: flex;
+		flex-flow: row nowrap;
+		align-items: center;
+		gap: .25rem;
+		--uikit-btn-width: 2rem;
+		--uikit-btn-padding-inline: 0;
+	}
+	
+	.upsells {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		column-gap: 1rem;
+		row-gap: 1.5rem;
+		padding: 0 1.5rem 1rem;
+	}
+	
+	.product-info {
+		position: sticky;
+		top: 0;
+		flex: 0 0 100%;
+		display: grid;
+		grid-template-areas: 
+			"image name"
+			"image price"
+			"image edit-message";
+		grid-template-columns: fit-content(80px) 1fr;
+		grid-template-rows: fit-content(2rem) 1rem 1fr;
+		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+		gap: .5rem;
+		padding: .5rem;
+		border-bottom: 1px solid #DFDFDF;
+		background-color: var(--uikit-drawer-bg-color);
+		z-index: 1;
+	}
+
+	.product-info__image {
+		width: 100%;
+		grid-area: image;
+	}
+
+	.upsell-product__image {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.product-info__name {
+		grid-area: name;
+	}
+
+	.product-info__price {
+		grid-area: price;
+	}
+
+	.product-info__edit-message {
+		grid-area: edit-message;
+		color: #666;
+		display: flex;
+		font-size: .75rem;
+		align-items: end;
+	}
+
+	.upsell-product {
+		display: grid;
+		gap: .5rem;
+	}
+	
+	.upsell-product__name,
+	.product-info__name {
+		
+		font-size: .875rem;
+		font-size: .8125rem;
+		line-height: 1;
+	}
+
+	.upsell-product__price,
+	.product-info__price {
+		line-height: 1;
+		font-size: 1rem;
+		font-weight: 500;
+	}
 /* General Styles */
 hr {
   width: 100%;
@@ -985,7 +1301,7 @@ hr {
 }
 
 .product-page__limited-quantity {
-  padding-top: 2.5rem;
+  /* padding-top: 2.5rem; */
 }
 
 .product-page__pay-later {
@@ -1051,12 +1367,12 @@ hr {
   border-radius: 4px;
 }
 
-.yousave-block__percentage {
+/* .yousave-block__percentage {
   color: #74767c;
   font-size: .875rem;
   font-weight: 500;
   line-height: 1;
-}
+} */
 
 .salePrice {
   color: #74767c;

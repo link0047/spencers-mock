@@ -8,7 +8,7 @@
 </script>
 <picture class="image-container">
 	<source media="(max-width: 560px)" srcset={mbsrc}>
-	<img class="image" loading="lazy" width={width} height={height} src={src} alt={alt} decoding="async" /> 
+	<img class="image" loading="lazy" {width} {height} {src} {alt} decoding="async" /> 
 </picture>
 <style>
 	.image {
