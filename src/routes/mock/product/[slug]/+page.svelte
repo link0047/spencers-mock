@@ -495,7 +495,7 @@
   }
 
   function toggleProductNameClamp(event: Event) {
-    console.log(event.target.classList)
+    event?.target.classList.toggle("ellipsis");
   }
 
   const drawerState = useDrawerState();
