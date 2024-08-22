@@ -7,6 +7,7 @@
 	export let required = false;
 	export let direction = "ltr";
 	export let value: string = "";
+	export let scrollable: boolean = false;
 
 	export const valueStore: Writable<string> = writable(value);
 	const selected = writable("");
@@ -71,6 +72,7 @@
 	aria-required={required}
 	dir={direction}
 	class="radio-group"
+	class:radio-group--scroll-snap={scrollable}
 	use:rovingIndexAction
 	{...$$restProps}
 >
@@ -82,6 +84,17 @@
 		display: grid;
 		grid-template-columns: repeat(auto-fit, minmax(96px, 1fr));
 		gap: .5rem;
+	}
+
+	.radio-group--scroll-snap {
+		overflow-x: auto;
+		overflow-y: hidden;
+		overscroll-behavior-x: none;
+		scroll-snap-type: x mandatory;
+	}
+
+	:global(.radio-group--scroll-snap .radio) {
+		flex-shrink: 0;
 	}
 
 	/**

@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-  import { onMount, tick } from "svelte";
+  import { onMount, tick, getContext } from "svelte";
   import Page from "$lib/components/page/Page.svelte";
   import { ProductGallery } from "$lib/components/productGallery";
   import StarRating from "$lib/components/starrating";
@@ -419,22 +419,22 @@
 
       // Add non-empty size names to the array
       if (SIZE_NAME?.trim() !== "") {
-        let sizeDisplayName: string;
+        let sizeDisplayName: string = SIZE_NAME;
 
         const lowercaseSize: string = SIZE_NAME.toLowerCase();
         // Check if the size contains any of the words and map accordingly
-        if (lowercaseSize.includes("small")) {
-          sizeDisplayName = sizeMapping["small"];
-        } else if (lowercaseSize.includes("medium")) {
-          sizeDisplayName = sizeMapping["medium"];
-        } else if (lowercaseSize.includes("ex large")) {
-          sizeDisplayName = sizeMapping["ex large"];
-        } else if (lowercaseSize.includes("large")) {
-          sizeDisplayName = sizeMapping["large"];
-        } else {
-          // If the size doesn't contain any of the words, return the original size
-          sizeDisplayName = SIZE_NAME;
-        }
+        // if (lowercaseSize.includes("small")) {
+        //   sizeDisplayName = sizeMapping["small"];
+        // } else if (lowercaseSize.includes("medium")) {
+        //   sizeDisplayName = sizeMapping["medium"];
+        // } else if (lowercaseSize.includes("ex large")) {
+        //   sizeDisplayName = sizeMapping["ex large"];
+        // } else if (lowercaseSize.includes("large")) {
+        //   sizeDisplayName = sizeMapping["large"];
+        // } else {
+        //   // If the size doesn't contain any of the words, return the original size
+        //   sizeDisplayName = SIZE_NAME;
+        // }
 
         // Check if the size name already exists
         const existingSize = sizes.find(size => size.name === sizeDisplayName);
@@ -504,6 +504,7 @@
 
 	function addToCart() {
 		drawerState.open.set(true);
+    $cartCount += productQuantity;
 	}
 
 	function close() {
@@ -513,13 +514,21 @@
 
 	function openUpSellPanel({ currentTarget: { dataset: { index }}}) {
     const selected = upsells[parseInt(index)];
-
-		upsell = upsells[parseInt(index)];
+    const [colors, sizes] = extractColorAndSizeNames(selected.variants || []);
+    const firstVariant = selected.variants[0];
+    selected.colors = colors;
+    selected.sizes = sizes;
+    selected.colorGroupValue = colors[0];
+    selected.sizeGroupValue = getDefaultSize(sizes);
+    selected.shouldShowSalePrice = firstVariant.cost !== firstVariant.price.amountInDollars;
+    selected.salePrice = firstVariant.price.amountInDollars;
+		upsell = selected;
 		isPanelOpen = true;
 	}
 
 	function closeUpSellPanel() {
 		isPanelOpen = false;
+    tooltipState.open.set(false);
     upsell = null;
 	}
 
@@ -528,6 +537,7 @@
       "image": "https://spencers.scene7.com/is/image/Spencers/04343133-a",
 			"name": "Springtrap T Shirt - Five Nights at Freddy's",
 			"price": "24.99",
+      "rating": 5,
 			"variants": [{
 				"cost": 24.99,
 				"VARIANT_ID": 592811,
@@ -617,6 +627,7 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/04132817-a",
 			"name": "Sunnydrop T Shirt - Five Nights at Freddy's",
 			"price": "24.99",
+      "rating": 5,
       "variants": [{
         "cost": 24.99,
         "VARIANT_ID": 557960,
@@ -706,6 +717,7 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/03998515-a",
 			"name": "Kick Retro Sonic the Hedgehog T Shirt",
 			"price": "24.99",
+      "rating": 0,
       "variants":[{
         "cost": 24.99,
         "VARIANT_ID": 553694,
@@ -795,6 +807,7 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710429-a",
 			"name": "Sweetest Princess Lolly T Shirt - Candyland",
 			"price": "24.99",
+      "rating": 0,
       "variants": [{
         "cost": 24.99,
         "VARIANT_ID": 568360,
@@ -926,6 +939,7 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710197-a",
 			"name": "Candy Land Characters T Shirt",
 			"price": "24.99",
+      "rating": 0,
       "variants": [{
         "cost": 24.99,
         "VARIANT_ID": 568091,
@@ -1068,6 +1082,7 @@
   let salePrice = product?.price.msrpPrice || 0;
   let shouldShowSalePrice = price !== salePrice;
   let showControls = false;
+  let productQuantity = 1;
   const images = product?.images?.map((image, index) => ({
     src: {
       desktop: `${image}?wid=640&hei=640&fmt=webp`,
@@ -1113,6 +1128,7 @@
 		message: "Order by 2pm to get it today!",
 	}];
   let fulfillmentValue: Writable<string>;
+  let cartCount = getContext("cartCount");
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -1175,15 +1191,15 @@
 	<div class="product-info">
 		<img
 			class="product-info__image"
-			src="https://spencers.scene7.com/is/image/Spencers/03366192-a?wid=192&amp;hei=192&amp;fmt=webp"
+			src="{product?.images[0]}?wid=192&amp;hei=192&amp;fmt=webp"
 			loading="lazy"
 			width="80"
 			height="80"
 			decoding="async"
 			alt="Product added to cart"
 		>
-		<div class="product-info__name">Talking Tiffany Doll - 20 Inch</div>
-		<div class="product-info__price">$89.99</div>
+		<div class="product-info__name">{name}</div>
+		<div class="product-info__price">${price}</div>
 		<div class="product-info__edit-message">Edit delivery method in cart</div>
 	</div>
 	<div class="drawer__aov-booster">
@@ -1225,30 +1241,12 @@
       <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
       <h2 class="product-page__name">{upsell.name}</h2>
       <div class="product-page__rating">
-        {#if browser}
-          {#await reviewData}
-            <StarRating --ratings-height="20px" />
-            <span>No Ratings</span>
-          {:then data}
-            <StarRating rating={data.results[0]?.rollup?.average_rating || 0} --ratings-height="20px" />
-            <span class="product-page__feedbackCount">
-              {#if data.results[0]?.rollup?.average_rating}
-                {`(${data.results[0]?.rollup?.average_rating})`} 
-                <Link href="#" color="secondary">{`${data.paging.total_results} review${data.paging.total_results > 1 ? "s" : ""}`}</Link>
-              {:else}
-                <Link href="#" color="secondary">be the first!</Link>
-              {/if}
-            </span>
-          {:catch error}
-            <StarRating />
-            <span>No Ratings</span>
-          {/await}
-        {/if}
+        <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
       </div>
       <div class="product-page__price">
-        <span class="basePrice" class:onSale={ shouldShowSalePrice }>${upsell.price}</span>
-        {#if shouldShowSalePrice}
-        <span class="salePrice">${salePrice}</span>
+        <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${upsell.price}</span>
+        {#if upsell.shouldShowSalePrice}
+        <span class="salePrice">${upsell.salePrice}</span>
         {/if}
       </div>
       {#if shouldShowSalePrice}
@@ -1258,34 +1256,20 @@
           <!-- <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span> -->
         </div>
       {/if}
-      {#if badges.length}
-      <div class="product-page__badges">
-        {#each badges as badge}
-          <div class="badge">{badge}</div>
-        {/each}
-      </div>
-      {/if}
-      {#if promos.length}
-      <div class="product-page__promos">
-        {#each promos as promo}
-          <div class="promo">{promo}</div>
-        {/each}
-      </div>
-      {/if}
       <hr />
-      {#if sizes.length || colors.length && !colors.includes("MULTI-COLOR")}
+      {#if upsell.sizes.length || upsell.colors.length && !upsell.colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
-        {#if colors.length && !colors.includes("MULTI-COLOR")}
-        <VariantSelector label="Color" bind:groupValue={colorGroupValue}>
-          {#if colors.length > 1}
-            {#each colors as color, index}
+        {#if upsell.colors.length && !upsell.colors.includes("MULTI-COLOR")}
+        <VariantSelector label="Color" bind:groupValue={upsell.colorGroupValue}>
+          {#if upsell.colors.length > 1}
+            {#each upsell.colors as color, index}
               <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
             {/each}
           {/if}
         </VariantSelector>
         {/if}
-        {#if sizes.length}
-        <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
+        {#if upsell.sizes.length}
+        <VariantSelector label="Size" bind:groupValue={upsell.sizeGroupValue} scrollable>
           <svelte:fragment slot="action">
             <Button variant="icon" size="small" aria-label="Size Chart" on:click={scrollToAndOpenAccordion}>
               <Icon>
@@ -1294,14 +1278,14 @@
               Size Chart
             </Button>
           </svelte:fragment>
-          {#if sizes.length > 1}
-            {#each sizes as { name, outOfStock }}
+          {#if upsell.sizes.length > 1}
+            {#each upsell.sizes as { name, outOfStock }}
               <Radio 
                 disabled={outOfStock} 
                 variant="box" 
                 name="size" 
                 value={name} 
-                checked={name === defaultSize} 
+                checked={name === defaultSize}
                 aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}
               >
                 {name}
@@ -1425,13 +1409,6 @@
         {/each}
       </div>
       {/if}
-      <!-- {#if promos.length}
-      <div class="product-page__promos">
-        {#each promos as promo}
-          <div class="promo">{promo}</div>
-        {/each}
-      </div>
-      {/if} -->
       <hr />
       {#if sizes.length || colors.length && !colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
@@ -1504,7 +1481,7 @@
         </div>
       {/if}
       <div class="product-page__action" bind:this={ctaRef}>
-        <InputStepper max={product?.maximumquantity} />
+        <InputStepper bind:value={productQuantity} max={product?.maximumquantity} />
         <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
       </div>
       <div class="product-page__pay-later">
@@ -1773,6 +1750,7 @@ hr {
   display: flex;
   height: 1.4rem;
   min-width: 1.5rem;
+  width: fit-content;
   padding: 0 .5rem;
   align-items: center;
   justify-content: center;
@@ -1902,6 +1880,7 @@ hr {
   display: flex;
   height: 24px;
   min-width: 24px;
+  width: fit-content;
   padding: 0 8px;
   align-items: center;
   justify-content: center;
@@ -2004,7 +1983,6 @@ hr {
   flex-flow: row nowrap;
   overflow-x: auto;
   overflow-y: hidden;
-  touch-action: manipulation;
   overscroll-behavior-x: none;
   scroll-snap-type: x mandatory;
   scroll-padding-right: 1rem;

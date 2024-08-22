@@ -56,7 +56,7 @@
 		color: #008300;
 	}
 
-	@media (max-width: 35rem) {
+	@container fulfillmentGroup (width <= 25rem) {
 		.fulfillment {
 			padding: .5rem;
 		}

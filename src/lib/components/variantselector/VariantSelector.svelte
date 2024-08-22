@@ -4,6 +4,7 @@
 	
 	export let label: string;
 	export let groupValue: string = "";
+	export let scrollable: boolean = false;
 	
 	const uid: string = generateId("variantselector");
 	const id: string =`uikit-variant-selector-${uid}-heading`;
@@ -15,7 +16,7 @@
 		<span class="variant-selector__value">{groupValue}</span>
 		<slot name="action" />
 	</h2>
-	<RadioGroup bind:value={groupValue} aria-labelledby={id}>
+	<RadioGroup bind:value={groupValue} aria-labelledby={id} {scrollable}>
 		<slot />
 	</RadioGroup>
 </div>

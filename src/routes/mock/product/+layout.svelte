@@ -1,5 +1,7 @@
 <script lang="ts">
-  import { onMount } from "svelte";
+  import { onMount, setContext } from "svelte";
+  import { writable } from "svelte/store";
+  import type { Writable } from "svelte/store";
   import { debounce } from "$lib/client/util/utilities";
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
   import { Avatar } from "$lib/components/avatar";
@@ -32,6 +34,9 @@
 
   let { isMobile } = data;
   let showDrawerBackButton = false;
+  const cartCount: Writable<number> = writable(0);
+
+  setContext("cartCount", cartCount);
 
   interface HistoryItem {
     drawerBackText: string;
@@ -640,13 +645,13 @@
         <div class="text">Account</div>
       </div>
     </PopoverDisclosure>
-    <Button aria-label="Cart {0} items" variant="icon">
+    <Button aria-label="Cart {$cartCount} items" variant="icon">
       <Icon>
         <path
           d="M17 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2M1 2v2h2l3.6 7.59-1.36 2.45c-.15.28-.24.61-.24.96a2 2 0 0 0 2 2h12v-2H7.42a.25.25 0 0 1-.25-.25c0-.05.01-.09.03-.12L8.1 13h7.45c.75 0 1.41-.42 1.75-1.03l3.58-6.47c.07-.16.12-.33.12-.5a1 1 0 0 0-1-1H5.21l-.94-2M7 18c-1.11 0-2 .89-2 2a2 2 0 0 0 2 2 2 2 0 0 0 2-2 2 2 0 0 0-2-2Z"
         />
       </Icon>
-      <Badge>0</Badge>
+      <Badge>{$cartCount}</Badge>
     </Button>
   </Group>
   <svelte:fragment slot="utility">

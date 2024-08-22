@@ -20,6 +20,8 @@
 	.fulfillment-group {
 		display: grid;
 		row-gap: .25rem;
+		container-name: fulfillmentGroup;
+		container-type: inline-size;
 	}
 
 	.fulfillment__heading {
