@@ -1989,6 +1989,7 @@ hr {
   touch-action: manipulation;
   overscroll-behavior-x: none;
   scroll-snap-type: x mandatory;
+  scroll-padding-right: 1rem;
 }
 
 .recommendation-section__carousel .product-card {
