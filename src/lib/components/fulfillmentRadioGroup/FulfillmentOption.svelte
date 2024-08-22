@@ -55,4 +55,14 @@
 	:global(.radio-button[aria-checked="true"]) .fulfillment__message {
 		color: #008300;
 	}
+
+	@media (max-width: 35rem) {
+		.fulfillment {
+			padding: .5rem;
+		}
+
+		.fulfillment__message {
+			font-size: .75rem;
+		}
+	}
 </style>

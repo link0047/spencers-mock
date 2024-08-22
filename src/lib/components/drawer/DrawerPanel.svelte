@@ -31,7 +31,9 @@
 			<slot name="header" />
 		</header>
 	{/if}
-	<slot />
+	<div class="drawer__panel-content">
+		<slot />
+	</div>
 </div>
 
 <style>
@@ -49,6 +51,8 @@
 	  opacity: 0;
 		pointer-events: none;
 		z-index: 1;
+		display: flex;
+		flex-flow: column;
 	}
 
 	.drawer__panel-header {
@@ -61,6 +65,13 @@
 		box-sizing: border-box;
 	  padding: var(--uikit-drawer-header-padding);
 	  gap: var(--uikit-drawer-header-gap);
+	}
+
+	.drawer__panel-content {
+		height: 100%;
+		box-sizing: border-box;
+		overflow: auto;
+		padding: 1rem;
 	}
 
 	.drawer__panel--open {

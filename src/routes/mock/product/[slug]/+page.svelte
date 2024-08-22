@@ -512,6 +512,8 @@
 	}
 
 	function openUpSellPanel({ currentTarget: { dataset: { index }}}) {
+    const selected = upsells[parseInt(index)];
+
 		upsell = upsells[parseInt(index)];
 		isPanelOpen = true;
 	}
@@ -525,7 +527,7 @@
 		{
       "image": "https://spencers.scene7.com/is/image/Spencers/04343133-a",
 			"name": "Springtrap T Shirt - Five Nights at Freddy's",
-			"price": "$24.99",
+			"price": "24.99",
 			"variants": [{
 				"cost": 24.99,
 				"VARIANT_ID": 592811,
@@ -614,22 +616,442 @@
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/04132817-a",
 			"name": "Sunnydrop T Shirt - Five Nights at Freddy's",
-			"price": "$24.99"
+			"price": "24.99",
+      "variants": [{
+        "cost": 24.99,
+        "VARIANT_ID": 557960,
+        "swatchColorName": "BLACK",
+        "swatchColorCode": "BK",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLACK",
+        "invLevel": "322",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT EX LARGE"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 557957,
+        "swatchColorName": "BLACK",
+        "swatchColorCode": "BK",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLACK",
+        "invLevel": "157",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT MEDIUM"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 557958,
+        "swatchColorName": "BLACK",
+        "swatchColorCode": "BK",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLACK",
+        "invLevel": "129",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT SMALL"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 557959,
+        "swatchColorName": "BLACK",
+        "swatchColorCode": "BK",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLACK",
+        "invLevel": "206",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT LARGE"
+      }]
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/03998515-a",
 			"name": "Kick Retro Sonic the Hedgehog T Shirt",
-			"price": "$24.99"
+			"price": "24.99",
+      "variants":[{
+        "cost": 24.99,
+        "VARIANT_ID": 553694,
+        "swatchColorName": "BLUE",
+        "swatchColorCode": "BL",
+        "priceFormatted": "$16.08",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLUE",
+        "invLevel": "18",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 16.08,
+          "amountInCents": 1608,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT MEDIUM"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 553695,
+        "swatchColorName": "BLUE",
+        "swatchColorCode": "BL",
+        "priceFormatted": "$16.08",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLUE",
+        "invLevel": "21",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 16.08,
+          "amountInCents": 1608,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT SMALL"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 553696,
+        "swatchColorName": "BLUE",
+        "swatchColorCode": "BL",
+        "priceFormatted": "$16.08",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLUE",
+        "invLevel": "34",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 16.08,
+          "amountInCents": 1608,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT LARGE"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 553697,
+        "swatchColorName": "BLUE",
+        "swatchColorCode": "BL",
+        "priceFormatted": "$16.08",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "BLUE",
+        "invLevel": "19",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 16.08,
+          "amountInCents": 1608,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT EX LARGE"
+      }]
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710429-a",
 			"name": "Sweetest Princess Lolly T Shirt - Candyland",
-			"price": "$24.99"
+			"price": "24.99",
+      "variants": [{
+        "cost": 24.99,
+        "VARIANT_ID": 568360,
+        "swatchColorName": "WHITE",
+        "swatchColorCode": "WH",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "WHITE",
+        "invLevel": "998",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT LARGE"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 568361,
+        "swatchColorName": "WHITE",
+        "swatchColorCode": "WH",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "WHITE",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT EX LARGE"
+      },
+      {
+        "cost": 26.99,
+        "VARIANT_ID": 568362,
+        "swatchColorName": "WHITE",
+        "swatchColorCode": "WH",
+        "priceFormatted": "$21.59",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "WHITE",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 21.59,
+          "amountInCents": 2159,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "2X"
+      },
+      {
+        "cost": 26.99,
+        "VARIANT_ID": 568363,
+        "swatchColorName": "WHITE",
+        "swatchColorCode": "WH",
+        "priceFormatted": "$21.59",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "WHITE",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 21.59,
+          "amountInCents": 2159,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "3X"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 568358,
+        "swatchColorName": "WHITE",
+        "swatchColorCode": "WH",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "WHITE",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT MEDIUM"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 568359,
+        "swatchColorName": "WHITE",
+        "swatchColorCode": "WH",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "WHITE",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT SMALL"
+      }]
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710197-a",
 			"name": "Candy Land Characters T Shirt",
-			"price": "$24.99"
+			"price": "24.99",
+      "variants": [{
+        "cost": 24.99,
+        "VARIANT_ID": 568091,
+        "swatchColorName": "NATURAL",
+        "swatchColorCode": "NT",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "NATURAL",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT MEDIUM"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 568092,
+        "swatchColorName": "NATURAL",
+        "swatchColorCode": "NT",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "NATURAL",
+        "invLevel": "998",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT SMALL"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 568093,
+        "swatchColorName": "NATURAL",
+        "swatchColorCode": "NT",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "NATURAL",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT LARGE"
+      },
+      {
+        "cost": 24.99,
+        "VARIANT_ID": 568094,
+        "swatchColorName": "NATURAL",
+        "swatchColorCode": "NT",
+        "priceFormatted": "$19.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "NATURAL",
+        "invLevel": "996",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 19.99,
+          "amountInCents": 1999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "ADULT EX LARGE"
+      },
+      {
+        "cost": 26.99,
+        "VARIANT_ID": 568095,
+        "swatchColorName": "NATURAL",
+        "swatchColorCode": "NT",
+        "priceFormatted": "$21.59",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "NATURAL",
+        "invLevel": "999",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 21.59,
+          "amountInCents": 2159,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "2X"
+      },
+      {
+        "cost": 26.99,
+        "VARIANT_ID": 568096,
+        "swatchColorName": "NATURAL",
+        "swatchColorCode": "NT",
+        "priceFormatted": "$21.59",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "NATURAL",
+        "invLevel": "998",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 21.59,
+          "amountInCents": 2159,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": "3X"
+      }]
     }
 	];
 
@@ -781,7 +1203,7 @@
 					alt="Product added to cart"
 				>
 				<div class="upsell-product__name">{name}</div>
-				<div class="upsell-product__price">{price}</div>
+				<div class="upsell-product__price">${price}</div>
 				<ButtonNew data-index={index} variant="outlined" color="success" on:click={openUpSellPanel}>
 					Add to cart
 				</ButtonNew>
@@ -798,10 +1220,134 @@
 				</ButtonNew>
 				Choose options
 			</div>
-			{#if upsell !== null}
-				<Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
-			{/if}
-		</svelte:fragment>
+    </svelte:fragment>
+    {#if upsell !== null}
+      <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
+      <h2 class="product-page__name">{upsell.name}</h2>
+      <div class="product-page__rating">
+        {#if browser}
+          {#await reviewData}
+            <StarRating --ratings-height="20px" />
+            <span>No Ratings</span>
+          {:then data}
+            <StarRating rating={data.results[0]?.rollup?.average_rating || 0} --ratings-height="20px" />
+            <span class="product-page__feedbackCount">
+              {#if data.results[0]?.rollup?.average_rating}
+                {`(${data.results[0]?.rollup?.average_rating})`} 
+                <Link href="#" color="secondary">{`${data.paging.total_results} review${data.paging.total_results > 1 ? "s" : ""}`}</Link>
+              {:else}
+                <Link href="#" color="secondary">be the first!</Link>
+              {/if}
+            </span>
+          {:catch error}
+            <StarRating />
+            <span>No Ratings</span>
+          {/await}
+        {/if}
+      </div>
+      <div class="product-page__price">
+        <span class="basePrice" class:onSale={ shouldShowSalePrice }>${upsell.price}</span>
+        {#if shouldShowSalePrice}
+        <span class="salePrice">${salePrice}</span>
+        {/if}
+      </div>
+      {#if shouldShowSalePrice}
+        <div class="yousave-block">
+          <span class="yousave-block__label">You save</span>
+          <span class="onSale">${(salePrice - price).toFixed(2)}</span>
+          <!-- <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span> -->
+        </div>
+      {/if}
+      {#if badges.length}
+      <div class="product-page__badges">
+        {#each badges as badge}
+          <div class="badge">{badge}</div>
+        {/each}
+      </div>
+      {/if}
+      {#if promos.length}
+      <div class="product-page__promos">
+        {#each promos as promo}
+          <div class="promo">{promo}</div>
+        {/each}
+      </div>
+      {/if}
+      <hr />
+      {#if sizes.length || colors.length && !colors.includes("MULTI-COLOR")}
+      <div class="product-page__variants" role="group">
+        {#if colors.length && !colors.includes("MULTI-COLOR")}
+        <VariantSelector label="Color" bind:groupValue={colorGroupValue}>
+          {#if colors.length > 1}
+            {#each colors as color, index}
+              <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
+            {/each}
+          {/if}
+        </VariantSelector>
+        {/if}
+        {#if sizes.length}
+        <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
+          <svelte:fragment slot="action">
+            <Button variant="icon" size="small" aria-label="Size Chart" on:click={scrollToAndOpenAccordion}>
+              <Icon>
+                <use href="#ruler-flat" />
+              </Icon>
+              Size Chart
+            </Button>
+          </svelte:fragment>
+          {#if sizes.length > 1}
+            {#each sizes as { name, outOfStock }}
+              <Radio 
+                disabled={outOfStock} 
+                variant="box" 
+                name="size" 
+                value={name} 
+                checked={name === defaultSize} 
+                aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}
+              >
+                {name}
+              </Radio>
+            {/each}
+          {/if}
+        </VariantSelector>
+        {/if}
+      </div>
+      <hr />
+      {/if}
+      <FulfillmentRadioGroup bind:value={fulfillmentValue}>
+        {#each fulfillmentTypes as { type, name, message }, index}
+          <FulfillmentOption 
+            value={type} 
+            {name} 
+            {message} 
+            label="{name} - {$fulfillmentValue === type ? "selected" : "unselected"} - {index + 1} of {fulfillmentTypes.length} - {message}"
+          >
+            <Icon slot="icon">
+              <use href="#{type}" />
+            </Icon>
+          </FulfillmentOption>
+        {/each}
+        <svelte:fragment slot="group-message">
+          {#if $fulfillmentValue === "shipping"}
+            <span class="color-success">Ready to Ship</span>
+          {:else if $fulfillmentValue === "pickup"}
+            Pickup at <span class="underline">Ocean County, NJ</span>
+            <ButtonNew variant="ghost" color="primary" underline>Change Store</ButtonNew>
+          {:else if $fulfillmentValue === "sameday"}
+            Delivery to <span class="underline">08234</span>
+            <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew>
+          {/if}
+        </svelte:fragment>
+      </FulfillmentRadioGroup>
+      {#if hasLimitedQuantity}
+        <div class="product-page__limited-quantity">
+          Maxiumum of {product?.maximumquantity} units per order
+        </div>
+      {/if}
+      <div class="product-page__action">
+        <InputStepper max={product?.maximumquantity} />
+        <ButtonNew color="success" on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
+      </div>
+    {/if}
 	</DrawerPanel>
 	<svelte:fragment slot="footer">
 		<div class="drawer__footer-actions">
@@ -1077,7 +1623,7 @@
 <div class="page-controls" class:page-controls--show={showControls}>
   <div class="product-page__action">
     <InputStepper/>
-    <Button variant="success">Add to Cart</Button>
+    <Button variant="success" on:click={addToCart}>Add to Cart</Button>
   </div>
 </div>
 
@@ -1439,6 +1985,14 @@ hr {
   gap: 1rem;
   flex-flow: row nowrap;
   overflow-x: auto;
+  overflow-y: hidden;
+  touch-action: manipulation;
+  overscroll-behavior-x: none;
+  scroll-snap-type: x mandatory;
+}
+
+.recommendation-section__carousel .product-card {
+  scroll-snap-align: start;
 }
 
 /* Product Card */
@@ -1449,7 +2003,7 @@ hr {
   gap: .5rem;
   color: #212121;
   text-decoration: none;
-  flex: 0 0 calc((100% - (4*8px)) / 5);
+  flex: 0 0 calc((100% - (4 * .5rem)) / 5);
 }
 
 .product-card__image {
