@@ -1602,7 +1602,7 @@
       </svelte:fragment>
     </RatingsAndReviewsCard>
   {:catch error}
-    <div>Something went wrong</div>
+    <div>Something went wrong.</div>
   {/await}
   {/if}
   {#if recommendationData.length}
