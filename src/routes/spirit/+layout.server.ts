@@ -4843,6 +4843,7 @@ const categories: object[] = [
 
 export async function load({ locals, cookies }): Promise<{ isMobile: Boolean, categories: object[]; }> {
   cookies.set("brand", "spirit", {
+    path: "/",
     httpOnly: true,
     sameSite: "strict",
     secure: false,

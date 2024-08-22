@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { debounceAsync } from "$lib/client/util/utilities.js";
+  import { debounce } from "$lib/client/util/utilities.js";
   import desktoplogo from "$lib/assets/logo-d.png";
   import mobilelogo from "$lib/assets/logo-m.png";
 
@@ -134,7 +134,7 @@
     updateSearchMenu(target);
   }
 
-	const debouncedHandleInput = debounceAsync(handleInput, 250);
+	const debouncedHandleInput = debounce(handleInput, 250);
 
 	async function jsonpFetch(url: string) {
 	  const callbackName = `jsonpCallback_${Date.now()}`;
