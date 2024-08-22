@@ -218,7 +218,7 @@
 				</div>
 			{/each}
 		</div>
-		<div class="valueprops">
+		<div class="valueprops sex-wellness-props">
 			{#each Object.entries(staticProps) as [key, { heading, desc }]}
 				<div class="valueprop valueprop--long-desc">
 					<Icon viewBox="0 0 60 60">
@@ -318,6 +318,10 @@
 		.valueprops.product-features {
 			grid-template-columns: repeat(2, minmax(0, 1fr));
 			column-gap: .5rem;
+		}
+
+		.valueprops.sex-wellness-props {
+			column-gap: .875rem;
 		}
 
 		.valueprop {
