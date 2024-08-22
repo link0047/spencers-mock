@@ -131,6 +131,7 @@
     align-items: center;
     justify-content: center;
     outline: 0;
+    color: var(--uikit-input-stepper-text-color);
     background-color: var(--uikit-input-stepper-bg-color);
     overflow: hidden;
     touch-action: manipulation;
