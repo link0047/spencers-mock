@@ -89,7 +89,7 @@
 	.radio-group--scrollable {
 		overflow-x: auto;
 		overflow-y: hidden;
-		scrollbar-width: 0;
+		scrollbar-width: none;
 	}
 
 	:global(.radio-group--scrollable .radio) {
