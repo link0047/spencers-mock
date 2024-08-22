@@ -1095,7 +1095,6 @@
   const recommendationData = product?.recommendationData || [];
   let payLaterPrice = divideByFourAndRound(Number(price));
   const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
-  console.log(reviewData);
   const hasLimitedQuantity = product?.maximumquantity != 99 || false;
   const defaultSize = getDefaultSize(sizes);
   let sizeGroupValue = defaultSize;
@@ -1361,9 +1360,9 @@
 		</div>
 	</svelte:fragment>
 </Drawer>
-<!-- <Tooltip state={tooltipState}>
+<Tooltip state={tooltipState}>
 	Close
-</Tooltip> -->
+</Tooltip>
 <Page>
   <div class="product-page-container" bind:this={pageRef}>
     <div class="product-page__gallery">
@@ -1375,7 +1374,13 @@
           <Crumb {href} {current}>{text}</Crumb>
         {/each}
       </Breadcrumb>
-      <h1 class="product-page__name" on:click={toggleProductNameClamp}>{name}</h1>
+      <h1 
+        class="product-page__name"
+        class:ellipsis={isMobile}
+        on:pointerup={toggleProductNameClamp}
+      >
+        {name}
+      </h1>
       <div class="product-page__rating">
         {#if browser}
           {#await reviewData}
@@ -1410,20 +1415,23 @@
           <!-- <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span> -->
         </div>
       {/if}
-      {#if badges.length}
+      {#if badges.length || promos.length}
       <div class="product-page__badges">
         {#each badges as badge}
           <div class="badge">{badge}</div>
         {/each}
-      </div>
-      {/if}
-      {#if promos.length}
-      <div class="product-page__promos">
         {#each promos as promo}
           <div class="promo">{promo}</div>
         {/each}
       </div>
       {/if}
+      <!-- {#if promos.length}
+      <div class="product-page__promos">
+        {#each promos as promo}
+          <div class="promo">{promo}</div>
+        {/each}
+      </div>
+      {/if} -->
       <hr />
       {#if sizes.length || colors.length && !colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
@@ -1630,114 +1638,114 @@
 
 <style>
 .drawer__heading {
-		margin: 0;
-		line-height: 1.25;
-		font-size: 1rem;
-		padding: 1rem 1.5rem;
-	}
+  margin: 0;
+  line-height: 1.25;
+  font-size: 1rem;
+  padding: 1rem 1.5rem;
+}
 
-	.drawer__aov-booster {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 1rem;
-	}
+.drawer__aov-booster {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
 
-	.drawer__footer-actions {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		padding: 1.25rem 1rem;
-		flex-flow: row nowrap;
-		gap: 1rem;
-	}
+.drawer__footer-actions {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem 1rem;
+  flex-flow: row nowrap;
+  gap: 1rem;
+}
 
-	.drawer__footer-actions > :global(button) {
-		flex: 0 0 50%;
-	}
+.drawer__footer-actions > :global(button) {
+  flex: 0 0 50%;
+}
 
-	.drawer__panel-title {
-		display: flex;
-		flex-flow: row nowrap;
-		align-items: center;
-		gap: .25rem;
-		--uikit-btn-width: 2rem;
-		--uikit-btn-padding-inline: 0;
-	}
-	
-	.upsells {
-		display: grid;
-		grid-template-columns: repeat(2, minmax(0, 1fr));
-		column-gap: 1rem;
-		row-gap: 1.5rem;
-		padding: 0 1.5rem 1rem;
-	}
-	
-	.product-info {
-		position: sticky;
-		top: 0;
-		flex: 0 0 100%;
-		display: grid;
-		grid-template-areas: 
-			"image name"
-			"image price"
-			"image edit-message";
-		grid-template-columns: fit-content(80px) 1fr;
-		grid-template-rows: fit-content(2rem) 1rem 1fr;
-		font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-		gap: .5rem;
-		padding: .5rem;
-		border-bottom: 1px solid #DFDFDF;
-		background-color: var(--uikit-drawer-bg-color);
-		z-index: 1;
-	}
+.drawer__panel-title {
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  gap: .25rem;
+  --uikit-btn-width: 2rem;
+  --uikit-btn-padding-inline: 0;
+}
 
-	.product-info__image {
-		width: 100%;
-		grid-area: image;
-	}
+.upsells {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 1rem;
+  row-gap: 1.5rem;
+  padding: 0 1.5rem 1rem;
+}
 
-	.upsell-product__image {
-		display: block;
-		width: 100%;
-		height: auto;
-	}
+.product-info {
+  position: sticky;
+  top: 0;
+  flex: 0 0 100%;
+  display: grid;
+  grid-template-areas: 
+    "image name"
+    "image price"
+    "image edit-message";
+  grid-template-columns: fit-content(80px) 1fr;
+  grid-template-rows: fit-content(2rem) 1rem 1fr;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  gap: .5rem;
+  padding: .5rem;
+  border-bottom: 1px solid #DFDFDF;
+  background-color: var(--uikit-drawer-bg-color);
+  z-index: 1;
+}
 
-	.product-info__name {
-		grid-area: name;
-	}
+.product-info__image {
+  width: 100%;
+  grid-area: image;
+}
 
-	.product-info__price {
-		grid-area: price;
-	}
+.upsell-product__image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
 
-	.product-info__edit-message {
-		grid-area: edit-message;
-		color: #666;
-		display: flex;
-		font-size: .75rem;
-		align-items: end;
-	}
+.product-info__name {
+  grid-area: name;
+}
 
-	.upsell-product {
-		display: grid;
-		gap: .5rem;
-	}
-	
-	.upsell-product__name,
-	.product-info__name {
-		
-		font-size: .875rem;
-		font-size: .8125rem;
-		line-height: 1;
-	}
+.product-info__price {
+  grid-area: price;
+}
 
-	.upsell-product__price,
-	.product-info__price {
-		line-height: 1;
-		font-size: 1rem;
-		font-weight: 500;
-	}
+.product-info__edit-message {
+  grid-area: edit-message;
+  color: #666;
+  display: flex;
+  font-size: .75rem;
+  align-items: end;
+}
+
+.upsell-product {
+  display: grid;
+  gap: .5rem;
+}
+
+.upsell-product__name,
+.product-info__name {	
+  font-size: .875rem;
+  font-size: .8125rem;
+  line-height: 1;
+}
+
+.upsell-product__price,
+.product-info__price {
+  line-height: 1;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
 /* General Styles */
 hr {
   width: 100%;
@@ -1760,8 +1768,17 @@ hr {
 }
 
 .promo {
-  font-size: .875rem;
+  font-size: .75rem;
   font-weight: 700;
+  display: flex;
+  height: 1.4rem;
+  min-width: 1.5rem;
+  padding: 0 .5rem;
+  align-items: center;
+  justify-content: center;
+  background: #e6f1fc;
+  color: #004f9a;
+  border-radius: .75rem;
 }
 
 /* Product Page Container */
@@ -2034,7 +2051,7 @@ hr {
     flex: 0 0 calc((100% - 0px) / 2.5);
   }
 
-  .product-page__name {
+  .ellipsis {
     text-overflow: ellipsis;
     -webkit-line-clamp: 2;
     -webkit-box-orient: vertical;

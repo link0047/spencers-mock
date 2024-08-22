@@ -3918,13 +3918,15 @@ const categories: object[] = [{
 ];
 
 export async function load({ locals, cookies }): Promise<{ isMobile: Boolean, categories: object[]; }> {
+  
   cookies.set("brand", "spirit", {
-    path: "",
+    path: "/",
     httpOnly: true,
     sameSite: "strict",
     secure: false,
     maxAge: 60 * 60 * 24 * 7
   });
+
   const ua = parser(locals.ua);
   const isMobile: Boolean = ua.device.type === "mobile" || ua.device.type === "tablet";
 

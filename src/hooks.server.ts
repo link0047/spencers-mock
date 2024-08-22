@@ -14,7 +14,7 @@ const securityHeaders = new Map([
 ]);
 
 export const customHandle: Handle = async ({ resolve, event }) => {
-  event.locals.ua = event.request.headers.get('user-agent') || "";
+  event.locals.ua = event.request.headers.get("user-agent") || "";
   /**
    * Creates a Supabase client specific to this server request.
    *
@@ -30,7 +30,7 @@ export const customHandle: Handle = async ({ resolve, event }) => {
        */
       setAll: (cookiesToSet) => {
         cookiesToSet.forEach(({ name, value, options }) => {
-          event.cookies.set(name, value, { ...options, path: '/' })
+          event.cookies.set(name, value, { ...options, path: "/" })
         })
       },
     },
@@ -77,12 +77,12 @@ const authGuard: Handle = async ({ event, resolve }) => {
   event.locals.session = session
   event.locals.user = user
 
-  if (!event.locals.session && event.url.pathname.startsWith('/private')) {
-    redirect(303, '/auth')
+  if (!event.locals.session && event.url.pathname.startsWith("/private")) {
+    redirect(303, "/auth")
   }
 
-  if (event.locals.session && event.url.pathname === '/auth') {
-    redirect(303, '/private')
+  if (event.locals.session && event.url.pathname === "/auth") {
+    redirect(303, "/private")
   }
 
   return resolve(event)

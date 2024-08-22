@@ -105,6 +105,7 @@
 	padding: var(--uikit-tooltip-padding);
 	line-height: 1;
 	pointer-events: none;
+	z-index: 520;
 	opacity: 0;
 	transition: opacity var(--uikit-tooltip-transition-duration);
 }
