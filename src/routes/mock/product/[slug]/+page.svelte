@@ -1605,15 +1605,24 @@
     </div>
   </section>
   {/if}
+  <footer class="page-footer"></footer>
 </Page>
 <div class="page-controls" class:page-controls--show={showControls}>
   <div class="product-page__action">
     <InputStepper/>
-    <Button variant="success" on:click={addToCart}>Add to Cart</Button>
+    <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
   </div>
 </div>
 
 <style>
+:root {
+  --uikit-page-control-height: 4.5rem;
+}
+
+.page-footer {
+  padding-bottom: calc(var(--uikit-page-control-height) - .5rem);
+}
+
 .drawer__heading {
   margin: 0;
   line-height: 1.25;
@@ -1942,6 +1951,7 @@ hr {
   box-shadow: 1px 3px 8px 3px rgba(0, 0, 0, 0.3);
   left: 0;
   gap: .5rem;
+  height: var(--uikit-page-control-height);
   z-index: 10;
   background-color: #fff;
   padding: 1rem;
