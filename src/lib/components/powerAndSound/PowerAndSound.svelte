@@ -218,9 +218,9 @@
 				</div>
 			{/each}
 		</div>
-		<div class="valueprops sex-wellness-props">
-			{#each Object.entries(staticProps) as [key, { heading, desc }]}
-				<div class="valueprop valueprop--long-desc">
+		<div class="valueprops">
+			{#each Object.entries(staticProps) as [key, { heading, desc }], index}
+				<div class="valueprop sex-wellness-prop">
 					<Icon viewBox="0 0 60 60">
 						<use href="#{key}" />
 					</Icon>
@@ -298,16 +298,23 @@
 
 	@media(max-width: 560px) {
 		.valueprops {
-			padding: .5rem .25rem;
-			column-gap: 0;
-			--icon-width: 32px;
-			--icon-height: 32px;
+			grid-template-columns: repeat(4, minmax(0, 1fr));
+			column-gap: .5rem;
+			padding: .5rem;
 		}
 
-		.valueprop--long-desc {
+		.valueprop {
+			grid-template-columns: 1fr;
+			grid-template-rows: 3rem 1rem 1fr;
 			grid-template-areas: 
-			"icon heading"
-			"desc desc";
+				"icon" 
+				"heading"
+				"desc";
+			grid-column: span 2;
+		}
+
+		.valueprop > :global(*)  {
+			justify-self: center;
 		}
 
 		.valueprop__heading {
@@ -315,17 +322,13 @@
 			align-items: center;
 		}
 		
-		.valueprops.product-features {
-			grid-template-columns: repeat(2, minmax(0, 1fr));
-			column-gap: .5rem;
+		.valueprop__desc {
+			text-align: center;
+			text-wrap: pretty;
 		}
 
-		.valueprops.sex-wellness-props {
-			column-gap: .875rem;
-		}
-
-		.valueprop {
-			grid-template-columns: 32px 1fr;
+		.valueprop.sex-wellness-prop:nth-child(3) {
+			grid-column-end: 4;
 		}
 	}
 
