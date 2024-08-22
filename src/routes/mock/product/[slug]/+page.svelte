@@ -1422,7 +1422,7 @@
         </VariantSelector>
         {/if}
         {#if sizes.length}
-        <VariantSelector label="Size" bind:groupValue={sizeGroupValue}>
+        <VariantSelector label="Size" bind:groupValue={sizeGroupValue} scrollable={isMobile}>
           <svelte:fragment slot="action">
             <Button variant="icon" size="small" aria-label="Size Chart" on:click={scrollToAndOpenAccordion}>
               <Icon>
