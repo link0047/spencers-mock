@@ -16,7 +16,7 @@
   import Table from "$lib/components/table";
   import Link from "$lib/components/link";
   import { RatingsAndReviewsCard } from "$lib/components/ratingsandreviewscard";
-  import { fetchData } from "$lib/client/util/utilities.js";
+  import { fetchData } from "$lib/client/util/utilities";
   import { browser } from "$app/environment";
   import IconSet from "$lib/components/iconset";
   import { Collapsible } from "$lib/components/collapsible";
@@ -1095,6 +1095,7 @@
   const recommendationData = product?.recommendationData || [];
   let payLaterPrice = divideByFourAndRound(Number(price));
   const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
+  console.log(reviewData);
   const hasLimitedQuantity = product?.maximumquantity != 99 || false;
   const defaultSize = getDefaultSize(sizes);
   let sizeGroupValue = defaultSize;

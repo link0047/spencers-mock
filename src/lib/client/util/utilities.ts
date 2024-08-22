@@ -168,20 +168,6 @@ export function createTimeoutController({
   return controller;
 }
 
-/**
- * Fetches data from a specified URL with optional configurations.
- * 
- * @param {string} url - The URL to fetch data from.
- * @param {Object} [options={}] - Optional configurations for the fetch request.
- * @param {number} [options.timeout] - The timeout duration in milliseconds.
- * @param {"json" | "text"} [options.responseType="json"] - The expected response type ('json' or 'text').
- * @param {HeadersInit} [options.headers] - Custom headers to include in the request.
- * @param {AbortSignal} [options.externalSignal] - An external signal to abort the request.
- * @param {() => void} [options.onTimeout] - A callback function to execute when the timeout occurs.
- * @param {"ms" | "s" | "m"} [options.timeoutUnit="ms"] - The unit of the timeout duration ('ms', 's', or 'm').
- * @returns {Promise<any>} A promise that resolves to the response data in the specified format.
- * @throws {Error} Throws an error if the URL is invalid, the response type is unsupported, or the fetch request fails.
- */
 export async function fetchData(
   url: string,
   options: {
@@ -198,15 +184,18 @@ export async function fetchData(
     throw new Error("Invalid URL provided");
   }
 
+  // Set default response type to "json" if not specified
+  const responseType = options.responseType || "json";
+
   // Validate response type
   const supportedResponseTypes = ["json", "text"];
-  if (options.responseType && !supportedResponseTypes.includes(options.responseType)) {
+  if (!supportedResponseTypes.includes(responseType)) {
     throw new Error("Unsupported response type");
   }
 
   // Set default headers
   const defaultHeaders: HeadersInit = {
-    Accept: options.responseType === "json" ? "application/json" : "text/plain",
+    Accept: responseType === "json" ? "application/json" : "text/plain",
     ...(options.headers || {}),
   };
 
@@ -239,18 +228,10 @@ export async function fetchData(
     }
 
     // Parse response based on response type
-    if (options.responseType === "json") {
+    if (responseType === "json") {
       return await response.json();
-    } else if (options.responseType === "text") {
+    } else if (responseType === "text") {
       return await response.text();
-    } else {
-      // By default, parse as JSON if content-type is "application/json"
-      const contentType = response.headers.get("content-type");
-      if (contentType && contentType.includes("application/json")) {
-        return await response.json();
-      } else {
-        return await response.text();
-      }
     }
   } catch (error) {
     // Log and rethrow error
@@ -258,6 +239,7 @@ export async function fetchData(
     throw error;
   }
 }
+
 
 /**
  * Submits a vote for a given UGC (User-Generated Content) ID to a remote endpoint.

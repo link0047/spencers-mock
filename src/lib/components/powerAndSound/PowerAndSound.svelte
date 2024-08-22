@@ -220,7 +220,7 @@
 		</div>
 		<div class="valueprops">
 			{#each Object.entries(staticProps) as [key, { heading, desc }]}
-				<div class="valueprop">
+				<div class="valueprop valueprop--long-desc">
 					<Icon viewBox="0 0 60 60">
 						<use href="#{key}" />
 					</Icon>
@@ -302,6 +302,17 @@
 			column-gap: 0;
 			--icon-width: 32px;
 			--icon-height: 32px;
+		}
+
+		.valueprop--long-desc {
+			grid-template-areas: 
+			"icon heading"
+			"desc desc";
+		}
+
+		.valueprop__heading {
+			display: flex;
+			align-items: center;
 		}
 		
 		.valueprops.product-features {

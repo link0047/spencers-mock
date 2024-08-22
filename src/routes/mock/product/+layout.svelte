@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount } from "svelte";
-  import { debounceAsync } from "$lib/client/util/utilities.js";
+  import { debounce } from "$lib/client/util/utilities";
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
   import { Avatar } from "$lib/components/avatar";
   import { Menu, MenuItem } from "$lib/components/menu";
@@ -173,7 +173,7 @@
   /**
    * Debounces the handleInput function to improve performance during continuous input.
    */
-	const debouncedHandleInput = debounceAsync(handleInput, 250);
+	const debouncedHandleInput = debounce(handleInput, 250);
 
   /**
    * Makes a JSONP fetch request to the specified URL.
