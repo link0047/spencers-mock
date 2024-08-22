@@ -457,11 +457,11 @@
 					</svg>
 				</button>
 			{/if}
+      {#if displayIndicator && slideCount > 1}
 			<div class="carousel__indicator">
-				{#if displayIndicator}
-					<IndicatorDots index={slideIndex} count={slideCount} />
-				{/if}
-			</div>
+        <IndicatorDots index={slideIndex} count={slideCount} />
+      </div>
+      {/if}
 		</div>
 		<div 
 		  bind:this={carouselTrackRef} 
