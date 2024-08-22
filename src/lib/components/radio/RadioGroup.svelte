@@ -72,7 +72,7 @@
 	aria-required={required}
 	dir={direction}
 	class="radio-group"
-	class:radio-group--scroll-snap={scrollable}
+	class:radio-group--scrollable={scrollable}
 	use:rovingIndexAction
 	{...$$restProps}
 >
@@ -86,14 +86,13 @@
 		gap: .5rem;
 	}
 
-	.radio-group--scroll-snap {
+	.radio-group--scrollable {
 		overflow-x: auto;
 		overflow-y: hidden;
-		overscroll-behavior-x: none;
-		scroll-snap-type: x mandatory;
+		scrollbar-width: 0;
 	}
 
-	:global(.radio-group--scroll-snap .radio) {
+	:global(.radio-group--scrollable .radio) {
 		flex-shrink: 0;
 	}
 
