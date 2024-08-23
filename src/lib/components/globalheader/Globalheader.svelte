@@ -1,8 +1,3 @@
-<script>
-  import Icon from "$lib/components/icon";
-  import Button from "$lib/components/button";
-</script>
-
 <header class="global-header">
   <nav class="global-header__nav">
     <div class="global-header__container">
@@ -17,13 +12,6 @@
 </header>
 
 <style>
-  .ellipsis {
-    overflow: hidden;
-    white-space: nowrap;
-    display: inline-block;
-    text-overflow: ellipsis;
-  }
-
   .global-header {
     width: 100%;
     position: sticky;
@@ -36,9 +24,7 @@
   }
 
   .global-header__nav {
-    display: grid;
-    gap: 4px;
-    width: 100%;
+    display: flex;
     align-items: center;
     justify-content: center;
   }
@@ -51,10 +37,9 @@
       --desktop-header-template-columns,
       32px 72px 1fr minmax(auto, max-content)
     );
-    padding-inline: 4px;
     gap: 8px;
     align-items: center;
-    width: 100vw;
+    width: 100%;
     height: 52px;
     max-width: 1256px;
   }
@@ -78,18 +63,12 @@
 
   @media (max-width: 560px) {
     .global-header__container {
-      padding: 8px;
+      padding-inline: 8px;
       grid-template-areas: "menu logo search group";
       grid-template-columns: var(
         --mobile-header-template-columns,
-        36px 40px 1fr 64px
+        36px 40px 1fr 72px
       );
-    }
-  }
-
-  @media (min-width: 1256px) {
-    .global-header__container {
-      padding-inline: 0;
     }
   }
 </style>
