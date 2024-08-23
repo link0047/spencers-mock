@@ -1617,6 +1617,11 @@
 <style>
 :root {
   --uikit-page-control-height: 4.5rem;
+  --product-recommendation-gap: 1rem;
+}
+
+:global(body) {
+  overflow-x: hidden;
 }
 
 .page-footer {
@@ -1989,7 +1994,7 @@ hr {
 
 .recommendation-section__carousel {
   display: flex;
-  gap: 1rem;
+  gap: var(--product-recommendation-gap);
   flex-flow: row nowrap;
   overflow-x: auto;
   overflow-y: hidden;
@@ -2010,7 +2015,7 @@ hr {
   gap: .5rem;
   color: #212121;
   text-decoration: none;
-  flex: 0 0 calc((100% - (4 * .5rem)) / 5);
+  flex: 0 0 calc((100% - (4 * var(--product-recommendation-gap))) / 5);
 }
 
 .product-card__image {
@@ -2034,9 +2039,13 @@ hr {
 }
 
 @media(max-width: 560px) {
+  .recommendation-section__carousel {
+    scrollbar-width: none;
+  }
+
   .product-card,
   .product-card:visited {
-    flex: 0 0 calc((100% - 0px) / 2.5);
+    flex: 0 0 calc((100%) / 2.5);
   }
 
   .ellipsis {
