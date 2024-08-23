@@ -1662,6 +1662,10 @@
   overflow-x: hidden;
 }
 
+:global(.powerandsound) {
+  margin-bottom: 1.5rem;
+}
+
 .page-footer {
   padding-bottom: calc(var(--uikit-page-control-height) - .5rem);
 }
@@ -1932,7 +1936,7 @@ hr {
 .product-page__restrictions {
   display: grid;
   gap: .5rem;
-  margin-top: 2.5rem;
+  margin-bottom: 1.5rem;
 }
 
 /* Badges */
