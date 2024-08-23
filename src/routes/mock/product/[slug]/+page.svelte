@@ -27,6 +27,8 @@
   import { Tooltip, useTooltipState } from "$lib/components/tooltip";
   import { AOVBooster } from "$lib/components/aovBooster";
   import { Image } from "$lib/components/image";
+  import { MessageCard } from "$lib/components/card";
+  import Separator from "$lib/components/separator/Separator.svelte";
   
   export let data;
 
@@ -1151,6 +1153,18 @@
 </svelte:head>
 
 <IconSet>
+  <symbol id="paypal-later">
+    <path d="m17.7 8.7-9.2 10H5.1c-.2 0-.4-.2-.4-.5L7 4c0-.3.3-.6.7-.6h5.7c3.9.2 5 2.2 4.3 5.3z" style="fill:#002c8a"/> 
+    <path d="M17.8 7.7c1.4.8 1.7 2.2 1.3 4-.6 2.8-2.4 3.9-5.1 4h-.8c-.3 0-.5.2-.5.5l-.6 3.8c0 .3-.3.6-.7.6H8.6c-.2 0-.4-.2-.4-.5l1-6.7c.1-.3 8.6-5.7 8.6-5.7z" style="fill:#009be1"/>
+    <path d="m9.2 13.7.9-6c.1-.3.3-.5.6-.5h4.5c1.1 0 1.9.2 2.5.5-.2 2.1-1.2 5.4-6 5.5H9.8c-.3 0-.5.2-.6.5z" style="fill:#001f6b"/>
+  </symbol>
+  <symbol id="information-outline">
+    <path d="M11,9H13V7H11M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,17H13V11H11V17Z" />
+  </symbol>
+  <symbol id="klarna">
+    <path d="M15.5,5h-3.2c0,2.5-1.2,4.8-3.3,6.3l-1.3.9,4.8,6.4h4l-4.4-5.8c2.1-2.1,3.3-4.8,3.3-7.7ZM4.2,5h3.2v13.5h-3.2V5ZM17.5,5h3v13.5h-3s0-13.5,0-13.5ZM47,9c-1.2,0-2.3.4-3,1.3v-1h-2.9v9.4h2.9v-4.9c0-1.5,1-2.2,2.2-2.2s2,.7,2,2.2v5h2.9v-6c0-2.3-1.7-3.7-4.1-3.7h0ZM29.6,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM27,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM37,10.5v-1.2h-3v9.4h3v-4.4c0-1.5,1.6-2.3,2.8-2.3v-2.7c-1.2,0-2.3.5-2.8,1.2h0ZM60,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM57.3,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM65,9.5c0-.2,0-.3-.3-.3h-.3v.7h0v-.3h.2v.3h.3v-.5h0ZM64.8,9.6h-.2v-.3h.2v.3Z"/>
+    <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>
+  </symbol>
 	<symbol id="recommended-check"><path d="M2.836 10.855L0 13.473l7.418 6.982L24 5.618 21.164 3 7.418 15.218"/></symbol>
   <symbol id="ruler-flat"><path d="M21.4 16.8H2.6c-.7 0-1.4-.6-1.4-1.3V8.7c0-.7.6-1.4 1.4-1.4h18.8c.7 0 1.3.6 1.3 1.4v6.8c0 .7-.6 1.3-1.3 1.3ZM2.8 15.2h18.5V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7h-3.5v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H7.6v2.2c0 .4-.3.8-.8.8s-.8-.3-.8-.8V8.7H2.5v6.5Z"/></symbol>
   <symbol id="shipping">
@@ -1485,7 +1499,43 @@
         <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
       </div>
       <div class="product-page__pay-later">
-        <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>
+        <h2 class="paylater__heading">More ways to pay</h2>
+        <div class="paylater__options">
+          <MessageCard>
+            <svelte:fragment slot="heading">
+              <Icon>
+                <use href="#paypal-later" />
+              </Icon>
+              PayPal Pay Later
+            </svelte:fragment>
+            4 interest-free payments
+            <svelte:fragment slot="action">
+              <ButtonNew variant="ghost">
+                <Icon>
+                  <title>information-outline</title>
+                  <use href="#information-outline" />
+                </Icon>
+              </ButtonNew>
+            </svelte:fragment>
+          </MessageCard>
+          <MessageCard>
+            <svelte:fragment slot="heading">
+              <Icon viewBox="0 0 72 24" style="--icon-width:72px">
+                <use href="#klarna" />
+              </Icon>
+            </svelte:fragment>
+            4 interest-free payments
+            <svelte:fragment slot="action">
+              <ButtonNew variant="ghost">
+                <Icon>
+                  <title>information-outline</title>
+                  <use href="#information-outline" />
+                </Icon>
+              </ButtonNew>
+            </svelte:fragment>
+          </MessageCard>
+        </div>
+        <!-- <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>
         <Icon>
           <path d="m17.7 8.7-9.2 10H5.1c-.2 0-.4-.2-.4-.5L7 4c0-.3.3-.6.7-.6h5.7c3.9.2 5 2.2 4.3 5.3z" style="fill:#002c8a"/>
           <path d="M17.8 7.7c1.4.8 1.7 2.2 1.3 4-.6 2.8-2.4 3.9-5.1 4h-.8c-.3 0-.5.2-.5.5l-.6 3.8c0 .3-.3.6-.7.6H8.6c-.2 0-.4-.2-.4-.5l1-6.7c.1-.3 8.6-5.7 8.6-5.7z" style="fill:#009be1"/>
@@ -1495,7 +1545,7 @@
         <Icon viewBox="0 0 72 24" variant="logo">
           <path d="M15.5,5h-3.2c0,2.5-1.2,4.8-3.3,6.3l-1.3.9,4.8,6.4h4l-4.4-5.8c2.1-2.1,3.3-4.8,3.3-7.7ZM4.2,5h3.2v13.5h-3.2V5ZM17.5,5h3v13.5h-3s0-13.5,0-13.5ZM47,9c-1.2,0-2.3.4-3,1.3v-1h-2.9v9.4h2.9v-4.9c0-1.5,1-2.2,2.2-2.2s2,.7,2,2.2v5h2.9v-6c0-2.3-1.7-3.7-4.1-3.7h0ZM29.6,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM27,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM37,10.5v-1.2h-3v9.4h3v-4.4c0-1.5,1.6-2.3,2.8-2.3v-2.7c-1.2,0-2.3.5-2.8,1.2h0ZM60,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM57.3,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM65,9.5c0-.2,0-.3-.3-.3h-.3v.7h0v-.3h.2v.3h.3v-.5h0ZM64.8,9.6h-.2v-.3h.2v.3Z"/>
           <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>          
-        </Icon>
+        </Icon> -->
       </div>
       {#if valueprop.power && valueprop.sound}
         <PowerAndSound power={valueprop.power} sound={valueprop.sound} bluetooth={valueprop.bluetooth} rechargeable={valueprop.rechargeable} waterproof={valueprop.waterproof} />
@@ -1860,12 +1910,24 @@ hr {
 }
 
 .product-page__pay-later {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .875rem;
-  line-height: 1.2;
-  gap: 4px;
+  display: grid;
+  gap: .5rem;
+  margin-block: 1.5rem;
+  --uikit-btn-height: 2.5rem;
+  --uikit-btn-width: 2.5rem;
+}
+
+.paylater__heading {
+  font-size: 1rem;
+  margin: 0;
+}
+
+.paylater__options {
+  border: 1px solid #c5c5c7;
+  border-radius: .5rem;
+  padding: 1rem;
+  display: grid;
+  gap: 1rem;
 }
 
 @media(max-width: 560px) {
