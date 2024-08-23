@@ -1234,7 +1234,7 @@
 				>
 				<div class="upsell-product__name">{name}</div>
 				<div class="upsell-product__price">${price}</div>
-				<ButtonNew data-index={index} variant="outlined" color="success" on:click={openUpSellPanel}>
+				<ButtonNew data-index={index} variant="outlined" color="success" rounded on:click={openUpSellPanel}>
 					Add to cart
 				</ButtonNew>
 			</div>
@@ -1343,7 +1343,7 @@
       {/if}
       <div class="product-page__action">
         <InputStepper max={product?.maximumquantity} />
-        <ButtonNew color="success" on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
+        <ButtonNew color="success" rounded on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
       </div>
     {/if}
 	</DrawerPanel>
@@ -1496,7 +1496,7 @@
       {/if}
       <div class="product-page__action" bind:this={ctaRef}>
         <InputStepper bind:value={productQuantity} max={product?.maximumquantity} />
-        <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
+        <ButtonNew color="success" on:click={addToCart} rounded>Add to Cart</ButtonNew>
       </div>
       <div class="product-page__pay-later">
         <h2 class="paylater__heading">More ways to pay</h2>

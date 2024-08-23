@@ -317,7 +317,6 @@
 
 	.btn--rounded {
 		padding: 0;
-		width: var(--uikit-btn-height);
 		border-radius: calc(var(--uikit-btn-height) / 2);
 	}
 	

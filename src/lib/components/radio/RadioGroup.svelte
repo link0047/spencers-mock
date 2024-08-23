@@ -89,7 +89,6 @@
 	.radio-group--scrollable {
 		overflow-x: auto;
 		overflow-y: hidden;
-		scrollbar-width: none;
 	}
 
 	:global(.radio-group--scrollable .radio) {
@@ -101,5 +100,11 @@
 	*/
 	:global(.radio-group:has(.radio, .swatch)) {
 		display: flex;
+	}
+
+	@media (max-width: 560px) {
+		.radio-group--scrollable {
+			scrollbar-width: none;
+		}
 	}
 </style>
