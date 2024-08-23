@@ -1335,7 +1335,7 @@
         </div>
       {/if}
       <div class="product-page__action">
-        <InputStepper max={product?.maximumquantity} />
+        <InputStepper />
         <ButtonNew color="success" rounded on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
       </div>
     {/if}
