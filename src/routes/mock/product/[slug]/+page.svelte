@@ -1329,11 +1329,6 @@
           {/if}
         </svelte:fragment>
       </FulfillmentRadioGroup>
-      {#if hasLimitedQuantity}
-        <div class="product-page__limited-quantity">
-          Maxiumum of {product?.maximumquantity} units per order
-        </div>
-      {/if}
       <div class="product-page__action">
         <InputStepper />
         <ButtonNew color="success" rounded on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
