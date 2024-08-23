@@ -793,6 +793,7 @@
     padding-right: .5rem;
     flex: 0 0 100%;
     font-size: .875rem;
+    z-index: 1;
     background-color: #f2f2f2;
     border-bottom: 1px solid #93939a;
     justify-content: space-between;
