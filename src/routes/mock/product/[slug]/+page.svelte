@@ -521,7 +521,8 @@
     selected.colors = colors;
     selected.sizes = sizes;
     selected.colorGroupValue = colors[0];
-    selected.sizeGroupValue = getDefaultSize(sizes);
+    selected.defaultSize = getDefaultSize(sizes);
+    selected.sizeGroupValue = selected.defaultSize;
     selected.shouldShowSalePrice = firstVariant.cost !== firstVariant.price.amountInDollars;
     selected.salePrice = firstVariant.price.amountInDollars;
 		upsell = selected;
@@ -1284,14 +1285,6 @@
         {/if}
         {#if upsell.sizes.length}
         <VariantSelector label="Size" bind:groupValue={upsell.sizeGroupValue} scrollable>
-          <svelte:fragment slot="action">
-            <Button variant="icon" size="small" aria-label="Size Chart" on:click={scrollToAndOpenAccordion}>
-              <Icon>
-                <use href="#ruler-flat" />
-              </Icon>
-              Size Chart
-            </Button>
-          </svelte:fragment>
           {#if upsell.sizes.length > 1}
             {#each upsell.sizes as { name, outOfStock }}
               <Radio 
@@ -1299,8 +1292,8 @@
                 variant="box" 
                 name="size" 
                 value={name} 
-                checked={name === defaultSize}
-                aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}
+                checked={name === upsell.defaultSize}
+                aria-label={`${name} ${name === upsell.defaultSize ? "selected" : ""}`}
               >
                 {name}
               </Radio>
