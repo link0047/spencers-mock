@@ -61,9 +61,14 @@
     max-width: 1256px;
   }
 
-  @media (max-width: 560px) {
+  @media (max-width: 1256px) {
     .global-header__container {
       padding-inline: 8px;
+    }
+  }
+
+  @media (max-width: 560px) {
+    .global-header__container {
       grid-template-areas: "menu logo search group";
       grid-template-columns: var(
         --mobile-header-template-columns,
