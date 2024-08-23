@@ -1759,18 +1759,17 @@ hr {
 }
 
 .promo {
-  font-size: .75rem;
+  font-size: .875rem;
   font-weight: 700;
   display: flex;
-  height: 1.4rem;
-  min-width: 1.5rem;
+  height: 2rem;
   width: fit-content;
-  padding: 0 .5rem;
+  padding: 0 .75rem;
   align-items: center;
   justify-content: center;
   background: #e6f1fc;
   color: #004f9a;
-  border-radius: .75rem;
+  border-radius: 1rem;
 }
 
 /* Product Page Container */
@@ -1889,17 +1888,16 @@ hr {
 /* Badges */
 .badge {
   background-color: #2a508f;
-  font-size: 12px;
+  font-size: .875rem;
   font-weight: 500;
   display: flex;
-  height: 24px;
-  min-width: 24px;
+  height: 2rem;
   width: fit-content;
-  padding: 0 8px;
+  padding: 0 .875rem;
   align-items: center;
   justify-content: center;
   color: #fff;
-  border-radius: 12px;
+  border-radius: 1rem;
 }
 
 /* Item SKU */
