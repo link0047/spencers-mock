@@ -163,6 +163,8 @@
 	}
 
 	.product-gallery__controls {
+		--uikit-btn-height: 2.5rem;
+		--uikit-btn-width: 2.5rem;
 		position: absolute;
 		top: 1rem;
 		right: 1rem;
