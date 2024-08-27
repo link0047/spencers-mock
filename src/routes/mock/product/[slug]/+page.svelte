@@ -1448,7 +1448,19 @@
         <VariantSelector label="Color" bind:groupValue={colorGroupValue}>
           {#if colors.length > 1}
             {#each colors as color, index}
-              <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
+              {#if color === "CHEETOS"}
+                <Radio 
+                  variant="box" 
+                  name="color" 
+                  value={color} 
+                  checked={color === sizeGroupValue} 
+                  aria-label={color}
+                >
+                  {color}
+                </Radio>
+              {:else}  
+                <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
+              {/if}
             {/each}
           {/if}
         </VariantSelector>

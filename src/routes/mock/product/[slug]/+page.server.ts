@@ -1248,11 +1248,11 @@ const dataStore = [
         {
           "cost": 19.99,
           "VARIANT_ID": 509538,
-          "swatchColorName": "BLACK AND SILVER",
+          "swatchColorName": "BLACK",
           "swatchColorCode": "BI",
           "priceFormatted": "$19.99",
           "neverOutOfStock": false,
-          "COLOR_NAME": "BLACK AND SILVER",
+          "COLOR_NAME": "BLACK",
           "invLevel": "87",
           "orderOnlineMessage": "Order Now! Expected to ship on or before ",
           "price": {
@@ -1290,11 +1290,11 @@ const dataStore = [
         {
           "cost": 19.99,
           "VARIANT_ID": 484288,
-          "swatchColorName": "BLACK AND SILVER",
+          "swatchColorName": "CHEETOS",
           "swatchColorCode": "BI",
           "priceFormatted": "$19.99",
           "neverOutOfStock": false,
-          "COLOR_NAME": "BLACK AND SILVER",
+          "COLOR_NAME": "CHEETOS",
           "invLevel": "34",
           "orderOnlineMessage": "Order Now! Expected to ship on or before ",
           "price": {
