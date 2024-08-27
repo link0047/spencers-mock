@@ -530,7 +530,6 @@
 	}
 
 	function closeUpSellPanel() {
-    console.log(upsell);
     $upsellsAddedToCart[upsell.sku] = ($upsellsAddedToCart[upsell.sku] || 0) + upsell.quantity;
     $cartCount += upsell.quantity;
 		isPanelOpen = false;
@@ -542,8 +541,8 @@
 		{
       "image": "https://spencers.scene7.com/is/image/Spencers/04343133-a",
 			"name": "Springtrap T Shirt - Five Nights at Freddy's",
-			"price": "24.99",
-      "salePrice": "19.99",
+			"price": 24.99,
+      "salePrice": 19.99,
       "rating": 5,
       "sku": "04343133",
       "fulfillmentValue": null,
@@ -636,8 +635,8 @@
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/04132817-a",
 			"name": "Sunnydrop T Shirt - Five Nights at Freddy's",
-			"price": "24.99",
-      "salePrice": "19.99",
+			"price": 24.99,
+      "salePrice": 19.99,
       "rating": 5,
       "sku": "04132817",
       "fulfillmentValue": null,
@@ -730,8 +729,8 @@
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/03998515-a",
 			"name": "Kick Retro Sonic the Hedgehog T Shirt",
-			"price": "24.99",
-      "salePrice": "19.99",
+			"price": 24.99,
+      "salePrice": 19.99,
       "rating": 0,
       "sku": "03998515",
       "fulfillmentValue": null,
@@ -824,8 +823,8 @@
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710429-a",
 			"name": "Sweetest Princess Lolly T Shirt - Candyland",
-			"price": "24.99",
-      "salePrice": "19.99",
+			"price": 24.99,
+      "salePrice": 19.99,
       "rating": 0,
       "sku": "07710429",
       "fulfillmentValue": null,
@@ -960,8 +959,8 @@
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710197-a",
 			"name": "Candy Land Characters T Shirt",
-			"price": "24.99",
-      "salePrice": "19.99",
+			"price": 24.99,
+      "salePrice": 19.99,
       "rating": 0,
       "sku": "07710197",
       "fulfillmentValue": null,
@@ -1246,7 +1245,7 @@
 	</div>
 	<h2 class="drawer__heading">Customers also bought these products</h2>
 	<div class="upsells">
-		{#each upsells as { sku, image, name, price }, index }
+		{#each upsells as { sku, image, name, price, salePrice }, index }
 			<div class="upsell-product">
         {#if $upsellsAddedToCart[sku]}
           <div class="atc-badge">{$upsellsAddedToCart[sku]} added</div>
@@ -1261,7 +1260,12 @@
 					alt="Product added to cart"
 				>
 				<div class="upsell-product__name">{name}</div>
-				<div class="upsell-product__price">${price}</div>
+				<div class="upsell-product__price">
+          <span class="basePrice">${salePrice !== price ? salePrice : price}</span>
+          {#if salePrice}
+            <span class="salePrice">${price}</span>
+          {/if}
+        </div>
 				<ButtonNew data-index={index} data-sku={sku} variant="outlined" color="success" rounded on:click={openUpSellPanel}>
 					Add to cart
 				</ButtonNew>
@@ -1286,16 +1290,15 @@
         <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
       </div>
       <div class="product-page__price">
-        <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${upsell.price}</span>
+        <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${ upsell.shouldShowSalePrice ? upsell.salePrice : price}</span>
         {#if upsell.shouldShowSalePrice}
-        <span class="salePrice">${upsell.salePrice}</span>
+        <span class="salePrice">${upsell.price}</span>
         {/if}
       </div>
-      {#if shouldShowSalePrice}
+      {#if upsell.shouldShowSalePrice}
         <div class="yousave-block">
           <span class="yousave-block__label">You save</span>
-          <span class="onSale">${(salePrice - price).toFixed(2)}</span>
-          <!-- <span class="yousave-block__percentage">({percentageDifference(salePrice, price)}% off)</span> -->
+          <span class="onSale">${(upsell.price - upsell.salePrice).toFixed(2)}</span>
         </div>
       {/if}
       <hr />
