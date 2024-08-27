@@ -19,7 +19,6 @@
    * @returns {void}
    */
 	function handleChange({ target }: Event): void {
-    console.log(target);
     if ($valueStore) {
 		  $valueStore = (target as HTMLInputElement)?.value;
     }
