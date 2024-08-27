@@ -1933,14 +1933,20 @@ async function seedStoreInventoryData() {
 async function queryProduct(pid: string) {
   try {
     const product = await db
-      .select()
+      .select({
+        product: productsTable,
+        variants: product_variantsTable,
+        images: product_imagesTable,
+      })
       .from(productsTable)
       .leftJoin(product_variantsTable, eq(productsTable.id, product_variantsTable.product_id))
       .leftJoin(product_imagesTable, eq(productsTable.id, product_imagesTable.product_id))
-      .where(eq(productsTable.id, pid));
+      .where(eq(productsTable.id, pid))
+      .execute();
     
     console.log(product);
   } catch (error) {
+    console.error(error);
     console.error(`Error querying product: ${pid}`)
   } finally {
     // Close the database connection and exit the process

@@ -1,5 +1,6 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
+  import { writable } from "svelte/store";
   import { onMount, tick, getContext } from "svelte";
   import Page from "$lib/components/page/Page.svelte";
   import { ProductGallery } from "$lib/components/productGallery";
@@ -28,7 +29,6 @@
   import { AOVBooster } from "$lib/components/aovBooster";
   import { Image } from "$lib/components/image";
   import { MessageCard } from "$lib/components/card";
-  import Separator from "$lib/components/separator/Separator.svelte";
   
   export let data;
 
@@ -516,12 +516,12 @@
 
 	function openUpSellPanel({ currentTarget: { dataset: { index }}}) {
     const selected = upsells[parseInt(index)];
-    const [colors, sizes] = extractColorAndSizeNames(selected.variants || []);
+    const [colors, _sizes] = extractColorAndSizeNames(selected.variants || []);
     const firstVariant = selected.variants[0];
     selected.colors = colors;
-    selected.sizes = sizes;
+    selected.sizes = _sizes;
     selected.colorGroupValue = colors[0];
-    selected.defaultSize = getDefaultSize(sizes);
+    selected.defaultSize = getDefaultSize(_sizes);
     selected.sizeGroupValue = selected.defaultSize;
     selected.shouldShowSalePrice = firstVariant.cost !== firstVariant.price.amountInDollars;
     selected.salePrice = firstVariant.price.amountInDollars;
@@ -530,6 +530,9 @@
 	}
 
 	function closeUpSellPanel() {
+    console.log(upsell);
+    $upsellsAddedToCart[upsell.sku] = ($upsellsAddedToCart[upsell.sku] || 0) + upsell.quantity;
+    $cartCount += upsell.quantity;
 		isPanelOpen = false;
     tooltipState.open.set(false);
     upsell = null;
@@ -540,7 +543,11 @@
       "image": "https://spencers.scene7.com/is/image/Spencers/04343133-a",
 			"name": "Springtrap T Shirt - Five Nights at Freddy's",
 			"price": "24.99",
+      "salePrice": "19.99",
       "rating": 5,
+      "sku": "04343133",
+      "fulfillmentValue": null,
+      "quantity": 1,
 			"variants": [{
 				"cost": 24.99,
 				"VARIANT_ID": 592811,
@@ -630,7 +637,11 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/04132817-a",
 			"name": "Sunnydrop T Shirt - Five Nights at Freddy's",
 			"price": "24.99",
+      "salePrice": "19.99",
       "rating": 5,
+      "sku": "04132817",
+      "fulfillmentValue": null,
+      "quantity": 1,
       "variants": [{
         "cost": 24.99,
         "VARIANT_ID": 557960,
@@ -720,7 +731,11 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/03998515-a",
 			"name": "Kick Retro Sonic the Hedgehog T Shirt",
 			"price": "24.99",
+      "salePrice": "19.99",
       "rating": 0,
+      "sku": "03998515",
+      "fulfillmentValue": null,
+      "quantity": 1,
       "variants":[{
         "cost": 24.99,
         "VARIANT_ID": 553694,
@@ -810,7 +825,11 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710429-a",
 			"name": "Sweetest Princess Lolly T Shirt - Candyland",
 			"price": "24.99",
+      "salePrice": "19.99",
       "rating": 0,
+      "sku": "07710429",
+      "fulfillmentValue": null,
+      "quantity": 1,
       "variants": [{
         "cost": 24.99,
         "VARIANT_ID": 568360,
@@ -942,7 +961,11 @@
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710197-a",
 			"name": "Candy Land Characters T Shirt",
 			"price": "24.99",
+      "salePrice": "19.99",
       "rating": 0,
+      "sku": "07710197",
+      "fulfillmentValue": null,
+      "quantity": 1,
       "variants": [{
         "cost": 24.99,
         "VARIANT_ID": 568091,
@@ -1073,6 +1096,7 @@
 	];
 
 	let upsell = null;
+  let upsellsAddedToCart = writable({});
 
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
@@ -1222,8 +1246,11 @@
 	</div>
 	<h2 class="drawer__heading">Customers also bought these products</h2>
 	<div class="upsells">
-		{#each upsells as { image, name, price }, index }
+		{#each upsells as { sku, image, name, price }, index }
 			<div class="upsell-product">
+        {#if $upsellsAddedToCart[sku]}
+          <div class="atc-badge">{$upsellsAddedToCart[sku]} added</div>
+        {/if}
 				<img
 					class="upsell-product__image"
 					src="{image}?wid=344&hei=344&fmt=webp"
@@ -1235,7 +1262,7 @@
 				>
 				<div class="upsell-product__name">{name}</div>
 				<div class="upsell-product__price">${price}</div>
-				<ButtonNew data-index={index} variant="outlined" color="success" rounded on:click={openUpSellPanel}>
+				<ButtonNew data-index={index} data-sku={sku} variant="outlined" color="success" rounded on:click={openUpSellPanel}>
 					Add to cart
 				</ButtonNew>
 			</div>
@@ -1252,7 +1279,7 @@
 				Choose options
 			</div>
     </svelte:fragment>
-    {#if upsell !== null}
+    {#if upsell !== null}  
       <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
       <h2 class="product-page__name">{upsell.name}</h2>
       <div class="product-page__rating">
@@ -1286,14 +1313,14 @@
         {#if upsell.sizes.length}
         <VariantSelector label="Size" bind:groupValue={upsell.sizeGroupValue} scrollable>
           {#if upsell.sizes.length > 1}
-            {#each upsell.sizes as { name, outOfStock }}
+            {#each upsell.sizes as { name, outOfStock }, index}
               <Radio 
                 disabled={outOfStock} 
                 variant="box" 
-                name="size" 
+                name="size-upsell" 
                 value={name} 
-                checked={name === upsell.defaultSize}
-                aria-label={`${name} ${name === upsell.defaultSize ? "selected" : ""}`}
+                checked={name === upsell.sizeGroupValue}
+                aria-label={`${name} ${name === upsell.sizeGroupValue ? "selected" : ""}`}
               >
                 {name}
               </Radio>
@@ -1304,7 +1331,7 @@
       </div>
       <hr />
       {/if}
-      <FulfillmentRadioGroup bind:value={fulfillmentValue}>
+      <FulfillmentRadioGroup bind:value={upsell.fulfillmentValue}>
         {#each fulfillmentTypes as { type, name, message }, index}
           <FulfillmentOption 
             value={type} 
@@ -1330,7 +1357,7 @@
         </svelte:fragment>
       </FulfillmentRadioGroup>
       <div class="product-page__action">
-        <InputStepper />
+        <InputStepper bind:value={upsell.quantity} />
         <ButtonNew color="success" rounded on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
       </div>
     {/if}
@@ -1440,8 +1467,8 @@
                 variant="box" 
                 name="size" 
                 value={name} 
-                checked={name === defaultSize} 
-                aria-label={`${name} ${name === defaultSize ? "selected" : ""}`}
+                checked={name === sizeGroupValue} 
+                aria-label={`${name} ${name === sizeGroupValue ? "selected" : ""}`}
               >
                 {name}
               </Radio>
@@ -1498,7 +1525,7 @@
             </svelte:fragment>
             4 interest-free payments
             <svelte:fragment slot="action">
-              <ButtonNew variant="ghost">
+              <ButtonNew variant="ghost" aria-label="Information about Paypal Pay in 4">
                 <Icon>
                   <title>information-outline</title>
                   <use href="#information-outline" />
@@ -1514,7 +1541,7 @@
             </svelte:fragment>
             4 interest-free payments
             <svelte:fragment slot="action">
-              <ButtonNew variant="ghost">
+              <ButtonNew variant="ghost" aria-label="Information about Klarna Pay in 4">
                 <Icon>
                   <title>information-outline</title>
                   <use href="#information-outline" />
@@ -1523,17 +1550,6 @@
             </svelte:fragment>
           </MessageCard>
         </div>
-        <!-- <span class="paylater-text">or 4 interest-free payments of ${payLaterPrice} with</span>
-        <Icon>
-          <path d="m17.7 8.7-9.2 10H5.1c-.2 0-.4-.2-.4-.5L7 4c0-.3.3-.6.7-.6h5.7c3.9.2 5 2.2 4.3 5.3z" style="fill:#002c8a"/>
-          <path d="M17.8 7.7c1.4.8 1.7 2.2 1.3 4-.6 2.8-2.4 3.9-5.1 4h-.8c-.3 0-.5.2-.5.5l-.6 3.8c0 .3-.3.6-.7.6H8.6c-.2 0-.4-.2-.4-.5l1-6.7c.1-.3 8.6-5.7 8.6-5.7z" style="fill:#009be1"/>
-          <path d="m9.2 13.7.9-6c.1-.3.3-.5.6-.5h4.5c1.1 0 1.9.2 2.5.5-.2 2.1-1.2 5.4-6 5.5H9.8c-.3 0-.5.2-.6.5z" style="fill:#001f6b"/>
-        </Icon>
-        or
-        <Icon viewBox="0 0 72 24" variant="logo">
-          <path d="M15.5,5h-3.2c0,2.5-1.2,4.8-3.3,6.3l-1.3.9,4.8,6.4h4l-4.4-5.8c2.1-2.1,3.3-4.8,3.3-7.7ZM4.2,5h3.2v13.5h-3.2V5ZM17.5,5h3v13.5h-3s0-13.5,0-13.5ZM47,9c-1.2,0-2.3.4-3,1.3v-1h-2.9v9.4h2.9v-4.9c0-1.5,1-2.2,2.2-2.2s2,.7,2,2.2v5h2.9v-6c0-2.3-1.7-3.7-4.1-3.7h0ZM29.6,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM27,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM37,10.5v-1.2h-3v9.4h3v-4.4c0-1.5,1.6-2.3,2.8-2.3v-2.7c-1.2,0-2.3.5-2.8,1.2h0ZM60,9.2v.6c-.8-.5-1.7-.8-2.9-.8-2.8,0-5.1,2.3-5.1,5s2.3,5,5.1,5,2-.4,2.9-.8v.6h2.9v-9.4h-2.9v-.2ZM57.3,16.4c-1.4,0-2.6-1.1-2.6-2.4s1.2-2.4,2.6-2.4,2.6,1.1,2.6,2.4-1.2,2.4-2.6,2.4ZM65,9.5c0-.2,0-.3-.3-.3h-.3v.7h0v-.3h.2v.3h.3v-.5h0ZM64.8,9.6h-.2v-.3h.2v.3Z"/>
-          <path d="M64.8,9c-.4,0-.7.4-.7.7s.4.7.7.7.7-.4.7-.7-.4-.7-.7-.7ZM64.8,10.2c-.4,0-.5-.3-.5-.5s.3-.5.5-.5.5.3.5.5-.3.5-.5.5ZM65.9,15.3c-1,0-1.8.7-1.8,1.8s.8,1.8,1.8,1.8,1.8-.7,1.8-1.8-.8-1.8-1.8-1.8Z"/>          
-        </Icon> -->
       </div>
       {#if valueprop.power && valueprop.sound}
         <PowerAndSound power={valueprop.power} sound={valueprop.sound} bluetooth={valueprop.bluetooth} rechargeable={valueprop.rechargeable} waterproof={valueprop.waterproof} />
@@ -1666,6 +1682,18 @@
   margin-bottom: 1.5rem;
 }
 
+.atc-badge {
+  background-color: #000000cc;
+  color: #fff;
+  position: absolute;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-size: .875rem;
+  padding: .25rem .5rem;
+  border-radius: .25rem;
+  right: .5rem;
+  top: .5rem;
+}
+
 .page-footer {
   padding-bottom: calc(var(--uikit-page-control-height) - .5rem);
 }
@@ -1761,6 +1789,7 @@
 }
 
 .upsell-product {
+  position: relative;
   display: grid;
   gap: .5rem;
 }
@@ -2147,5 +2176,4 @@ hr {
   font-size: .875rem;
   line-height: 1.5;
 }
-
 </style>
