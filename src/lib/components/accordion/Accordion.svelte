@@ -64,7 +64,7 @@
     align-items: center;
 		justify-content: space-between;
     position: relative;
-    height: 36px;
+    height: 2.5rem;
     padding: 0 .5rem;
     border: 1px solid transparent;
     border-top-left-radius: .25rem;
@@ -107,8 +107,8 @@
 	}
 
 	.icon {
-		width: 24px;
-		height: 24px;
+		width: 1.5rem;
+		height: 1.5rem;
 		fill: #212121;
 		transition: transform .15s ease-in-out;
 	}

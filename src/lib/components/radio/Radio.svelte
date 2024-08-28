@@ -55,7 +55,6 @@
     --ui-kit-radio-focus-visible-color: #015fcc;
   }
 
-
   .radio {
     position: relative;
     display: inline-flex;
