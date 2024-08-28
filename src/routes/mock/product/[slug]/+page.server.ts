@@ -1290,11 +1290,11 @@ const dataStore = [
         {
           "cost": 19.99,
           "VARIANT_ID": 484288,
-          "swatchColorName": "CHEETOS",
+          "swatchColorName": "PLUM",
           "swatchColorCode": "BI",
           "priceFormatted": "$19.99",
           "neverOutOfStock": false,
-          "COLOR_NAME": "CHEETOS",
+          "COLOR_NAME": "PLUM",
           "invLevel": "34",
           "orderOnlineMessage": "Order Now! Expected to ship on or before ",
           "price": {

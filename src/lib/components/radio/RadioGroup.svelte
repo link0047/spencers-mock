@@ -100,6 +100,7 @@
 	*/
 	:global(.radio-group:has(.radio, .swatch)) {
 		display: flex;
+		flex-flow: row wrap;
 	}
 
 	@media (max-width: 560px) {
