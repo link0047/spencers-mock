@@ -16,7 +16,7 @@
   import { FulfillmentRadioGroup, FulfillmentOption } from "$lib/components/fulfillmentRadioGroup";
   import Button from "$lib/components/button";
   import Accordion from "$lib/components/accordion";
-  import InputStepper from "$lib/components/inputstepper";
+  import { InputStepper } from "$lib/components/inputstepper";
   import { Breadcrumb, Crumb } from "$lib/components/breadcrumbs";
   import Icon from "$lib/components/icon";
   import Table from "$lib/components/table";
@@ -1405,7 +1405,7 @@
         </svelte:fragment>
       </FulfillmentRadioGroup>
       <div class="product-page__action">
-        <InputStepper bind:value={upsell.quantity} />
+        <InputStepper bind:value={upsell.quantity} rounded />
         <ButtonNew color="success" rounded on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
       </div>
     {/if}
@@ -1571,7 +1571,7 @@
         </div>
       {/if}
       <div class="product-page__action" bind:this={ctaRef}>
-        <InputStepper bind:value={productQuantity} max={product?.maximumquantity} />
+        <InputStepper bind:value={productQuantity} max={product?.maximumquantity} rounded />
         <ButtonNew color="success" on:click={addToCart} rounded>Add to Cart</ButtonNew>
       </div>
       <div class="product-page__pay-later">
@@ -1724,7 +1724,7 @@
 </Page>
 <div class="page-controls" class:page-controls--show={showControls}>
   <div class="product-page__action">
-    <InputStepper/>
+    <InputStepper rounded />
     <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
   </div>
 </div>

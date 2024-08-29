@@ -1,2 +1,2 @@
-import Badge from "./Badge.svelte";
-export default Badge;
+export { default as NotificationBadge } from "./NotificationBadge.svelte";
+export { default as Badge } from "./Badge.svelte";

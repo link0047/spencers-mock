@@ -1,77 +1,87 @@
-<script>
-  export let type = "";
-  export let animate = "none";
+<script lang="ts">
+  export let size: "sm" | "md" | "lg" = "md";
+  export let rounded: boolean = false;
+  export let color: "primary" | "secondary" | "success" | "danger" | "warning" | "info" = "primary";
 </script>
-<div
-  class="badge"
-  class:badge--size={type === "small"}
-  class:badge--jiggle={animate === "jiggle"}
-  aria-hidden="true"
+
+<div 
+  class="uikit-badge"
+  class:uikit-badge--rounded={rounded}
+  class:uikit-badge--sizeSM={size === "sm"}
+  class:uikit-badge--sizeMD={size === "md"}
+  class:uikit-badge--sizeLG={size === "lg"}
+  class:uikit-badge--colorPrimary={color === "primary"}
+  class:uikit-badge--colorSecondary={color === "secondary"}
+  class:uikit-badge--colorSuccess={color === "success"}
+  class:uikit-badge--colorDanger={color === "danger"}
+  class:uikit-badge--colorWarning={color === "warning"}
+  class:uikit-badge--colorInfo={color === "info"}
 >
-  {#if type !== "small"}
-    <slot />
-  {/if}
+  <slot />
 </div>
+
 <style>
-  .badge {
-    background-color: #2a508f;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
-      Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: .75rem;
-    font-weight: 400;
-    line-height: 1;
-    display: flex;
-    height: 1rem;
-    min-width: 1rem;
-    padding: 0 .25rem;
+  :root {
+    --uikit-badge-padding-inline: .875rem;
+    --uikit-badge-border-radius: .25rem;
+    --uikit-badge-bg: #2a508f;
+    --uikit-badge-color: #fff;
+    --uikit-badge-font-weight: 500;
+    --uikit-badge-font-size: .875rem;
+    --uikit-badge-height: 2rem;
+  }
+
+  .uikit-badge {
+    background-color: var(--uikit-badge-bg);
+    font-size: var(--uikit-badge-font-size);
+    font-weight: var(--uikit-badge-font-weight);
+    display: inline-flex;
+    height: var(--uikit-badge-font-height);
+    width: fit-content;
+    padding-inline: var( --uikit-badge-padding-inline);
     align-items: center;
     justify-content: center;
-    color: #fff;
-    border-radius: .5rem;
-    position: absolute;
-    top: 0;
-    right: 0;
+    color: var(--uikit-badge-color);
+    border-radius: var(--uikit-badge-border-radius);
   }
 
-  .badge--jiggle {
-    animation: jiggle 5s cubic-bezier(.25,.1,.25,1) infinite;
+  .uikit-badge--rounded {
+    --uikit-badge-border-radius: 9999px;
   }
 
-  @keyframes jiggle {
-    0%, 9%, 18% {
-      transform: translateY(0);
-    }
+  .uikit-badge--sizeSM {
+    --uikit-badge-font-height: 1.5rem;
+  }
 
-    2% {
-      transform: translateY(-10px);
-    }
+  .uikit-badge--sizeMD {
+    --uikit-badge-font-height: 2.5rem;
+  }
 
-    3% {
-      transform: translateY(-3px);
-    }
+  .uikit-badge--sizeLG {
+    --uikit-badge-font-height: 3rem;
+  }
 
-    5% {
-      transform: translateY(-8px);
-    }
+  .uikit-badge--colorPrimary {
+    --uikit-badge-bg: #2a508f;
+  }
 
-    7% {
-      transform: translateY(-2px);
-    }
+  .uikit-badge--colorSecondary {
+    --uikit-badge-bg: #6c757d;
+  }
 
-    11% {
-      transform: translateY(-10px);
-    }
+  .uikit-badge--colorSuccess {
+    --uikit-badge-bg: #28a745;
+  }
 
-    12% {
-      transform: translateY(-3px);
-    }
+  .uikit-badge--colorDanger {
+    --uikit-badge-bg: #dc3545;
+  }
 
-    14% {
-      transform: translateY(-8px);
-    }
+  .uikit-badge--colorWarning {
+    --uikit-badge-bg: #ffc107;
+  }
 
-    16% {
-      transform: translateY(-2px);
-    }
+  .uikit-badge--colorInfo {
+    --uikit-badge-bg: #17a2b8;
   }
 </style>

@@ -1,2 +1,1 @@
-import InputStepper from "./InputStepper.svelte";
-export default InputStepper;
+export { default as InputStepper } from "./InputStepper.svelte";

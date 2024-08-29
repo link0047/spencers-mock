@@ -5,6 +5,7 @@
 	export let maxlength: number = 2;
   export let value: number = 1;
   export let label: string = "Number Stepper";
+  export let rounded: boolean = false;
 
   function isNumber(value: any): boolean {
     return typeof value === "number" && !isNaN(value);
@@ -62,7 +63,10 @@
   $: isIncrementDisabled = value >= max;
 </script>
 
-<div class="input-stepper">
+<div 
+  class="input-stepper"
+  class:input-stepper--rounded={rounded}
+>
   <button
     type="button"
     disabled={isDecrementDisabled}
@@ -122,6 +126,10 @@
     width: fit-content;
     display: grid;
     grid-template-columns: var(--uikit-input-stepper-action-width) var(--uikit-input-stepper-action-width) var(--uikit-input-stepper-action-width);
+  }
+
+  .input-stepper--rounded {
+    --uikit-input-stepper-border-radius: 99999px;
   }
 
   .input-stepper__action {
