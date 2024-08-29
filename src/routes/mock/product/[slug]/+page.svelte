@@ -1,7 +1,12 @@
 <script lang="ts">
+  // Imports
+  import type { Upsell, UpsellsCart, ColorData } from '$lib/types/product';
   import type { Writable } from "svelte/store";
   import { writable } from "svelte/store";
   import { onMount, tick, getContext } from "svelte";
+  import { browser } from "$app/environment";
+  
+  // Component imports
   import Page from "$lib/components/page/Page.svelte";
   import { ProductGallery } from "$lib/components/productGallery";
   import StarRating from "$lib/components/starrating";
@@ -17,8 +22,6 @@
   import Table from "$lib/components/table";
   import Link from "$lib/components/link";
   import { RatingsAndReviewsCard } from "$lib/components/ratingsandreviewscard";
-  import { fetchData } from "$lib/client/util/utilities";
-  import { browser } from "$app/environment";
   import IconSet from "$lib/components/iconset";
   import { Collapsible } from "$lib/components/collapsible";
   import WarningCard from "$lib/components/warningcard";
@@ -29,7 +32,10 @@
   import { AOVBooster } from "$lib/components/aovBooster";
   import { Image } from "$lib/components/image";
   import { MessageCard } from "$lib/components/card";
-  
+
+  // Utility imports
+  import { fetchData } from "$lib/client/util/utilities";
+
   export let data;
 
   let { isMobile, product } = data;
@@ -41,12 +47,6 @@
 	const noconfig = true;
 	const timeout = 5000;
   const review_endpoint = `https://readservices-b2c.powerreviews.com/m/${merchantId}/l/${locale}/product/${pageId}/reviews?paging.size=${pagingSize}&apikey=${apiKey}&_noconfig=${noconfig}`;
-  
-  interface ColorData {
-    name: string;
-    displayName: string;
-    colorCode: string;
-  }
 
   const colorMapping: ColorData[] = [
     {"name": "AUBURN", "displayName": "Red", "colorCode": "#FF0000"},
@@ -461,7 +461,7 @@
    * @param {{ name: string, outOfStock: boolean }[]} sizes - An array of size objects.
    * @returns {string | null} - The default size ("M" if it exists and is in stock, else the first size in the array that is in stock), or null if the array is empty or all sizes are out of stock.
    */
-  function getDefaultSize(sizes: { name: string, outOfStock: boolean }[]): string | null {
+  function getDefaultSize(sizes: { name: string; outOfStock: boolean }[]): string | null {
     // Check if "M" size exists and is in stock
     const mediumSize = sizes.find(size => size.name.toLowerCase() === "m" && !size.outOfStock);
     if (mediumSize) {
@@ -496,48 +496,73 @@
     return colorMapping.find(item => item.name === color);
   }
 
-  function toggleProductNameClamp(event: Event) {
-    event?.target.classList.toggle("ellipsis");
+  /**
+   * Toggles the "ellipsis" class on the target element.
+   * This is typically used to show/hide truncated text.
+   * @param {Object} params - The destructured event object
+   * @param {EventTarget} params.target - The target element of the event
+   */
+  function toggleProductNameClamp({ target }: { target: EventTarget }): void {
+    if (target instanceof Element) {
+      target.classList.toggle("ellipsis");
+    }
   }
 
-  const drawerState = useDrawerState();
-	const tooltipState = useTooltipState();
-	let isPanelOpen = false;
-
-	function addToCart() {
+  /**
+   * Adds the current product to the cart.
+   * Opens the cart drawer and updates the cart count.
+   */
+  function addToCart() {
 		drawerState.open.set(true);
     $cartCount += productQuantity;
 	}
 
+  /**
+   * Closes the upsell panel and cart drawer.
+   */
 	function close() {
-		isPanelOpen = false;
+		isUpsellPanelOpen = false;
 		drawerState.open.set(false);
 	}
 
-	function openUpSellPanel({ currentTarget: { dataset: { index }}}) {
-    const selected = upsells[parseInt(index)];
+  /**
+   * Opens the upsell panel for a selected product.
+   * Extracts color and size information, and sets up the upsell data.
+   * @param {{ currentTarget: { dataset: { index: string }}}} event - The event object containing the index of the selected upsell item
+   */
+  function openUpSellPanel(event: MouseEvent): void {
+    const selected = upsells[parseInt(event?.currentTarget?.dataset?.index ?? "")];
     const [colors, _sizes] = extractColorAndSizeNames(selected.variants || []);
     const firstVariant = selected.variants[0];
     selected.colors = colors;
     selected.sizes = _sizes;
     selected.colorGroupValue = colors[0];
-    selected.defaultSize = getDefaultSize(_sizes);
+    selected.defaultSize = getDefaultSize(_sizes) || undefined;
     selected.sizeGroupValue = selected.defaultSize;
     selected.shouldShowSalePrice = firstVariant.cost !== firstVariant.price.amountInDollars;
     selected.salePrice = firstVariant.price.amountInDollars;
 		upsell = selected;
-		isPanelOpen = true;
+		isUpsellPanelOpen = true;
 	}
 
+  /**
+   * Closes the upsell panel and adds the selected upsell item to the cart.
+   * Updates the cart count and the count of upsells added to cart.
+   */
 	function closeUpSellPanel() {
     $upsellsAddedToCart[upsell.sku] = ($upsellsAddedToCart[upsell.sku] || 0) + upsell.quantity;
     $cartCount += upsell.quantity;
-		isPanelOpen = false;
+		isUpsellPanelOpen = false;
     tooltipState.open.set(false);
     upsell = null;
 	}
 
-	const upsells = [
+  const drawerState = useDrawerState();
+	const tooltipState = useTooltipState();
+	let isUpsellPanelOpen = false;
+  let isChangeStorePanelOpen = false;
+
+	const upsells: Upsell[] = [
 		{
       "image": "https://spencers.scene7.com/is/image/Spencers/04343133-a",
 			"name": "Springtrap T Shirt - Five Nights at Freddy's",
@@ -1094,9 +1119,8 @@
     }
 	];
 
-	let upsell = null;
-  let upsellsAddedToCart = writable({});
-
+	let upsell: Upsell | null = null;
+  let upsellsAddedToCart: Writable<UpsellsCart> = writable({});
   let ctaRef: HTMLElement;
   let pageRef: HTMLElement;
   let sizeChartContainerRef: HTMLElement;
@@ -1134,11 +1158,10 @@
   ];
   const description = product?.description;
   const recommendationData = product?.recommendationData || [];
-  let payLaterPrice = divideByFourAndRound(Number(price));
   const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
   const hasLimitedQuantity = product?.maximumquantity != 99 || false;
   const defaultSize = getDefaultSize(sizes);
-  let sizeGroupValue = defaultSize;
+  let sizeGroupValue = defaultSize || "";
   let colorGroupValue = colors[0];
   const fulfillmentTypes = [{
 		type: "shipping",
@@ -1154,6 +1177,7 @@
 		message: "Order by 2pm to get it today!",
 	}];
   let fulfillmentValue: Writable<string>;
+  let panelfulfillmentValue: Writable<string>;
   let cartCount = getContext("cartCount");
 
   onMount(async () => {
@@ -1259,7 +1283,7 @@
 		>
 		<div class="product-info__name">{name}</div>
 		<div class="product-info__price">${price}</div>
-		<div class="product-info__edit-message">Edit delivery method in cart</div>
+		<!-- <div class="product-info__edit-message">Edit delivery method in cart</div> -->
 	</div>
 	<div class="drawer__aov-booster">
 		<AOVBooster value={13} max={20} />
@@ -1293,7 +1317,7 @@
 			</div>
 		{/each}
 	</div>
-	<DrawerPanel bind:open={isPanelOpen}>
+	<DrawerPanel bind:open={isUpsellPanelOpen}>
 		<svelte:fragment slot="header">
 			<div class="drawer__panel-title">
 				<ButtonNew variant="ghost" size="sm" on:click={closeUpSellPanel}>
@@ -1323,9 +1347,9 @@
         </div>
       {/if}
       <hr />
-      {#if upsell.sizes.length || upsell.colors.length && !upsell.colors.includes("MULTI-COLOR")}
+      {#if upsell?.sizes?.length || upsell?.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
-        {#if upsell.colors.length && !upsell.colors.includes("MULTI-COLOR")}
+        {#if upsell.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
         <VariantSelector label="Color" bind:groupValue={upsell.colorGroupValue}>
           {#if upsell.colors.length > 1}
             {#each upsell.colors as color, index}
@@ -1334,7 +1358,7 @@
           {/if}
         </VariantSelector>
         {/if}
-        {#if upsell.sizes.length}
+        {#if upsell?.sizes?.length}
         <VariantSelector label="Size" bind:groupValue={upsell.sizeGroupValue}>
           {#if upsell.sizes.length > 1}
             {#each upsell.sizes as { name, outOfStock }, index}
@@ -1355,13 +1379,13 @@
       </div>
       <hr />
       {/if}
-      <FulfillmentRadioGroup bind:value={upsell.fulfillmentValue}>
+      <FulfillmentRadioGroup bind:value={panelfulfillmentValue}>
         {#each fulfillmentTypes as { type, name, message }, index}
           <FulfillmentOption 
             value={type} 
             {name} 
             {message} 
-            label="{name} - {$fulfillmentValue === type ? "selected" : "unselected"} - {index + 1} of {fulfillmentTypes.length} - {message}"
+            label="{name} - {$panelfulfillmentValue === type ? "selected" : "unselected"} - {index + 1} of {fulfillmentTypes.length} - {message}"
           >
             <Icon slot="icon">
               <use href="#{type}" />
@@ -1369,12 +1393,12 @@
           </FulfillmentOption>
         {/each}
         <svelte:fragment slot="group-message">
-          {#if $fulfillmentValue === "shipping"}
+          {#if $panelfulfillmentValue === "shipping"}
             <span class="color-success">Ready to Ship</span>
-          {:else if $fulfillmentValue === "pickup"}
+          {:else if $panelfulfillmentValue === "pickup"}
             Pickup at <span class="underline">Ocean County, NJ</span>
             <ButtonNew variant="ghost" color="primary" underline>Change Store</ButtonNew>
-          {:else if $fulfillmentValue === "sameday"}
+          {:else if $panelfulfillmentValue === "sameday"}
             Delivery to <span class="underline">08234</span>
             <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew>
           {/if}
@@ -1386,6 +1410,7 @@
       </div>
     {/if}
 	</DrawerPanel>
+  <DrawerPanel bind:open={isChangeStorePanelOpen}></DrawerPanel>
 	<svelte:fragment slot="footer">
 		<div class="drawer__footer-actions">
 			<ButtonNew variant="outlined" rounded on:click={close}>
@@ -1587,9 +1612,6 @@
           </MessageCard>
         </div>
       </div>
-      {#if valueprop.power && valueprop.sound}
-        <PowerAndSound power={valueprop.power} sound={valueprop.sound} bluetooth={valueprop.bluetooth} rechargeable={valueprop.rechargeable} waterproof={valueprop.waterproof} />
-      {/if}
       {#if restrictions.length}
       <div class="product-page__restrictions">
         {#each restrictions as [level, warnings]}
@@ -1634,6 +1656,9 @@
           </div>
         </Accordion>
       </div>
+      {#if valueprop.power && valueprop.sound}
+        <PowerAndSound power={valueprop.power} sound={valueprop.sound} bluetooth={valueprop.bluetooth} rechargeable={valueprop.rechargeable} waterproof={valueprop.waterproof} />
+      {/if}
     </div>
   </div>
   {#if recommendationData.length}

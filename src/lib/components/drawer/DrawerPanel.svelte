@@ -53,6 +53,8 @@
 		z-index: 1;
 		display: flex;
 		flex-flow: column;
+		border-top-left-radius: .5rem;
+		border-bottom-left-radius: .5rem;
 	}
 
 	.drawer__panel-header {

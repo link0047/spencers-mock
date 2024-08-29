@@ -1,7 +1,9 @@
-import { error } from '@sveltejs/kit';
+import type { PageServerLoad } from "./$types";
+import type { Product } from "$lib/types/product";
+import { error } from "@sveltejs/kit";
 import parser from "ua-parser-js";
 
-const dataStore = [
+const dataStore: Product[] = [
   {
     "maximumquantity": 2,
     "name": "Talking Tiffany Doll - 20 Inch",
@@ -1364,18 +1366,25 @@ const dataStore = [
   }
 ];
 
-/** @type {import('./$types').PageServerLoad} */
-export async function load({ params, locals }) {
-  const ua = parser(locals.ua);
-  const isMobile: boolean = ua.device.type === "mobile" || ua.device.type === "tablet";
-  const isProduct = dataStore.find((data) => data.sku === params.slug);
+export function load({ params, locals }: Parameters<PageServerLoad>[0]) {
+  let isMobile = false;
 
-  if (isProduct) {
+  try {
+    const ua = parser(locals.ua as string | undefined);
+    isMobile = ua.device.type === "mobile" || ua.device.type === "tablet" || false;
+  } catch (e) {
+    console.error("Error parsing user agent:", e);
+    // Default to non-mobile if parsing fails
+  }
+  
+  const product = dataStore.find((data) => data.sku === params.slug);
+
+  if (product) {
     return {
-      product: isProduct,
+      product,
       isMobile
-    }
+    };
   }
 
-  error(404, 'Not found');
+  throw error(404, 'Not found');
 }
