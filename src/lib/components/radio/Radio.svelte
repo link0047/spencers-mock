@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	import { getContext, onMount } from "svelte";
 
 	export let value: string = "";
@@ -8,7 +8,7 @@
 
   const valueStore: Writable<string> = getContext("value");
 	
-	const uid: string = generateId("radio");
+	const uid: number = generateId("radio");
 	const id: string =`uikit-radio-${uid}`;
   let inputRef: HTMLInputElement;
 

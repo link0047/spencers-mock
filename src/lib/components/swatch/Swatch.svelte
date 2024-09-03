@@ -1,6 +1,6 @@
 <script lang="ts">
   import type { Writable } from "svelte/store";
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	import { getContext, onMount } from "svelte"; 
 	
 	export let type: string = "radio";
@@ -9,7 +9,7 @@
 
 	const valueStore: Writable<string> = getContext("value");
 	
-	const uid: string = generateId("swatch");
+	const uid: number = generateId("swatch");
 	const id: string = `uikit-swatch-${uid}`;
 	let inputRef: HTMLInputElement;
 

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onMount, beforeUpdate, onDestroy } from "svelte";
 	import IndicatorDots from "$lib/components/carousel/Indicator.svelte";
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
   import { browser } from "$app/environment";
 	import { debounce } from "$lib/client/util/utilities";
 	

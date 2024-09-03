@@ -1,5 +1,5 @@
 <script>
-  import generateId from "$lib/client/util/local-unique-id-generator.js";
+  import generateId from "$lib/client/util/local-unique-id-generator";
   const uid = generateId("switch");
   const id = `aria-uikit-switch-${uid}`;
   const labelId = `${id}-label`;

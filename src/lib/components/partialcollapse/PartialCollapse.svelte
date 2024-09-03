@@ -1,5 +1,5 @@
 <script lang="ts">
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	import { onMount } from "svelte";
 	
 	export let open: boolean = false;

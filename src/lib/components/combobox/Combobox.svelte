@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Portal from "svelte-portal";
   import { browser } from "$app/environment";
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	import { writable } from "svelte/store";
 	import { setContext, afterUpdate, onMount, onDestroy, tick } from "svelte";
 	

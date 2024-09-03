@@ -6,7 +6,7 @@
 	export let groupValue: string = "";
 	export let scrollable: boolean = false;
 	
-	const uid: string = generateId("variantselector");
+	const uid: number = generateId("variantselector");
 	const id: string =`uikit-variant-selector-${uid}-heading`;
 </script>
 

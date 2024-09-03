@@ -1,9 +1,10 @@
 import type { PageServerLoad } from "./$types";
 import type { Product } from "$lib/types/product";
+import type { Store } from "$lib/types/store";
 import { error } from "@sveltejs/kit";
 import parser from "ua-parser-js";
 
-const dataStore: Product[] = [
+const products: Product[] = [
   {
     "maximumquantity": 2,
     "name": "Talking Tiffany Doll - 20 Inch",
@@ -1366,6 +1367,79 @@ const dataStore: Product[] = [
   }
 ];
 
+const stores: Store[] = [
+  {
+    "name": "JERSEY GARDENS",
+    "location": "THE MILLS AT JERSEY GARDENS, 651 KAPKOWSKI RD., SP 2442, ELIZABETH, NJ",
+    "hours": "Open today till 09:00 PM",
+    "distance": "3.60 miles away",
+    "storeId": "02252"
+  },
+  {
+    "name": "STATEN ISLAND",
+    "location": "STATEN ISLAND MALL, 2655 RICHMOND AVENUE 1005, STATEN ISLAND, NY",
+    "hours": "Open today till 07:00 PM",
+    "distance": "6.76 miles away",
+    "storeId": "00179"
+  },
+  {
+    "name": "NEWPORT CENTRE",
+    "location": "NEWPORT CENTRE B-03, 30 MALL DRIVE WEST, JERSEY CITY, NJ",
+    "hours": "Open today till 08:00 PM",
+    "distance": "9.42 miles away",
+    "storeId": "00296"
+  },
+  {
+    "name": "AMERICAN DREAM",
+    "location": "1 AMERICAN DREAM WAY, SPACE C310, SPENCER GIFTS, EAST RUTHERFORD, NJ",
+    "hours": "Open today till 09:00 PM",
+    "distance": "9.48 miles away",
+    "storeId": "02185"
+  },
+  {
+    "name": "MENLO PARK",
+    "location": "MENLO PARK MALL, 386 MENLO PARK, EDISON, NJ",
+    "hours": "Open today till 08:00 PM",
+    "distance": "13.08 miles away",
+    "storeId": "00139"
+  },
+  {
+    "name": "WILLOWBROOK",
+    "location": "WILLOWBROOK MALL, 1345 WILLOWBROOK MALL, WAYNE, NJ",
+    "hours": "Open today till 08:00 PM",
+    "distance": "13.50 miles away",
+    "storeId": "00090"
+  },
+  {
+    "name": "GARDEN STATE",
+    "location": "WESTFIELD GARDEN STATE, 1 GARDEN STATE PLAZA SP 1224, PARAMUS, NJ",
+    "hours": "Open today till 09:00 PM",
+    "distance": "16.30 miles away",
+    "storeId": "00076"
+  },
+  {
+    "name": "QUEENS CENTER",
+    "location": "SPENCERS #2221 QUEENS CTR MALL, 90-15 QUEENS BLVD., SP 3032, QUEENS, NY",
+    "hours": "Open today till 09:00 PM",
+    "distance": "17.05 miles away",
+    "storeId": "02221"
+  },
+  {
+    "name": "BAY PLAZA",
+    "location": "THE MALL AT BAY PLAZA, 200 BAYCHESTER AVE SPACE 213A, BRONX, NY",
+    "hours": "Open today till 09:00 PM",
+    "distance": "20.76 miles away",
+    "storeId": "02182"
+  },
+  {
+    "name": "ROCKAWAY",
+    "location": "ROCKAWAY TOWN SQUARE, 301 MOUNT HOPE AVENUE 1006A, ROCKAWAY, NJ",
+    "hours": "Open today till 08:00 PM",
+    "distance": "22.93 miles away",
+    "storeId": "00297"
+  }
+]
+
 export function load({ params, locals }: Parameters<PageServerLoad>[0]) {
   let isMobile = false;
 
@@ -1377,11 +1451,12 @@ export function load({ params, locals }: Parameters<PageServerLoad>[0]) {
     // Default to non-mobile if parsing fails
   }
   
-  const product = dataStore.find((data) => data.sku === params.slug);
+  const product = products.find((data) => data.sku === params.slug);
 
   if (product) {
     return {
       product,
+      stores,
       isMobile
     };
   }

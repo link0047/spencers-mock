@@ -1,5 +1,5 @@
 <script lang="ts">
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
   import { onMount } from "svelte";
 
   export let label: string = "";
@@ -8,7 +8,7 @@
   export let error: boolean = false;
   export let message: string | null = null;
 
-  const uid: string = generateId("textfield");
+  const uid: number = generateId("textfield");
   const id: string = `uikit-textfield-${uid}`;
   const labelId: string = `${id}-label`;
   let shouldLabelFloatAbove: boolean = false;

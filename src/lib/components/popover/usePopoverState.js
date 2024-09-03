@@ -1,5 +1,5 @@
 import { writable } from "svelte/store";
-import generateId from "$lib/client/util/local-unique-id-generator.js";
+import generateId from "$lib/client/util/local-unique-id-generator";
 
 const id = generateId();
 const mockRect = {

@@ -1,5 +1,5 @@
 <script lang="ts">
-  import generateId from "$lib/client/util/local-unique-id-generator.js";
+  import generateId from "$lib/client/util/local-unique-id-generator";
 
   const uid = generateId("select");
   const id = `aria-uikit-select-${uid}`;

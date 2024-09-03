@@ -530,8 +530,8 @@
    * Extracts color and size information, and sets up the upsell data.
    * @param {{ currentTarget: { dataset: { index: string }}}} event - The event object containing the index of the selected upsell item
    */
-  function openUpSellPanel(event: MouseEvent): void {
-    const selected = upsells[parseInt(event?.currentTarget?.dataset?.index ?? "")];
+  function openUpSellPanel({ currentTarget }: { currentTarget: MouseEvent }): void {
+    const selected = upsells[parseInt(currentTarget?.dataset?.index ?? "")];
     const [colors, _sizes] = extractColorAndSizeNames(selected.variants || []);
     const firstVariant = selected.variants[0];
     selected.colors = colors;

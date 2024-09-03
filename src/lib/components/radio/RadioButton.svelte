@@ -1,6 +1,6 @@
 <script>
 	import { getContext } from "svelte";
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	export let label = "";
 	export let value = "";
 	export let checked = false;

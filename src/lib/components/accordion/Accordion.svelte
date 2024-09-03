@@ -1,8 +1,8 @@
 <script lang="ts">
-	import generateId from "$lib/client/util/local-unique-id-generator.js";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	export let open: boolean = false;
 	
-	const uid: string = generateId("accordion");
+	const uid: number = generateId("accordion");
 	const id: string = `uikit-accordion-${uid}`;
 	const buttonId: string = `${id}-button`;
 	const contentId: string = `${id}-content`;
