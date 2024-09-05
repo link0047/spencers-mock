@@ -6,7 +6,7 @@
   } from "$lib/components/shippingfulfillment";
   import Icon from "$lib/components/icon";
   import Button from "$lib/components/button";
-  import InputStepper from "$lib/components/inputstepper";
+  import { InputStepper } from "$lib/components/inputstepper";
 
   const fullfilment = {
     heading: "Default state (size/color not selected)",
