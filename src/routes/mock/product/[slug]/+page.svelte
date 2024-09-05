@@ -1301,7 +1301,7 @@
 		<!-- <div class="product-info__edit-message">Edit delivery method in cart</div> -->
 	</div>
 	<div class="drawer__aov-booster">
-		<AOVBooster value={$cartSubtotal} max={40} />
+		<AOVBooster value={$cartSubtotal} max={20} />
 	</div>
 	<h2 class="drawer__heading">Customers also bought these products</h2>
 	<div class="upsells">
