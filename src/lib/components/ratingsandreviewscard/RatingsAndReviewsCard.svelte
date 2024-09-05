@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { setContext } from "svelte";
 	import { writable } from "svelte/store";
 	import StarRating from "$lib/components/starrating";
@@ -14,7 +14,7 @@
 	import { fetchData } from "$lib/client/util/utilities";
 
 	export let data;
-	export let url;
+	export let url: string;
 
 	let dataStore = writable(data);
 	let appliedFilters = writable(new Map());
@@ -31,11 +31,13 @@
 		$dataStore = await fetchData(`${url}`);
 	}
 
-	function pageChange() {}
+	function pageChange(page: number) {
+		console.log(page);
+	}
 
-	async function sortReviews({ target }) {
+	async function sortReviews({ target }: Event) {
 		console.log($localURL);
-		console.log(target.value);
+		console.log((target as HTMLSelectElement).value);
 	}
 
 	const reviewSortOptions = [
@@ -119,7 +121,7 @@
 			</Reviews>
 			{#if pages_total > 1}
 				<div class="ratings-and-reviews__pagination">
-					<Pagination count={pages_total} page={1} handleChange={pageChange}/>
+					<Pagination count={pages_total} page={1} onPageChange={pageChange}/>
 				</div>
 			{/if}
 		{/if}

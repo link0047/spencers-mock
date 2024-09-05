@@ -515,6 +515,7 @@
   function addToCart() {
 		drawerState.open.set(true);
     $cartCount += productQuantity;
+    addToSubTotal(Number((price * productQuantity).toFixed(2)));
 	}
 
   /**
@@ -545,13 +546,26 @@
 		isUpsellPanelOpen = true;
 	}
 
+  function addToSubTotal(amount: number, precision = 2) {
+    $cartSubtotal = Number(($cartSubtotal + amount).toFixed(precision));
+  }
+
+  function addUpsellToCart() {
+    if (upsell && upsell.sku) {
+      $upsellsAddedToCart[upsell.sku] = ($upsellsAddedToCart[upsell.sku] || 0) + upsell.quantity;
+      $cartCount += upsell.quantity || 0;
+      const price = upsell?.salePrice > 0 ? upsell?.salePrice : upsell?.price;
+      addToSubTotal(price);
+    }
+
+    closeUpSellPanel();
+  }
+
   /**
    * Closes the upsell panel and adds the selected upsell item to the cart.
    * Updates the cart count and the count of upsells added to cart.
    */
 	function closeUpSellPanel() {
-    $upsellsAddedToCart[upsell.sku] = ($upsellsAddedToCart[upsell.sku] || 0) + upsell.quantity;
-    $cartCount += upsell.quantity;
 		isUpsellPanelOpen = false;
     tooltipState.open.set(false);
     upsell = null;
@@ -1178,7 +1192,8 @@
 	}];
   let fulfillmentValue: Writable<string>;
   let panelfulfillmentValue: Writable<string>;
-  let cartCount = getContext("cartCount");
+  let cartCount: Writable<number> = getContext("cartCount");
+  let cartSubtotal: Writable<number> = writable(0);
 
   onMount(async () => {
     const observer = new IntersectionObserver(handleObserver, { root: null, threshold: 0.5 });
@@ -1286,7 +1301,7 @@
 		<!-- <div class="product-info__edit-message">Edit delivery method in cart</div> -->
 	</div>
 	<div class="drawer__aov-booster">
-		<AOVBooster value={13} max={20} />
+		<AOVBooster value={$cartSubtotal} max={20} />
 	</div>
 	<h2 class="drawer__heading">Customers also bought these products</h2>
 	<div class="upsells">
@@ -1406,7 +1421,7 @@
       </FulfillmentRadioGroup>
       <div class="product-page__action">
         <InputStepper bind:value={upsell.quantity} rounded />
-        <ButtonNew color="success" rounded on:click={closeUpSellPanel}>Add to Cart</ButtonNew>
+        <ButtonNew color="success" rounded on:click={addUpsellToCart}>Add to Cart</ButtonNew>
       </div>
     {/if}
 	</DrawerPanel>
@@ -1574,6 +1589,17 @@
         <InputStepper bind:value={productQuantity} max={product?.maximumquantity} rounded />
         <ButtonNew color="success" on:click={addToCart} rounded>Add to Cart</ButtonNew>
       </div>
+      {#if restrictions.length}
+        <div class="product-page__restrictions">
+          {#each restrictions as [level, warnings]}
+            <WarningCard level={getNumberFromString(level)}>
+              {#each warnings as {type, message}}
+                <div><strong>{type}</strong> - {message}</div>
+              {/each}
+            </WarningCard>
+          {/each}
+        </div>
+      {/if}
       <div class="product-page__pay-later">
         <h2 class="paylater__heading">More ways to pay</h2>
         <div class="paylater__options">
@@ -1612,17 +1638,6 @@
           </MessageCard>
         </div>
       </div>
-      {#if restrictions.length}
-      <div class="product-page__restrictions">
-        {#each restrictions as [level, warnings]}
-          <WarningCard level={getNumberFromString(level)}>
-            {#each warnings as {type, message}}
-              <div><strong>{type}</strong> - {message}</div>
-            {/each}
-          </WarningCard>
-        {/each}
-      </div>
-      {/if}
       <div class="product-page__details">
         <Accordion open>
           <svelte:fragment slot="label">Description</svelte:fragment>
@@ -1689,9 +1704,9 @@
     <div>waiting for Recommendations</div>
   {:then data}
     <RatingsAndReviewsCard data={data} url={review_endpoint}>
-      <svelte:fragment slot="subheading">
+      <!-- <svelte:fragment slot="subheading">
         Our <Link href="/help/article/community-guidelines">Community Guidelines</Link> help customers write honest reviews.
-      </svelte:fragment>
+      </svelte:fragment> -->
     </RatingsAndReviewsCard>
   {:catch error}
     <div>Something went wrong.</div>
@@ -2027,6 +2042,11 @@ hr {
   display: grid;
   gap: .5rem;
   margin-bottom: 1.5rem;
+}
+
+.product-page__restrictions {
+  margin-top: 1.5rem;
+  margin-bottom: 0;
 }
 
 /* Badges */

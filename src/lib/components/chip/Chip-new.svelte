@@ -1,15 +1,15 @@
-<script>
+<script lang="ts">
 	import Icon from "$lib/components/icon";
-	export let variant = "default";
-	export let onClose = null;
+	
+	export let variant: "default" | "outlined" = "default";
+	export let onClose: (() => void) | null = null;
 
-	function isFunction(param) {
-	  return typeof param === 'function';
+	function isFunction(param: unknown): param is (() => void) {
+		return typeof param === "function";
 	}
 
 	function handleClick() {
-		if (!isFunction(onClose)) return;
-		onClose();
+		onClose?.();
 	}
 </script>
 
@@ -18,13 +18,20 @@
 	class:chip--outlined={variant === "outlined"}
 	{...$$restProps}
 >
-	<slot />
+	<span class="chip__content">
+		<slot />
+	</span>
 	{#if isFunction(onClose)}
-	<button type="button" class="chip__action" on:click={handleClick}>
-		<Icon>
-			<path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
-		</Icon>
-	</button>
+		<button 
+			type="button" 
+			class="chip__action" 
+			on:click={handleClick}
+			aria-label="Close"
+		>
+			<Icon>
+				<path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41Z"/>
+			</Icon>
+		</button>
 	{/if}
 </div>
 
@@ -35,13 +42,13 @@
 		border-radius: 18px;
 		line-height: 1;
 		font-weight: 500;
-  	display: inline-flex;
+		display: inline-flex;
 		align-items: center;
 		justify-content: center;
 		padding: 0 12px;
 		font-size: 0.8125rem;
 		letter-spacing: .0178571429em;
-  	color: #000000de;
+		color: #000000de;
 		background-color: #f2f2f2;
 		-moz-osx-font-smoothing: grayscale;
 		-webkit-font-smoothing: antialiased;
@@ -61,11 +68,17 @@
 		border: 2px solid #66676a;
 	}
 
+	.chip__content {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+	}
+
 	.chip__action {
 		box-sizing: border-box;
 		align-items: center;
 		justify-content: center;
-    appearance: none;
+		appearance: none;
 		background-color: transparent;
 		border: none;
 		border-radius: 50%;
@@ -77,7 +90,12 @@
 		padding: 0;
 		position: relative;
 		touch-action: manipulation;
-    user-select: none;
+		user-select: none;
 		transition: background-color 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+	}
+
+	.chip__action:hover,
+	.chip__action:focus {
+		background-color: rgba(0, 0, 0, 0.1);
 	}
 </style>

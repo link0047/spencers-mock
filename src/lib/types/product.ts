@@ -91,7 +91,7 @@ export interface Product {
   valueprops: ValueProps;
   sku: string;
   breadcrumb: Breadcrumb[];
-  recommendationData: RecommendationItem[];
+  recommendationData?: RecommendationItem[];
   images: string[];
   isSoldOut: boolean;
   price: Price;

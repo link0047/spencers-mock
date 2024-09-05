@@ -2,20 +2,27 @@
   import { onMount, setContext } from "svelte";
 	import { get } from "svelte/store";
 	import { noop } from "$lib/client/util/utilities";
+	import type { Writable } from "svelte/store";
 
-	export let state;
-  export let alignment = "left";
-	export let disableBackdrop = false;
-	export let afterClose = noop;
+	interface DrawerState {
+		open: Writable<boolean>;
+		drawerId: string
+	}
+
+	export let label: string = "Drawer Content";
+	export let state: DrawerState;
+  export let alignment: "left" | "right" = "left";
+	export let disableBackdrop: boolean = false;
+	export let afterClose: () => void = noop;
   
-	let ref;
-	let Backdrop;
-	let focusableElements;
-  let lastElementWithFocus = null;
+	let ref: HTMLDivElement;
+	let Backdrop: typeof import("$lib/components/backdrop").default;
+	let focusableElements: HTMLElement[];
+  let lastElementWithFocus: HTMLElement | null = null;
 	let open = get(state.open);
 	
   const id = state.drawerId;
-	const ALIGNMENT_OPTIONS = ["left", "right"];
+	const ALIGNMENT_OPTIONS = ["left", "right"] as const;
 	const ESC_KEYS = ["Esc", "Escape"];
 	
 	setContext("close_action", close);
@@ -34,7 +41,7 @@
 				focusableElements = Array.from(ref.querySelectorAll(":is(input:not([type='hidden']):not([disabled]), select:not([disabled]), textarea:not([disabled]),	a[href], button:not([disabled]), [tabindex]:not([tabindex='-1'], iframe, object, embed, area[href], audio[controls], video[controls], [contenteditable]:not([contenteditable='false'])):not([inert])"));
 				ref.inert = false;
 				document.body.setAttribute("style", "overflow:hidden");
-				lastElementWithFocus = document.activeElement;
+				lastElementWithFocus = document.activeElement as HTMLElement;
 				focusableElements[0]?.focus();
 			}
 		} else {
@@ -46,27 +53,27 @@
 		}
 	})
 
-  function close() {
+  function close(): void {
     state.open.set(false);
   }
 
-	function handleTransitionEnd(event) {
+	function handleTransitionEnd(event: TransitionEvent): void {
 		if (event.target === ref && event.propertyName === "transform" && !open) {
 			afterClose();
 		}
 	}
 
-	function configureDialogARIAEvents(node) {
+	function configureDialogARIAEvents(node: HTMLElement) {
 		const controller = new AbortController();
 		
-		function handleKeyup(event) {
+		function handleKeyup(event: KeyboardEvent): void {
 			if (ESC_KEYS.includes(event.key)) {
 				event.stopPropagation();
 				close();
 			}
 		}
 	
-		function handleKeydown(event) {
+		function handleKeydown(event:KeyboardEvent): void {
 			const current = document.activeElement;
 			if (!focusableElements?.length) return;
 	
@@ -111,6 +118,7 @@
   {id}
   role="dialog"
   aria-modal="true"
+	aria-label={label}
   class="drawer"
   class:drawer--alignment-right={alignment === "right"}
   class:drawer--open={open}

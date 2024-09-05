@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
 	import { Progress } from "$lib/components/progress";
 
-	export let value = 1;
-	export let min = 0;
-	export let max = 100;
-	export let threshold = 10;
+	export let value: number = 1;
+	export let min: number = 0;
+	export let max: number = 100;
+	export let threshold: number = 10;
 
-	let message = value >= max 
+	$: message = value >= max 
 		? "Your order qualifies for free shipping" 
-		: value >= threshold ? `Only $${max - value} away from Free Standard Shipping!` : "";
+		: value >= threshold ? `Only $${(max - value).toFixed(2)} away from Free Standard Shipping!` : "";
 </script>
 
 <div class="aov-booster">

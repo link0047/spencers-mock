@@ -1,69 +1,81 @@
 <script lang="ts">
-  import { afterUpdate } from 'svelte';  
+  import { createEventDispatcher } from "svelte";  
   import PaginationItem from "./PaginationItem.svelte";
   import PaginationControls from "./PaginationControls.svelte";
 
+  // Props
   export let count: number = 1;
   export let displayCount: number = 7;
   export let page: number = 1;
-  export let handleChange: (page:number) => void;
+  export let onPageChange: (page: number) => void;
+  export let onNextClick: () => void = () => {};
+  export let onPrevClick: () => void = () => {};
+  export let onPageClick: (page: number) => void = () => {};
 
-  const startEllipisBoundary: number = displayCount - 3;
-  const endEllipisBoundary: number = count - 3;
+  // Local variables and types
+  const dispatch = createEventDispatcher<{
+    "uikit-pagination:pageClick": number;
+    "uikit-pagination:nextClick": void;
+    "uikit-pagination:prevClick": void;
+  }>();
 
-  function handleClick(page: number) {
-    handleInternalChange(page);  
+  const ELLIPSIS = "..." as const;
+  type PaginationItem = number | typeof ELLIPSIS;
+
+  const startEllipisBoundary = displayCount - 3;
+  const endEllipisBoundary = count - 3;
+  $: items = generateItems();
+
+  // Event handlers
+  function handleClick(clickedItem: PaginationItem) {
+    if (typeof clickedItem === "number") {
+      handleInternalChange(clickedItem);
+      onPageClick(clickedItem);
+      dispatch("uikit-pagination:pageClick", clickedItem);
+    }
   }
 
   function next() {
     if (page >= count) return;
-    page += 1;
-
-    items = generateItems();
-    handleChange(page);
+    updatePageAndDispatch(page + 1, "uikit-pagination:nextClick", onNextClick);
   }
 
   function prev() {
-    if (page <= 1) {
-      page = 1;
-      return;
-    } 
-    page -= 1;
-
-    items = generateItems();
-    handleChange(page);
+    if (page <= 1) return;
+    updatePageAndDispatch(page - 1, "uikit-pagination:prevClick", onPrevClick);
   }
 
+  // Helper functions
   function handleInternalChange(value: number) {
     page = value;
-    items = generateItems();
-    handleChange(value);
+    onPageChange(value);
   }
 
-  function generateItems(): (number | string)[] {
+  function updatePageAndDispatch(newPage: number, eventName: "uikit-pagination:nextClick" | "uikit-pagination:prevClick", callback: () => void) {
+    page = newPage;
+    onPageChange(page);
+    callback();
+    dispatch(eventName);
+  }
+
+  function generateItems(): PaginationItem[] {
     if (count <= displayCount) {
-      return Array.from(Array(count).keys(), i => i + 1);
+      return Array.from({length: count}, (_, i) => i + 1);
     }
 
-    return Array.from(Array(displayCount).keys(), i => {
-      if (i == 0) return 1;
-      if (i == 1) {
-        if (page > startEllipisBoundary) return '...';
-      }
-      if (i == displayCount - 2) {
-        if (page < endEllipisBoundary) return '...';  
-      }  
-      if (i == displayCount - 1) return count;
-      return page > endEllipisBoundary ? endEllipisBoundary + (i - 3) : page > startEllipisBoundary ? page + (i - 3) : i + 1;  
+    return Array.from({length: displayCount}, (_, i): PaginationItem => {
+      if (i === 0) return 1;
+      if (i === 1 && page > startEllipisBoundary) return ELLIPSIS;
+      if (i === displayCount - 2 && page < endEllipisBoundary) return ELLIPSIS;
+      if (i === displayCount - 1) return count;
+      
+      if (page > endEllipisBoundary) return endEllipisBoundary + (i - 3);
+      if (page > startEllipisBoundary) return page + (i - 3);
+      return i + 1;
     });
   }
-
-  afterUpdate(() => {
-    items = generateItems();
-  });
-
-  $: items = generateItems();
 </script>
+
 <nav aria-labelledby="pagination-heading" class="pagination">
   <div aria-live="polite" role="status" class="pagination__status">
     <h2 class="a11y-hide" id="pagination-heading">Results Pagination - Page {page}</h2>
@@ -71,11 +83,18 @@
   <PaginationControls variant="prev" on:click={prev} />
   <ol class="pagination__list">
     {#each items as item}
-      <PaginationItem on:click={handleClick.bind(null, item)} disabled={ item == '...' || undefined } current={item == page}>{item}</PaginationItem>
+      <PaginationItem 
+        on:click={() => handleClick(item)} 
+        disabled={item == "..."} 
+        current={item == page}
+      >
+        {item}
+      </PaginationItem>
     {/each}
   </ol>
   <PaginationControls variant="next" on:click={next} />
 </nav>
+
 <style>
 	.a11y-hide {
 	  position: absolute !important;
