@@ -561,6 +561,14 @@
     closeUpSellPanel();
   }
 
+  function openChangeStorePanel() {
+    isChangeStorePanelOpen = true;
+  }
+
+  function closeChangeStorePanel() {
+    isChangeStorePanelOpen = false;
+  }
+
   /**
    * Closes the upsell panel and adds the selected upsell item to the cart.
    * Updates the cart count and the count of upsells added to cart.
@@ -1343,24 +1351,28 @@
 				Choose options
 			</div>
     </svelte:fragment>
-    {#if upsell !== null}  
-      <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
-      <h2 class="product-page__name">{upsell.name}</h2>
-      <div class="product-page__rating">
-        <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
-      </div>
-      <div class="product-page__price">
-        <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${ upsell.shouldShowSalePrice ? upsell.salePrice : price}</span>
-        {#if upsell.shouldShowSalePrice}
-        <span class="salePrice">${upsell.price}</span>
-        {/if}
-      </div>
-      {#if upsell.shouldShowSalePrice}
-        <div class="yousave-block">
-          <span class="yousave-block__label">You save</span>
-          <span class="onSale">${(upsell.price - upsell.salePrice).toFixed(2)}</span>
+    {#if upsell !== null}
+      <div class="product-panel-card">
+        <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
+        <div class="product-panel-card__info">
+          <h2 class="product-panel-card__name">{upsell.name}</h2>
+          <div class="product-panel-card__rating">
+            <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
+          </div>
+          <div class="product-panel-card__price">
+            <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${ upsell.shouldShowSalePrice ? upsell.salePrice : price}</span>
+            {#if upsell.shouldShowSalePrice}
+            <span class="salePrice">${upsell.price}</span>
+            {/if}
+          </div>
+          {#if upsell.shouldShowSalePrice}
+            <div class="yousave-block">
+              <span class="yousave-block__label">You save</span>
+              <span class="onSale">${(upsell.price - upsell.salePrice).toFixed(2)}</span>
+            </div>
+          {/if}
         </div>
-      {/if}
+      </div>
       <hr />
       {#if upsell?.sizes?.length || upsell?.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
       <div class="product-page__variants" role="group">
@@ -1412,7 +1424,7 @@
             <span class="color-success">Ready to Ship</span>
           {:else if $panelfulfillmentValue === "pickup"}
             Pickup at <span class="underline">Ocean County, NJ</span>
-            <ButtonNew variant="ghost" color="primary" underline>Change Store</ButtonNew>
+            <ButtonNew variant="ghost" color="primary" underline on:click={openChangeStorePanel}>Change Store</ButtonNew>
           {:else if $panelfulfillmentValue === "sameday"}
             Delivery to <span class="underline">08234</span>
             <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew>
@@ -1425,7 +1437,18 @@
       </div>
     {/if}
 	</DrawerPanel>
-  <DrawerPanel bind:open={isChangeStorePanelOpen}></DrawerPanel>
+  <DrawerPanel bind:open={isChangeStorePanelOpen}>
+    <svelte:fragment slot="header">
+			<div class="drawer__panel-title">
+				<ButtonNew variant="ghost" size="sm" on:click={closeChangeStorePanel}>
+					<Icon>
+						<path d="M15.41,16.58L10.83,12L15.41,7.41L14,6L8,12L14,18L15.41,16.58Z" />
+					</Icon>
+				</ButtonNew>
+				Check Stores
+			</div>
+    </svelte:fragment>
+  </DrawerPanel>
 	<svelte:fragment slot="footer">
 		<div class="drawer__footer-actions">
 			<ButtonNew variant="outlined" rounded on:click={close}>
@@ -1756,6 +1779,28 @@
 
 :global(.powerandsound) {
   margin-bottom: 1.5rem;
+}
+
+.product-panel-card {
+  display: grid;
+  grid-template-columns: 50% 50%;
+}
+
+.product-panel-card__name {
+  font-size: 1rem;
+  font-weight: 500;
+  line-height: 1.2;
+}
+
+.product-panel-card__rating {
+  display: flex;
+  align-items: center;
+}
+
+.product-panel-card__info {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: .25rem;
 }
 
 .atc-badge {
