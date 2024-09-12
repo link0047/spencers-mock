@@ -1,20 +1,35 @@
-<script>
+<script lang="ts">
 	import Button from "$lib/components/button/Button-new.svelte";	
 	import Icon from "$lib/components/icon";
 	import { Collapsible } from "$lib/components/collapsible";
 	import { AvailabilityStatus } from "$lib/components/availabilityStatus";
-	
-	export let data;
+	import type { DayHours, Store } from "$lib/types/store";
+
+	type SortWeekdaysOptions = {
+		weekdaysArray: DayHours[];
+		startDay?: string | number | null;
+		dayKey?: keyof DayHours;
+	};
+
+	export let data: Store;
 	
 	const { storeName , addressLine2, city, state, zipcode, storeHours, activeFlag, latitude, longitude } = data;
-	let storeHoursExpanded = false;
-	let collapsibleId;
+	let storeHoursExpanded: boolean = false;
+	let collapsibleId: string;
 
-	function expandStoreHours() {
+	/**
+	 * Toggles the expansion of store hours
+	 */
+	function expandStoreHours(): void {
 		storeHoursExpanded = !storeHoursExpanded;
 	}
 
-	function parseTime(timeStr) {
+	/**
+   * Parses a time string into a Date object
+   * @param {string} timeStr - The time string to parse
+   * @returns {Date} A Date object representing the parsed time
+   */
+	function parseTime(timeStr: string): Date {
     // Define regex patterns for different time formats
     const timePattern24 = /^(\d{2}):(\d{2}):(\d{2})$/;  // e.g., "10:00:00"
     const timePattern12 = /^(\d{1,2}):(\d{2})(am|pm)$/i;  // e.g., "10:10am"
@@ -52,8 +67,13 @@
     throw new Error(`Time string '${timeStr}' does not match any known format`);
 	}
 
-	// Function to get store status
-	function getStoreStatus(hours, currentTime = new Date()) {
+	/**
+	 * Determines the current status of the store
+	 * @param {DayHours} hours - The store hours for the current day
+	 * @param {Date} [currentTime] - The current time (defaults to now)
+	 * @returns {string} The status of the store (e.g., "Open until 9:00pm")
+	 */
+	function getStoreStatus(hours: DayHours, currentTime: Date = new Date()): string {
     const openTime = parseTime(hours.openTime);
     const closeTime = parseTime(hours.closeTime);
     // Adjust close time if it's on the next day
@@ -70,11 +90,11 @@
     }
 	}
 
-	function sortWeekdays({ weekdaysArray = [], startDay = null, dayKey = "dayName" } = {}) {
+	function sortWeekdays({ weekdaysArray = [], startDay = null, dayKey = "dayName" }: SortWeekdaysOptions): DayHours[]  {
 		if (weekdaysArray.length === 0) return [];
 		
     if (!Array.isArray(weekdaysArray) || weekdaysArray.length !== 7) {
-      throw new Error('Invalid weekdays array: must be an array of 7 elements');
+      throw new Error("Invalid weekdays array: must be an array of 7 elements");
     }
 
     let startIndex;
@@ -82,24 +102,30 @@
     if (startDay === null) {
       // If no start day is provided, use the current day
       startIndex = new Date().getDay();
-    } else if (typeof startDay === 'number') {
+    } else if (typeof startDay === "number") {
       // If a number is provided, use it as the index (with wrapping)
       startIndex = startDay % 7;
-    } else if (typeof startDay === 'string') {
+    } else if (typeof startDay === "string") {
       // If a string is provided, find its index in the weekdays array
       startIndex = weekdaysArray.findIndex(dayObj => dayObj[dayKey].toLowerCase() === startDay.toLowerCase());
       if (startIndex === -1) {
         throw new Error(`Invalid day: ${startDay}`);
       }
     } else {
-      throw new Error('Invalid input: Please provide a day name, a number, or null for the current day');
+      throw new Error("Invalid input: Please provide a day name, a number, or null for the current day");
     }
 
     // Create a new array starting from the determined index
     return [...weekdaysArray.slice(startIndex), ...weekdaysArray.slice(0, startIndex)];
 	}
 
-	function convertToStandardTime(militaryTime, includeSeconds = true) {
+	/**
+	 * Converts military time to standard time
+	 * @param {string} militaryTime - The time in military format (HH:MM or HH:MM:SS)
+	 * @param {boolean} [includeSeconds=true] - Whether to include seconds in the output
+	 * @returns {string} The time in standard format (e.g., "9:00pm")
+	 */
+	function convertToStandardTime(militaryTime: string, includeSeconds: boolean = true): string {
     // Check if the input is in the correct format (HH:MM or HH:MM:SS)
     if (!/^([01]\d|2[0-3]):([0-5]\d)(:([0-5]\d))?$/.test(militaryTime)) {
       throw new Error("Invalid time format. Please use HH:MM or HH:MM:SS format.");
@@ -110,17 +136,17 @@
     let standardHours = hours;
 
     if (hours === 0) {
-        standardHours = 12;
+			standardHours = 12;
     } else if (hours === 12) {
-        period = "pm";
+			period = "pm";
     } else if (hours > 12) {
-        standardHours = hours - 12;
-        period = "pm";
+			standardHours = hours - 12;
+			period = "pm";
     }
 
     let timeString = `${standardHours}:${minutes.toString().padStart(2, "0")}`;
     if (includeSeconds && seconds !== undefined) {
-        timeString += `:${seconds.toString().padStart(2, "0")}`;
+			timeString += `:${seconds.toString().padStart(2, "0")}`;
     }
     
     return `${timeString}${period}`;
@@ -131,11 +157,20 @@
 	 * @param {number} degrees - Angle in degrees
 	 * @returns {number} Angle in radians
 	 */
-	function toRadians(degrees) {
+	function toRadians(degrees: number): number {
 		return degrees * (Math.PI / 180);
 	}
 	
-	function getDistance(lat1, lon1, lat2, lon2, unit = "km") {
+	/**
+	 * Calculates the distance between two points on Earth
+	 * @param {number} lat1 - Latitude of the first point
+	 * @param {number} lon1 - Longitude of the first point
+	 * @param {number} lat2 - Latitude of the second point
+	 * @param {number} lon2 - Longitude of the second point
+	 * @param {"km" | "mi"} [unit="km"] - The unit of distance (kilometers or miles)
+	 * @returns {number} The distance between the two points
+	 */
+	function getDistance(lat1: number, lon1: number, lat2: number, lon2: number, unit: "km" | "mi" = "km"): number {
     const R = unit === 'mi' ? 3959 : 6371; // Earth's radius in miles or kilometers
     const dLat = toRadians(lat2 - lat1);
     const dLon = toRadians(lon2 - lon1);
@@ -153,10 +188,9 @@
 		lng: -74.62402
 	};
 
-	const distance = getDistance(latlng.lat, latlng.lng, latitude, longitude, "mi");
-	const hoursData = sortWeekdays({ weekdaysArray: storeHours });
+	const distance = getDistance(latlng.lat, latlng.lng, parseFloat(latitude), parseFloat(longitude), "mi");
+	const hoursData = storeHours?.length ? sortWeekdays({ weekdaysArray: storeHours }) : [];
 	const storeStatus = hoursData.length ? getStoreStatus(hoursData[0]) : "Store Closed";
-	console.log(latitude, longitude);
 </script>
 
 <div class="store-card">

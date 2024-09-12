@@ -1,4 +1,4 @@
-type DayHours = {
+export type DayHours = {
   dayName: string;
   openTime: string;
   closeTime: string;

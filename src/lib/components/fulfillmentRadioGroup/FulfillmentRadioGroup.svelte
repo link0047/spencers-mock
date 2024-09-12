@@ -2,12 +2,11 @@
   import type { Writable } from "svelte/store";
 	import RadioGroup from "$lib/components/radio/RadioGroup.svelte";
 	
+	export let label = "";
 	export let value: Writable<string>;
 </script>
 <div class="fulfillment-group">
-	<h2 class="fulfillment__heading">
-    How you'll get this item
-  </h2>
+	<h2 class="fulfillment__heading">{label}</h2>
 	<RadioGroup bind:valueStore={value} useRovingIndex>
 		<slot />
 	</RadioGroup>

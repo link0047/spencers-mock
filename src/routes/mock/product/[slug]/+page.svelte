@@ -1,6 +1,6 @@
 <script lang="ts">
   // Imports
-  import type { Upsell, UpsellsCart, ColorData } from '$lib/types/product';
+  import type { Upsell, UpsellsCart, ColorData } from "$lib/types/product";
   import type { Writable } from "svelte/store";
   import { writable } from "svelte/store";
   import { onMount, tick, getContext } from "svelte";
@@ -34,6 +34,7 @@
   import { MessageCard } from "$lib/components/card";
   import TextField from "$lib/components/textfield/TextField.svelte";
   import { StoreCard } from '$lib/components/card';
+  import Separator from "$lib/components/separator";
 
   // Utility imports
   import { fetchData } from "$lib/client/util/utilities";
@@ -1452,16 +1453,19 @@
 			</div>
     </svelte:fragment>
     <div class="store-search-container">
-      <TextField label="Enter zip code or city, state"></TextField>
-      <ButtonNew variant="ghost" underline>
+      <TextField label="Search by ZIP code or city, state"></TextField>
+      <ButtonNew variant="ghost" size="sm" underline>
         <Icon>
           <path d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
         </Icon>
         Use my current location
       </ButtonNew>
     </div>
-    {#each stores as store}
+    {#each stores as store, index}
       <StoreCard data={store} />
+      {#if stores.length !== index + 1}
+			<Separator gap={16} />
+		{/if}
     {/each}
   </DrawerPanel>
 	<svelte:fragment slot="footer">
@@ -1594,7 +1598,7 @@
       </div>
       <hr />
       {/if}
-      <FulfillmentRadioGroup bind:value={fulfillmentValue}>
+      <FulfillmentRadioGroup label="Shipping and Delivery Options" bind:value={fulfillmentValue}>
         {#each fulfillmentTypes as { type, name, message }, index}
           <FulfillmentOption 
             value={type} 
@@ -1802,7 +1806,10 @@
   flex-flow: column nowrap;
   gap: .25rem;
   --uikit-btn-width: fit-content;
+  --uikit-btn-font-size: .75rem;
   --uikit-btn-padding-inline: 0 .5rem;
+  --icon-width: 18px;
+  --icon-height: 18px;
 }
 
 .product-panel-card {
