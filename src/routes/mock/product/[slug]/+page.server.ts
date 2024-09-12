@@ -1369,76 +1369,570 @@ const products: Product[] = [
 
 const stores: Store[] = [
   {
-    "name": "JERSEY GARDENS",
-    "location": "THE MILLS AT JERSEY GARDENS, 651 KAPKOWSKI RD., SP 2442, ELIZABETH, NJ",
-    "hours": "Open today till 09:00 PM",
-    "distance": "3.60 miles away",
-    "storeId": "02252"
+    "storeNumber": "00538",
+    "storeName": "HAMILTON",
+    "addressLine1": "239 HAMILTON MALL",
+    "addressLine2": "4403 BLACK HORSE PIKE SUITE 2144",
+    "country": "US",
+    "city": "MAYS LANDING",
+    "state": "NJ",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "Y",
+    "zipcode": "08330",
+    "phone": "609-641-0546",
+    "storeEmail": "STR00538@SPENCERGIFTS.COM",
+    "latitude": "39.4507",
+    "longitude": "-74.6409",
+    "storestatus": "OP",
+    "localname": "239 HAMILTON MALL",
+    "SiteId": "1",
+    "storeOpenDate": "1987-09-09T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "Y",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "11:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      }
+    ]
   },
   {
-    "name": "STATEN ISLAND",
-    "location": "STATEN ISLAND MALL, 2655 RICHMOND AVENUE 1005, STATEN ISLAND, NY",
-    "hours": "Open today till 07:00 PM",
-    "distance": "6.76 miles away",
-    "storeId": "00179"
+    "storeNumber": "02320",
+    "storeName": "ATLANTICCITYOUT",
+    "addressLine1": "ATLANTIC CITY OUTLETS",
+    "addressLine2": "106 N MICHIGAN AVE",
+    "country": "US",
+    "city": "ATLANTIC CITY",
+    "state": "NJ",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "08401",
+    "phone": "609-385-4287",
+    "storeEmail": "STR02320@SPENCERGIFTS.COM",
+    "latitude": "39.3608",
+    "longitude": "-74.43715",
+    "storestatus": "OP",
+    "localname": "ATLANTIC CITY OUTLETS",
+    "SiteId": "1",
+    "storeOpenDate": "2022-02-03T19:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "N",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "11:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      }
+    ]
   },
   {
-    "name": "NEWPORT CENTRE",
-    "location": "NEWPORT CENTRE B-03, 30 MALL DRIVE WEST, JERSEY CITY, NJ",
-    "hours": "Open today till 08:00 PM",
-    "distance": "9.42 miles away",
-    "storeId": "00296"
+    "storeNumber": "00616",
+    "storeName": "VINELAND",
+    "addressLine1": "CUMBERLAND MALL",
+    "addressLine2": "3849 SOUTH DELSEA Dr Suite F-16",
+    "country": "US",
+    "city": "VINELAND",
+    "state": "NJ",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "Y",
+    "zipcode": "08360",
+    "phone": "856-765-1562",
+    "storeEmail": "STR00616@SPENCERGIFTS.COM",
+    "latitude": "39.4284",
+    "longitude": "-75.0409",
+    "storestatus": "OP",
+    "localname": "CUMBERLAND MALL",
+    "SiteId": "1",
+    "storeOpenDate": "1999-05-13T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "Y",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "11:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "11:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "11:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "11:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "11:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      }
+    ]
   },
   {
-    "name": "AMERICAN DREAM",
-    "location": "1 AMERICAN DREAM WAY, SPACE C310, SPENCER GIFTS, EAST RUTHERFORD, NJ",
-    "hours": "Open today till 09:00 PM",
-    "distance": "9.48 miles away",
-    "storeId": "02185"
+    "storeNumber": "00830",
+    "storeName": "WILMINGTON",
+    "addressLine1": "CONCORD MALL SPACE 415",
+    "addressLine2": "4737 CONCORD PIKE",
+    "country": "US",
+    "city": "WILMINGTON",
+    "state": "DE",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "19803",
+    "phone": "302-477-0278",
+    "storeEmail": "STR00830@SPENCERGIFTS.COM",
+    "latitude": "39.8177",
+    "longitude": "-75.5482",
+    "storestatus": "CL",
+    "localname": "CONCORD MALL SPACE 415",
+    "SiteId": "1",
+    "storeOpenDate": "1994-11-24T19:00:00",
+    "activeFlag": "N",
+    "BOSSEnableFlag": "N",
+    "BOPUSEnableFlag": "N",
+    "openDayArea": {}
   },
   {
-    "name": "MENLO PARK",
-    "location": "MENLO PARK MALL, 386 MENLO PARK, EDISON, NJ",
-    "hours": "Open today till 08:00 PM",
-    "distance": "13.08 miles away",
-    "storeId": "00139"
+    "storeNumber": "00319",
+    "storeName": "CHRISTIANA",
+    "addressLine1": "CHRISTIANA MALL",
+    "addressLine2": "727 CHRISTIANA MALL Suite 1773",
+    "country": "US",
+    "city": "NEWARK",
+    "state": "DE",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "19702",
+    "phone": "302-366-7410",
+    "storeEmail": "STR00319@SPENCERGIFTS.COM",
+    "latitude": "39.40417",
+    "longitude": "-75.38597",
+    "storestatus": "OP",
+    "localname": "CHRISTIANA MALL",
+    "SiteId": "1",
+    "storeOpenDate": "1978-10-11T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "Y",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "11:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      }
+    ]
   },
   {
-    "name": "WILLOWBROOK",
-    "location": "WILLOWBROOK MALL, 1345 WILLOWBROOK MALL, WAYNE, NJ",
-    "hours": "Open today till 08:00 PM",
-    "distance": "13.50 miles away",
-    "storeId": "00090"
+    "storeNumber": "00849",
+    "storeName": "DEPTFORD",
+    "addressLine1": "DEPTFORD MALL  SPACE 2017",
+    "addressLine2": "1750 DEPTFORD CENTER ROAD",
+    "country": "US",
+    "city": "DEPTFORD",
+    "state": "NJ",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "08096",
+    "phone": "856-848-3383",
+    "storeEmail": "STR00849@SPENCERGIFTS.COM",
+    "latitude": "39.8373",
+    "longitude": "-75.0925",
+    "storestatus": "OP",
+    "localname": "DEPTFORD MALL  SPACE 2017",
+    "SiteId": "1",
+    "storeOpenDate": "1992-11-20T19:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "N",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "11:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      }
+    ]
   },
   {
-    "name": "GARDEN STATE",
-    "location": "WESTFIELD GARDEN STATE, 1 GARDEN STATE PLAZA SP 1224, PARAMUS, NJ",
-    "hours": "Open today till 09:00 PM",
-    "distance": "16.30 miles away",
-    "storeId": "00076"
+    "storeNumber": "00001",
+    "storeName": "CHERRY HILL",
+    "addressLine1": "CHERRY HILL MALL SUITE 1390",
+    "addressLine2": "2000 ROUTE 38",
+    "country": "US",
+    "city": "CHERRY HILL",
+    "state": "NJ",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "08002",
+    "phone": "856-317-0554",
+    "storeEmail": "STR00001@SPENCERGIFTS.COM",
+    "latitude": "39.9385",
+    "longitude": "-75.03",
+    "storestatus": "OP",
+    "localname": "CHERRY HILL MALL SUITE 1390",
+    "SiteId": "1",
+    "storeOpenDate": "1998-09-23T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "N",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "11:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "21:00:00"
+      }
+    ]
   },
   {
-    "name": "QUEENS CENTER",
-    "location": "SPENCERS #2221 QUEENS CTR MALL, 90-15 QUEENS BLVD., SP 3032, QUEENS, NY",
-    "hours": "Open today till 09:00 PM",
-    "distance": "17.05 miles away",
-    "storeId": "02221"
+    "storeNumber": "00876",
+    "storeName": "DOVER",
+    "addressLine1": "DOVER MALL SUITE 2036",
+    "addressLine2": "3054 DOVER MALL",
+    "country": "US",
+    "city": "DOVER",
+    "state": "DE",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "19901",
+    "phone": "302-736-3806",
+    "storeEmail": "STR00876@SPENCERGIFTS.COM",
+    "latitude": "39.1331",
+    "longitude": "-75.5124",
+    "storestatus": "OP",
+    "localname": "DOVER MALL SUITE 2036",
+    "SiteId": 1,
+    "storeOpenDate": "1995-04-14T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "Y",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "12:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      }
+    ]
   },
   {
-    "name": "BAY PLAZA",
-    "location": "THE MALL AT BAY PLAZA, 200 BAYCHESTER AVE SPACE 213A, BRONX, NY",
-    "hours": "Open today till 09:00 PM",
-    "distance": "20.76 miles away",
-    "storeId": "02182"
+    "storeNumber": "02223",
+    "storeName": "FASHIONDISPHILA",
+    "addressLine1": "FASHION DISTRICT PHILADELPHIA",
+    "addressLine2": "1001 MARKET ST SUITE C055",
+    "country": "US",
+    "city": "PHILADELPHIA",
+    "state": "PA",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "19107",
+    "phone": "267-930-5551",
+    "storeEmail": "STR02223@SPENCERGIFTS.COM",
+    "latitude": "39.95159",
+    "longitude": "-75.15732",
+    "storestatus": "OP",
+    "localname": "FASHION DISTRICT PHILADELPHIA",
+    "SiteId": "1",
+    "storeOpenDate": "2019-09-18T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "N",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "12:00:00",
+        "closeTime": "18:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "11:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      }
+    ]
   },
   {
-    "name": "ROCKAWAY",
-    "location": "ROCKAWAY TOWN SQUARE, 301 MOUNT HOPE AVENUE 1006A, ROCKAWAY, NJ",
-    "hours": "Open today till 08:00 PM",
-    "distance": "22.93 miles away",
-    "storeId": "00297"
+    "storeNumber": "02330",
+    "storeName": "TANGER OUTL REH",
+    "addressLine1": "TANGER OUTLETS REHOBETH BEACH",
+    "addressLine2": "36470 SEASIDE OUTLET DR. #1550",
+    "country": "US",
+    "city": "REHOBETH BEACH",
+    "state": "DE",
+    "TimeZone": "US/Eastern",
+    "SDDEnabled": "N",
+    "zipcode": "19971",
+    "phone": "302-866-2070",
+    "storeEmail": "STR02330@SPENCERGIFTS.COM",
+    "latitude": "38.719",
+    "longitude": "-75.113",
+    "storestatus": "OP",
+    "localname": "TANGER OUTLETS REHOBETH BEACH",
+    "SiteId": "1",
+    "storeOpenDate": "2024-03-13T20:00:00",
+    "activeFlag": "Y",
+    "BOSSEnableFlag": "Y",
+    "BOPUSEnableFlag": "Y",
+    "storeHours": [
+      {
+        "dayName": "Sunday",
+        "openTime": "10:00:00",
+        "closeTime": "19:00:00"
+      },
+      {
+        "dayName": "Monday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Tuesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Wednesday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Thursday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Friday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      },
+      {
+        "dayName": "Saturday",
+        "openTime": "10:00:00",
+        "closeTime": "20:00:00"
+      }
+    ]
   }
-]
+];
 
 export function load({ params, locals }: Parameters<PageServerLoad>[0]) {
   let isMobile = false;

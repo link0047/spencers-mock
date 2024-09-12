@@ -32,13 +32,16 @@
   import { AOVBooster } from "$lib/components/aovBooster";
   import { Image } from "$lib/components/image";
   import { MessageCard } from "$lib/components/card";
+  import TextField from "$lib/components/textfield/TextField.svelte";
+  import { StoreCard } from '$lib/components/card';
 
   // Utility imports
   import { fetchData } from "$lib/client/util/utilities";
+  import { getCurrentLocation } from "$lib/client/util/geolocationService";
 
   export let data;
 
-  let { isMobile, product } = data;
+  let { isMobile, product, stores } = data;
   const merchantId = "7874";
 	const locale = "en_US";
 	const pageId = product?.sku;
@@ -1448,6 +1451,18 @@
 				Check Stores
 			</div>
     </svelte:fragment>
+    <div class="store-search-container">
+      <TextField label="Enter zip code or city, state"></TextField>
+      <ButtonNew variant="ghost" underline>
+        <Icon>
+          <path d="M12 6.5A2.5 2.5 0 0 1 14.5 9a2.5 2.5 0 0 1-2.5 2.5A2.5 2.5 0 0 1 9.5 9 2.5 2.5 0 0 1 12 6.5M12 2a7 7 0 0 1 7 7c0 5.25-7 13-7 13S5 14.25 5 9a7 7 0 0 1 7-7m0 2a5 5 0 0 0-5 5c0 1 0 3 5 9.71C17 12 17 10 17 9a5 5 0 0 0-5-5Z"/>
+        </Icon>
+        Use my current location
+      </ButtonNew>
+    </div>
+    {#each stores as store}
+      <StoreCard data={store} />
+    {/each}
   </DrawerPanel>
 	<svelte:fragment slot="footer">
 		<div class="drawer__footer-actions">
@@ -1470,7 +1485,8 @@
     </div>
     <div class="product-page">
       <Breadcrumb label="Product Breadcrumbs" scrollable={isMobile}>
-        {#each breadcrumbs as { href, current, text}}
+        {#each breadcrumbs as { href, current, text}, index}
+
           <Crumb {href} {current}>{text}</Crumb>
         {/each}
       </Breadcrumb>
@@ -1779,6 +1795,14 @@
 
 :global(.powerandsound) {
   margin-bottom: 1.5rem;
+}
+
+.store-search-container {
+  display: flex;
+  flex-flow: column nowrap;
+  gap: .25rem;
+  --uikit-btn-width: fit-content;
+  --uikit-btn-padding-inline: 0 .5rem;
 }
 
 .product-panel-card {

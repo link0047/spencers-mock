@@ -1,6 +1,5 @@
 <script lang="ts">
 	import generateId from "$lib/client/util/local-unique-id-generator";
-  import { onMount } from "svelte";
 
   export let label: string = "";
   export let value: string = "";
@@ -38,7 +37,6 @@
   }
 
 	function handleAnimation({ target, animationName }: AnimationEvent) {
-		console.log({ animationName, id: target.id, isCancel: (animationName.toLowerCase().includes("cancel") && !(target as HTMLInputElement).value.length) }); 
 		if (animationName.toLowerCase().includes("start")) {
 			shouldLabelFloatAbove = true;
 		}

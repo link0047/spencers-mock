@@ -1,12 +1,14 @@
 <script>
 	import generateId from "$lib/client/util/local-unique-id-generator";
 	import Button from "$lib/components/button/Button-new.svelte";
+	
 	export let open = false;
 	export let height = "";
 	export let hasScrim = true;
+	export let hasExpandButton = true;
 	
 	const uid = generateId("collapsible");
-	const id = `uikit-collapsible-${uid}`;
+	export const id = `uikit-collapsible-${uid}`;
 	const buttonId = `${id}-button`;
 	
 	function handleClick() {
@@ -24,10 +26,11 @@
 >
 	<slot />
 </div>
-<Button id={buttonId} aria-expanded={open} aria-controls={id} variant="ghost" underline on:click={handleClick}>
-	{ open ? "See less" : "See More" }
-</Button>
-
+{#if hasExpandButton}
+	<Button id={buttonId} aria-expanded={open} aria-controls={id} variant="ghost" underline on:click={handleClick}>
+		{ open ? "See less" : "See More" }
+	</Button>
+{/if}
 <style>
 	:root {
 		--collapsible-height: auto;
