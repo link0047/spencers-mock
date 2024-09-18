@@ -33,6 +33,93 @@ export function getBoundingClientRectUsingIO(element: HTMLElement): Promise<DOMR
   });
 }
 
+interface IntersectionOptions {
+  root?: Element | null;
+  rootMargin?: string;
+  threshold?: number | number[] | Float64Array;
+  useWeakMap?: boolean;
+}
+
+type ElementCollection = Element[] | NodeListOf<Element> | HTMLCollectionOf<Element>;
+
+type RectMap = Map<HTMLElement, DOMRect>;
+
+/**
+ * Gets the bounding rectangles of elements when they intersect the viewport or a specified root element.
+ * 
+ * @param {Array<Element>|NodeList|HTMLCollection} elements - The elements to observe for intersection.
+ * @param {Object} [options={}] - Options for the Intersection Observer.
+ * @param {Element|null} [options.root=null] - The root element to use as the viewport. If null, uses the browser viewport.
+ * @param {string} [options.rootMargin="0px"] - Margin around the root element. Similar to CSS margin syntax.
+ * @param {number|number[]|Float64Array} [options.threshold=0] - Threshold(s) at which to trigger intersection. Value between 0 and 1.
+ * @param {boolean} [debug=false] - Whether to log warnings to the console.
+ * @returns {Promise<Map<HTMLElement, DOMRectReadOnly>>} A promise that resolves with a Map of elements to their bounding rectangles.
+ * @throws {Error} If IntersectionObserver is not supported, elements are invalid, or no elements are provided.
+ */
+export function getIntersectionBoundingRects(
+  elements: ElementCollection, 
+  options: IntersectionOptions = {},
+  debug: boolean = false
+): Promise<RectMap> {
+  if (!window.IntersectionObserver) {
+    return Promise.reject(new Error("IntersectionObserver not supported"));
+  }
+  
+  if (!Array.isArray(elements) && !(elements instanceof NodeList) && !(elements instanceof HTMLCollection)) {
+    return Promise.reject(new Error("Elements must be an Array, NodeList, or HTMLCollection"));
+  }
+  
+  if (elements.length === 0) {
+    return Promise.reject(new Error("No elements provided"));
+  }
+	
+  let { root = null, rootMargin = "0px", threshold = 0 } = options;
+  const rectMap: RectMap = new Map();
+  const isValidThreshold = (t: number | number[] | Float64Array): boolean => typeof t === "number" && t >= 0 && t <= 1;
+  const warn: (message: string, ...optionalParams: any[]) => void = debug ? console.warn : () => {};
+  
+  if (root !== null && !(root instanceof Element)) {
+    warn("Invalid root option. Using default (null).");
+    root = null;
+  }
+  
+  if (typeof rootMargin !== "string") {
+    warn("Invalid rootMargin option. Using default (0px).");
+    rootMargin = "0px";
+  }
+  
+  if (Array.isArray(threshold)) {
+    threshold = new Float64Array(threshold);
+  }
+  
+  if (!isValidThreshold(threshold)|| (threshold instanceof Float64Array && !threshold.every(isValidThreshold))) {
+    warn(`Invalid threshold option: ${threshold}. Using default (0).`);
+    threshold = 0;
+  }
+  
+  return new Promise(resolve => {
+    const observer = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        rectMap.set(entry.target, entry.boundingClientRect);
+        observer.unobserve(entry.target);
+      }
+
+      observer.disconnect();
+      resolve(rectMap);
+    }, { root, rootMargin, threshold });
+
+    requestAnimationFrame(() => {
+      for (const element of elements) {
+        if (element instanceof Element) {
+          observer.observe(element);
+        } else {
+          warn("Invalid element in collection", element);
+        }
+      }
+    });
+  });
+}
+
 /**
  * Debounces a function, ensuring it is not called more frequently than specified by the delay.
  * 

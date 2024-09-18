@@ -1488,9 +1488,8 @@
       <ProductGallery {images} {isMobile}/>
     </div>
     <div class="product-page">
-      <Breadcrumb label="Product Breadcrumbs" scrollable={isMobile}>
-        {#each breadcrumbs as { href, current, text}, index}
-
+      <Breadcrumb label="Product Breadcrumbs" scrollable={isMobile} checkToEllipse={isMobile}>
+        {#each breadcrumbs as { href, current, text}}
           <Crumb {href} {current}>{text}</Crumb>
         {/each}
       </Breadcrumb>

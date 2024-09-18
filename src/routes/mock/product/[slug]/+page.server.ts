@@ -18,12 +18,10 @@ const products: Product[] = [
     },
     "sku": "03366192",
     "breadcrumb": [
-      { text: "Home", current: false, href: "/" },
       { text: "Seasonal", current: false, href: "#" },
       { text: "Halloween", current: false, href: "#" },
       { text: "Halloween Decorations", current: false, href: "#" },
       { text: "Scary Dolls & Figures", current: false, href: "#" },
-      { text: "Talking Tiffany Doll - 20 Inch", current: true, href: null }
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/03366192-a",
@@ -46,8 +44,8 @@ const products: Product[] = [
     "promos": [],
     "description": "<p>A true classic never goes out of style! This talking Tiffany doll is the perfect addition to every horror buff's collection. With her signature white dress, black jacket and authentic chest tattoo, this Tiffany doll looks just like the real deal.</p><ul><li>Officially licensed</li><li>Exclusively at Spencer's</li><li>Spoken Phrases:<ul><li>Take it from me honey, plastic is no substitute for a nice hunk of wood!</li><li>Oh, Chucky look at us. We belong dead. Goodbye darling. I'll see you in hell.</li><li>We could do this the easy way or the hard way. It's really up to you.</li><li>I believe we already met, haven't we, sweet-face? I hope you left room for dessert!</li></ul></li><li>Head turns and mouth moves</li><li>Battery Type: 3AAA (included)</li><li>Dimensions: 20\" H x 8\" W x 11\" D (13.5\" sitting)</li><li>Material: Polyester, faux leather, synthetic fibers</li><li>Care: Wipe clean</li><li>Imported</li></ul>",
     "restrictions": {
-      level1: [{ type: "Oversize Item ", message: "This item is considered oversized and will require an additional shipping fee. Shipping promos are valid, but oversize charge will still apply." }],
-      level2: [{ type: "Maximum Quantity", message: "Maximum quantity of item is limited per order." }],
+      "level1": [{ type: "Oversize Item ", message: "This item is considered oversized and will require an additional shipping fee. Shipping promos are valid, but oversize charge will still apply." }],
+      "level2": [{ type: "Maximum Quantity", message: "Maximum quantity of item is limited per order." }],
     },
     "reviewData": {},
     "valProps": [],
@@ -121,11 +119,9 @@ const products: Product[] = [
     },
     "sku": "04281861",
     "breadcrumb": [
-      { text: "HOME", current: false, href: "/" },
       { text: "Pop Culture", current: false, href: "#" },
       { text: "Anime", current: false, href: "#" },
       { text: "Gloomy Bear", current: false, href: "#" },
-      { text: "Pink Gloomy Bear Hoodie", current: true, href: null },
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/04281861-a",
@@ -301,10 +297,8 @@ const products: Product[] = [
     },
     "sku": "03516903",
     "breadcrumb": [
-      { text: "HOME", current: false, href: "/" },
       { text: "Body Jewelry", current: false, href: "#" },
       { text: "Tongue Rings", current: false, href: "#" },
-      { text: "Black Vibrating Barbell - 14 Gauge", current: true, href: null },
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/03516903-a",
@@ -397,20 +391,10 @@ const products: Product[] = [
     "sku": "04406526",
     "breadcrumb": [
       {
-        "text": "Home",
-        "current": false,
-        "href": "/"
-      },
-      {
         "text": "Graphic Tees",
         "current": false,
         "href": "#"
       },
-      {
-        "text": "Sleep Token Ascension T Shirt",
-        "current": true,
-        "href": null
-      }
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/04406526-a"
@@ -584,11 +568,6 @@ const products: Product[] = [
     "sku": "04115739",
     "breadcrumb": [
       {
-        "text": "Home",
-        "current": false,
-        "href": "/"
-      },
-      {
         "text": "Body Jewelry",
         "current": false,
         "href": "#"
@@ -598,11 +577,6 @@ const products: Product[] = [
         "current": false,
         "href": "#"
       },
-      {
-        "text": "White Teeth Crawler Cartilage Barbell - 18 Gauge",
-        "current": true,
-        "href": null
-      }
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/04115739-a",
@@ -764,11 +738,6 @@ const products: Product[] = [
     "sku": "04112496",
     "breadcrumb": [
       {
-        "text": "Home",
-        "current": false,
-        "href": "/"
-      },
-      {
         "text": "Personal Care",
         "current": false,
         "href": "#"
@@ -783,11 +752,7 @@ const products: Product[] = [
         "current": false,
         "href": "#"
       },
-      {
-        "text": "Black Velvet Waterproof 20-function Multi-speed Rechargeable Wand Massager 7 Inch - Hott Love Extreme",
-        "current": true,
-        "href": null
-      }
+
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/03445640-a",
@@ -939,20 +904,10 @@ const products: Product[] = [
     "sku": "04360368",
     "breadcrumb": [
       {
-        "text": "Home",
-        "current": false,
-        "href": "/"
-      },
-      {
         "text": "Graphic Tees",
         "current": false,
         "href": "#"
       },
-      {
-        "text": "Nirvana Neon In Utero T Shirt",
-        "current": true,
-        "href": null
-      }
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/04360368-a"
@@ -1172,11 +1127,6 @@ const products: Product[] = [
     "sku": "03753480",
     "breadcrumb": [
       {
-        "text": "Home",
-        "current": false,
-        "href": "/"
-      },
-      {
         "text": "Body Jewelry",
         "current": false,
         "href": "#"
@@ -1191,11 +1141,6 @@ const products: Product[] = [
         "current": false,
         "href": "#"
       },
-      {
-        "text": "Multi-pack Cz Heart L-bend Nose Rings 6 Pack - 20 Gauge",
-        "current": true,
-        "href": null
-      }
     ],
     "images": [
       "https://spencers.scene7.com/is/image/Spencers/03753480-a",
