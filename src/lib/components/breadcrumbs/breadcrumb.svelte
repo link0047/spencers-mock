@@ -177,6 +177,7 @@
     --uikit-breadcrumb-separator-color: #6f6f6f;
 		--uikit-breadcrumb-separator-margin: 0 0.5rem;
 		--uikit-breadcrumb-ellipsis-size: 1.5rem;
+		--uikit-breadcrumb-ellipsis-color: #38393b;
 		--uikit-breadcrumb-ellipsis-background: transparent;
 		--uikit-breadcrumb-ellipsis-border-radius:.25rem;
 		--uikit-breadcrumb-focus-outline-width: .125rem;
@@ -219,6 +220,7 @@
 		margin: 0;
 		padding: 0;
 		border: 0;
+		color: var(--uikit-breadcrumb-ellipsis-color);
 		width: var(--uikit-breadcrumb-ellipsis-size);
 		height: var(--uikit-breadcrumb-ellipsis-size);
 		display: flex;
