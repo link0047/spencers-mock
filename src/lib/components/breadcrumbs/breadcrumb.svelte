@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getIntersectionBoundingRects } from "$lib/client/util/utilities";
-	import type { Action, ActionReturn } from "svelte/action";
+	import type { ActionReturn } from "svelte/action";
 
 	// Types
 	type RectMap = Map<HTMLElement, DOMRect>;
@@ -17,6 +17,7 @@
 	let liveRegion: HTMLElement | null = null;
 
 	// Constants
+	const hasLiveRegion = checkToEllipse;
 	const useEllipse = checkToEllipse ? ellipse : () => ({});
 	const HIDDEN_CRUMBS_MESSAGE = "Some breadcrumbs are hidden. Use the ellipsis button to show them.";
   const SHOWN_CRUMBS_MESSAGE = "Hidden breadcrumbs are now visible";
@@ -157,7 +158,7 @@
 		<slot />
 	</ol>
 </nav>
-{#if displayEllipse}
+{#if hasLiveRegion}
 	<div aria-live="polite" class="sr-only" bind:this={liveRegion}></div>
 {/if}
 

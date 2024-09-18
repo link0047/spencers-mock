@@ -1782,7 +1782,7 @@
 <div class="page-controls" class:page-controls--show={showControls}>
   <div class="product-page__action">
     <InputStepper rounded />
-    <ButtonNew color="success" on:click={addToCart}>Add to Cart</ButtonNew>
+    <ButtonNew color="success" on:click={addToCart} rounded>Add to Cart</ButtonNew>
   </div>
 </div>
 
