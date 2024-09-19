@@ -1,26 +1,31 @@
-<script>
-  import { afterUpdate, getContext } from "svelte";
-  export let as = null;
+<script lang="ts">
+  type AsType = "link" | "radio" | "checkbox" | null;
+
+  export let as: AsType = null;
   export let active = false;
-  export let href = null;
+  export let href: string | null = null;
 
-  let ref;
-  let state = getContext("state");
+  let ref: HTMLElement;
 
-  const types = {
+  const types: Record<string, string> = {
     link: "a",
     radio: "button",
     checkbox: "button",
   };
 
-  let type = types[as] || "button";
-  let htref = as === "a" ? href : null;
+  $: type = types[as as string] || "button";
+  $: isLink = type === 'a';
   $: tabIndex = active ? 0 : -1;
-  afterUpdate(() => {
-    type = types[as] || "button";
-    htref = href;
-    tabIndex = active ? 0 : -1;
-  });
+
+  $: {
+    if (as === 'link' && !href) {
+      console.warn('href should be provided when as="link"');
+    }
+  }
+  
+  $: attrs = {
+    ...(isLink ? { href } : {}),
+  };
 </script>
 
 <svelte:element
@@ -28,7 +33,7 @@
   bind:this={ref}
   class="menu__item"
   role="menuitem"
-  href={htref}
+  {...attrs}
   tabindex={tabIndex}
   on:click
   on:focus
@@ -52,12 +57,12 @@
     display: grid;
     grid-template-columns: auto 1fr auto auto auto;
     grid-template-areas: "leading-icon text trailing-text trailing-icon menu-icon";
-    padding: 0 12px;
+    padding: 0 .75rem;
     margin: 0;
     font-weight: 400;
     font-size: 0.875rem;
     align-items: center;
-    min-height: 40px;
+    min-height: 2.5rem;
     text-align: left;
     -webkit-appearance: none;
     appearance: none;
@@ -67,7 +72,7 @@
   }
 
   :global(.menu__item > :has(> :nth-child(-n + 2):first-child)) {
-    margin-right: 8px;
+    margin-right: .5rem;
   }
 
   .menu__item[tabindex="0"] {

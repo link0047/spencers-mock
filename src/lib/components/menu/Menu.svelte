@@ -15,7 +15,6 @@
     $state.children[$state.index].setAttribute("tabindex", "0");
 
     let observer = new MutationObserver((mutations) => {
-      console.log($state.index);
       $state.children = Array.from(node.querySelectorAll(".menu__item"));
       maxSteps = $state.children.length - 1;
       // $state.children.forEach(item => item.tabIndex = "-1");

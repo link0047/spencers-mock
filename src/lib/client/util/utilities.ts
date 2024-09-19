@@ -17,6 +17,33 @@ export function isElement(obj: unknown) {
 }
 
 /**
+ * Checks if the provided parameter is a number and not zero.
+ * 
+ * This function performs the following checks:
+ * 1. Verifies that the input is of type 'number'.
+ * 2. Ensures the input is not NaN (Not a Number).
+ * 3. Confirms that the input is finite (not Infinity or -Infinity).
+ * 4. Checks that the input is not zero (including both positive and negative zero).
+ * 
+ * @param {unknown} value - The value to check. Can be of any type.
+ * @returns {boolean} True if the value is a non-zero number, false otherwise.
+ */
+export function isNonZeroNumber(value: unknown): boolean {
+  // Check if it's a number and not NaN
+  if (typeof value !== 'number' || Number.isNaN(value)) {
+    return false;
+  }
+
+  // Check if it's finite (excludes Infinity and -Infinity)
+  if (!Number.isFinite(value)) {
+    return false;
+  }
+
+  // Check if it's not zero
+  return value !== 0;
+}
+
+/**
  * Gets the bounding client rectangle of an HTML element using Intersection Observer.
  * 
  * @param {HTMLElement} element - The HTML element to observe.

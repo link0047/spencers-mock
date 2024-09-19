@@ -87,7 +87,8 @@
 	class:searchbox--float-above={variant === "float-above"}
 	role="search"
 >
-	<input 
+	<input
+		{id}
 		type="search" 
 		class="searchbox__native-control" 
 		aria-labelledby={labelId}
