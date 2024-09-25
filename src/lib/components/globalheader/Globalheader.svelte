@@ -1,5 +1,5 @@
 <header class="global-header">
-  <nav class="global-header__nav">
+  <nav class="global-header__nav" aria-label="Main navigation">
     <div class="global-header__container">
       <slot />
     </div>

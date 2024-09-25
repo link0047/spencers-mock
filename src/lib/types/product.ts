@@ -60,7 +60,7 @@ interface VariantInfo {
   variants: Variant[];
   priceVariance: boolean;
   showSwatches: string;
-  sizeSingleValueLabel: string;
+  sizeSingleValueLabel?: string;
   productName: string;
 }
 
@@ -94,17 +94,22 @@ export interface Product {
   recommendationData?: RecommendationItem[];
   images: string[];
   isSoldOut: boolean;
+  reviewData?: any;
   price: Price;
-  badges: any[]; // You might want to define a more specific type if badges have a known structure
+  badges: string[]; // You might want to define a more specific type if badges have a known structure
   promos: string[];
   description: string;
-  restrictions: any[]; // You might want to define a more specific type if restrictions have a known structure
+  restrictions?: {
+    level1?: Array<{ type: string; message: string }>;
+    level2?: Array<{ type: string; message: string }>;
+  };
   valProps: any[]; // You might want to define a more specific type if valProps have a known structure
-  variantInfo: VariantInfo;
-  carouselData: CarouselItem[];
+  variantInfo?: VariantInfo;
+  carouselData?: CarouselItem[];
 }
 
 export interface Upsell {
+  maximumquantity: number;
   image: string;
   name: string;
   price: number;
@@ -115,10 +120,16 @@ export interface Upsell {
   quantity: number;
   variants: Variant[];
   colors?: string[];
+  badges: string[];
+  promos: string[];
   sizes?: { name: string; outOfStock: boolean }[];
   colorGroupValue?: string;
   defaultSize?: string;
   sizeGroupValue?: string;
+  restrictions?: {
+    level1?: Array<{ type: string; message: string }>;
+    level2?: Array<{ type: string; message: string }>;
+  };
   shouldShowSalePrice?: boolean;
 }
 

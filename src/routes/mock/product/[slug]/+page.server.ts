@@ -136,7 +136,7 @@ const products: Product[] = [
     "badges": [],
     "promos": [],
     "description": "<p>Cozy up with your favorite pop culture character with this pink Gloomy Bear hoodie! This cozy hoodie is perfect for indoors or outdoors and is sure to let everyone know you're a Gloomy Bear fan.</p><ul><li>Officially licensed</li><li>Exclusively at Spencer's</li><li>Crewneck</li><li>Long sleeves</li><li>Material: Cotton</li><li>Care: Machine wash; tumble dry low</li><li>Imported</li><li>This shirt is Unisex Sizing only</li><li>For a fitted look, order one size smaller than your normal size</li></ul>",
-    "restrictions": [],
+    "restrictions": {},
     "reviewData": {},
     "valProps": [],
     "variantInfo": {
@@ -313,7 +313,7 @@ const products: Product[] = [
     "badges": [],
     "promos": [],
     "description": "<ul><li>Piercing Type: Tongue</li><li>Barbell Material: 316L Surgical steel</li><li>Accent Material: Metal alloy</li><li>Gauge: 14 Gauge</li><li>Ball Size: 5mm</li><li>Battery Type: Cell battery (included)</li><li>Threaded closure</li><li>Battery Type: 3 L736.392 Cell Batteries (Included)</li><li>Jewelry Care: Clean with antibacterial soap and warm water</li><li>Piercing Care: Clean with saline solution</li><li>Imported</li><li>Note: Do not use rubbing alcohol to clean jewelry. Normal alcohol consumption and/or mouthwash may accelerate wear and tear</li><li>Note: To start vibrations, remove circular paper tab from battery compartment.</li><li>Do not over-thread or apply excess pressure when adding/removing beads as breakage could occur</li><li>Surgical steel may contain trace amounts of nickel&nbsp;</li></ul>",
-    "restrictions": [],
+    "restrictions": {},
     "reviewData": {},
     "valProps": [],
     "variantInfo": {

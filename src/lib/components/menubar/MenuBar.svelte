@@ -1,7 +1,9 @@
-<script>
+<script lang="ts">
   import { writable } from "svelte/store";
   import { setContext } from "svelte";
-  export let label = null;
+  
+  export let label: string | null = null;
+  export let orientation: "horizontal" | "vertical" = "horizontal";
 
   const state = writable({
     index: 0,
@@ -10,13 +12,13 @@
 
   setContext("state", state);
 
-  function menuBarEvents(node) {
+  function menuBarEvents(node: HTMLElement) {
     $state.children = Array.from(node.querySelectorAll(".menubar__item"));
     let maxSteps = $state.children.length - 1;
 
     $state.children[$state.index].setAttribute("tabindex", "0");
 
-    function move(step) {
+    function move(step: number) {
       $state.children[$state.index].setAttribute("tabindex", "-1");
 
       $state.index += step;
@@ -32,12 +34,11 @@
       $state.children[$state.index].focus();
     }
 
-    function handleKeyup(event) {
+    function handleKeyup(event: KeyboardEvent) {
       const { key, shiftKey } = event;
       switch (key) {
         case "Tab":
           $state.children[$state.index].focus();
-          return;
           break;
         case " ":
         case "Enter":
@@ -77,11 +78,11 @@
       }
     }
 
-    function handleFocusout(event) {
+    function handleFocusout() {
       node.classList.remove("focus");
     }
 
-    function handleFocusin(event) {
+    function handleFocusin() {
       node.classList.add("focus");
     }
 
@@ -99,7 +100,13 @@
   }
 </script>
 
-<div use:menuBarEvents aria-label={label} class="menubar" role="menubar">
+<div 
+  use:menuBarEvents 
+  aria-label={label} 
+  class="menubar" 
+  role="menubar"
+  aria-orientation={orientation}
+>
   <slot />
 </div>
 

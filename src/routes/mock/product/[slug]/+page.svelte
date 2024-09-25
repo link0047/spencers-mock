@@ -681,7 +681,11 @@
 				"stock": true,
 				"storePickupMessage": "",
 				"SIZE_NAME": "ADULT LARGE"
-			}]
+			}],
+      "badges": [],
+      "promos": [],
+      "maximumquantity": 99,
+      "restrictions": {}
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/04132817-a",
@@ -775,7 +779,11 @@
         "stock": true,
         "storePickupMessage": "",
         "SIZE_NAME": "ADULT LARGE"
-      }]
+      }],
+      "badges": [],
+      "promos": [],
+      "maximumquantity": 99,
+      "restrictions": {}
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/03998515-a",
@@ -869,7 +877,11 @@
         "stock": true,
         "storePickupMessage": "",
         "SIZE_NAME": "ADULT EX LARGE"
-      }]
+      }],
+      "badges": [],
+      "promos": [],
+      "maximumquantity": 99,
+      "restrictions": {}
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710429-a",
@@ -1005,7 +1017,11 @@
         "stock": true,
         "storePickupMessage": "",
         "SIZE_NAME": "ADULT SMALL"
-      }]
+      }],
+      "badges": [],
+      "promos": [],
+      "maximumquantity": 99,
+      "restrictions": {}
     },
     {
 			"image": "https://spencers.scene7.com/is/image/Spencers/07710197-a",
@@ -1141,7 +1157,48 @@
         "stock": true,
         "storePickupMessage": "",
         "SIZE_NAME": "3X"
-      }]
+      }],
+      "badges": [],
+      "promos": [],
+      "maximumquantity": 99,
+      "restrictions": {}
+    },
+    {
+			"image": "https://spencers.scene7.com/is/image/Spencers/02402865-a",
+			"name": "Bride of Chucky Tiffany Doll",
+			"price": 69.99,
+      "salePrice": 69.99,
+      "rating": 4.7,
+      "sku": "02402865",
+      "fulfillmentValue": null,
+      "quantity": 1,
+      "variants": [{
+        "cost": 69.99,
+        "VARIANT_ID": 204682,
+        "swatchColorName": "MULTI-COLOR",
+        "swatchColorCode": "MU",
+        "priceFormatted": "$69.99",
+        "neverOutOfStock": false,
+        "COLOR_NAME": "MULTI-COLOR",
+        "invLevel": "976",
+        "orderOnlineMessage": "Order Now! Expected to ship on or before ",
+        "price": {
+          "amountInDollars": 69.99,
+          "amountInCents": 6999,
+          "currencySymbol": "$",
+          "currency": "$"
+        },
+        "orderOnlineEnabled": true,
+        "stock": true,
+        "storePickupMessage": "",
+        "SIZE_NAME": ""
+      }],
+      "badges": ["Best Seller"],
+      "promos": [],
+      "maximumquantity": 2,
+      "restrictions": {
+        "level2": [{ type: "Maximum Quantity", message: "Maximum quantity of item is limited per order." }]
+      }
     }
 	];
 
@@ -1154,8 +1211,8 @@
   let sku = product?.sku;
   let name = product?.name;
   let [colors, sizes] = extractColorAndSizeNames(product?.variantInfo?.variants || []);
-  let price = product?.variantInfo.lowPrice || 0;
-  let salePrice = product?.price.msrpPrice || 0;
+  let price = product?.variantInfo?.lowPrice || 0;
+  let salePrice = product?.price?.msrpPrice || 0;
   let shouldShowSalePrice = price !== salePrice;
   let showControls = false;
   let productQuantity = 1;
@@ -1185,7 +1242,7 @@
   const description = product?.description;
   const recommendationData = product?.recommendationData || [];
   const reviewData = browser ? fetchData(review_endpoint, { timeout }) : null;
-  const hasLimitedQuantity = product?.maximumquantity != 99 || false;
+  const hasLimitedQuantity = product?.maximumquantity !== 99 || false;
   const defaultSize = getDefaultSize(sizes);
   let sizeGroupValue = defaultSize || "";
   let colorGroupValue = colors[0];
@@ -1214,9 +1271,9 @@
   });
 
   $: if (sizeGroupValue === "2X") {
-    price = product?.variantInfo.highPrice;
+    price = product?.variantInfo?.highPrice || 0;
   } else {
-    price = product?.variantInfo.lowPrice;
+    price = product?.variantInfo?.lowPrice || 0;
   }
 </script>
 
@@ -1334,8 +1391,8 @@
 				<div class="upsell-product__name">{name}</div>
 				<div class="upsell-product__price">
           <span class="basePrice">${salePrice !== price ? salePrice : price}</span>
-          {#if salePrice}
-            <span class="salePrice">${price}</span>
+          {#if salePrice !== price}
+            <del class="salePrice">${price}</del>
           {/if}
         </div>
 				<ButtonNew data-index={index} data-sku={sku} variant="outlined" color="success" rounded on:click={openUpSellPanel}>
@@ -1356,88 +1413,116 @@
 			</div>
     </svelte:fragment>
     {#if upsell !== null}
-      <div class="product-panel-card">
-        <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
-        <div class="product-panel-card__info">
-          <h2 class="product-panel-card__name">{upsell.name}</h2>
-          <div class="product-panel-card__rating">
-            <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
-          </div>
-          <div class="product-panel-card__price">
-            <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${ upsell.shouldShowSalePrice ? upsell.salePrice : price}</span>
+      <div class="upsell-card">
+        <div class="product-panel-card">
+          <Image width="400" height="400" src={`${upsell.image}?wid=800&hei=800&fmt=webp`} />
+          <div class="product-panel-card__info">
+            <h2 class="product-panel-card__name">{upsell.name}</h2>
+            <div class="product-panel-card__rating">
+              <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
+            </div>
+            <div class="product-panel-card__price">
+              <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${ upsell.shouldShowSalePrice ? upsell.salePrice : price}</span>
+              {#if upsell.shouldShowSalePrice}
+              <del class="salePrice">${upsell.price}</del>
+              {/if}
+            </div>
             {#if upsell.shouldShowSalePrice}
-            <span class="salePrice">${upsell.price}</span>
+              <div class="yousave-block">
+                <span class="yousave-block__label">You save</span>
+                <span class="onSale">${(upsell.price - upsell.salePrice).toFixed(2)}</span>
+              </div>
+            {/if}
+            {#if upsell.badges.length || upsell.promos.length}
+              <div class="product-page__badges">
+                {#each upsell.badges as badge}
+                  <div class="badge">{badge}</div>
+                {/each}
+                {#each upsell.promos as promo}
+                  <div class="promo">{promo}</div>
+                {/each}
+              </div>
             {/if}
           </div>
-          {#if upsell.shouldShowSalePrice}
-            <div class="yousave-block">
-              <span class="yousave-block__label">You save</span>
-              <span class="onSale">${(upsell.price - upsell.salePrice).toFixed(2)}</span>
-            </div>
+        </div>
+        <hr />
+        {#if upsell?.sizes?.length || upsell?.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
+        <div class="product-page__variants" role="group">
+          {#if upsell.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
+          <VariantSelector label="Color" bind:groupValue={upsell.colorGroupValue}>
+            {#if upsell.colors.length > 1}
+              {#each upsell.colors as color, index}
+                <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
+              {/each}
+            {/if}
+          </VariantSelector>
+          {/if}
+          {#if upsell?.sizes?.length}
+          <VariantSelector label="Size" bind:groupValue={upsell.sizeGroupValue}>
+            {#if upsell.sizes.length > 1}
+              {#each upsell.sizes as { name, outOfStock }, index}
+                <Radio 
+                  disabled={outOfStock} 
+                  variant="box" 
+                  name="size-upsell" 
+                  value={name} 
+                  checked={name === upsell.sizeGroupValue}
+                  aria-label={`${name} ${name === upsell.sizeGroupValue ? "selected" : ""}`}
+                >
+                  {name}
+                </Radio>
+              {/each}
+            {/if}
+          </VariantSelector>
           {/if}
         </div>
-      </div>
-      <hr />
-      {#if upsell?.sizes?.length || upsell?.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
-      <div class="product-page__variants" role="group">
-        {#if upsell.colors?.length && !upsell.colors.includes("MULTI-COLOR")}
-        <VariantSelector label="Color" bind:groupValue={upsell.colorGroupValue}>
-          {#if upsell.colors.length > 1}
-            {#each upsell.colors as color, index}
-              <Swatch aria-label={color} color={getMappedColorData(color)?.colorCode} name="color" value={color} checked={index === 0} />
-            {/each}
-          {/if}
-        </VariantSelector>
+        <hr />
         {/if}
-        {#if upsell?.sizes?.length}
-        <VariantSelector label="Size" bind:groupValue={upsell.sizeGroupValue}>
-          {#if upsell.sizes.length > 1}
-            {#each upsell.sizes as { name, outOfStock }, index}
-              <Radio 
-                disabled={outOfStock} 
-                variant="box" 
-                name="size-upsell" 
-                value={name} 
-                checked={name === upsell.sizeGroupValue}
-                aria-label={`${name} ${name === upsell.sizeGroupValue ? "selected" : ""}`}
-              >
-                {name}
-              </Radio>
-            {/each}
-          {/if}
-        </VariantSelector>
+        <FulfillmentRadioGroup label="Shipping and Delivery Options" bind:value={panelfulfillmentValue}>
+          {#each fulfillmentTypes as { type, name, message }, index}
+            <FulfillmentOption 
+              value={type} 
+              {name} 
+              {message} 
+              label="{name} - {$panelfulfillmentValue === type ? "selected" : "unselected"} - {index + 1} of {fulfillmentTypes.length} - {message}"
+            >
+              <Icon slot="icon">
+                <use href="#{type}" />
+              </Icon>
+            </FulfillmentOption>
+          {/each}
+          <svelte:fragment slot="group-message">
+            {#if $panelfulfillmentValue === "shipping"}
+              <span class="color-success">Ready to Ship</span>
+            {:else if $panelfulfillmentValue === "pickup"}
+              Pickup at <span class="underline">Ocean County, NJ</span>
+              <ButtonNew variant="ghost" color="primary" underline on:click={openChangeStorePanel}>Change Store</ButtonNew>
+            {:else if $panelfulfillmentValue === "sameday"}
+              Delivery to <span class="underline">08234</span>
+              <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew>
+            {/if}
+          </svelte:fragment>
+        </FulfillmentRadioGroup>
+        {#if upsell?.maximumquantity !== 99 || false}
+          <div class="product-page__limited-quantity">
+            Maxiumum of {upsell?.maximumquantity} units per order
+          </div>
         {/if}
-      </div>
-      <hr />
-      {/if}
-      <FulfillmentRadioGroup bind:value={panelfulfillmentValue}>
-        {#each fulfillmentTypes as { type, name, message }, index}
-          <FulfillmentOption 
-            value={type} 
-            {name} 
-            {message} 
-            label="{name} - {$panelfulfillmentValue === type ? "selected" : "unselected"} - {index + 1} of {fulfillmentTypes.length} - {message}"
-          >
-            <Icon slot="icon">
-              <use href="#{type}" />
-            </Icon>
-          </FulfillmentOption>
-        {/each}
-        <svelte:fragment slot="group-message">
-          {#if $panelfulfillmentValue === "shipping"}
-            <span class="color-success">Ready to Ship</span>
-          {:else if $panelfulfillmentValue === "pickup"}
-            Pickup at <span class="underline">Ocean County, NJ</span>
-            <ButtonNew variant="ghost" color="primary" underline on:click={openChangeStorePanel}>Change Store</ButtonNew>
-          {:else if $panelfulfillmentValue === "sameday"}
-            Delivery to <span class="underline">08234</span>
-            <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew>
-          {/if}
-        </svelte:fragment>
-      </FulfillmentRadioGroup>
-      <div class="product-page__action">
-        <InputStepper bind:value={upsell.quantity} rounded />
-        <ButtonNew color="success" rounded on:click={addUpsellToCart}>Add to Cart</ButtonNew>
+        <div class="product-page__action">
+          <InputStepper bind:value={upsell.quantity} rounded />
+          <ButtonNew color="success" rounded on:click={addUpsellToCart}>Add to Cart</ButtonNew>
+        </div>
+        {#if Object.keys(upsell.restrictions || {}).length}
+          <div class="product-page__restrictions">
+            {#each Object.entries(upsell?.restrictions || {}) as [level, warnings]}
+              <WarningCard level={getNumberFromString(level)}>
+                {#each warnings as {type, message}}
+                  <div><strong>{type}</strong> - {message}</div>
+                {/each}
+              </WarningCard>
+            {/each}
+          </div>
+        {/if}
       </div>
     {/if}
 	</DrawerPanel>
@@ -1524,7 +1609,7 @@
       <div class="product-page__price">
         <span class="basePrice" class:onSale={ shouldShowSalePrice }>${price}</span>
         {#if shouldShowSalePrice}
-        <span class="salePrice">${salePrice}</span>
+        <del class="salePrice">${salePrice}</del>
         {/if}
       </div>
       {#if shouldShowSalePrice}
@@ -2016,10 +2101,16 @@ hr {
 }
 
 /* Product Page */
+.upsell-card {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
 .product-page {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: .5rem;
 }
 
 .product-page__gallery {
@@ -2073,7 +2164,8 @@ hr {
   gap: 1rem;
 }
 
-.product-page:has(.product-page__limited-quantity) .product-page__action {
+
+:is(.product-page, .upsell-card):has(.product-page__limited-quantity) .product-page__action {
   padding-top: 0;
 }
 

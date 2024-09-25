@@ -1,5 +1,7 @@
 <script lang="ts">
+  import generateId from "$lib/client/util/local-unique-id-generator";
   import Icon from "$lib/components/icon";
+
   export let min: number = 1;
   export let max: number = 99;
 	export let maxlength: number = 2;
@@ -7,7 +9,10 @@
   export let label: string = "Number Stepper";
   export let rounded: boolean = false;
 
-  function isNumber(value: any): boolean {
+  const uid: number = generateId("inputstepper");
+	const id: string = `uikit-inputstepper-${uid}`;
+
+  function isNumber(value: unknown): boolean {
     return typeof value === "number" && !isNaN(value);
   }
 
@@ -79,6 +84,7 @@
     </Icon>
   </button>
   <input
+    {id}
     bind:value
     class="input-stepper__native-control"
     type="number"
@@ -95,6 +101,7 @@
     on:input={handleInput}
     on:change={handleChange}
     on:keydown={handleKeyDown}
+    {...$$restProps}
   />
   <button
     type="button"
