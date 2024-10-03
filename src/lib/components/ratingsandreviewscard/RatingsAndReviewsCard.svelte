@@ -115,9 +115,9 @@
 				{page_size < total_results ? `Viewing ${current_page_number} - ${page_size} of ${total_results} reviews.` : `Viewing ${current_page_number} - ${total_results}`}
 			</div>
 			<Reviews>
-			{#each reviews as review}
-				<Review data={review} />
-			{/each}
+				{#each reviews as review}
+					<Review data={review} />
+				{/each}
 			</Reviews>
 			{#if pages_total > 1}
 				<div class="ratings-and-reviews__pagination">
@@ -127,7 +127,6 @@
 		{/if}
 	</div>
 </div>
-
 
 <style>
 	.ratings-and-reviews {

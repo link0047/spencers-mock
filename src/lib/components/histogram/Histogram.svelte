@@ -1,26 +1,39 @@
-<script>
+<script lang="ts">
+	import type { Writable } from "svelte/store";
 	import { getContext } from "svelte";
 	import Icon from "$lib/components/icon";
 	import { fetchData, modifyUrlParam } from "$lib/client/util/utilities";
 	
-	export let rating_count;
-	export let rating_histogram = [0, 0, 0, 0, 0];
+	export let label: string = "Rating distribution";
+	export let rating_count: number;
+	export let rating_histogram: number[] = [0, 0, 0, 0, 0];
 	
 	const items = [5,4,3,2,1];
-	const url = getContext("url");
-	const data = getContext("data");
-	const filters = getContext("filters");
+	const url = getContext<Writable<string>>("url");
+	const data = getContext<Writable<unknown>>("data");
+	const filters = getContext<Writable<Map<string, string>>>("filters");
 	
-	function calculatePercentage(value, total) {
-    return (value / total) * 100;
+	/**
+	 * Calculates the percentage of a value relative to a total
+	 * @param {number} value - The value to calculate the percentage for
+	 * @param {number} total - The total value
+	 * @returns {number} The calculated percentage
+	 */
+	function calculatePercentage(value: number, total: number): number {
+		return (value / total) * 100;
 	}
 
-	async function handleClick(event) {
-		const ratingNum = event.currentTarget.dataset.item;
-		const count = parseInt(event.currentTarget.dataset.count);
+	/**
+ 	 * Handles the click event on a histogram bar
+ 	 * @param {MouseEvent} event - The click event
+ 	 */
+	async function handleClick(event: MouseEvent) {
+		const target = event.currentTarget as HTMLButtonElement;
+		const ratingNum = target.dataset.item;
+		const count = parseInt(target.dataset.count || "0", 10);
 		if (!count) return;
 		
-		$url = modifyUrlParam($url,"filters", `rating:${ratingNum}`);
+		$url = modifyUrlParam($url, "filters", `rating:${ratingNum}`);
 		const reviewData = await fetchData($url);
 		$data = reviewData;
 		$filters.set("rating", `${ratingNum}`);
@@ -28,9 +41,17 @@
 	}
 </script>
 
-<div class="histogram">
+<div class="histogram" role="group" aria-label={label}>
 	{#each items as item, index}
-	<button data-item={item} data-count={rating_histogram[index]} type="button" class="histogram__item" on:click={handleClick}>
+	<button 
+		data-item={item}
+		data-count={rating_histogram[index]}
+		type="button"
+		class="histogram__item" 
+		on:click={handleClick}
+		aria-label={`${item} star rating: ${rating_histogram[index]} reviews`}
+		disabled={rating_histogram[index] === 0}
+	>
 		<div class="histogram__value">
 			{item}
 			<Icon>
@@ -38,7 +59,14 @@
 			</Icon>
 		</div>
 		<div class="histogram__bar">
-			<div class="histogram__bar-value" style={`width:${calculatePercentage(rating_histogram[index], rating_count)}%`}></div>
+			<div 
+				class="histogram__bar-value" 
+				style={`width:${calculatePercentage(rating_histogram[index], rating_count)}%`}
+				role="progressbar"
+				aria-valuenow={rating_histogram[index]}
+				aria-valuemin="0"
+				aria-valuemax={rating_count}
+			></div>
 		</div>
 		<div class="histogram__count">{rating_histogram[index]}</div>
 	</button>
