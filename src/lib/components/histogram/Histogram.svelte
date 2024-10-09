@@ -3,12 +3,17 @@
 	import { getContext } from "svelte";
 	import Icon from "$lib/components/icon";
 	import { fetchData, modifyUrlParam } from "$lib/client/util/utilities";
+	import generateId from "$lib/client/util/local-unique-id-generator";
 	
+	// props
 	export let label: string = "Rating distribution";
 	export let rating_count: number;
 	export let rating_histogram: number[] = [0, 0, 0, 0, 0];
 	
-	const items = [5,4,3,2,1];
+	// consts
+	const UID: number = generateId("histogram");
+	const ACTION_ID: string = `uikit-histogram-${UID}-action`;
+	const ITEMS: readonly number[] = [5, 4, 3, 2, 1] as const;
 	const url = getContext<Writable<string>>("url");
 	const data = getContext<Writable<unknown>>("data");
 	const filters = getContext<Writable<Map<string, string>>>("filters");
@@ -31,19 +36,27 @@
 		const target = event.currentTarget as HTMLButtonElement;
 		const ratingNum = target.dataset.item;
 		const count = parseInt(target.dataset.count || "0", 10);
-		if (!count) return;
 		
-		$url = modifyUrlParam($url, "filters", `rating:${ratingNum}`);
-		const reviewData = await fetchData($url);
-		$data = reviewData;
-		$filters.set("rating", `${ratingNum}`);
-		$filters = $filters;
+		if (isNaN(count) || count <= 0) {
+			return; // Silently exit for invalid or zero counts
+		}
+
+		try {
+			$url = modifyUrlParam($url, "filters", `rating:${ratingNum}`);
+			const reviewData = await fetchData($url);
+			$data = reviewData;
+			$filters.set("rating", `${ratingNum}`);
+			$filters = $filters;
+		} catch (error) {
+			console.error("Error updating data:", error);
+		}
 	}
 </script>
 
 <div class="histogram" role="group" aria-label={label}>
-	{#each items as item, index}
+	{#each ITEMS as item, index}
 	<button 
+		id={`${ACTION_ID}-${index}`}
 		data-item={item}
 		data-count={rating_histogram[index]}
 		type="button"
@@ -63,6 +76,7 @@
 				class="histogram__bar-value" 
 				style={`width:${calculatePercentage(rating_histogram[index], rating_count)}%`}
 				role="progressbar"
+				aria-labelledby={`${ACTION_ID}-${index}`}
 				aria-valuenow={rating_histogram[index]}
 				aria-valuemin="0"
 				aria-valuemax={rating_count}

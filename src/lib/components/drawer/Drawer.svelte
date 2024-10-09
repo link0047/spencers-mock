@@ -73,7 +73,7 @@
 			}
 		}
 	
-		function handleKeydown(event:KeyboardEvent): void {
+		function handleKeydown(event: KeyboardEvent): void {
 			const current = document.activeElement;
 			if (!focusableElements?.length) return;
 	

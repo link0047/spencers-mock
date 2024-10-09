@@ -1419,7 +1419,7 @@
           <div class="product-panel-card__info">
             <h2 class="product-panel-card__name">{upsell.name}</h2>
             <div class="product-panel-card__rating">
-              <StarRating rating={upsell.rating || 0} --ratings-height="20px" />
+              <StarRating rating={upsell.rating || 0} />
             </div>
             <div class="product-panel-card__price">
               <span class="basePrice" class:onSale={ upsell.shouldShowSalePrice }>${ upsell.shouldShowSalePrice ? upsell.salePrice : price}</span>
@@ -1588,10 +1588,10 @@
       <div class="product-page__rating">
         {#if browser}
           {#await reviewData}
-            <StarRating --ratings-height="20px" />
+            <StarRating />
             <span>No Ratings</span>
           {:then data}
-            <StarRating rating={data.results[0]?.rollup?.average_rating || 0} --ratings-height="20px" />
+            <StarRating rating={data.results[0]?.rollup?.average_rating || 0} />
             <span class="product-page__feedbackCount">
               {#if data.results[0]?.rollup?.average_rating}
                 {`(${data.results[0]?.rollup?.average_rating})`} 
@@ -1883,6 +1883,10 @@
 
 :global(.powerandsound) {
   margin-bottom: 1.5rem;
+}
+
+:is(.product-page__rating, .product-panel-card__rating, .product-panel-card__rating) {
+  --uikit-starrating-size: 1.25rem;
 }
 
 .store-search-container {

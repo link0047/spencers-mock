@@ -1,4 +1,52 @@
 /**
+ * Creates a memoized version of a function.
+ * @template T The function's return type
+ * @template A The function's arguments tuple type
+ * @param {(...args: A) => T} fn - The function to memoize
+ * @param {object} options - Memoization options
+ * @param {number} [options.maxSize=100] - Maximum number of results to cache
+ * @param {(args: A) => string} [options.keyGenerator] - Custom function to generate cache keys
+ * @returns {(...args: A) => T} Memoized function
+ */
+export function memoize<T, A extends any[]>(
+  fn: (...args: A) => T,
+  options: {
+    maxSize?: number;
+    keyGenerator?: (args: A) => string;
+  } = {}
+): (...args: A) => T {
+  const { maxSize = 100, keyGenerator } = options;
+  const cache = new Map<string, T>();
+  const keyList: string[] = [];
+
+  return (...args: A): T => {
+    const key = keyGenerator ? keyGenerator(args) : JSON.stringify(args);
+
+    if (cache.has(key)) {
+      // Move the key to the end of keyList (most recently used)
+      const index = keyList.indexOf(key);
+      if (index > -1) {
+        keyList.splice(index, 1);
+      }
+      keyList.push(key);
+      return cache.get(key)!;
+    }
+
+    const result = fn(...args);
+    cache.set(key, result);
+    keyList.push(key);
+
+    // If cache exceeds maxSize, remove the least recently used item
+    if (keyList.length > maxSize) {
+      const oldestKey = keyList.shift()!;
+      cache.delete(oldestKey);
+    }
+
+    return result;
+  };
+}
+
+/**
  * Check if the given value is a plain JavaScript object.
  * @param {unknown} obj - The value to check.
  * @returns {boolean} - True if the value is a plain object, false otherwise.
@@ -359,13 +407,13 @@ export async function fetchData(
  * Submits a vote for a given UGC (User-Generated Content) ID to a remote endpoint.
  * 
  * @param {string} ugcId - The ID of the user-generated content to vote on.
- * @param {"upvote" | "downvote"} voteType - The type of vote ('upvote' or 'downvote').
+ * @param {"helpful" | "unhelpful"} voteType - The type of vote ('helpful' or 'unhelpful').
  * @returns {Promise<any>} A promise that resolves to the response data from the server.
  * @throws {Error} Throws an error if the HTTP request fails or if the response is not OK.
  */
 export async function submitVote(
   ugcId: string,
-  voteType: "upvote" | "downvote"
+  voteType: "helpful" | "unhelpful"
 ): Promise<any> {
   const endpoint = "https://writeservices.powerreviews.com/voteugc";
   const payload = {

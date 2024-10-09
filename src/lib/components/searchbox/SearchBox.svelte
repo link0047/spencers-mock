@@ -1,39 +1,41 @@
-<script>
+<script lang="ts">
 	import Button from "$lib/components/button/Button-new.svelte";
 	import Icon from "$lib/components/icon";
 	import generateId from "$lib/client/util/local-unique-id-generator";
 
-	export let tag = "div";
-	export let label = "Search"
-	export let value = "";
-	export let variant = "default";
+	type Tag = "div" | "form";
+
+	export let tag: Tag = "div";
+	export let label: string = "Search"
+	export let value: string = "";
+	export let variant: "default" | "float-above" = "default";
 	export let hasSearchAction = false;
 	
-	const uid = generateId("search");
-	const id = `aria-uikit-search-${uid}`;
-	const labelId = `${id}-label`;
-	const tags = new Set(["div", "form"]);
-	let shouldLabelFloatAbove = false;
-	let showClearAction = false;
+	const uid: number = generateId("search");
+	const id: string = `aria-uikit-search-${uid}`;
+	const labelId: string = `${id}-label`;
+	const tags: Set<Tag> = new Set(["div", "form"]);
+	let shouldLabelFloatAbove: boolean = false;
+	let showClearAction: boolean = false;
 	
 	if (!tags.has(tag)) {
 		console.warn(`Invalid tag "${tag}" passed. Using default tag "div".`);
 		tag = "div";
 	}
 
-	function handleBlur({ target }) {
-    if (!target.value.length) {
+	function handleBlur({ target }: FocusEvent): void {
+    if (!(target as HTMLInputElement).value.length) {
       shouldLabelFloatAbove = false;
     }
   }
 
-  function handleFocus({ target }) {
-    if (!target.value.length) {
+  function handleFocus({ target }: FocusEvent): void {
+    if (!(target as HTMLInputElement).value.length) {
       shouldLabelFloatAbove = true;
     }
   }
 
-  function handleKeyUp({ target }) {
+  function handleKeyUp(): void {
     if (variant === "float-above" && !shouldLabelFloatAbove) {
       shouldLabelFloatAbove = true;
     }
@@ -43,29 +45,29 @@
 		}
   }
 
-	function handleInput() {
+	function handleInput(): void {
 		if (!value.length) {
 			showClearAction = false;
 		}
 	}
 	
-  function handleChange({ target }) {
-    if (target.value.length) {
+  function handleChange({ target }: Event): void {
+    if ((target as HTMLInputElement).value.length) {
       shouldLabelFloatAbove = true;
     }
   }
 
-	function handleAnimation({ target, animationName }) {
+	function handleAnimation({ target, animationName }: AnimationEvent): void {
 		if (animationName.toLowerCase().includes("start")) {
 			shouldLabelFloatAbove = true;
 		}
 
-		if (animationName.toLowerCase().includes("cancel") && !target.value.length) {
+		if (animationName.toLowerCase().includes("cancel") && !(target as HTMLInputElement).value.length) {
 			shouldLabelFloatAbove = false;
 		}
 	}
 
-	function clearSearch() {
+	function clearSearch(): void {
 		showClearAction = false;
 		value = "";
 	}

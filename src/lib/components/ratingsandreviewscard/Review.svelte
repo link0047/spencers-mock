@@ -1,10 +1,29 @@
-<script>
+<script lang="ts">
 	import Icon from "$lib/components/icon";
 	import StarRating from "$lib/components/starrating";
 	import Button from "$lib/components/button/Button-new.svelte";
 	import { submitVote,formatTimeDifference } from "$lib/client/util/utilities";
 	
-  export let data;
+	interface ReviewData {
+		details: {
+			comments: string;
+			created_date: number;
+			headline: string;
+			nickname: string;
+			bottom_line: 'Yes' | 'No';
+		};
+		badges: {
+			is_verified_buyer: boolean;
+		};
+		metrics: {
+			rating: number;
+			helpful_votes: number;
+			not_helpful_votes: number;
+		};
+		ugc_id: string;
+	}
+
+	export let data: ReviewData;
 	
 	$: ({
 		details: { 
@@ -24,11 +43,12 @@
 		}, 
 		ugc_id,
 	} = data);
-
+	
 	$: votes = helpful_votes - not_helpful_votes;
 
-	async function handleUpDownVote(event) {
-		if (event.target.dataset.state === "selected") {
+	async function handleUpDownVote({ target }: Event) {
+		if (!(target instanceof HTMLElement)) return;
+		if (target.dataset.state === "selected") {
 			votes += 1;
 			const data = await submitVote(ugc_id, "helpful");
 			if (data.status_code !== 200) {
@@ -36,7 +56,7 @@
 			}
 		} else {
 			votes -= 1;
-			const data = await submitVote(ugc_id, "unhelpful");
+			await submitVote(ugc_id, "unhelpful");
 		}
 	}
 </script>
@@ -46,7 +66,9 @@
 	</div>
 	<div class="review__verified-buyer">{is_verified_buyer ? "Verified Buyer" : ""}</div>
 	<div class="review__timestamp">{formatTimeDifference(created_date)}</div>
-	<h3 class="review__headline">{headline}</h3>
+	{#if headline}
+		<h3 class="review__headline">{headline}</h3>
+	{/if}
 	<div class="review__comment">{comments}</div>
 	<div class="review__recommendation-status">
 		{#if bottom_line === "Yes"}
@@ -112,7 +134,7 @@
 	}
 
 	.review__rating {
-		--ratings-height: 20px;
+		--uikit-starrating-size: 1.25rem;
 		grid-area: rating;
 		align-self: center;
 	}
