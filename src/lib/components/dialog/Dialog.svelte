@@ -48,8 +48,7 @@
   if (browser) {
     state.open.subscribe(openState => {
       isOpen = openState;
-
-      console.log(isOpen);
+      
       if (isOpen) {
         if (ref) ref.inert = false;
         document.body.setAttribute("style", "overflow:hidden");
