@@ -10,6 +10,7 @@
 	export let gap = 8;
 	export let stayOpen = false;
 	export let fullwidth = false;
+	export let onClose: Function | null = null;
 	
 	let ref: HTMLElement;
 	let inputRef: HTMLElement;
@@ -37,11 +38,16 @@
 	}
 
 	export function close() {
-		console.log("closing")
 		$open = false;
 		resetOptions();
+		if (isFunction(onClose)) {
+			onClose?.();
+		}
 	}
 
+	function isFunction(param: unknown) {
+		return Object.prototype.toString.call(param) === "[object Function]" || typeof param === "function";
+	}
 
 	function getOptionId() {
 		return `${id}-option-${optionId++}`;

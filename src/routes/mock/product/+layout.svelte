@@ -1,6 +1,6 @@
 <script lang="ts">
   import { onMount, setContext } from "svelte";
-  import { writable } from "svelte/store";
+  import { writable, get } from "svelte/store";
   import type { Writable } from "svelte/store";
   import { debounce } from "$lib/client/util/utilities";
   import { MenuBar, MenuBarItem } from "$lib/components/menubar";
@@ -135,6 +135,7 @@
    * @param {Event} event - The input event object.
    */
 	async function handleInput(event: Event): Promise<void> {
+    console.log("input handler");
     const { key, target } = event as KeyboardEvent;
 		if (key === "ArrowDown" || key === "ArrowUp" || key === "Escape") return;
 		const value = (target as HTMLInputElement).value.trim();
@@ -314,6 +315,7 @@
   }
 
   function handleOptionClick(event) {
+    console.log("boom");
     searchQuery = event.currentTarget.dataset.value;
     if (isMobile) {
       searchDialogState.open.set(false);
@@ -324,8 +326,10 @@
   }
 
   function handleDialogClose() { 
-    searchDialogState.open.set(false); 
-    comboboxRefInDialog.close();
+    // searchDialogState.open.set(false); 
+    comboboxRefInDialog?.close();
+    comboboxDialog?.close();
+    
   }
 
   const mainMenu = [
@@ -397,6 +401,7 @@
 
   let comboboxRef;
   let comboboxRefInDialog;
+  let comboboxDialog;
   let searchQuery: string;
   let drawerBackText = "Main Menu";
   let title = "All Categories";
@@ -571,7 +576,7 @@
   </a>
   <div class="flex-center" style="grid-area:search">
     {#if isMobile}
-      <Combobox bind:value={searchQuery} placeholder="What can we help you find?" on:focus={openDialog} on:click={openDialog}>
+      <Combobox bind:value={searchQuery} placeholder="What can we help you find?" on:keydown={openDialog} on:click={openDialog}>
       </Combobox>
     {:else}
       <Combobox bind:value={searchQuery} bind:this={comboboxRef} placeholder="What can we help you find?" on:input={debouncedHandleInput}>
@@ -688,7 +693,7 @@
   <slot />
 </main>
 {#if isMobile}
-  <Dialog state={searchDialogState} variant="fullscreen">
+  <Dialog bind:this={comboboxDialog} state={searchDialogState} variant="fullscreen">
     <div role="group" class="dialog__search-heading">
       <Combobox bind:value={searchQuery} bind:this={comboboxRefInDialog} placeholder="What can we help you find?" on:input={debouncedHandleInput} stayOpen fullwidth>
         {#each searchMenu.entries() as [name, items]}

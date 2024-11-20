@@ -2,6 +2,7 @@
   import Portal from "svelte-portal";
   import { browser } from "$app/environment";
   import { onMount, setContext } from "svelte";
+  import { get } from "svelte/store";
   import Backdrop from "$lib/components/backdrop/Backdrop.svelte";
   export let variant = "default";
   export let state;
@@ -13,10 +14,9 @@
   
   let focusableElements: HTMLElement[] | null;  
   let lastElementWithFocus: HTMLElement | null = null;
+  let isOpen = get(state.open);
 
-  let isOpen = state.open;
-
-  function close() {
+  export function close() {
     state.open.set(false);
   }
 
@@ -48,6 +48,8 @@
   if (browser) {
     state.open.subscribe(openState => {
       isOpen = openState;
+
+      console.log(isOpen);
       if (isOpen) {
         if (ref) ref.inert = false;
         document.body.setAttribute("style", "overflow:hidden");
@@ -67,6 +69,7 @@
   });
 </script>
 
+<svelte:document on:keydown={handleKeydown}></svelte:document>
 <Portal>
   <div
     bind:this={ref}
@@ -78,7 +81,6 @@
     class:dialog--fullscreen={variant === "fullscreen"}
     class:lightbox={variant === "lightbox"}
     tabindex="-1"
-    on:keydown={handleKeydown}
     {...$$restProps}
   >
     <slot />

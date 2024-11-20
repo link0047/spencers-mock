@@ -1496,10 +1496,8 @@
               <span class="color-success">Ready to Ship</span>
             {:else if $panelfulfillmentValue === "pickup"}
               Pickup at <span class="underline">Ocean County, NJ</span>
-              <!-- <ButtonNew variant="ghost" color="primary" underline on:click={openChangeStorePanel}>Change Store</ButtonNew> -->
             {:else if $panelfulfillmentValue === "sameday"}
               Delivery to <span class="underline">08234</span>
-              <!-- <ButtonNew variant="ghost" color="primary" underline>Change Zip</ButtonNew> -->
             {/if}
           </svelte:fragment>
         </FulfillmentRadioGroup>
